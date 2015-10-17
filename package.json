@@ -1,0 +1,50 @@
+{
+  "name": "este-module",
+  "version": "0.1.0",
+  "description": "Babeljs Mocha Node module boilerplate",
+  "main": "lib/index.js",
+  "jsnext:main": "src/index.js",
+  "scripts": {
+    "build": "npm run build:lib",
+    "build:lib": "babel src --out-dir lib",
+    "check": "npm run lint && npm run test",
+    "clean": "rimraf lib",
+    "lint": "eslint src test examples",
+    "postversion": "git push && git push --tags && npm run clean",
+    "prepublish": "npm run clean && npm run build",
+    "preversion": "npm run clean && npm run check",
+    "test": "mocha --compilers js:babel/register --recursive",
+    "test:watch": "npm test -- --watch",
+    "version": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/este/module.git"
+  },
+  "keywords": [
+    "babeljs",
+    "boilerplate",
+    "es6",
+    "es7",
+    "mocha",
+    "module",
+    "node"
+  ],
+  "author": "Daniel Steigerwald",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/este/module/issues"
+  },
+  "homepage": "https://github.com/este/module#readme",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.25",
+    "babel-eslint": "^4.1.3",
+    "eslint": "^1.7.1",
+    "eslint-config-airbnb": "^0.1.0",
+    "eslint-plugin-react": "^3.5.1",
+    "expect": "^1.12.2",
+    "mocha": "^2.3.3",
+    "rimraf": "^2.4.3"
+  }
+}
