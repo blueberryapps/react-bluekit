@@ -1,4 +1,4 @@
-import FluidTextArea from './FluidTextarea.react.js';
+import FluidTextArea from './FluidTextArea.react.js';
 import Highlight from 'react-highlight';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
