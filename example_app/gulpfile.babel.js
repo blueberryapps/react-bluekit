@@ -24,7 +24,7 @@ createComponentLibraryGenerator({
   // specify name for build command -> gulp build-component-library
   buildCommand: 'build-component-library',
   // specify name for watch command -> gulp watch-component-library
-  watchCommand: 'watch-component-library',
+  watchCommand: 'watch-component-library'
 });
 
 const args = yargs

@@ -6,7 +6,7 @@ import './style.sass';
 
 export default class Handler extends Component {
   static propTypes = {
-    children: RPT.object.isRequired,
+    children: RPT.object,
   }
 
   render() {

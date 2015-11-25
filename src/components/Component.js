@@ -125,6 +125,8 @@ export default class LibraryComponent extends Component {
               {Map(this.data()).map((value, key) => this.renderPropRow(value, key))}
             </tbody>
           </table>
+
+          {Object.keys(this.data()).length === 0 && <i>No props defined</i>}
         </div>
         <div style={[styles.paddedElement, styles.panel]}>
           <h3 style={styles.h3}>Code</h3>

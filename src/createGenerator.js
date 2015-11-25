@@ -53,7 +53,7 @@ export default function createGenerator(config) {
         const docgen = docgenParse(content);
         const doc = {
           ...docgen,
-          props: toSource(docgen.props, null, 0)
+          props: toSource(docgen.props || {}, null, 0)
         }
         const name = file
           .replace(/\.\.\//g, '')
