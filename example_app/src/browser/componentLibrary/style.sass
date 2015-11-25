@@ -1,0 +1,37 @@
+$header_background: rgb(39, 152, 187)
+
+.page.component-library
+  display: flex
+  flex-direction: column
+  position: absolute
+  top: 0
+  right: 0
+  left: 0
+  bottom: 0
+  header, footer
+    padding: 0.2rem 2rem
+    background-color: $header_background
+    color: white
+  header
+    display: flex
+    flex-direction: horizontal
+    h1
+      padding: 0
+      color: lighten($header_background, 50%)
+    h1, ul
+      flex: 1 1 0
+    ul
+      display: flex
+      flex-direction: horizontal
+      li
+        list-style: none
+        flex: 1 1 0
+        a
+          color: white
+  footer
+    background: hsl(0, 0%, 75%)
+    p
+      margin: 0
+      padding: 0
+    a
+      color: black
