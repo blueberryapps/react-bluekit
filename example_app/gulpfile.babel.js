@@ -12,21 +12,20 @@ import shell from 'gulp-shell';
 import webpackBuild from './webpack/build';
 import yargs from 'yargs';
 
-import createComponentLibraryGenerator from '../src/createGenerator'
+import createComponentLibraryGenerator from '../src/createGenerator';
 
 createComponentLibraryGenerator({
   // base file of start - this is location where componentsIndex.js will be generated to
   baseDir: `${__dirname}/src/browser/componentLibrary`,
   // relative paths from base dir where to look for components
-  paths: ['../components/', '../auth'],
+  paths: ['../components/'],
   // if you want to use gulp tasks pass gulp
   gulp: gulp,
   // specify name for build command -> gulp build-component-library
   buildCommand: 'build-component-library',
   // specify name for watch command -> gulp watch-component-library
   watchCommand: 'watch-component-library',
-})
-
+});
 
 const args = yargs
   .alias('p', 'production')
@@ -46,11 +45,20 @@ gulp.task('env', () => {
   process.env.NODE_ENV = args.production ? 'production' : 'development';
 });
 
+gulp.task('build-component-library-lib', () => {
+  return gulp.src('../src/**/*.js')
+    .pipe(gulp.dest('./lib'));
+});
+
+gulp.task('watch-component-library-lib', () => {
+  gulp.watch('../src/**/*.js', ['build-component-library-lib']);
+});
+
 gulp.task('clean', done => del('build/*', done));
 
 gulp.task('build-webpack', ['env'], webpackBuild);
-gulp.task('build', ['build-component-library', 'build-webpack']);
-<
+gulp.task('build', ['build-component-library-lib', 'build-component-library', 'build-webpack']);
+
 gulp.task('eslint', () => {
   return runEslint();
 });
@@ -91,7 +99,7 @@ gulp.task('server', ['env'], done => {
     runSequence('server-hot', 'server-nodemon', done);
 });
 
-gulp.task('default', ['server', 'watch-component-library']);
+gulp.task('default', ['build-component-library-lib', 'build-component-library', 'server', 'watch-component-library-lib', 'watch-component-library']);
 
 // React Native
 

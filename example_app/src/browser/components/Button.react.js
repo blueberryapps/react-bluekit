@@ -12,7 +12,7 @@ export default class Button extends Component {
     fullWidth:      React.PropTypes.bool,
     inheritedStyle: React.PropTypes.object,
     kind:           React.PropTypes.oneOf(['primary', 'secondary', 'outlined']).isRequired,
-    onClick:        React.PropTypes.func,
+    onClick:        React.PropTypes.func.isRequired,
     size:           React.PropTypes.oneOf(['small', 'large']),
     type:           React.PropTypes.string
   }

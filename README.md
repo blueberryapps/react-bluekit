@@ -26,7 +26,7 @@ createComponentLibraryGenerator({
 })
 ```
 
-you can setup components index on aplpication start and then watch components for changes by editing default task to:
+you can setup components index on application start and then watch components for changes by editing default task to:
 ```js
 // from gulp.task('default', ['server']); to:
 gulp.task('default', ['build-component-library', 'server', 'watch-component-library']);
@@ -58,6 +58,15 @@ export default function createRoutes(getState) {
   )
 }
 ```
+
+## Development of Component library
+```
+npm install
+cd ./example_app
+npm install
+gulp
+```
+this will start development server and then you can play with Library components
 
 ## License
 
