@@ -1,7 +1,7 @@
 {
-  "name": "este-module",
-  "version": "0.1.0",
-  "description": "Babeljs Mocha Node module boilerplate",
+  "name": "react-component-library",
+  "version": "0.0.1",
+  "description": "Component Library based directly from component",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
   "scripts": {
@@ -19,23 +19,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/este/module.git"
+    "url": "git+https://github.com/blueberryapps/react-component-library.git"
   },
   "keywords": [
-    "babeljs",
-    "boilerplate",
     "es6",
     "es7",
     "mocha",
     "module",
     "node"
   ],
-  "author": "Daniel Steigerwald",
+  "author": "Ondrej Bartas",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/este/module/issues"
+    "url": "https://github.com/blueberryapps/react-component-library/issues"
   },
-  "homepage": "https://github.com/este/module#readme",
+  "homepage": "https://github.com/blueberryapps/react-component-library#readme",
   "devDependencies": {
     "babel": "^5.8.23",
     "babel-core": "^5.8.25",
@@ -46,5 +44,17 @@
     "expect": "^1.12.2",
     "mocha": "^2.3.3",
     "rimraf": "^2.4.3"
+  },
+  "dependencies": {
+    "highlight.js": "^8.9.1",
+    "history": "^1.13.1",
+    "immutable": "^3.7.5",
+    "nunjucks": "^2.2.0",
+    "radium": "^0.15.3",
+    "react": "^0.14.3",
+    "react-docgen": "^2.4.0",
+    "react-highlight": "^0.5.1",
+    "react-router": "^1.0.0",
+    "tosource": "^1.0.0"
   }
 }
