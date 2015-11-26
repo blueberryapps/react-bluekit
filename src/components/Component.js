@@ -209,7 +209,7 @@ export default class LibraryComponent extends Component {
 
   handleChange(main, key, type, scope = []) {
     return function(event) {
-      let value = event.target.value
+      let value = (typeof event === 'object') ? event.target.value : event
 
       if (type === 'bool')
         value = event.target.checked
