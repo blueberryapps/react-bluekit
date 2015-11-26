@@ -56,7 +56,7 @@ export default class LibraryComponent extends Component {
       if (data.defaultValue)
         props[prop] = data.defaultValue.computed
           ? data.defaultValue.value
-          : eval(data.defaultValue.value) // eslint-disable-line no-eval
+          : eval(`(${data.defaultValue.value})`) // eslint-disable-line no-eval
       else if (data.required)
         props[prop] = this.calculateDefaultProp(data.type, prop)
     })

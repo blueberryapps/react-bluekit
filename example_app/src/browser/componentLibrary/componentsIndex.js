@@ -6,6 +6,7 @@ import ComponentsIcon from '../components/Icon.react.js'
 import ComponentsNoProps from '../components/NoProps.react.js'
 import ComponentsRadioInput from '../components/RadioInput.react.js'
 import ComponentsTooltip from '../components/Tooltip.react.js'
+import ComponentsWithShapePropsWithDefaults from '../components/WithShapePropsWithDefaults.react.js'
 
 export default {
   ComponentsButton: {
@@ -49,5 +50,12 @@ export default {
     component: ComponentsTooltip,
     description: '',
     props: {tooltip:{type:{name:"string"},required:true,description:""}} // eslint-disable-line
+  },
+  ComponentsWithShapePropsWithDefaults: {
+    name: 'ComponentsWithShapePropsWithDefaults',
+    file: '../components/WithShapePropsWithDefaults.react.js',
+    component: ComponentsWithShapePropsWithDefaults,
+    description: '',
+    props: {interval:{type:{name:"shape",value:{value:{name:"number",required:true},text:{name:"string",required:true}}},required:true,description:"",defaultValue:{value:"{\n  value: 123,\n  text: 'Foo'\n}",computed:false}}} // eslint-disable-line
   },
 }
