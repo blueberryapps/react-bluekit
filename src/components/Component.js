@@ -29,8 +29,12 @@ export default class LibraryComponent extends Component {
     return this.resolveComponent().props;
   }
 
-  exampleComponent(file) {
-    return this.resolveComponent(file).component // eslint-disable-line no-undef
+  exampleComponent(file = null) {
+    const component = this.resolveComponent(file).component
+    // this removes connect and connectState, so component library is in charge
+    if (component.WrappedComponent)
+      return component.WrappedComponent
+    return component
   }
 
   resolveComponent(file = null) {
@@ -94,7 +98,7 @@ export default class LibraryComponent extends Component {
   render() {
     const file = this.file()
     const data = this.resolveComponent()
-    let ExampleComponent = data.component
+    let ExampleComponent = this.exampleComponent()
 
     if (
       !this.canBeReactComponent(ExampleComponent) &&

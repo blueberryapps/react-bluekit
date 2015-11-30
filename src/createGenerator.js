@@ -15,7 +15,11 @@ function getAllFilesInDir(dir, relativeDirectory = []) {
     if (fs.lstatSync(absolutePath).isDirectory()) {
       return getAllFilesInDir(dir, path.join(relativeDirectory, file));
     }
-    return path.join(`./${relativeDirectory}`, file);
+
+    const filePath = path.join(`./${relativeDirectory}`, file);
+    if (filePath.match(/__test__/))
+      return null
+    return filePath
   }));
 }
 
@@ -44,7 +48,7 @@ export default function createGenerator(config) {
     const files = config.paths.map(file => (
       getAllFilesInDir(config.baseDir, file)
     ));
-    const flattendFiles = [].concat.apply([], files);
+    const flattendFiles = [].concat.apply([], files).filter(file => !!file);
     const components = flattendFiles.map(file => {
       const filePath = path.join(config.baseDir, file);
       const content = fs.readFileSync(filePath).toString();
