@@ -5,5 +5,7 @@
 /.npmignore
 /docs/
 /examples/
+/example/
+/example_app/
 /test/
 !lib
