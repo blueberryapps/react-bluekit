@@ -11,6 +11,7 @@ export default {
     name: '{{component.name}}',
     file: '{{component.file}}',
     component: {{component.name}},
+    componentName: '{{component.componentName}}',
     description: '{{component.description}}',
     props: {{component.props}} // eslint-disable-line
   },

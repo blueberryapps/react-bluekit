@@ -104,7 +104,7 @@ export default class LibraryComponent extends Component {
     return (
       <div key={file}>
         <h2 style={[styles.paddedElement, styles.h2]}>
-          <em style={styles.h2em}>{ExampleComponent.displayName}</em> ({file})
+          <em style={styles.h2em}>{data.componentName}</em> ({file})
         </h2>
         <div style={[styles.paddedElement, styles.panel]}>
           <h3 style={styles.h3}>Example</h3>
@@ -132,8 +132,8 @@ export default class LibraryComponent extends Component {
           <h3 style={styles.h3}>Code</h3>
           <pre style={styles.pre}>
             <Highlight>
-            import {ExampleComponent.displayName} from '{data.file}'{'\n\n'}
-          &lt;{ExampleComponent.displayName}
+            import {data.componentName} from '{data.file}'{'\n\n'}
+          &lt;{data.componentName}
             {`\n${this.renderInlineProps()}\n`}
           /&gt;
             </Highlight>

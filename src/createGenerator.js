@@ -63,9 +63,11 @@ export default function createGenerator(config) {
           .replace(/\//g, '');
 
         const importFile = file[0] === '.' ? file : `./${file}`
+        const componentName = file.replace(/.*\//, '').split('.')[0];
 
         return {
           file: importFile,
+          componentName,
           name,
           ...doc,
         };

@@ -13,6 +13,7 @@ export default {
     name: 'ComponentsButton',
     file: '../components/Button.react.js',
     component: ComponentsButton,
+    componentName: 'Button',
     description: '',
     props: {children:{type:{name:"any"},required:true,description:""},disabled:{type:{name:"bool"},required:false,description:""},fullWidth:{type:{name:"bool"},required:false,description:""},inheritedStyle:{type:{name:"object"},required:false,description:""},kind:{type:{name:"enum",value:[{value:"'primary'",computed:false},{value:"'secondary'",computed:false},{value:"'outlined'",computed:false}]},required:true,description:""},onClick:{type:{name:"func"},required:true,description:""},size:{type:{name:"enum",value:[{value:"'small'",computed:false},{value:"'large'",computed:false}]},required:false,description:""},type:{type:{name:"string"},required:false,description:""}} // eslint-disable-line
   },
@@ -20,6 +21,7 @@ export default {
     name: 'ComponentsEmptyProps',
     file: '../components/EmptyProps.react.js',
     component: ComponentsEmptyProps,
+    componentName: 'EmptyProps',
     description: '',
     props: {} // eslint-disable-line
   },
@@ -27,6 +29,7 @@ export default {
     name: 'ComponentsIcon',
     file: '../components/Icon.react.js',
     component: ComponentsIcon,
+    componentName: 'Icon',
     description: '',
     props: {color:{type:{name:"string"},required:false,description:""},display:{type:{name:"string"},required:false,description:""},inheritedStyle:{type:{name:"object"},required:false,description:""},kind:{type:{name:"enum",value:[{value:"'check'",computed:false},{value:"'star'",computed:false}]},required:true,description:""},size:{type:{name:"string"},required:false,description:""}} // eslint-disable-line
   },
@@ -34,6 +37,7 @@ export default {
     name: 'ComponentsNoProps',
     file: '../components/NoProps.react.js',
     component: ComponentsNoProps,
+    componentName: 'NoProps',
     description: '',
     props: {} // eslint-disable-line
   },
@@ -41,6 +45,7 @@ export default {
     name: 'ComponentsRadioInput',
     file: '../components/RadioInput.react.js',
     component: ComponentsRadioInput,
+    componentName: 'RadioInput',
     description: '',
     props: {horizontal:{type:{name:"bool"},required:false,description:""},name:{type:{name:"string"},required:true,description:""},onChange:{type:{name:"func"},required:true,description:""},selected:{type:{name:"bool"},required:true,description:""},text:{type:{name:"string"},required:false,description:""},tooltip:{type:{name:"string"},required:false,description:""},value:{type:{name:"string"},required:true,description:""}} // eslint-disable-line
   },
@@ -48,6 +53,7 @@ export default {
     name: 'ComponentsTooltip',
     file: '../components/Tooltip.react.js',
     component: ComponentsTooltip,
+    componentName: 'Tooltip',
     description: '',
     props: {tooltip:{type:{name:"string"},required:true,description:""}} // eslint-disable-line
   },
@@ -55,6 +61,7 @@ export default {
     name: 'ComponentsWithShapePropsWithDefaults',
     file: '../components/WithShapePropsWithDefaults.react.js',
     component: ComponentsWithShapePropsWithDefaults,
+    componentName: 'WithShapePropsWithDefaults',
     description: '',
     props: {interval:{type:{name:"shape",value:{value:{name:"number",required:true},text:{name:"string",required:true}}},required:true,description:"",defaultValue:{value:"{\n  value: 123,\n  text: 'Foo'\n}",computed:false}}} // eslint-disable-line
   },
