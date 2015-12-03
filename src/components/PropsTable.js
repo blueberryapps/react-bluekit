@@ -20,7 +20,7 @@ export default class PropsTable extends Component {
       return <i>No props defined</i>
 
     return (
-      <table styles={styles.table}>
+      <table style={styles.table}>
         <thead>
           <tr style={styles.tableHeader}>
             <th style={styles.tableCell}>prop</th>

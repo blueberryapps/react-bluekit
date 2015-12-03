@@ -91,7 +91,9 @@ export default function createGenerator(config) {
         };
       }
       catch (error) {
-        console.log(`Skipping ${file} because it is not containing valid react component`); // eslint-disable-line no-console
+        if (error.message !== 'No suitable component definition found.')
+          console.error(`\u001b[31mError parsing component ${file}: ${error.message}\u001b[0m`) // eslint-disable-line no-console
+        console.log(`Skipping ${file} because it is not containing valid react component`, error); // eslint-disable-line no-console
         return null;
       }
     }).filter(component => component !== null);
