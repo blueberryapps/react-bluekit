@@ -46,12 +46,12 @@ gulp.task('env', () => {
 });
 
 gulp.task('build-component-library-lib', () => {
-  return gulp.src('../src/**/*.js')
+  return gulp.src('../src/**/*')
     .pipe(gulp.dest('./lib'));
 });
 
 gulp.task('watch-component-library-lib', () => {
-  gulp.watch('../src/**/*.js', ['build-component-library-lib']);
+  gulp.watch('../src/**/*', ['build-component-library-lib']);
 });
 
 gulp.task('clean', done => del('build/*', done));

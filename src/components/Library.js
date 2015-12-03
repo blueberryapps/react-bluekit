@@ -1,3 +1,4 @@
+import List from './List';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import {Link} from 'react-router';
@@ -21,34 +22,49 @@ export default class Library extends Component {
     };
   }
 
-  renderAtom(file) {
+  getComponentData(name) {
+    const {componentsIndex} = this.props
+
+    return componentsIndex[name]
+  }
+
+  renderAtom(name) {
     const {mountPoint} = this.props
+    const data = this.getComponentData(name)
 
     return (
-      <li key={file} style={styles.sidebarElement}>
+      <li key={name} style={styles.sidebarElement}>
         <Link
           activeStyle={styles.sidebarLinkActive}
           style={styles.sidebarLink}
-          to={`/${mountPoint}/${file}`}
+          to={`/${mountPoint}/${name}`}
         >
-            {file.replace(/\.?(react)?.jsx?/, '')}
+            {data.menu}
         </Link>
       </li>
     );
   }
 
   render() {
-    const {componentsIndex} = this.props
+    const {children, componentsIndex} = this.props
 
     return (
       <div style={styles.mainContainer}>
         <ul style={styles.sidebar}>
-          {Object.keys(componentsIndex).map(file => this.renderAtom(file))}
+          {Object.keys(componentsIndex).map(name => this.renderAtom(name))}
         </ul>
         <div style={styles.content}>
-          {this.props.children}
+          {children || this.renderList()}
         </div>
       </div>
+    );
+  }
+
+  renderList() {
+    const {componentsIndex, mountPoint} = this.props
+
+    return (
+      <List componentsIndex={componentsIndex} mountPoint={mountPoint} />
     );
   }
 }

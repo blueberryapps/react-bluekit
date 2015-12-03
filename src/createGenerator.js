@@ -1,3 +1,4 @@
+import buildProps from './buildProps';
 import fs from 'fs';
 import path from 'path';
 import toSource from 'tosource';
@@ -21,6 +22,10 @@ function getAllFilesInDir(dir, relativeDirectory = []) {
       return null
     return filePath
   }));
+}
+
+function objectToString(object) {
+  return toSource(object || {}, null, 0)
 }
 
 export default function createGenerator(config) {
@@ -57,22 +62,31 @@ export default function createGenerator(config) {
         const docgen = docgenParse(content);
         const doc = {
           ...docgen,
-          props: toSource(docgen.props || {}, null, 0)
+          propsDefinition: objectToString(docgen.props)
         }
-        const name = file
+
+        const menu = file
           .replace(/\.\.\//g, '')
           .replace('.react', '')
           .replace('.js', '')
-          .replace(/(?:^|[-_/])(\w)/g, (_, c) => c ? c.toUpperCase() : '')
-          .replace(/\//g, '');
+          .replace(/(?:^|[-_/])(\w)/g, (_, c) => c ? ` ${c.toUpperCase()}` : '')
+          .replace(/\//g, '')
+          .trim();
+
+        const name = menu.replace(/\s/g, '');
 
         const importFile = file[0] === '.' ? file : `./${file}`
         const componentName = file.replace(/.*\//, '').split('.')[0];
+        const simpleProps = objectToString(buildProps(docgen.props))
+        const fullProps = objectToString(buildProps(docgen.props, true))
 
         return {
           file: importFile,
           componentName,
+          menu,
           name,
+          simpleProps,
+          fullProps,
           ...doc,
         };
       }
