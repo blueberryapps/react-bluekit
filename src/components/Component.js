@@ -1,8 +1,10 @@
-import FluidTextArea from './FluidTextArea.react.js';
-import Highlight from 'react-highlight';
+import ExampleSource from './ExampleSource';
+import PropsTable from './PropsTable';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import {Map, fromJS} from 'immutable';
+import resolveComponent from '../resolveComponent';
+import Variants from './Variants';
+import {fromJS} from 'immutable';
 
 @Radium
 export default class LibraryComponent extends Component {
@@ -15,225 +17,83 @@ export default class LibraryComponent extends Component {
     params: RPT.object.isRequired
   }
 
-  state = {
-    example: {
-      [this.file()]: this.buildDefaultProps(this.data())
-    }
+  state = {simpleProps: true, ...this.context.componentsIndex}
+
+  getCurrentComponent() {
+    const {params: {atom}} = this.props
+
+    return this.state[atom]
   }
 
-  file() {
-    return this.props.params.atom;
-  }
+  getCurrentProps() {
+    const {simpleProps} = this.state
+    const atom = this.getCurrentComponent()
+    const defaultProps = simpleProps ? atom.simpleProps : atom.fullProps
 
-  data() {
-    return this.resolveComponent().props;
-  }
-
-  exampleComponent(file = null) {
-    const component = this.resolveComponent(file).component
-    // this removes connect and connectState, so component library is in charge
-    if (component.WrappedComponent)
-      return component.WrappedComponent
-    return component
-  }
-
-  resolveComponent(file = null) {
-    return this.context.componentsIndex[`${file || this.file()}`]
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const file = nextProps.params.atom
-
-    if (this.state.example[file] === undefined) {
-      const defaultProps = this.buildDefaultProps(this.resolveComponent(file).props, file)
-      this.setState({
-        example: {...this.state.example, [file]: defaultProps}
-      })
-    }
-  }
-
-  buildDefaultProps(propsDefinition, file = null) {
-    const props = {}
-    const enhanceComponentLibraryDefaults = this.exampleComponent(file).enhanceComponentLibraryDefaults
-
-    Map(propsDefinition).map((data, prop) => {
-      if (data.defaultValue)
-        props[prop] = data.defaultValue.computed
-          ? data.defaultValue.value
-          : eval(`(${data.defaultValue.value})`) // eslint-disable-line no-eval
-      else if (data.required)
-        props[prop] = this.calculateDefaultProp(data.type, prop)
-    })
-
-    if (propsDefinition.onChange && propsDefinition.value)
-      props.onChange = this.handleChange(this, 'value', propsDefinition.value.type.name, [])
-
-    if (enhanceComponentLibraryDefaults)
-      return enhanceComponentLibraryDefaults(props, this)
-
-    return props
-  }
-
-  calculateDefaultProp(type, prop) {
-    switch (type.name) {
-      case 'any':    return 'Default ANY'
-      case 'string': return `Default string ${prop}`
-      case 'bool':   return true
-      case 'number': return 1
-      case 'func':   return () => { alert(prop) }
-      case 'enum':   return type.value[0].value.replace(/'/g, '')
-      case 'shape':  return Map(type.value)
-        .map((subType, name) => this.calculateDefaultProp(subType, name))
-        .toJS()
-      case 'arrayOf': return [this.calculateDefaultProp(type.value, prop)]
-    }
-
-    return null
-  }
-
-  canBeReactComponent(value) {
-    return typeof value === 'string' || typeof value === 'function' || value.prototype === Component
+    return {...defaultProps, ...atom.customProps}
   }
 
   render() {
-    const file = this.file()
-    const data = this.resolveComponent()
-    let ExampleComponent = this.exampleComponent()
-
-    if (
-      !this.canBeReactComponent(ExampleComponent) &&
-      this.canBeReactComponent(ExampleComponent.default)
-    ) ExampleComponent = ExampleComponent.default
+    const {simpleProps} = this.state
+    const atom = this.getCurrentComponent()
+    const currentProps = this.getCurrentProps()
+    const ExampleAtom = resolveComponent(atom.component)
 
     return (
-      <div key={file}>
+      <div>
+        <button onClick={this.toggleProps.bind(this)}>{simpleProps ? 'All props' : 'Simple props'}</button>
         <h2 style={[styles.paddedElement, styles.h2]}>
-          <em style={styles.h2em}>{data.componentName}</em> ({file})
+          <em style={styles.h2em}>{atom.componentName}</em> ({atom.file})
         </h2>
         <div style={[styles.paddedElement, styles.panel]}>
           <h3 style={styles.h3}>Example</h3>
-          <ExampleComponent {...this.state.example[this.file()]}/>
+          <ExampleAtom {...currentProps} />
         </div>
         <div style={[styles.paddedElement, styles.panel]}>
-          <h3 style={styles.h3}>Properties</h3>
-          <table style={styles.table}>
-            <thead>
-              <tr style={styles.tableHeader}>
-                <th style={styles.tableCell}>prop</th>
-                <th style={styles.tableCell}>type</th>
-                <th style={styles.tableCell}>required</th>
-                <th style={styles.tableCell}>value</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Map(this.data()).map((value, key) => this.renderPropRow(value, key))}
-            </tbody>
-          </table>
-
-          {Object.keys(this.data()).length === 0 && <i>No props defined</i>}
+          <h3 style={styles.h3}>Props</h3>
+          <PropsTable atom={atom} componentProps={currentProps} handleChange={this.createHandleChange(this)} />
         </div>
         <div style={[styles.paddedElement, styles.panel]}>
           <h3 style={styles.h3}>Code</h3>
-          <pre style={styles.pre}>
-            <Highlight>
-            import {data.componentName} from '{data.file}'{'\n\n'}
-          &lt;{data.componentName}
-            {`\n${this.renderInlineProps()}\n`}
-          /&gt;
-            </Highlight>
-          </pre>
+          <ExampleSource atom={atom} componentProps={currentProps} />
         </div>
+        <Variants atom={atom} componentProps={currentProps} styles={styles} />
       </div>
     )
   }
 
-  renderInlineProps() {
-    return Map(this.state.example[this.file()]).map((value, key) => {
-      if (typeof value === 'object')
-        return `  ${key}={${JSON.stringify(value)}}`
-      else if (typeof value === 'number')
-        return `  ${key}=${value}`
-      else
-        return `  ${key}='${value}'`
-    }).join('\n')
-  }
+  createHandleChange(main) {
+    return function(key, type, scope = []) {
+      return function(event) {
+        let value = (typeof event === 'object') ? event.target.value : event
 
-  renderPropRow(data, key) {
-    if (data.type.name === 'shape')
-      return (
-        Map(data.type.value).map((v, k) => this.renderShapePropRow(v, k, [key]))
-      )
+        if (type === 'bool')
+          value = event.target.checked
+        else if (type === 'number')
+          value = parseInt(value, 10)
+        else if (type === 'shape' || type === 'arrayOf')
+          value = JSON.parse(value)
 
-    return (
-      <tr key={key} style={styles.tableRow}>
-        <td style={styles.tableCell}><b>{key}</b></td>
-        <td style={styles.tableCell}>{data.type.name}</td>
-        <td style={styles.tableCell}>{data.required && 'true'}</td>
-        <td style={styles.tableCell}>{this.renderValueSelection(key, data.type)}</td>
-      </tr>
-    )
-  }
-
-  renderShapePropRow(data, key, scope = []) {
-    if (data.name === 'shape')
-      return (
-        Map(data.value).map((v, k) => this.renderShapePropRow(v, k, scope.concat([key])))
-      )
-
-    return (
-      <tr key={key} style={styles.tableRow}>
-        <td style={styles.tableCell}>{scope.join('.')}.<b>{key}</b></td>
-        <td style={styles.tableCell}>{data.name}</td>
-        <td style={styles.tableCell}>{data.required && 'true'}</td>
-        <td style={styles.tableCell}>{this.renderValueSelection(key, data, scope)}</td>
-      </tr>
-    )
-  }
-
-  renderValueSelection(key, type, scope = []) {
-    const defaultProps = {
-      onChange: this.handleChange(this, key, type.name, scope),
-      value: fromJS(this.state.example[this.file()]).getIn(scope.concat([key]))
-    }
-
-    switch (type.name) {
-      case 'any':    return <input style={styles.input} type='text' {...defaultProps} />
-      case 'shape':   return <FluidTextArea style={styles.input} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
-      case 'arrayOf': return <FluidTextArea style={styles.input} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
-      case 'string': return <input type='text' {...defaultProps} />
-      case 'number': return <input type='number' {...defaultProps} />
-      case 'bool': return <input type='checkbox' {...{...defaultProps, checked: defaultProps.value}} />
-      case 'enum' : {
-        const selectOptions = type.value
-          .map(v => <option value={v.value.replace(/'/g, '')}>{v.value.replace(/'/g, '')}</option>)
-        return <select children={selectOptions} {...defaultProps} />
+        main.setValue(key, value, scope)
       }
     }
   }
 
-  handleChange(main, key, type, scope = []) {
-    return function(event) {
-      let value = (typeof event === 'object') ? event.target.value : event
-
-      if (type === 'bool')
-        value = event.target.checked
-      else if (type === 'number')
-        value = parseInt(value, 10)
-      else if (type === 'shape' || type === 'arrayOf')
-        value = JSON.parse(value)
-
-      main.setValue(key, value, scope)
-    }
-  }
-
   setValue(key, value, scope = []) {
-    this.setState({
-      example: fromJS(this.state.example)
-        .setIn([this.file()].concat(scope).concat(key), value)
+    const {params: {atom}} = this.props
+
+    this.setState(
+      fromJS(this.state)
+        .setIn([atom, 'customProps'].concat(scope).concat(key), value)
         .toJS()
-    })
+      )
   }
 
+  toggleProps() {
+    const {simpleProps} = this.state
+
+    this.setState({...this.state, simpleProps: !simpleProps})
+  }
 }
 
 const styles = {
@@ -261,25 +121,6 @@ const styles = {
     marginTop: '2rem',
     marginBottom: '2rem',
     background: 'hsl(0, 0%, 97%)',
-  },
-
-  table: {
-    width: '100%',
-    textAlign: 'left',
-  },
-
-  tableRow: {padding: '10px'},
-
-  tableCell: {padding: '5px 10px'},
-
-  td: {
-    background: 'white',
-    border: '1px solid hsl(0, 0%, 70%)',
-  },
-
-  tableHeader: {
-    background: 'hsl(0, 0%, 70%)',
-    color: 'white',
   },
 
   pre: {
