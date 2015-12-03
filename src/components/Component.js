@@ -1,3 +1,4 @@
+import deepMerge from '../deepMerge';
 import ExampleSource from './ExampleSource';
 import PropsTable from './PropsTable';
 import Radium from 'radium';
@@ -17,20 +18,22 @@ export default class LibraryComponent extends Component {
     params: RPT.object.isRequired
   }
 
-  state = {simpleProps: true, ...this.context.componentsIndex}
+  state = {simpleProps: true}
 
   getCurrentComponent() {
+    const {componentsIndex} = this.context
     const {params: {atom}} = this.props
 
-    return this.state[atom]
+    return componentsIndex[atom]
   }
 
   getCurrentProps() {
     const {simpleProps} = this.state
     const atom = this.getCurrentComponent()
     const defaultProps = simpleProps ? atom.simpleProps : atom.fullProps
+    const customProps = this.state[atom.name] || {}
 
-    return {...defaultProps, ...atom.customProps}
+    return deepMerge({}, defaultProps, customProps)
   }
 
   render() {
@@ -41,7 +44,6 @@ export default class LibraryComponent extends Component {
 
     return (
       <div>
-        <button onClick={this.toggleProps.bind(this)}>{simpleProps ? 'All props' : 'Simple props'}</button>
         <h2 style={[styles.paddedElement, styles.h2]}>
           <em style={styles.h2em}>{atom.componentName}</em> ({atom.file})
         </h2>
@@ -50,7 +52,10 @@ export default class LibraryComponent extends Component {
           <ExampleAtom {...currentProps} />
         </div>
         <div style={[styles.paddedElement, styles.panel]}>
-          <h3 style={styles.h3}>Props</h3>
+          <h3 style={styles.h3}>
+            Props
+            <button onClick={this.toggleProps.bind(this)}>{simpleProps ? 'All props' : 'Only required props'}</button>
+          </h3>
           <PropsTable atom={atom} componentProps={currentProps} handleChange={this.createHandleChange(this)} />
         </div>
         <div style={[styles.paddedElement, styles.panel]}>
@@ -84,7 +89,7 @@ export default class LibraryComponent extends Component {
 
     this.setState(
       fromJS(this.state)
-        .setIn([atom, 'customProps'].concat(scope).concat(key), value)
+        .setIn([atom].concat(scope).concat(key), value)
         .toJS()
       )
   }
