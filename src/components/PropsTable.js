@@ -75,6 +75,16 @@ export default class PropsTable extends Component {
     )
   }
 
+  selectOptions(type) {
+    const options = type.value
+      .map(v => <option value={v.value.replace(/'/g, '')}>{v.value.replace(/'/g, '')}</option>)
+
+    if (!type.required)
+      return [<option value=''></option>].concat(options)
+
+    return options
+  }
+
   renderValueSelection(key, type, scope = []) {
     const {componentProps, handleChange} = this.props
 
@@ -91,9 +101,7 @@ export default class PropsTable extends Component {
       case 'number': return <input type='number' {...defaultProps} />
       case 'bool': return <input type='checkbox' {...{...defaultProps, checked: defaultProps.value}} />
       case 'enum' : {
-        const selectOptions = type.value
-          .map(v => <option value={v.value.replace(/'/g, '')}>{v.value.replace(/'/g, '')}</option>)
-        return <select children={selectOptions} {...defaultProps} />
+        return <select children={this.selectOptions(type)} {...defaultProps} />
       }
     }
   }
