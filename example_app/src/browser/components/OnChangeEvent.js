@@ -82,7 +82,7 @@ export default class TextField extends Component {
   static propTypes = {
     children:    React.PropTypes.any,
     error:       React.PropTypes.string,
-    icon:        React.PropTypes.string,
+    icon:        React.PropTypes.oneOf(['star', 'check']),
     iconSize:    React.PropTypes.string,
     label:       React.PropTypes.string,
     name:        React.PropTypes.string.isRequired,
