@@ -3,10 +3,14 @@
 // can be ignored by .gitignore
 import ComponentsButton from '../components/Button.react.js'
 import ComponentsEmptyProps from '../components/EmptyProps.react.js'
+import ComponentsErrorMessage from '../components/ErrorMessage.react.js'
 import ComponentsIcon from '../components/Icon.react.js'
 import ComponentsNoProps from '../components/NoProps.react.js'
+import ComponentsOnChangeEvent from '../components/OnChangeEvent.js'
+import ComponentsOnChangeNameAndValue from '../components/OnChangeNameAndValue.js'
 import ComponentsRadioInput from '../components/RadioInput.react.js'
 import ComponentsTooltip from '../components/Tooltip.react.js'
+import ComponentsWithExtendProps from '../components/WithExtendProps.react.js'
 import ComponentsWithShapePropsWithDefaults from '../components/WithShapePropsWithDefaults.react.js'
 
 export default {
@@ -38,6 +42,18 @@ export default {
     simpleProps: {},
     fullProps: {}
   },
+  ComponentsErrorMessage: {
+    name: 'ComponentsErrorMessage',
+    menu: 'Components ErrorMessage',
+    file: '../components/ErrorMessage.react.js',
+    component: ComponentsErrorMessage,
+    componentName: 'ErrorMessage',
+    description: '',
+    customProps: {},
+    propsDefinition: {children:{type:{name:"any"},required:true,description:""},type:{type:{name:"string"},required:false,description:""}},
+    simpleProps: {children:"Default ANY"},
+    fullProps: {children:"Default ANY",type:"Default string type"}
+  },
   ComponentsIcon: {
     name: 'ComponentsIcon',
     menu: 'Components Icon',
@@ -61,6 +77,38 @@ export default {
     propsDefinition: {},
     simpleProps: {},
     fullProps: {}
+  },
+  ComponentsOnChangeEvent: {
+    name: 'ComponentsOnChangeEvent',
+    menu: 'Components OnChangeEvent',
+    file: '../components/OnChangeEvent.js',
+    component: ComponentsOnChangeEvent,
+    componentName: 'OnChangeEvent',
+    description: '',
+    customProps: {},
+    propsDefinition: {children:{type:{name:"any"},required:false,description:""},error:{type:{name:"string"},required:false,description:""},icon:{type:{name:"string"},required:false,description:""},iconSize:{type:{name:"string"},required:false,description:""},label:{type:{name:"string"},required:false,description:""},name:{type:{name:"string"},required:true,description:""},onChange:{type:{name:"func"},required:true,description:""},placeholder:{type:{name:"string"},required:true,description:""},tooltip:{type:{name:"string"},required:false,description:""},type:{type:{name:"string"},required:true,description:"",defaultValue:{value:"'text'",computed:false}},unit:{type:{name:"string"},required:false,description:""},value:{type:{name:"string"},required:false,description:""}},
+    simpleProps: {name:"Default string name",onChange:function () {
+        alert('executed function');
+      },placeholder:"Default string placeholder",type:"text"},
+    fullProps: {tooltip:"Default string tooltip",unit:"Default string unit",error:"Default string error",name:"Default string name",onChange:function () {
+        alert('executed function');
+      },value:"Default string value",placeholder:"Default string placeholder",label:"Default string label",icon:"Default string icon",iconSize:"Default string iconSize",type:"text",children:"Default ANY"}
+  },
+  ComponentsOnChangeNameAndValue: {
+    name: 'ComponentsOnChangeNameAndValue',
+    menu: 'Components OnChangeNameAndValue',
+    file: '../components/OnChangeNameAndValue.js',
+    component: ComponentsOnChangeNameAndValue,
+    componentName: 'OnChangeNameAndValue',
+    description: '',
+    customProps: {},
+    propsDefinition: {children:{type:{name:"any"},required:false,description:""},error:{type:{name:"string"},required:false,description:""},icon:{type:{name:"string"},required:false,description:""},iconSize:{type:{name:"string"},required:false,description:""},label:{type:{name:"string"},required:false,description:""},name:{type:{name:"string"},required:true,description:""},onChange:{type:{name:"func"},required:true,description:""},placeholder:{type:{name:"string"},required:true,description:""},tooltip:{type:{name:"string"},required:false,description:""},type:{type:{name:"string"},required:true,description:"",defaultValue:{value:"'text'",computed:false}},unit:{type:{name:"string"},required:false,description:""},value:{type:{name:"string"},required:false,description:""}},
+    simpleProps: {name:"Default string name",onChange:function () {
+        alert('executed function');
+      },placeholder:"Default string placeholder",type:"text"},
+    fullProps: {tooltip:"Default string tooltip",unit:"Default string unit",error:"Default string error",name:"Default string name",onChange:function () {
+        alert('executed function');
+      },value:"Default string value",placeholder:"Default string placeholder",label:"Default string label",icon:"Default string icon",iconSize:"Default string iconSize",type:"text",children:"Default ANY"}
   },
   ComponentsRadioInput: {
     name: 'ComponentsRadioInput',
@@ -89,6 +137,22 @@ export default {
     propsDefinition: {tooltip:{type:{name:"string"},required:true,description:""}},
     simpleProps: {tooltip:"Default string tooltip"},
     fullProps: {tooltip:"Default string tooltip"}
+  },
+  ComponentsWithExtendProps: {
+    name: 'ComponentsWithExtendProps',
+    menu: 'Components WithExtendProps',
+    file: '../components/WithExtendProps.react.js',
+    component: ComponentsWithExtendProps,
+    componentName: 'WithExtendProps',
+    description: '',
+    customProps: {},
+    propsDefinition: {children:{type:{name:"object"},required:true,description:"",defaultValue:{value:"'Editable field with value'",computed:false}},editing:{type:{name:"bool"},required:true,description:"",defaultValue:{value:"false",computed:false}},label:{type:{name:"string"},required:true,description:"",defaultValue:{value:"'Value to show'",computed:false}},onEditingModeChange:{type:{name:"func"},required:true,description:""}},
+    simpleProps: {children:"Editable field with value",editing:false,label:"Value to show",onEditingModeChange:function () {
+        alert('executed function');
+      }},
+    fullProps: {children:"Editable field with value",editing:false,label:"Value to show",onEditingModeChange:function () {
+        alert('executed function');
+      }}
   },
   ComponentsWithShapePropsWithDefaults: {
     name: 'ComponentsWithShapePropsWithDefaults',

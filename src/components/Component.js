@@ -1,4 +1,4 @@
-import deepMerge from '../deepMerge';
+import extendProps from '../extendProps';
 import ExampleSource from './ExampleSource';
 import PropsTable from './PropsTable';
 import Radium from 'radium';
@@ -30,10 +30,17 @@ export default class LibraryComponent extends Component {
   getCurrentProps() {
     const {simpleProps} = this.state
     const atom = this.getCurrentComponent()
+    const component = resolveComponent(atom.component)
     const defaultProps = simpleProps ? atom.simpleProps : atom.fullProps
     const customProps = this.state[atom.name] || {}
 
-    return deepMerge({}, defaultProps, customProps)
+    return extendProps(
+      defaultProps,
+      customProps,
+      component,
+      atom.propsDefinition,
+      this.createHandleChange(this)
+    )
   }
 
   render() {
@@ -55,6 +62,7 @@ export default class LibraryComponent extends Component {
           <h3 style={styles.h3}>
             Props
             <button onClick={this.toggleProps.bind(this)}>{simpleProps ? 'All props' : 'Only required props'}</button>
+            <button onClick={this.resetPropsToDefauls.bind(this)}>Reset props to default</button>
           </h3>
           <PropsTable atom={atom} componentProps={currentProps} handleChange={this.createHandleChange(this)} />
         </div>
@@ -70,7 +78,11 @@ export default class LibraryComponent extends Component {
   createHandleChange(main) {
     return function(key, type, scope = []) {
       return function(event) {
-        let value = (typeof event === 'object') ? event.target.value : event
+        let value = event
+        if (event.target && event.target.value)
+          value = event.target.value
+        else if (event.value)
+          value = event.value
 
         if (type === 'bool')
           value = event.target.checked
@@ -98,6 +110,12 @@ export default class LibraryComponent extends Component {
     const {simpleProps} = this.state
 
     this.setState({...this.state, simpleProps: !simpleProps})
+  }
+
+  resetPropsToDefauls() {
+    const {params: {atom}} = this.props
+
+    this.setState({...this.state, [atom]: {}})
   }
 }
 
