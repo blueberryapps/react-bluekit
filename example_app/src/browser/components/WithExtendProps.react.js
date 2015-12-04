@@ -18,7 +18,7 @@ export default class EditableField extends Component {
   };
 
   // This enables live functionality of this component in Component Library
-  static enhanceComponentLibraryDefaults = (props, library) => ({
+  static extendComponentLibraryProps = (props, library) => ({
     ...props,
     onEditingModeChange: value => library.setValue('editing', value)
   });

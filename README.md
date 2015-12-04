@@ -59,6 +59,35 @@ export default function createRoutes(getState) {
 }
 ```
 
+## extend props of component library (functions)
+
+If you have component which requires to get some function which will change some
+props of same component, then you can use:
+```
+import React, {Component} from 'react'
+
+export default class WithExtendedProps extends Component {
+
+  static extendComponentLibraryProps = (props, library) => ({
+    ...props,
+    onEditingModeChange: value => library.setValue('editing', value)
+  });
+
+  render() {
+    return (null)
+  }
+}
+```
+
+What it exactly does:
+- it takes previous props
+- merge to them your own defined functions or values
+- this is returned to props in component library
+
+you can use `library.setValue(propName, newValue)` which take two arguments:
+- propName: name of the prop where you need to change value
+- newValue: exact value which will be set to props
+
 ## Development of Component library
 ```
 npm install

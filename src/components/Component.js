@@ -39,7 +39,7 @@ export default class LibraryComponent extends Component {
       customProps,
       component,
       atom.propsDefinition,
-      this.createHandleChange(this)
+      this
     )
   }
 
