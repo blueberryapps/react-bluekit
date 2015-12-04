@@ -1,3 +1,4 @@
+import './header.sass';
 import List from './List';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
@@ -46,15 +47,24 @@ export default class Library extends Component {
   }
 
   render() {
-    const {children, componentsIndex} = this.props
+    const {children, mountPoint, componentsIndex} = this.props
 
     return (
-      <div style={styles.mainContainer}>
-        <ul style={styles.sidebar}>
-          {Object.keys(componentsIndex).map(name => this.renderAtom(name))}
-        </ul>
-        <div style={styles.content}>
-          {children || this.renderList()}
+      <div className='component-library'>
+        <header>
+          <h1>
+            <Link to='/'>Back to app</Link>
+            :
+            <Link to={mountPoint}>Component Library</Link>
+          </h1>
+        </header>
+        <div style={styles.mainContainer}>
+          <ul style={styles.sidebar}>
+            {Object.keys(componentsIndex).map(name => this.renderAtom(name))}
+          </ul>
+          <div style={styles.content}>
+            {children || this.renderList()}
+          </div>
         </div>
       </div>
     );

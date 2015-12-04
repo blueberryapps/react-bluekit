@@ -79,12 +79,16 @@ export default class LibraryComponent extends Component {
     return function(key, type, scope = []) {
       return function(event) {
         let value = event
-        if (event.target && event.target.value)
+        // Get value from event
+        if (event.target && event.target.value !== undefined)
           value = event.target.value
-        else if (event.value)
+
+        // Get value from {name, value} event
+        else if (event.value !== undefined)
           value = event.value
 
-        if (type === 'bool')
+        // fix string to valid type
+        if (type === 'bool' && typeof value !== 'boolean')
           value = event.target.checked
         else if (type === 'number')
           value = parseInt(value, 10)
