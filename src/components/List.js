@@ -29,8 +29,20 @@ export default class List extends Component {
     return (
       <div key={name}>
         <h2><Link to={`/${mountPoint}/${name}`}>{data.menu}</Link></h2>
-        <ExampleComponent {...data.simpleProps} />
+        <div style={styles.column}>
+          <ExampleComponent {...data.simpleProps} />
+        </div>
+        <div style={styles.column}>
+          <ExampleComponent {...data.fullProps} />
+        </div>
       </div>
     );
+  }
+}
+
+const styles = {
+  column: {
+    width: '49%',
+    display: 'inline-block'
   }
 }

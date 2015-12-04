@@ -1,4 +1,4 @@
-import deepMerge from '../deepMerge';
+import extendProps from '../extendProps';
 import ExampleSource from './ExampleSource';
 import PropsTable from './PropsTable';
 import Radium from 'radium';
@@ -30,10 +30,17 @@ export default class LibraryComponent extends Component {
   getCurrentProps() {
     const {simpleProps} = this.state
     const atom = this.getCurrentComponent()
+    const component = resolveComponent(atom.component)
     const defaultProps = simpleProps ? atom.simpleProps : atom.fullProps
     const customProps = this.state[atom.name] || {}
 
-    return deepMerge({}, defaultProps, customProps)
+    return extendProps(
+      defaultProps,
+      customProps,
+      component,
+      atom.propsDefinition,
+      this.createHandleChange(this)
+    )
   }
 
   render() {
@@ -55,6 +62,7 @@ export default class LibraryComponent extends Component {
           <h3 style={styles.h3}>
             Props
             <button onClick={this.toggleProps.bind(this)}>{simpleProps ? 'All props' : 'Only required props'}</button>
+            <button onClick={this.resetPropsToDefauls.bind(this)}>Reset props to default</button>
           </h3>
           <PropsTable atom={atom} componentProps={currentProps} handleChange={this.createHandleChange(this)} />
         </div>
@@ -70,9 +78,17 @@ export default class LibraryComponent extends Component {
   createHandleChange(main) {
     return function(key, type, scope = []) {
       return function(event) {
-        let value = (typeof event === 'object') ? event.target.value : event
+        let value = event
+        // Get value from event
+        if (event.target && event.target.value !== undefined)
+          value = event.target.value
 
-        if (type === 'bool')
+        // Get value from {name, value} event
+        else if (event.value !== undefined)
+          value = event.value
+
+        // fix string to valid type
+        if (type === 'bool' && typeof value !== 'boolean')
           value = event.target.checked
         else if (type === 'number')
           value = parseInt(value, 10)
@@ -98,6 +114,12 @@ export default class LibraryComponent extends Component {
     const {simpleProps} = this.state
 
     this.setState({...this.state, simpleProps: !simpleProps})
+  }
+
+  resetPropsToDefauls() {
+    const {params: {atom}} = this.props
+
+    this.setState({...this.state, [atom]: {}})
   }
 }
 
