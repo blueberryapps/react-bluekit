@@ -1,8 +1,8 @@
-import './header.sass';
+import Header from './Header';
 import List from './List';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import {Link} from 'react-router';
+import Sidebar from './Sidebar';
 
 @Radium
 export default class Library extends Component {
@@ -23,45 +23,17 @@ export default class Library extends Component {
     };
   }
 
-  getComponentData(name) {
-    const {componentsIndex} = this.props
-
-    return componentsIndex[name]
-  }
-
-  renderAtom(name) {
-    const {mountPoint} = this.props
-    const data = this.getComponentData(name)
-
-    return (
-      <li key={name} style={styles.sidebarElement}>
-        <Link
-          activeStyle={styles.sidebarLinkActive}
-          style={styles.sidebarLink}
-          to={`/${mountPoint}/${name}`}
-        >
-            {data.menu}
-        </Link>
-      </li>
-    );
-  }
-
   render() {
     const {children, mountPoint, componentsIndex} = this.props
 
     return (
-      <div className='component-library'>
-        <header>
-          <h1>
-            <Link to='/'>Back to app</Link>
-            :
-            <Link to={mountPoint}>Component Library</Link>
-          </h1>
-        </header>
+      <div className='component-library' style={styles.wrapper}>
+        <Header mountPoint={mountPoint} />
         <div style={styles.mainContainer}>
-          <ul style={styles.sidebar}>
-            {Object.keys(componentsIndex).map(name => this.renderAtom(name))}
-          </ul>
+          <Sidebar
+            componentsIndex={componentsIndex}
+            mountPoint={mountPoint}
+          />
           <div style={styles.content}>
             {children || this.renderList()}
           </div>
@@ -80,37 +52,21 @@ export default class Library extends Component {
 }
 
 const styles = {
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 0
+  },
+
   mainContainer: {
     backgroundColor: 'hsl(0, 0%, 100%)',
     flex: '1 1 0',
     display: 'flex',
     flexDirection: 'horizontal',
-  },
-
-  sidebar: {
-    position: 'relative',
-    zIndex: 2,
-    flex: '0 0 20rem',
-    margin: '0 20px 0 0',
-    padding: '0',
-    backgroundColor: 'hsl(0, 0%, 95%)',
-  },
-
-  sidebarElement: {
-    listStyle: 'none',
-    margin: 0,
-    padding: 0,
-  },
-
-  sidebarLink: {
-    padding: '.5rem .7rem',
-    fontWeight: 'normal',
-    color: 'hsl(0, 0%, 25%)',
-    display: 'block',
-  },
-
-  sidebarLinkActive: {
-    background: 'hsl(0, 0%, 85%)',
   },
 
   content: {

@@ -16,14 +16,14 @@ export default class ExampleSource extends Component {
     const {atom: {componentName, file}} = this.props
 
     return (
-      <pre style={styles.pre}>
+      <div style={styles.pre}>
         <Highlight className='javascript'>
         import {componentName} from '{file}'{'\n\n'}
       &lt;{componentName}
         {`\n${this.renderInlineProps()}\n`}
       /&gt;
         </Highlight>
-      </pre>
+      </div>
     )
   }
 
@@ -38,8 +38,7 @@ export default class ExampleSource extends Component {
 
 const styles = {
   pre: {
-    background: 'white',
-    border: '1px solid hsl(0, 0%, 70%)',
-    padding: '10px',
+    margin: 0,
+    padding: 0
   }
 };

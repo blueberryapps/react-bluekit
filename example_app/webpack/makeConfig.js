@@ -87,6 +87,9 @@ export default function makeConfig(isDevelopment) {
           }
         },
         test: /\.js$/
+      }, {
+        test:    /\.json$/,
+        loaders: ['json']
       }].concat(stylesLoaders())
     },
     output: isDevelopment ? {

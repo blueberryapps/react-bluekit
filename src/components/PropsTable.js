@@ -1,7 +1,6 @@
 import FluidTextArea from './FluidTextArea.react.js';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import {Link} from 'react-router';
 import {Map, fromJS} from 'immutable';
 
 @Radium
@@ -11,7 +10,7 @@ export default class PropsTable extends Component {
     atom: RPT.object.isRequired,
     componentProps: RPT.object.isRequired,
     handleChange: RPT.func.isRequired,
-    mountPoint: RPT.string.isRequired
+    mountPoint: RPT.string
   }
 
   render() {
@@ -56,7 +55,7 @@ export default class PropsTable extends Component {
     if (['string', 'number', 'bool', 'enum'].indexOf(kind) === -1)
       return name
     else
-      return <a href={`#${name}`}>{name}</a>
+      return <a href={`#${name}`} style={styles.propLink}>{name}</a>
   }
 
   renderShapePropRow(data, key, scope = []) {
@@ -94,14 +93,19 @@ export default class PropsTable extends Component {
     }
 
     switch (type.name) {
-      case 'any': return <input type='text' {...defaultProps} />
+      case 'any': return <input key={key} style={styles.input} type='text' {...defaultProps} />
       case 'shape': return <FluidTextArea type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
       case 'arrayOf': return <FluidTextArea type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
-      case 'string': return <input type='text' {...defaultProps} />
-      case 'number': return <input type='number' {...defaultProps} />
+      case 'string': return <input key={key} style={styles.input} type='text' {...defaultProps} />
+      case 'number': return <input key={key} style={styles.input} type='number' {...defaultProps} />
       case 'bool': return <input type='checkbox' {...{...defaultProps, checked: defaultProps.value}} />
       case 'enum' : {
-        return <select children={this.selectOptions(type)} {...defaultProps} />
+        return (
+          <div style={styles.selectWrapper}>
+            <select children={this.selectOptions(type)} style={styles.select} {...defaultProps} />
+            <div style={styles.selectArrow} />
+          </div>
+        )
       }
     }
   }
@@ -110,7 +114,9 @@ export default class PropsTable extends Component {
 const styles = {
   table: {
     width: '100%',
+    fontSize: '12px',
     textAlign: 'left',
+    color: 'hsl(202, 71%, 36%)'
   },
 
   tableRow: {padding: '10px'},
@@ -123,7 +129,52 @@ const styles = {
   },
 
   tableHeader: {
-    background: 'hsl(0, 0%, 70%)',
-    color: 'white',
+    background: 'hsl(202, 100%, 85%)',
+    color: 'hsl(202, 71%, 36%)',
+  },
+
+  propLink: {
+    color: 'hsl(26, 100%, 58%)'
+  },
+
+  input: {
+    width: '100%',
+    height: '30px',
+    outline: 'none',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'hsl(202, 100%, 85%)',
+    padding: '3px 5px',
+    ':focus': {
+      borderColor: 'hsl(26, 100%, 58%)'
+    }
+  },
+
+  selectWrapper: {
+    position: 'relative'
+  },
+
+  select: {
+    width: '100%',
+    height: '30px',
+    appearance: 'none',
+    borderRadius: '0',
+    background: 'white',
+    padding: '3px 5px',
+    outline: 'none',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'hsl(202, 100%, 85%)',
+  },
+
+  selectArrow: {
+    width: 0,
+    height: 0,
+    borderLeft: '10px solid transparent',
+    borderRight: '10px solid transparent',
+    borderTop: '10px solid hsl(202, 40%, 50%)',
+    position: 'absolute',
+    top: '10px',
+    right: '6px'
   }
 }

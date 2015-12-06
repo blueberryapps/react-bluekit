@@ -1,4 +1,5 @@
 import extendProps from '../extendProps';
+import Button from './Button';
 import ExampleSource from './ExampleSource';
 import PropsTable from './PropsTable';
 import Radium from 'radium';
@@ -51,23 +52,26 @@ export default class LibraryComponent extends Component {
 
     return (
       <div>
-        <h2 style={[styles.paddedElement, styles.h2]}>
-          <em style={styles.h2em}>{atom.componentName}</em> ({atom.file})
-        </h2>
-        <div style={[styles.paddedElement, styles.panel]}>
-          <h3 style={styles.h3}>Example</h3>
-          <ExampleAtom {...currentProps} />
+        <h1 style={styles.heading}>
+          {atom.componentName}
+          <small style={styles.headingSmall}>{atom.file}</small>
+        </h1>
+        <div style={styles.panel}>
+          <h3 style={styles.blockHeading}>Example</h3>
+          <div>
+            <ExampleAtom {...currentProps} />
+          </div>
         </div>
-        <div style={[styles.paddedElement, styles.panel]}>
-          <h3 style={styles.h3}>
+        <div style={styles.panel}>
+          <h3 style={styles.blockHeading}>
             Props
-            <button onClick={this.toggleProps.bind(this)}>{simpleProps ? 'All props' : 'Only required props'}</button>
-            <button onClick={this.resetPropsToDefauls.bind(this)}>Reset props to default</button>
           </h3>
+          <Button kind='primary' onClick={this.toggleProps.bind(this)}>{simpleProps ? 'All props' : 'Only required props'}</Button>
+          <Button kind='secondary' onClick={this.resetPropsToDefauls.bind(this)}>Reset props to default</Button>
           <PropsTable atom={atom} componentProps={currentProps} handleChange={this.createHandleChange(this)} />
         </div>
-        <div style={[styles.paddedElement, styles.panel]}>
-          <h3 style={styles.h3}>Code</h3>
+        <div style={styles.panel}>
+          <h3 style={styles.blockHeading}>Code</h3>
           <ExampleSource atom={atom} componentProps={currentProps} />
         </div>
         <Variants atom={atom} componentProps={currentProps} styles={styles} />
@@ -124,35 +128,38 @@ export default class LibraryComponent extends Component {
 }
 
 const styles = {
-  paddedElement: {
-    padding: '1rem 3rem 2rem 3rem',
+  heading: {
+    color: 'hsl(26, 100%, 58%)',
+    fontSize: '32px',
+    fontWeight: '400',
+    padding: '30px 10px 0 10px',
+    margin: '0',
   },
 
-  h2: {
-    fontSize: '1.0rem',
-    paddingTop: '4rem',
-    margin: '0 0 -2rem 0',
-    color: 'hsl(0, 0%, 70%)',
+  headingSmall: {
+    color: 'hsl(202, 40%, 50%)',
+    fontSize: '14px',
+    fontWeight: '300',
+    display: 'block',
+    width: '100%'
   },
 
-  h2em: {
-    color: 'hsl(0, 0%, 25%)',
-    fontStyle: 'normal',
-    fontSize: '2rem',
+  blockHeading: {
+    color: 'hsl(202, 40%, 50%)',
+    marginRight: '20px',
+    display: 'inline-block'
   },
-
-  h3: {color: 'hsl(0, 0%, 70%)'},
 
   panel: {
-    borderLeft: '10px solid hsl(0, 0%, 95%)',
+    borderLeft: '10px solid hsl(202, 100%, 85%)',
     marginTop: '2rem',
     marginBottom: '2rem',
-    background: 'hsl(0, 0%, 97%)',
+    background: 'hsl(202, 100%, 96%)',
+    padding: '10px 10px 30px 20px'
   },
 
   pre: {
     background: 'white',
     border: '1px solid hsl(0, 0%, 70%)',
-    padding: '10px',
   },
 };

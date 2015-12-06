@@ -120,13 +120,13 @@ export default {
     componentName: 'OnChangeEvent',
     description: '',
     customProps: {},
-    propsDefinition: {children:{type:{name:"any"},required:false,description:""},error:{type:{name:"string"},required:false,description:""},icon:{type:{name:"string"},required:false,description:""},iconSize:{type:{name:"string"},required:false,description:""},label:{type:{name:"string"},required:false,description:""},name:{type:{name:"string"},required:true,description:""},onChange:{type:{name:"func"},required:true,description:""},placeholder:{type:{name:"string"},required:true,description:""},tooltip:{type:{name:"string"},required:false,description:""},type:{type:{name:"string"},required:true,description:"",defaultValue:{value:"'text'",computed:false}},unit:{type:{name:"string"},required:false,description:""},value:{type:{name:"string"},required:false,description:""}},
+    propsDefinition: {children:{type:{name:"any"},required:false,description:""},error:{type:{name:"string"},required:false,description:""},icon:{type:{name:"enum",value:[{value:"'star'",computed:false},{value:"'check'",computed:false}]},required:false,description:""},iconSize:{type:{name:"string"},required:false,description:""},label:{type:{name:"string"},required:false,description:""},name:{type:{name:"string"},required:true,description:""},onChange:{type:{name:"func"},required:true,description:""},placeholder:{type:{name:"string"},required:true,description:""},tooltip:{type:{name:"string"},required:false,description:""},type:{type:{name:"string"},required:true,description:"",defaultValue:{value:"'text'",computed:false}},unit:{type:{name:"string"},required:false,description:""},value:{type:{name:"string"},required:false,description:""}},
     simpleProps: {name:"Default string name",onChange:function () {
         alert('executed function');
       },placeholder:"Default string placeholder",type:"text"},
     fullProps: {tooltip:"Default string tooltip",unit:"Default string unit",error:"Default string error",name:"Default string name",onChange:function () {
         alert('executed function');
-      },value:"Default string value",placeholder:"Default string placeholder",label:"Default string label",icon:"Default string icon",iconSize:"Default string iconSize",type:"text",children:"Default ANY"}
+      },value:"Default string value",placeholder:"Default string placeholder",label:"Default string label",icon:"star",iconSize:"Default string iconSize",type:"text",children:"Default ANY"}
   },
   ComponentsOnChangeNameAndValue: {
     name: 'ComponentsOnChangeNameAndValue',
