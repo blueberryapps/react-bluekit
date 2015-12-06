@@ -46,7 +46,7 @@ export default class Variants extends Component {
 
     return (
       <div style={[styles.paddedElement, styles.panel]}>
-        <h3 id={key}>Prop variant: {key}</h3>
+        <h3 id={key} style={styles.blockHeading}>Prop variant: {key}</h3>
         {variants.map(variant => this.renderVariant(key, variant))}
       </div>
     )
@@ -59,10 +59,9 @@ export default class Variants extends Component {
 
     return (
       <div key={variant}>
-        <Highlight style={styles.pre} className='javascript'>
+        <Highlight className='javascript'>
           &lt;{atom.componentName} {renderProp(key, variant)} /&gt;
         </Highlight>
-
         <ExampleAtom {...variantProps} />
       </div>
     )
@@ -73,7 +72,13 @@ const styles = {
   pre: {
     background: 'white',
     border: '1px solid hsl(0, 0%, 70%)',
-    padding: '0px',
-    margin: '0px'
+    padding: '3px 10px',
+    margin: '0'
+  },
+
+  blockHeading: {
+    color: 'hsl(202, 40%, 50%)',
+    marginRight: '20px',
+    display: 'inline-block'
   }
 };

@@ -3,6 +3,8 @@ import React, {Component, PropTypes as RPT} from 'react';
 import resolveComponent from '../resolveComponent';
 import {Link} from 'react-router';
 
+const RadiumLink = Radium(Link);
+
 @Radium
 export default class List extends Component {
 
@@ -28,7 +30,12 @@ export default class List extends Component {
 
     return (
       <div key={name}>
-        <h2><Link to={`/${mountPoint}/${name}`}>{data.menu}</Link></h2>
+        <RadiumLink
+          style={styles.headingLink}
+          to={`/${mountPoint}/${name}`}
+        >
+          {data.menu}
+        </RadiumLink>
         <div style={styles.column}>
           <ExampleComponent {...data.simpleProps} />
         </div>
@@ -43,6 +50,22 @@ export default class List extends Component {
 const styles = {
   column: {
     width: '49%',
-    display: 'inline-block'
+    display: 'inline-block',
+    borderLeft: '10px solid hsl(202, 100%, 85%)',
+    marginTop: '5px',
+    marginBottom: '0',
+    marginRight: '10px',
+    paddingTop: '20px',
+    paddingBottom: '50px',
+    paddingLeft: '20px',
+    paddingRight: '30px',
+    background: 'hsl(202, 100%, 96%)',
+  },
+
+  headingLink: {
+    display: 'block',
+    color: 'hsl(26, 100%, 58%)',
+    textDecoration: 'underline',
+    padding: '30px 0 10px 0',
   }
 }
