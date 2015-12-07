@@ -16,9 +16,13 @@ import createComponentLibraryGenerator from '../src/createGenerator';
 
 createComponentLibraryGenerator({
   // base file of start - this is location where componentsIndex.js will be generated to
-  baseDir: `${__dirname}/src/browser/componentLibrary`,
+  baseDir: path.join(__dirname, 'src', 'browser', 'componentLibrary'),
   // relative paths from base dir where to look for components
   paths: ['../components/'],
+  // directory to node modules
+  nodeModulesDir: path.join(__dirname, 'node_modules'),
+  // list of packages with components
+  packages: [],
   // if you want to use gulp tasks pass gulp
   gulp: gulp,
   // specify name for build command -> gulp build-component-library
@@ -57,7 +61,10 @@ gulp.task('watch-component-library-lib', () => {
 gulp.task('clean', done => del('build/*', done));
 
 gulp.task('build-webpack', ['env'], webpackBuild);
-gulp.task('build', ['build-component-library-lib', 'build-component-library', 'build-webpack']);
+gulp.task(
+  'build',
+  ['build-component-library-lib', 'build-component-library', 'build-webpack']
+);
 
 gulp.task('eslint', () => {
   return runEslint();
@@ -99,21 +106,24 @@ gulp.task('server', ['env'], done => {
     runSequence('server-hot', 'server-nodemon', done);
 });
 
-gulp.task('default', ['build-component-library-lib', 'build-component-library', 'server', 'watch-component-library-lib', 'watch-component-library']);
+gulp.task(
+  'default',
+  ['build-component-library-lib', 'build-component-library', 'server', 'watch-component-library-lib', 'watch-component-library']
+);
 
 // React Native
 
 // Fix for custom .babelrc cache issue.
 // https://github.com/facebook/react-native/issues/1924#issuecomment-120170512
-gulp.task('clear-react-packager-cache', function() {
+gulp.task('clear-react-packager-cache', () => {
   // Clear react-packager cache
   const tempDir = os.tmpdir();
 
-  const cacheFiles = fs.readdirSync(tempDir).filter(function(fileName) {
+  const cacheFiles = fs.readdirSync(tempDir).filter(fileName => {
     return fileName.indexOf('react-packager-cache') === 0;
   });
 
-  cacheFiles.forEach(function(cacheFile) {
+  cacheFiles.forEach(cacheFile => {
     const cacheFilePath = path.join(tempDir, cacheFile);
     fs.unlinkSync(cacheFilePath);
     console.log('Deleted cache: ', cacheFilePath);
