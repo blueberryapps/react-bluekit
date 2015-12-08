@@ -18,6 +18,7 @@ export default function buildProps(propsDefinition, allProps = false) {
 function calculateProp(type, prop) {
   switch (type.name) {
     case 'any':    return 'Default ANY'
+    case 'node':   return 'Default NODE'
     case 'string': return `Default string ${prop}`
     case 'bool':   return true
     case 'number': return 1

@@ -1,6 +1,7 @@
 import extendProps from '../extendProps';
 import Button from './Button';
 import ExampleSource from './ExampleSource';
+import extendComponentProps from '../extendComponentProps';
 import PropsTable from './PropsTable';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
@@ -44,6 +45,12 @@ export default class LibraryComponent extends Component {
     )
   }
 
+  getComponentExtendendProps() {
+    const {propsDefinition} = this.getCurrentComponent()
+
+    return extendComponentProps(this.getCurrentProps(), propsDefinition)
+  }
+
   render() {
     const {simpleProps} = this.state
     const atom = this.getCurrentComponent()
@@ -59,7 +66,7 @@ export default class LibraryComponent extends Component {
         <div style={styles.panel}>
           <h3 style={styles.blockHeading}>Example</h3>
           <div>
-            <ExampleAtom {...currentProps} />
+            <ExampleAtom {...this.getComponentExtendendProps()} />
           </div>
         </div>
         <div style={styles.panel}>

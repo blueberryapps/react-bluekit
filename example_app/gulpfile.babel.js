@@ -22,7 +22,7 @@ createComponentLibraryGenerator({
   // directory to node modules
   nodeModulesDir: path.join(__dirname, 'node_modules'),
   // list of packages with components
-  packages: [],
+  packages: ['rc-tooltip'],
   // if you want to use gulp tasks pass gulp
   gulp: gulp,
   // specify name for build command -> gulp build-component-library

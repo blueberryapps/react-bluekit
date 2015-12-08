@@ -1,3 +1,4 @@
+import extendComponentProps from '../extendComponentProps';
 import Highlight from './highlight';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
@@ -12,6 +13,12 @@ export default class Variants extends Component {
     atom: RPT.object.isRequired,
     componentProps: RPT.object.isRequired,
     styles: RPT.object.isRequired,
+  }
+
+  getComponentExtendendProps() {
+    const {atom: {propsDefinition}, componentProps} = this.props
+
+    return extendComponentProps(componentProps, propsDefinition)
   }
 
   render() {
@@ -29,6 +36,8 @@ export default class Variants extends Component {
   }
 
   renderProp(key, definition) {
+    if (!definition.type) return null
+
     const {type: {name, value}} = definition
 
     switch (name) {
@@ -62,7 +71,7 @@ export default class Variants extends Component {
         <Highlight className='javascript'>
           &lt;{atom.componentName} {renderProp(key, variant)} /&gt;
         </Highlight>
-        <ExampleAtom {...variantProps} />
+        <ExampleAtom {...this.getComponentExtendendProps()} {...variantProps} />
       </div>
     )
   }

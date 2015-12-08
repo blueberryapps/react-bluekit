@@ -5,7 +5,7 @@ import React, {Component} from 'react'
 export default class EditableField extends Component {
 
   static propTypes = {
-    children: React.PropTypes.object.isRequired,
+    children: React.PropTypes.node.isRequired,
     editing: React.PropTypes.bool.isRequired,
     label: React.PropTypes.string.isRequired,
     onEditingModeChange: React.PropTypes.func.isRequired

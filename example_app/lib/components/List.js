@@ -1,3 +1,4 @@
+import extendComponentProps from '../extendComponentProps';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import resolveComponent from '../resolveComponent';
@@ -11,6 +12,10 @@ export default class List extends Component {
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
     mountPoint: RPT.string.isRequired
+  }
+
+  children() {
+    return <div>CHILDREN</div>
   }
 
   render() {
@@ -37,10 +42,10 @@ export default class List extends Component {
           {data.menu}
         </RadiumLink>
         <div style={styles.column}>
-          <ExampleComponent {...data.simpleProps} />
+          <ExampleComponent children={this.children()} {...extendComponentProps(data.simpleProps, data.propsDefinition)} />
         </div>
         <div style={styles.column}>
-          <ExampleComponent {...data.fullProps} />
+          <ExampleComponent children={this.children()} {...extendComponentProps(data.fullProps, data.propsDefinition)} />
         </div>
       </div>
     );

@@ -26,7 +26,10 @@ export default function deepMerge() {
 
       const val = obj[key];
 
-      if (isObject(val) && isObject(target[key])) {
+      if (val instanceof Array) {
+        target[key] = val;
+      }
+      else if (isObject(val) && isObject(target[key])) {
         target[key] = deepMerge(target[key], val);
       }
       else {
