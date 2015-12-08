@@ -36,6 +36,8 @@ export default class PropsTable extends Component {
   }
 
   renderPropRow(data, key) {
+    if (!data.type) return null
+
     if (data.type.name === 'shape')
       return (
         Map(data.type.value).map((v, k) => this.renderShapePropRow(v, k, [key]))
@@ -65,11 +67,11 @@ export default class PropsTable extends Component {
       )
 
     return (
-      <tr key={key}>
-        <td>{scope.join('.')}.<b>{key}</b></td>
-        <td>{data.name}</td>
-        <td>{data.required && 'true'}</td>
-        <td>{this.renderValueSelection(key, data, scope)}</td>
+      <tr key={key} style={styles.tableRow}>
+        <td style={styles.tableCell}>{scope.join('.')}.<b>{key}</b></td>
+        <td style={styles.tableCell}>{data.name}</td>
+        <td style={styles.tableCell}>{data.required && 'true'}</td>
+        <td style={styles.tableCell}>{this.renderValueSelection(key, data, scope)}</td>
       </tr>
     )
   }
@@ -94,6 +96,7 @@ export default class PropsTable extends Component {
 
     switch (type.name) {
       case 'any': return <input key={key} style={styles.input} type='text' {...defaultProps} />
+      case 'node': return <input key={key} style={styles.input} type='text' {...defaultProps} />
       case 'shape': return <FluidTextArea type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
       case 'arrayOf': return <FluidTextArea type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
       case 'string': return <input key={key} style={styles.input} type='text' {...defaultProps} />

@@ -1,14 +1,16 @@
 import buildProps from './buildProps';
 import fs from 'fs';
+import nunjucks from 'nunjucks';
 import path from 'path';
 import toSource from 'tosource';
 import {parse as docgenParse} from 'react-docgen';
-import nunjucks from 'nunjucks';
 
 const nunjuckEnv = nunjucks.configure(`${__dirname}/../nunjucks/`, {autoescape: false});
 
 function getAllFilesInDir(dir, relativeDirectory = []) {
   const resolvedDir = path.join(dir, relativeDirectory);
+
+  if (!fs.existsSync(resolvedDir)) return null
 
   return [].concat.apply([], fs.readdirSync(resolvedDir).map(file => {
     const absolutePath = path.join(dir, relativeDirectory, file);
@@ -42,7 +44,9 @@ function getImportFile(directory, file) {
 
 function generateComponentData(config, file, directory) {
   const filePath = path.join(directory, file);
-  const content = fs.readFileSync(filePath).toString();
+  const content = fs.readFileSync(filePath)
+    .toString()
+    .replace('_interopRequireDefault(_react)', 'require("react")');
 
   try {
     const docgen = docgenParse(content);
@@ -120,7 +124,8 @@ export default function createGenerator(config) {
 
     const packages = config.nodeModulesDir && config.packages ? config.packages : []
     const packageFiles = packages.map(file => (
-      getAllFilesInDir(config.nodeModulesDir, path.join(file))
+      getAllFilesInDir(config.nodeModulesDir, path.join(file, 'lib'))
+        .concat(getAllFilesInDir(config.nodeModulesDir, path.join(file, 'dist')))
     ));
 
     const packageComponents = getValidFiles(packageFiles).map(file => {

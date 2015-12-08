@@ -2,7 +2,6 @@ import Highlight from './highlight';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import renderProp from './renderProp';
-import {Map} from 'immutable';
 
 @Radium
 export default class ExampleSource extends Component {
@@ -13,6 +12,31 @@ export default class ExampleSource extends Component {
   }
 
   render() {
+    const {componentProps} = this.props
+
+    return componentProps.children
+      ? this.renderWithChildren()
+      : this.renderWithoutChildren()
+  }
+
+  renderWithChildren() {
+    const {atom: {componentName, file}, componentProps} = this.props
+
+    return (
+      <div style={styles.pre}>
+        <Highlight className='javascript'>
+        import {componentName} from '{file}'{'\n\n'}
+      &lt;{componentName}
+        {`\n${this.renderInlineProps()}\n`}
+      &gt;
+        {`\n  ${componentProps.children}\n`}
+      &lt;/{componentName}&gt;
+        </Highlight>
+      </div>
+    )
+  }
+
+  renderWithoutChildren() {
     const {atom: {componentName, file}} = this.props
 
     return (
@@ -29,8 +53,8 @@ export default class ExampleSource extends Component {
 
   renderInlineProps() {
     const {componentProps} = this.props
-    return Map(componentProps)
-      .map((value, key) => `  ${renderProp(key, value)}`)
+    return Object.keys(componentProps)
+      .map((key) => `  ${renderProp(key, componentProps[key])}`)
       .join('\n')
   }
 
