@@ -37,9 +37,8 @@ export default class App extends Component {
           titleTemplate="%s - Este.js"
         />
         {/* Pathname enforces rerender so activeClassName is updated. */}
-        <Header msg={msg} pathname={pathname} viewer={viewer} />
+        {pathname.search('component-library') === -1 && <Header msg={msg} pathname={pathname} viewer={viewer} />}
         <RouterHandler {...this.props} />
-        <Footer msg={msg.app.footer} />
       </div>
     );
   }

@@ -52,6 +52,10 @@ export default function makeConfig(isDevelopment) {
       ]
     },
     module: {
+      noParse: [
+        /node_modules\/sinon/,
+        /autoit\.js/,
+      ],
       loaders: [{
         loader: 'url-loader?limit=100000',
         test: /\.(gif|jpg|png|woff|woff2|eot|ttf|svg)$/
@@ -83,6 +87,9 @@ export default function makeConfig(isDevelopment) {
           }
         },
         test: /\.js$/
+      }, {
+        test:    /\.json$/,
+        loaders: ['json']
       }].concat(stylesLoaders())
     },
     output: isDevelopment ? {
