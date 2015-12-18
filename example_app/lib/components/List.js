@@ -14,10 +14,6 @@ export default class List extends Component {
     mountPoint: RPT.string.isRequired
   }
 
-  children() {
-    return <div>CHILDREN</div>
-  }
-
   render() {
     const {componentsIndex} = this.props
 
@@ -42,10 +38,10 @@ export default class List extends Component {
           {data.menu}
         </RadiumLink>
         <div style={styles.column}>
-          <ExampleComponent children={this.children()} {...extendComponentProps(data.simpleProps, data.propsDefinition)} />
+          <ExampleComponent {...extendComponentProps(data.simpleProps, data.propsDefinition)} />
         </div>
         <div style={styles.column}>
-          <ExampleComponent children={this.children()} {...extendComponentProps(data.fullProps, data.propsDefinition)} />
+          <ExampleComponent {...extendComponentProps(data.fullProps, data.propsDefinition)} />
         </div>
       </div>
     );
