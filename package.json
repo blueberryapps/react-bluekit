@@ -49,6 +49,7 @@
     "rimraf": "^2.4.3"
   },
   "dependencies": {
+    "color": "^0.10.1",
     "highlight.js": "^8.9.1",
     "history": "^1.13.1",
     "immutable": "^3.7.5",

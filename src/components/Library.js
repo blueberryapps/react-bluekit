@@ -1,4 +1,5 @@
 import Header from './Header';
+import HighlightStyle from './HighlightStyle';
 import List from './List';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
@@ -38,6 +39,7 @@ export default class Library extends Component {
             {children || this.renderList()}
           </div>
         </div>
+        <HighlightStyle />
       </div>
     );
   }
