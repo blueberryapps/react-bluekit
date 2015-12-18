@@ -1,6 +1,6 @@
 {
   "name": "@blueberry/react-component-library",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Component Library based directly from component",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
