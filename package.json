@@ -1,6 +1,6 @@
 {
   "name": "@blueberry/react-component-library",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Component Library based directly from component",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "highlight.js": "^8.9.1",
+    "immutable": "^3.7.5",
     "nunjucks": "^2.2.0",
     "react-docgen": "^2.4.0",
     "react-highlight": "^0.5.1",
@@ -58,7 +59,6 @@
   "peerDependencies": {
     "color": "^0.10.1",
     "history": "^1.13.1",
-    "immutable": "^3.7.5",
     "radium": "^0.15.3",
     "react": "^0.14.3",
     "react-router": "^2.0.0"
