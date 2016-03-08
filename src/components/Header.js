@@ -2,10 +2,9 @@ import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import {Link} from 'react-router';
 
-const RadiumLink = Radium(Link);
+const RadiumLink = Link;
 
-@Radium
-export default class Header extends Component {
+class Header extends Component {
 
   static propTypes = {
     mountPoint: RPT.string.isRequired
@@ -16,10 +15,10 @@ export default class Header extends Component {
 
     return (
       <header style={styles.wrapper}>
-        <RadiumLink style={styles.link} to={`/${mountPoint}`}>
+        <RadiumLink style={styles.link} to={`/${mountPoint}`} key='main'>
           React Component Library
         </RadiumLink>
-        <RadiumLink style={[styles.link, {float: 'right'}]} to='/'>
+        <RadiumLink style={[styles.link, {float: 'right'}]} to='/' key='app'>
           <div style={styles.homeIcon.base}>
             <div style={styles.homeIcon.before} />
             <div style={styles.homeIcon.after} />
@@ -97,3 +96,5 @@ const styles = {
     }
   }
 };
+
+export default Radium(Header)

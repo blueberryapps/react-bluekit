@@ -10,9 +10,9 @@ $ npm install --save react-component-library
 ## Usage in gulpfile to generate Components Index
 
 ```js
-import createComponentLibraryGenerator from 'react-component-library/lib/createGenerator'
+import createBlueKit from 'react-component-library/lib/createGenerator'
 
-createComponentLibraryGenerator({
+createBlueKit({
   // base file of start - this is location where componentsIndex.js will be generated to
   baseDir: `${__dirname}/src/browser/componentLibrary`,
   // relative paths from base dir where to look for components

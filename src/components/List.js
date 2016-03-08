@@ -1,13 +1,13 @@
 import extendComponentProps from '../extendComponentProps';
+import getComponentLink from './getComponentLink'
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import resolveComponent from '../resolveComponent';
 import {Link} from 'react-router';
 
-const RadiumLink = Radium(Link);
+const RadiumLink = Link;
 
-@Radium
-export default class List extends Component {
+class List extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
@@ -32,8 +32,9 @@ export default class List extends Component {
     return (
       <div key={name}>
         <RadiumLink
+          key={name}
           style={styles.headingLink}
-          to={`/${mountPoint}/${name}`}
+          to={getComponentLink({mountPoint, name})}
         >
           {data.menu}
         </RadiumLink>
@@ -70,3 +71,5 @@ const styles = {
     padding: '30px 0 10px 0',
   }
 }
+
+export default Radium(List)

@@ -1,9 +1,0 @@
-*.log
-*.sublime-workspace
-.DS_Store
-.idea
-build
-coverage
-dist
-node_modules
-!lib

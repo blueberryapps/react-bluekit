@@ -6,8 +6,7 @@ import renderProp from './renderProp';
 import resolveComponent from '../resolveComponent';
 import {Map} from 'immutable';
 
-@Radium
-export default class Variants extends Component {
+class Variants extends Component {
 
   static propTypes = {
     atom: RPT.object.isRequired,
@@ -91,3 +90,5 @@ const styles = {
     display: 'inline-block'
   }
 };
+
+export default Radium(Variants)

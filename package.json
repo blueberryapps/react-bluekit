@@ -1,7 +1,7 @@
 {
-  "name": "@blueberry/react-component-library",
-  "version": "0.0.12",
-  "description": "Component Library based directly from component",
+  "name": "react-bluekit",
+  "version": "0.0.20",
+  "description": "Visualisation and Playground generated from Components",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
   "scripts": {
@@ -31,17 +31,17 @@
   "author": "Ondrej Bartas",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/blueberryapps/react-component-library/issues"
+    "url": "https://github.com/blueberryapps/react-bluekit/issues"
   },
-  "homepage": "https://github.com/blueberryapps/react-component-library#readme",
+  "homepage": "https://github.com/blueberryapps/react-bluekit#readme",
   "devDependencies": {
-    "babel": "^5.8.23",
-    "babel-core": "^5.8.25",
-    "babel-eslint": "^4.1.3",
+    "babel-cli": ">=5",
     "eslint": "^1.7.1",
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.5.1",
     "expect": "^1.12.2",
+    "express": "^4.13.4",
+    "gulp": "^3.9.1",
     "mocha": "^2.3.3",
     "react-transform-catch-errors": "^1.0.0",
     "react-transform-hmr": "^1.0.1",
@@ -49,18 +49,29 @@
     "rimraf": "^2.4.3"
   },
   "dependencies": {
-    "highlight.js": "^8.9.1",
-    "immutable": "^3.7.5",
-    "nunjucks": "^2.2.0",
-    "react-docgen": "^2.4.0",
-    "react-highlight": "^0.5.1",
-    "tosource": "^1.0.0"
-  },
-  "peerDependencies": {
-    "color": "^0.10.1",
-    "history": "^1.13.1",
-    "radium": "^0.15.3",
-    "react": "^0.14.3",
-    "react-router": "^2.0.0"
+    "babel-core": ">=5",
+    "babel-loader": ">=5",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": ">=5",
+    "babel-preset-react": ">=5",
+    "babel-preset-react-hmre": ">=1",
+    "babel-preset-stage-0": ">=5",
+    "color": ">=0.10",
+    "eventsource-polyfill": ">=0.9",
+    "highlight.js": ">=8",
+    "history": ">=1",
+    "immutable": ">=3",
+    "nunjucks": ">=2",
+    "radium": ">=0.15",
+    "react": ">=0.13",
+    "react-docgen": ">=2.4.0",
+    "react-dom": ">=0.13",
+    "react-highlight": ">=0.5",
+    "react-hot-loader": "^1.3.0",
+    "react-router": ">=1",
+    "tosource": ">=1",
+    "webpack": ">=1",
+    "webpack-dev-middleware": ">=1",
+    "webpack-hot-middleware": ">=2"
   }
 }

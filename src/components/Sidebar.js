@@ -1,15 +1,15 @@
+import getComponentLink from './getComponentLink'
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import {Link} from 'react-router';
 
-const RadiumLink = Radium(Link);
+const RadiumLink = Link;
 
-@Radium
-export default class Sidebar extends Component {
+class Sidebar extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
-    mountPoint: RPT.string.isRequired
+    mountPoint: RPT.string
   }
 
   render() {
@@ -32,8 +32,9 @@ export default class Sidebar extends Component {
       <li key={name} style={styles.sidebarElement}>
         <RadiumLink
           activeStyle={styles.sidebarLinkActive}
+          key={name}
           style={styles.link}
-          to={`/${mountPoint}/${name}`}
+          to={getComponentLink({mountPoint, name})}
         >
             {data.menu}
         </RadiumLink>
@@ -86,3 +87,5 @@ const styles = {
     backgroundColor: 'hsl(202, 100%, 96%)',
   },
 };
+
+export default Radium(Sidebar)

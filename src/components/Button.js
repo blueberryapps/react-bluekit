@@ -1,12 +1,8 @@
 import color from 'color';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import {Link} from 'react-router';
 
-const RadiumLink = Radium(Link);
-
-@Radium
-export default class Button extends Component {
+class Button extends Component {
 
   static propTypes = {
     children: RPT.any.isRequired,
@@ -61,3 +57,5 @@ const styles = {
     }
   }
 };
+
+export default Radium(Button)

@@ -1,4 +1,5 @@
 import buildProps from './buildProps';
+import createStandaloneServer from './standalone_server/createStandaloneServer';
 import fs from 'fs';
 import nunjucks from 'nunjucks';
 import path from 'path';
@@ -6,6 +7,7 @@ import toSource from 'tosource';
 import {parse as docgenParse} from 'react-docgen';
 
 const nunjuckEnv = nunjucks.configure(`${__dirname}/../nunjucks/`, {autoescape: false});
+const componentsIndexPath = `${__dirname}/componentsIndex.js`
 
 function getAllFilesInDir(dir, relativeDirectory = []) {
   const resolvedDir = path.join(dir, relativeDirectory);
@@ -39,7 +41,7 @@ function getImportFile(directory, file) {
     return pathParts.join(path.sep)
   }
 
-  return file[0] === '.' ? file : `./${file}`
+  return path.join(directory, file[0] === '.' ? file : `./${file}`)
 }
 
 function generateComponentData(config, file, directory) {
@@ -83,7 +85,6 @@ function generateComponentData(config, file, directory) {
   catch (error) {
     if (error.message !== 'No suitable component definition found.')
       console.error(`\u001b[31mError parsing component ${file}: ${error.message}\u001b[0m`) // eslint-disable-line no-console
-    // console.log(`Skipping ${file} because it is not containing valid react component`, error); // eslint-disable-line no-console
     return null;
   }
 }
@@ -98,19 +99,27 @@ export default function createGenerator(config) {
     const {buildCommand, gulp, watchCommand} = config
 
     gulp.task(buildCommand, () => {
-      console.log('Rebuilding component library'); // eslint-disable-line no-console
+      console.log('Rebuilding BlueKit'); // eslint-disable-line no-console
       generate();
     })
 
     gulp.task(watchCommand, () => {
       const watchPaths = config.paths.map(file => (
-        path.join(config.baseDir, file, '**/*.js')
+        path.join(config.baseDir, file, '**/*.js*')
       ));
 
-      console.log('Watching component library in and automatically rebuilding on paths:') // eslint-disable-line no-console
+      console.log('Watching BlueKit in and automatically rebuilding on paths:') // eslint-disable-line no-console
       console.log(watchPaths.join('\n')); // eslint-disable-line no-console
       gulp.watch(watchPaths, [buildCommand]);
     })
+
+    if (config.express) {
+      gulp.task('bluekit-start', () => {
+        console.log('Starting BlueKit'); // eslint-disable-line no-console
+        generate();
+        createStandaloneServer(config)
+      })
+    }
   }
 
   function generate() {
@@ -133,7 +142,7 @@ export default function createGenerator(config) {
     }).filter(component => component !== null);
 
     fs.writeFileSync(
-      path.join(config.baseDir, 'componentsIndex.js'),
+      componentsIndexPath,
       nunjuckEnv.render('componentsIndex.nunjucks', {components: components.concat(packageComponents)})
     );
 
