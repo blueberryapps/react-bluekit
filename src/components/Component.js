@@ -9,8 +9,7 @@ import resolveComponent from '../resolveComponent';
 import Variants from './Variants';
 import {fromJS} from 'immutable';
 
-@Radium
-export default class LibraryComponent extends Component {
+class LibraryComponent extends Component {
 
   static contextTypes = {
     componentsIndex: RPT.object.isRequired
@@ -170,3 +169,6 @@ const styles = {
     border: '1px solid hsl(0, 0%, 70%)',
   },
 };
+
+
+export default Radium(LibraryComponent)

@@ -4,9 +4,9 @@ import List from './List';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import Sidebar from './Sidebar';
+import componentsIndex from '../componentsIndex';
 
-@Radium
-export default class Library extends Component {
+class Library extends Component {
 
   static childContextTypes = {
     componentsIndex: RPT.object
@@ -14,18 +14,17 @@ export default class Library extends Component {
 
   static propTypes = {
     children: RPT.object,
-    componentsIndex: RPT.object.isRequired,
-    mountPoint: RPT.string.isRequired
+    mountPoint: RPT.string
   }
 
   getChildContext() {
     return {
-      componentsIndex: this.props.componentsIndex
+      componentsIndex
     };
   }
 
   render() {
-    const {children, mountPoint, componentsIndex} = this.props
+    const {children, mountPoint} = this.props
 
     return (
       <div className='component-library' style={styles.wrapper}>
@@ -45,7 +44,7 @@ export default class Library extends Component {
   }
 
   renderList() {
-    const {componentsIndex, mountPoint} = this.props
+    const {mountPoint} = this.props
 
     return (
       <List componentsIndex={componentsIndex} mountPoint={mountPoint} />
@@ -76,3 +75,5 @@ const styles = {
     overflow: 'auto',
   },
 };
+
+export default Radium(Library)

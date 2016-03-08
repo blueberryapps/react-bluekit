@@ -3,8 +3,7 @@ import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import {Map, fromJS} from 'immutable';
 
-@Radium
-export default class PropsTable extends Component {
+class PropsTable extends Component {
 
   static propTypes = {
     atom: RPT.object.isRequired,
@@ -181,3 +180,5 @@ const styles = {
     right: '6px'
   }
 }
+
+export default Radium(PropsTable)

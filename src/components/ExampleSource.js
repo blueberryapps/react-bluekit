@@ -3,8 +3,7 @@ import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import renderProp from './renderProp';
 
-@Radium
-export default class ExampleSource extends Component {
+class ExampleSource extends Component {
 
   static propTypes = {
     atom: RPT.object.isRequired,
@@ -66,3 +65,5 @@ const styles = {
     padding: 0
   }
 };
+
+export default Radium(ExampleSource)

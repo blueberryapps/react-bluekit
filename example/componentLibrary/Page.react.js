@@ -1,4 +1,4 @@
-import Component from 'react-pure-render/component';
+import {Component} from 'react';
 import componentsIndex from './componentsIndex';
 import {Library} from 'react-component-library';
 import React, {PropTypes as RPT} from 'react';
