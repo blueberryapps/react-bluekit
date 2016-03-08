@@ -85,6 +85,8 @@ function generateComponentData(config, file, directory) {
   catch (error) {
     if (error.message !== 'No suitable component definition found.')
       console.error(`\u001b[31mError parsing component ${file}: ${error.message}\u001b[0m`) // eslint-disable-line no-console
+    else
+      console.warn(`\u001b[33m No suitable component definition found in ${file}\u001b[0m`) // eslint-disable-line no-console
     return null;
   }
 }
@@ -96,6 +98,16 @@ function getValidFiles(files) {
 export default function createGenerator(config) {
 
   if (config.gulp) {
+    const watch = function() {
+      const watchPaths = config.paths.map(file => (
+        path.join(config.baseDir, file, '**/*.js')
+      ));
+
+      console.log('Watching BlueKit in and automatically rebuilding on paths:') // eslint-disable-line no-console
+      console.log(watchPaths.join('\n')); // eslint-disable-line no-console
+      gulp.watch(watchPaths, [buildCommand]);
+    }
+
     const {buildCommand, gulp, watchCommand} = config
 
     gulp.task(buildCommand, () => {
@@ -104,13 +116,7 @@ export default function createGenerator(config) {
     })
 
     gulp.task(watchCommand, () => {
-      const watchPaths = config.paths.map(file => (
-        path.join(config.baseDir, file, '**/*.js*')
-      ));
-
-      console.log('Watching BlueKit in and automatically rebuilding on paths:') // eslint-disable-line no-console
-      console.log(watchPaths.join('\n')); // eslint-disable-line no-console
-      gulp.watch(watchPaths, [buildCommand]);
+      watch();
     })
 
     if (config.express) {

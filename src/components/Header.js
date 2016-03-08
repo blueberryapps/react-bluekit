@@ -18,12 +18,14 @@ class Header extends Component {
         <RadiumLink style={styles.link} to={`/${mountPoint}`} key='main'>
           React Component Library
         </RadiumLink>
-        <RadiumLink style={[styles.link, {float: 'right'}]} to='/' key='app'>
-          <div style={styles.homeIcon.base}>
-            <div style={styles.homeIcon.before} />
-            <div style={styles.homeIcon.after} />
-          </div>
-        </RadiumLink>
+        {mountPoint &&
+          <RadiumLink style={[styles.link, {float: 'right'}]} to='/' key='app'>
+            <div style={styles.homeIcon.base}>
+              <div style={styles.homeIcon.before} />
+              <div style={styles.homeIcon.after} />
+            </div>
+          </RadiumLink>
+        }
       </header>
     );
   }
