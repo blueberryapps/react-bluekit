@@ -1,13 +1,14 @@
-import extendComponentProps from '../extendComponentProps';
-import getComponentLink from './getComponentLink'
+import extendComponentProps from '../helpers/extendComponentProps';
+import getComponentLink from '../helpers/getComponentLink'
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import resolveComponent from '../resolveComponent';
+import resolveComponent from '../helpers/resolveComponent';
 import {Link} from 'react-router';
 
 const RadiumLink = Link;
 
-class List extends Component {
+@Radium
+export default class List extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
@@ -71,5 +72,3 @@ const styles = {
     padding: '30px 0 10px 0',
   }
 }
-
-export default Radium(List)

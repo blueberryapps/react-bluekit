@@ -1,12 +1,13 @@
-import extendComponentProps from '../extendComponentProps';
+import extendComponentProps from '../helpers/extendComponentProps';
 import Highlight from './highlight';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import renderProp from './renderProp';
-import resolveComponent from '../resolveComponent';
+import renderProp from '../helpers/renderProp';
+import resolveComponent from '../helpers/resolveComponent';
 import {Map} from 'immutable';
 
-class Variants extends Component {
+@Radium
+export default class Variants extends Component {
 
   static propTypes = {
     atom: RPT.object.isRequired,
@@ -90,5 +91,3 @@ const styles = {
     display: 'inline-block'
   }
 };
-
-export default Radium(Variants)

@@ -1,7 +1,7 @@
-import Library from './components/Library';
-import Component from './components/Component';
+import createBlueKitRoutes from './createRoutes';
+import createBlueKit from './createConfig';
 
 export default {
-  Library,
-  Component
+  createBlueKitRoutes,
+  createBlueKit
 }

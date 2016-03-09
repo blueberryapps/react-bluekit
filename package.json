@@ -1,6 +1,6 @@
 {
   "name": "react-bluekit",
-  "version": "0.0.23",
+  "version": "0.0.24",
   "description": "Visualisation and Playground generated from Components",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blueberryapps/react-component-library.git"
+    "url": "git+https://github.com/blueberryapps/react-bluekit.git"
   },
   "keywords": [
     "es6",
@@ -47,35 +47,22 @@
     "eslint-config-airbnb": "^0.1.0",
     "eslint-plugin-react": "^3.5.1",
     "expect": "^1.12.2",
-    "express": "^4.13.4",
     "gulp": "^3.9.1",
     "mocha": "^2.3.3",
-    "react-transform-catch-errors": "^1.0.0",
-    "react-transform-hmr": "^1.0.1",
-    "redbox-react": "^1.2.0",
     "rimraf": "^2.4.3"
   },
   "dependencies": {
     "color": ">=0.10",
-    "css-loader": "^0.23.1",
-    "eventsource-polyfill": ">=0.9",
     "highlight.js": ">=8",
     "history": ">=1",
     "immutable": ">=3",
-    "json-loader": "^0.5.4",
-    "node-sass": "^3.4.2",
     "nunjucks": ">=2",
     "radium": ">=0.15",
     "react": ">=0.13",
     "react-docgen": ">=2.4.0",
     "react-dom": ">=0.13",
     "react-highlight": ">=0.5",
-    "react-hot-loader": "^1.3.0",
     "react-router": ">=1",
-    "sass-loader": "^3.1.2",
-    "tosource": ">=1",
-    "webpack": ">=1",
-    "webpack-dev-middleware": ">=1",
-    "webpack-hot-middleware": ">=2"
+    "tosource": ">=1"
   }
 }

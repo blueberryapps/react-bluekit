@@ -1,11 +1,11 @@
 import Component from './Component';
-import Library from './Page.react';
+import createLibrary from './createLibrary';
 import React from 'react';
 import {Route} from 'react-router';
 
-export default function createRoutes() {
+export default function createRoutes(mountPoint) {
   return (
-    <Route component={Library} path="/">
+    <Route component={createLibrary(mountPoint)} path={mountPoint}>
       <Route component={Component} path=":atom" />
     </Route>
   )

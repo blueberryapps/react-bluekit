@@ -1,42 +1,33 @@
-# React Component Library
-
+# React BlueKit
 
 ## Install
 
 ```sh
-$ npm install --save react-component-library
+$ npm install --save react-bluekit
 ```
 
-## Usage in gulpfile to generate Components Index
+## Usage in gulpfile to configure BlueKit
 
 ```js
-import createBlueKit from 'react-component-library/lib/createGenerator'
+import {createBlueKit} from 'react-bluekit'
 
 createBlueKit({
-  // base file of start - this is location where componentsIndex.js will be generated to
-  baseDir: `${__dirname}/src/browser/componentLibrary`,
+  // your directory where components are located
+  baseDir: `${__dirname}/src/browser`,
   // relative paths from base dir where to look for components
-  paths: ['../components/', '../auth'],
-  // if you want to use gulp tasks pass gulp
-  gulp: gulp,
-  // specify name for build command -> gulp build-component-library
-  buildCommand: 'build-component-library',
-  // specify name for watch command -> gulp watch-component-library
-  watchCommand: 'watch-component-library',
+  paths: ['./components/', './auth']
 })
 ```
 
-you can setup components index on application start and then watch components for changes by editing default task to:
+you can setup build of BlueKit on application start and then watch components for changes by editing default task to:
 ```js
 // from gulp.task('default', ['server']); to:
-gulp.task('default', ['build-component-library', 'server', 'watch-component-library']);
+gulp.task('default', ['build-bluekit', 'server', 'watch-bluekit']);
 ```
 
-if you don't want componentIndex to be in your git
-then add `componentsIndex.js` to `.gitignore`
-and add build command to build task
+do not forget to add it to build process (for example on stage or production)
 ```js
-gulp.task('build', ['build-component-library', 'build-webpack']);
+gulp.task('build', ['build-bluekit', 'build-webpack']);
 // make sure that component build is before webpack
 ```
 it will be build when needed
@@ -48,34 +39,14 @@ and you need to add only:
 
 ```js
 // createRoutes.js
-import libraryRouter from './componentLibrary/libraryRouter'; // eslint-disable-line import/default
+import {createBlueKitRoutes} from 'react-bluekit';
 
 export default function createRoutes(getState) {
   return (
     <Route component={App} path="/"> // example
-      {libraryRouter()} // actual code to insert
+      {createBlueKitRoutes('/bluekit')} // actual code to insert
     </Route>
   )
-}
-```
-
-## extend props of component library (functions)
-
-If you have component which requires to get some function which will change some
-props of same component, then you can use:
-```
-import React, {Component} from 'react'
-
-export default class WithExtendedProps extends Component {
-
-  static extendComponentLibraryProps = (props, library) => ({
-    ...props,
-    onEditingModeChange: value => library.setValue('editing', value)
-  });
-
-  render() {
-    return (null)
-  }
 }
 ```
 
