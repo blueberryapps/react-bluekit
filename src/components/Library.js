@@ -6,7 +6,8 @@ import React, {Component, PropTypes as RPT} from 'react';
 import Sidebar from './Sidebar';
 import componentsIndex from '../componentsIndex';
 
-class Library extends Component {
+@Radium
+export default class Library extends Component {
 
   static childContextTypes = {
     componentsIndex: RPT.object
@@ -75,5 +76,3 @@ const styles = {
     overflow: 'auto',
   },
 };
-
-export default Radium(Library)

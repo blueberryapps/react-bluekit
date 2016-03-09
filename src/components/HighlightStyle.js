@@ -1,7 +1,8 @@
 import Radium, {Style} from 'radium';
 import React, {Component} from 'react';
 
-class HighlightStyle extends Component {
+@Radium
+export default class HighlightStyle extends Component {
   render() {
     return (
       <Style rules={{
@@ -65,5 +66,3 @@ class HighlightStyle extends Component {
     )
   }
 }
-
-export default Radium(HighlightStyle)

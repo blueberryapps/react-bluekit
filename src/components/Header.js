@@ -4,7 +4,8 @@ import {Link} from 'react-router';
 
 const RadiumLink = Link;
 
-class Header extends Component {
+@Radium
+export default class Header extends Component {
 
   static propTypes = {
     mountPoint: RPT.string.isRequired
@@ -15,11 +16,11 @@ class Header extends Component {
 
     return (
       <header style={styles.wrapper}>
-        <RadiumLink style={styles.link} to={`/${mountPoint}`} key='main'>
+        <RadiumLink style={styles.link} to={`/${mountPoint}`}>
           React Component Library
         </RadiumLink>
         {mountPoint &&
-          <RadiumLink style={[styles.link, {float: 'right'}]} to='/' key='app'>
+          <RadiumLink style={[styles.link, {float: 'right'}]} to='/'>
             <div style={styles.homeIcon.base}>
               <div style={styles.homeIcon.before} />
               <div style={styles.homeIcon.after} />
@@ -98,5 +99,3 @@ const styles = {
     }
   }
 };
-
-export default Radium(Header)

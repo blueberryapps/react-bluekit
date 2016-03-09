@@ -1,15 +1,16 @@
-import extendProps from '../extendProps';
+import extendProps from '../helpers/extendProps';
 import Button from './Button';
 import ExampleSource from './ExampleSource';
-import extendComponentProps from '../extendComponentProps';
+import extendComponentProps from '../helpers/extendComponentProps';
 import PropsTable from './PropsTable';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import resolveComponent from '../resolveComponent';
+import resolveComponent from '../helpers/resolveComponent';
 import Variants from './Variants';
 import {fromJS} from 'immutable';
 
-class LibraryComponent extends Component {
+@Radium
+export default class LibraryComponent extends Component {
 
   static contextTypes = {
     componentsIndex: RPT.object.isRequired
@@ -169,6 +170,3 @@ const styles = {
     border: '1px solid hsl(0, 0%, 70%)',
   },
 };
-
-
-export default Radium(LibraryComponent)

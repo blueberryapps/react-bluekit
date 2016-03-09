@@ -1,6 +1,6 @@
-import buildProps from './buildProps';
-import createStandaloneServer from './standalone_server/createStandaloneServer';
+import buildProps from './helpers/buildProps';
 import fs from 'fs';
+import gulp from 'gulp';
 import nunjucks from 'nunjucks';
 import path from 'path';
 import toSource from 'tosource';
@@ -95,38 +95,28 @@ function getValidFiles(files) {
   return [].concat.apply([], files).filter(file => !!file);
 }
 
-export default function createGenerator(config) {
+export default function createConfig(config) {
 
-  if (config.gulp) {
-    const watch = function() {
-      const watchPaths = config.paths.map(file => (
-        path.join(config.baseDir, file, '**/*.js')
-      ));
+  const watch = function() {
+    const watchPaths = config.paths.map(file => (
+      path.join(config.baseDir, file, '**/*.js')
+    ));
 
-      console.log('Watching BlueKit in and automatically rebuilding on paths:') // eslint-disable-line no-console
-      console.log(watchPaths.join('\n')); // eslint-disable-line no-console
-      gulp.watch(watchPaths, [buildCommand]);
-    }
-
-    const {buildCommand, gulp, watchCommand} = config
-
-    gulp.task(buildCommand, () => {
-      console.log('Rebuilding BlueKit'); // eslint-disable-line no-console
-      generate();
-    })
-
-    gulp.task(watchCommand, () => {
-      watch();
-    })
-
-    if (config.express) {
-      gulp.task('bluekit-start', () => {
-        console.log('Starting BlueKit'); // eslint-disable-line no-console
-        generate();
-        createStandaloneServer(config)
-      })
-    }
+    console.log('Watching BlueKit in and automatically rebuilding on paths:') // eslint-disable-line no-console
+    console.log(watchPaths.join('\n')); // eslint-disable-line no-console
+    gulp.watch(watchPaths, [buildCommand]);
   }
+
+  const {buildCommand, watchCommand} = config
+
+  gulp.task(buildCommand || 'build-bluekit', () => {
+    console.log('Rebuilding BlueKit'); // eslint-disable-line no-console
+    generate();
+  })
+
+  gulp.task(watchCommand || 'watch-bluekit', () => {
+    watch();
+  })
 
   function generate() {
     const files = config.paths.map(file => (

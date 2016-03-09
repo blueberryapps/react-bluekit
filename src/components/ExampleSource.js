@@ -1,9 +1,10 @@
 import Highlight from './highlight';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import renderProp from './renderProp';
+import renderProp from '../helpers/renderProp';
 
-class ExampleSource extends Component {
+@Radium
+export default class ExampleSource extends Component {
 
   static propTypes = {
     atom: RPT.object.isRequired,
@@ -65,5 +66,3 @@ const styles = {
     padding: 0
   }
 };
-
-export default Radium(ExampleSource)

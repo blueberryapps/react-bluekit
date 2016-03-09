@@ -1,10 +1,7 @@
 import Radium from 'radium'
 import React, {Component, PropTypes as RPT} from 'react'
 
-const styles = {
-  width: '100%'
-};
-
+@Radium
 export default class TextField extends Component {
   static propTypes = {
     onChange: RPT.func.isRequired,
@@ -36,4 +33,6 @@ export default class TextField extends Component {
 
 };
 
-export default Radium(TextField)
+const styles = {
+  width: '100%'
+};

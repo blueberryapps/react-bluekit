@@ -1,11 +1,12 @@
-import getComponentLink from './getComponentLink'
+import getComponentLink from '../helpers/getComponentLink'
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import {Link} from 'react-router';
 
 const RadiumLink = Link;
 
-class Sidebar extends Component {
+@Radium
+export default class Sidebar extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
@@ -87,5 +88,3 @@ const styles = {
     backgroundColor: 'hsl(202, 100%, 96%)',
   },
 };
-
-export default Radium(Sidebar)
