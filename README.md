@@ -66,9 +66,11 @@ you can use `library.setValue(propName, newValue)` which take two arguments:
 ## Development of Component library
 ```
 npm install
-cd ./example_app
+cd ./example
 npm install
 gulp
+npm start
+open http://127.0.0.1:8001
 ```
 this will start development server and then you can play with Library components
 

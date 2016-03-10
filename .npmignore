@@ -3,6 +3,7 @@
 /.eslint*
 /.gitignore
 /.npmignore
+/.babelrc
 /docs/
 /examples/
 /example/

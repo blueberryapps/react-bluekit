@@ -63,7 +63,6 @@ function generateComponentData(config, file, directory) {
       .replace(/(?:^|[-_/])(\w)/g, (_, c) => c ? ` ${c.toUpperCase()}` : '')
       .replace(/\//g, '')
       .trim();
-
     const name = menu.replace(/\s/g, '');
 
     const importFile = getImportFile(directory, file)
@@ -83,7 +82,7 @@ function generateComponentData(config, file, directory) {
   }
   catch (error) {
     if (error.message !== 'No suitable component definition found.')
-      console.error(`\u001b[31mError parsing component ${file}: ${error.message}\u001b[0m`) // eslint-disable-line no-console
+      console.error(`\u001b[31mError parsing component ${file}: ${error.message}\u001b[0m`, error.stack) // eslint-disable-line no-console
     else
       console.warn(`\u001b[33m No suitable component definition found in ${file}\u001b[0m`) // eslint-disable-line no-console
     return null;

@@ -2,7 +2,7 @@ import {Component} from 'react';
 import ErrorMessage from './ErrorMessage.react';
 import Radium from 'radium';
 import React from 'react';
-import {form} from '../components/styleGlobals';
+import {form} from './styleGlobals';
 
 const styles = {
   wrapper: {
