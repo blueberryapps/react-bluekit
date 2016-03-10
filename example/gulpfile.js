@@ -1,4 +1,5 @@
 require('babel-register')
+
 const gulp = require('gulp')
 const path = require('path')
 const createBlueKit = require('../src/createBlueKit').default
@@ -10,4 +11,8 @@ createBlueKit({
   paths: ['../../example_components'],
 })
 
-gulp.task('default', ['build-bluekit'])
+gulp.task('server', function() {
+  require('./server')
+})
+
+gulp.task('default', ['build-bluekit', 'server', 'watch-bluekit'])
