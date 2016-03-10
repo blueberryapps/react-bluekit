@@ -77,6 +77,9 @@ export default class LibraryComponent extends Component {
           <h3 style={styles.blockHeading}>Code</h3>
           <ExampleSource atom={atom} componentProps={currentProps} />
         </div>
+        <h3 style={styles.blockHeading}>
+          Prop Variants
+        </h3>
         <Variants atom={atom} componentProps={currentProps} styles={styles} />
       </div>
     )
