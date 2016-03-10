@@ -11,7 +11,8 @@ export default class Library extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
-    mountPoint: RPT.string
+    inline: RPT.bool,
+    mountPoint: RPT.string,
   }
 
   state = {
@@ -23,11 +24,11 @@ export default class Library extends Component {
   }
 
   render() {
-    const {componentsIndex} = this.props
+    const {componentsIndex, inline} = this.props
     const {selectedAtom} = this.state
 
     return (
-      <div className='component-library' style={styles.wrapper}>
+      <div className='component-library' style={inline ? styles.wrapper.inline : styles.wrapper.fullPage}>
         <Header />
         <div style={styles.mainContainer}>
           <Sidebar
@@ -72,13 +73,18 @@ export default class Library extends Component {
 
 const styles = {
   wrapper: {
-    display: 'flex',
-    flexDirection: 'column',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    left: 0,
-    bottom: 0
+    fullPage: {
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      left: 0,
+      bottom: 0
+    },
+    inline: {
+      flexDirection: 'column'
+    }
   },
 
   mainContainer: {

@@ -30,7 +30,7 @@ export default class Sidebar extends Component {
       <li key={name} style={styles.sidebarElement}>
         <div
           key={name}
-          onClick={selectAtom(name)}
+          onClick={() => selectAtom(name)}
           style={[styles.link, selectedAtom === name && styles.sidebarLinkActive]}
         >
             {data.menu}

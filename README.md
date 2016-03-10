@@ -47,6 +47,7 @@ export default class PageWithBlueKit extends Component {
     return (
       <BlueKit
         componentsIndex={componentsIndex}
+        inline // display inline (not full page)
       />
     )
   }
