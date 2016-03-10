@@ -1,4 +1,5 @@
 import {Map} from 'immutable';
+import toSource from 'tosource';
 
 export default function buildProps(propsDefinition, allProps = false) {
   const props = {}
@@ -22,7 +23,7 @@ function calculateProp(type, prop) {
     case 'string': return `Default string ${prop}`
     case 'bool':   return true
     case 'number': return 1
-    case 'func':   return eval(`() => { alert('called function: ${prop}') }`) // eslint-disable-line no-eval
+    case 'func':   return () => {alert('called function')} // eslint-disable-line no-eval
     case 'enum':   return type.value[0].value.replace(/'/g, '')
     case 'shape':  return Map(type.value)
       .map((subType, name) => calculateProp(subType, name))

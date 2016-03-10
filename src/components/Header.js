@@ -1,32 +1,15 @@
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import {Link} from 'react-router';
-
-const RadiumLink = Link;
 
 @Radium
 export default class Header extends Component {
-
-  static propTypes = {
-    mountPoint: RPT.string.isRequired
-  }
 
   render() {
     const {mountPoint} = this.props
 
     return (
       <header style={styles.wrapper}>
-        <RadiumLink style={styles.link} to={`/${mountPoint}`}>
-          React Component Library
-        </RadiumLink>
-        {mountPoint &&
-          <RadiumLink style={[styles.link, {float: 'right'}]} to='/'>
-            <div style={styles.homeIcon.base}>
-              <div style={styles.homeIcon.before} />
-              <div style={styles.homeIcon.after} />
-            </div>
-          </RadiumLink>
-        }
+        BlueKit
       </header>
     );
   }

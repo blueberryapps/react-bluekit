@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from '../../node_modules/react';
+import BlueKit from '../../src/components/Library';
+import componentsIndex from './componentsIndex';
 
 export default class App extends Component {
   render() {
     return (
-      <h1>Hello, world.</h1>
+      <BlueKit componentsIndex={componentsIndex} />
     );
   }
 }
