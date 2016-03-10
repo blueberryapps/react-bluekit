@@ -103,7 +103,7 @@ export default function createBlueKit(config) {
 
   const watch = function() {
     const watchPaths = config.paths.map(file => (
-      path.relative(__dirname, path.join(config.baseDir, file, '**/*.js'))
+      path.relative(process.cwd(), path.join(config.baseDir, file, '**/*.js'))
     ));
 
     console.log('Watching BlueKit in and automatically rebuilding on paths:') // eslint-disable-line no-console

@@ -30,7 +30,7 @@ export default class List extends Component {
       <div key={name}>
         <div
           key={name}
-          onClick={selectAtom(name)}
+          onClick={() => selectAtom(name)}
           style={styles.headingLink}
         >
           {data.menu}
