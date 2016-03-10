@@ -1,7 +1,3 @@
-import createBlueKitRoutes from './createRoutes';
-import createBlueKit from './createConfig';
+import BlueKit from './components/Library';
 
-export default {
-  createBlueKitRoutes,
-  createBlueKit
-}
+export default BlueKit

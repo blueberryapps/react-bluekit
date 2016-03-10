@@ -1,6 +1,6 @@
 {
   "name": "react-bluekit",
-  "version": "0.0.24",
+  "version": "0.0.30",
   "description": "Visualisation and Playground generated from Components",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
@@ -62,7 +62,6 @@
     "react-docgen": ">=2.4.0",
     "react-dom": ">=0.13",
     "react-highlight": ">=0.5",
-    "react-router": ">=1",
     "tosource": ">=1"
   }
 }

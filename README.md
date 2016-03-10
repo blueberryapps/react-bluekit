@@ -9,7 +9,7 @@ $ npm install --save react-bluekit
 ## Usage in gulpfile to configure BlueKit
 
 ```js
-import {createBlueKit} from 'react-bluekit'
+import createBlueKit from 'react-bluekit/lib/createBlueKit'
 
 createBlueKit({
   // your directory where components are located
@@ -38,15 +38,18 @@ look at example directory
 and you need to add only:
 
 ```js
-// createRoutes.js
-import {createBlueKitRoutes} from 'react-bluekit';
+import BlueKit from 'react-bluekit';
+import componentsIndex from './componentsIndex';
+import React, {Component} from 'react';
 
-export default function createRoutes(getState) {
-  return (
-    <Route component={App} path="/"> // example
-      {createBlueKitRoutes('/bluekit')} // actual code to insert
-    </Route>
-  )
+export default class PageWithBlueKit extends Component {
+  render() {
+    return (
+      <BlueKit
+        componentsIndex={componentsIndex}
+      />
+    )
+  }
 }
 ```
 

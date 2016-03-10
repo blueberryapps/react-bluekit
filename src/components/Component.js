@@ -12,21 +12,17 @@ import {fromJS} from 'immutable';
 @Radium
 export default class LibraryComponent extends Component {
 
-  static contextTypes = {
-    componentsIndex: RPT.object.isRequired
-  }
-
   static propTypes = {
-    params: RPT.object.isRequired
+    componentsIndex: RPT.object.isRequired,
+    selectedAtom: RPT.string
   }
 
   state = {simpleProps: true}
 
   getCurrentComponent() {
-    const {componentsIndex} = this.context
-    const {params: {atom}} = this.props
+    const {selectedAtom, componentsIndex} = this.props
 
-    return componentsIndex[atom]
+    return componentsIndex[selectedAtom]
   }
 
   getCurrentProps() {
@@ -112,11 +108,11 @@ export default class LibraryComponent extends Component {
   }
 
   setValue(key, value, scope = []) {
-    const {params: {atom}} = this.props
+    const {selectedAtom} = this.props
 
     this.setState(
       fromJS(this.state)
-        .setIn([atom].concat(scope).concat(key), value)
+        .setIn([selectedAtom].concat(scope).concat(key), value)
         .toJS()
       )
   }
@@ -128,9 +124,9 @@ export default class LibraryComponent extends Component {
   }
 
   resetPropsToDefauls() {
-    const {params: {atom}} = this.props
+    const {selectedAtom} = this.props
 
-    this.setState({...this.state, [atom]: {}})
+    this.setState({...this.state, [selectedAtom]: {}})
   }
 }
 

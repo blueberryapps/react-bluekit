@@ -7,7 +7,6 @@ import toSource from 'tosource';
 import {parse as docgenParse} from 'react-docgen';
 
 const nunjuckEnv = nunjucks.configure(`${__dirname}/../nunjucks/`, {autoescape: false});
-const componentsIndexPath = `${__dirname}/componentsIndex.js`
 
 function getAllFilesInDir(dir, relativeDirectory = []) {
   const resolvedDir = path.join(dir, relativeDirectory);
@@ -41,7 +40,7 @@ function getImportFile(directory, file) {
     return pathParts.join(path.sep)
   }
 
-  return path.join(directory, file[0] === '.' ? file : `./${file}`)
+  return file[0] === '.' ? file : `./${file}`
 }
 
 function generateComponentData(config, file, directory) {
@@ -95,26 +94,29 @@ function getValidFiles(files) {
   return [].concat.apply([], files).filter(file => !!file);
 }
 
-export default function createConfig(config) {
+export default function createBlueKit(config) {
+
+  const {buildCommand, watchCommand} = config
+
+  const buildCommandName = buildCommand || 'build-bluekit'
+  const watchCommandName = watchCommand || 'watch-bluekit'
 
   const watch = function() {
     const watchPaths = config.paths.map(file => (
-      path.join(config.baseDir, file, '**/*.js')
+      path.relative(__dirname, path.join(config.baseDir, file, '**/*.js'))
     ));
 
     console.log('Watching BlueKit in and automatically rebuilding on paths:') // eslint-disable-line no-console
     console.log(watchPaths.join('\n')); // eslint-disable-line no-console
-    gulp.watch(watchPaths, [buildCommand]);
+    gulp.watch(watchPaths, [buildCommandName]);
   }
 
-  const {buildCommand, watchCommand} = config
-
-  gulp.task(buildCommand || 'build-bluekit', () => {
+  gulp.task(buildCommandName, () => {
     console.log('Rebuilding BlueKit'); // eslint-disable-line no-console
     generate();
   })
 
-  gulp.task(watchCommand || 'watch-bluekit', () => {
+  gulp.task(watchCommandName, () => {
     watch();
   })
 
@@ -137,10 +139,13 @@ export default function createConfig(config) {
       return generateComponentData(config, file, config.nodeModulesDir)
     }).filter(component => component !== null);
 
+    const indexFile = path.join(config.baseDir, 'componentsIndex.js')
     fs.writeFileSync(
-      componentsIndexPath,
+      indexFile,
       nunjuckEnv.render('componentsIndex.nunjucks', {components: components.concat(packageComponents)})
     );
+
+    console.log(`BlueKit generated components index to file: ${indexFile}`) // eslint-disable-line no-console
 
     return () => {};
   };
