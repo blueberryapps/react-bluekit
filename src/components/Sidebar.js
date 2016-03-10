@@ -11,11 +11,20 @@ export default class Sidebar extends Component {
   }
 
   render() {
-    const {componentsIndex} = this.props
+    const {componentsIndex, selectAtom, selectedAtom} = this.props
 
     return (
       <div style={styles.wrapper}>
         <ul style={styles.sidebar}>
+          <li key={name} style={styles.sidebarElement}>
+            <div
+              key="all-components"
+              onClick={() => selectAtom(null)}
+              style={[styles.link, !selectedAtom && styles.sidebarLinkActive]}
+            >
+                All components
+            </div>
+          </li>
           {Object.keys(componentsIndex).map(name => this.renderAtom(name))}
         </ul>
       </div>

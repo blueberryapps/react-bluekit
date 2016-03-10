@@ -1,4 +1,4 @@
-import Highlight from './highlight';
+import Highlight from './Highlight.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import renderProp from '../helpers/renderProp';
@@ -52,9 +52,11 @@ export default class ExampleSource extends Component {
   }
 
   renderInlineProps() {
+    const {atom: {propsDefinition}} = this.props
+
     const {componentProps} = this.props
     return Object.keys(componentProps)
-      .map((key) => `  ${renderProp(key, componentProps[key])}`)
+      .map((key) => `  ${renderProp(key, propsDefinition[key].type.name, componentProps[key])}`)
       .join('\n')
   }
 

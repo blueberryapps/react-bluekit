@@ -1,5 +1,5 @@
 import extendComponentProps from '../helpers/extendComponentProps';
-import Highlight from './highlight';
+import Highlight from './Highlight.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import renderProp from '../helpers/renderProp';
@@ -41,27 +41,27 @@ export default class Variants extends Component {
     const {type: {name, value}} = definition
 
     switch (name) {
-      case 'string': return this.renderVariants(key, ['', `Default string ${key}`])
-      case 'number': return this.renderVariants(key, [0, 1, 100, 1234.56])
-      case 'bool': return this.renderVariants(key, [false, true])
-      case 'enum' : return this.renderVariants(key, value.map(text => text.value.replace(/\'/g, '')))
+      case 'string': return this.renderVariants(key, name, ['', `Default string ${key}`])
+      case 'number': return this.renderVariants(key, name, [0, 1, 100, 1234.56])
+      case 'bool': return this.renderVariants(key, name, [false, true])
+      case 'enum' : return this.renderVariants(key, name, value.map(text => text.value.replace(/\'/g, '')))
     }
 
     return null
   }
 
-  renderVariants(key, variants) {
+  renderVariants(key, type, variants) {
     const {styles} = this.props
 
     return (
       <div style={[styles.paddedElement, styles.panel]}>
-        <h3 id={key} style={styles.blockHeading}>Prop variant: {key}</h3>
-        {variants.map(variant => this.renderVariant(key, variant))}
+        <h3 id={key} style={styles.blockHeading}>{key} ({type})</h3>
+        {variants.map(variant => this.renderVariant(key, type, variant))}
       </div>
     )
   }
 
-  renderVariant(key, variant) {
+  renderVariant(key, type, variant) {
     const {atom, componentProps} = this.props
     const ExampleAtom = resolveComponent(atom.component)
     const variantProps = {...componentProps, [key]: variant}
@@ -69,25 +69,10 @@ export default class Variants extends Component {
     return (
       <div key={variant}>
         <Highlight className='javascript'>
-          &lt;{atom.componentName} {renderProp(key, variant)} /&gt;
+          &lt;{atom.componentName} {renderProp(key, type, variant)} /&gt;
         </Highlight>
         <ExampleAtom {...this.getComponentExtendendProps()} {...variantProps} />
       </div>
     )
   }
 }
-
-const styles = {
-  pre: {
-    background: 'white',
-    border: '1px solid hsl(0, 0%, 70%)',
-    padding: '3px 10px',
-    margin: '0'
-  },
-
-  blockHeading: {
-    color: 'hsl(202, 40%, 50%)',
-    marginRight: '20px',
-    display: 'inline-block'
-  }
-};
