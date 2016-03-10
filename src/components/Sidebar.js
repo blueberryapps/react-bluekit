@@ -1,16 +1,13 @@
-import getComponentLink from '../helpers/getComponentLink'
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import {Link} from 'react-router';
-
-const RadiumLink = Link;
 
 @Radium
 export default class Sidebar extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
-    mountPoint: RPT.string
+    selectAtom: RPT.func.isRequired,
+    selectedAtom: RPT.string
   }
 
   render() {
@@ -26,19 +23,18 @@ export default class Sidebar extends Component {
   }
 
   renderAtom(name) {
-    const {mountPoint} = this.props
+    const {selectAtom, selectedAtom} = this.props
     const data = this.getComponentData(name)
 
     return (
       <li key={name} style={styles.sidebarElement}>
-        <RadiumLink
-          activeStyle={styles.sidebarLinkActive}
+        <div
           key={name}
-          style={styles.link}
-          to={getComponentLink({mountPoint, name})}
+          onClick={selectAtom(name)}
+          style={[styles.link, selectedAtom === name && styles.sidebarLinkActive]}
         >
             {data.menu}
-        </RadiumLink>
+        </div>
       </li>
     );
   }

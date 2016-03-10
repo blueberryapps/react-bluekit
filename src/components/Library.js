@@ -1,42 +1,42 @@
+import ComponentDetail from './Component';
 import Header from './Header';
 import HighlightStyle from './HighlightStyle';
 import List from './List';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import Sidebar from './Sidebar';
-import componentsIndex from '../componentsIndex';
 
 @Radium
 export default class Library extends Component {
 
-  static childContextTypes = {
-    componentsIndex: RPT.object
-  }
-
   static propTypes = {
-    children: RPT.object,
+    componentsIndex: RPT.object.isRequired,
     mountPoint: RPT.string
   }
 
-  getChildContext() {
-    return {
-      componentsIndex
-    };
+  state = {
+    selectedAtom: null
+  }
+
+  selectAtom(selectedAtom) {
+    this.setState({selectedAtom})
   }
 
   render() {
-    const {children, mountPoint} = this.props
+    const {componentsIndex} = this.props
+    const {selectedAtom} = this.state
 
     return (
       <div className='component-library' style={styles.wrapper}>
-        <Header mountPoint={mountPoint} />
+        <Header />
         <div style={styles.mainContainer}>
           <Sidebar
             componentsIndex={componentsIndex}
-            mountPoint={mountPoint}
+            selectAtom={this.selectAtom.bind(this)}
+            selectedAtom={selectedAtom}
           />
           <div style={styles.content}>
-            {children || this.renderList()}
+            {selectedAtom ? this.renderAtom() : this.renderList()}
           </div>
         </div>
         <HighlightStyle />
@@ -44,11 +44,28 @@ export default class Library extends Component {
     );
   }
 
-  renderList() {
-    const {mountPoint} = this.props
+  renderAtom() {
+    const {componentsIndex} = this.props
+    const {selectedAtom} = this.state
 
     return (
-      <List componentsIndex={componentsIndex} mountPoint={mountPoint} />
+      <ComponentDetail
+        componentsIndex={componentsIndex}
+        selectedAtom={selectedAtom}
+      />
+    );
+  }
+
+  renderList() {
+    const {componentsIndex} = this.props
+    const {selectedAtom} = this.state
+
+    return (
+      <List
+        componentsIndex={componentsIndex}
+        selectAtom={this.selectAtom.bind(this)}
+        selectedAtom={selectedAtom}
+      />
     );
   }
 }

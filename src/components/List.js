@@ -1,18 +1,14 @@
 import extendComponentProps from '../helpers/extendComponentProps';
-import getComponentLink from '../helpers/getComponentLink'
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import resolveComponent from '../helpers/resolveComponent';
-import {Link} from 'react-router';
-
-const RadiumLink = Link;
 
 @Radium
 export default class List extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
-    mountPoint: RPT.string.isRequired
+    selectAtom: RPT.func.isRequired
   }
 
   render() {
@@ -26,19 +22,19 @@ export default class List extends Component {
   }
 
   renderAtom(name) {
-    const {componentsIndex, mountPoint} = this.props
+    const {componentsIndex, selectAtom} = this.props
     const data = componentsIndex[name]
     const ExampleComponent = resolveComponent(data.component)
 
     return (
       <div key={name}>
-        <RadiumLink
+        <div
           key={name}
+          onClick={selectAtom(name)}
           style={styles.headingLink}
-          to={getComponentLink({mountPoint, name})}
         >
           {data.menu}
-        </RadiumLink>
+        </div>
         <div style={styles.column}>
           <ExampleComponent {...extendComponentProps(data.simpleProps, data.propsDefinition)} />
         </div>
