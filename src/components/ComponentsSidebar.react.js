@@ -1,6 +1,7 @@
+import font from './styles/Font';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import font from './styles/Font';
+import SearchBar from './SearchBar'
 
 @Radium
 export default class ComponentsSidebar extends Component {
@@ -11,11 +12,20 @@ export default class ComponentsSidebar extends Component {
     selectedAtom: RPT.string
   }
 
+  state = {
+    searchedAtoms: Object.keys(this.props.componentsIndex)
+  }
+
   render() {
     const {componentsIndex, selectAtom, selectedAtom} = this.props
+    const {searchedAtoms} = this.state
 
     return (
       <div style={styles.wrapper}>
+        <SearchBar
+            componentsIndex={componentsIndex}
+            searchAtoms={this.searchAtoms.bind(this)}
+        />
         <ul style={styles.sidebar}>
           <li key={name} style={styles.sidebarElement}>
             <div
@@ -26,10 +36,20 @@ export default class ComponentsSidebar extends Component {
                 All components
             </div>
           </li>
-          {Object.keys(componentsIndex).map(name => this.renderAtom(name))}
+          { searchedAtoms.map(name => this.renderAtom(name))}
         </ul>
       </div>
     );
+  }
+
+  searchAtoms(searchInput) {
+    const {componentsIndex} = this.props
+    let searchedAtoms = Object.keys(componentsIndex)
+    if (!!searchInput) {
+      searchedAtoms = Object.keys(componentsIndex)
+        .filter(name => name.toLowerCase().includes(searchInput) || searchInput.includes(name.toLowerCase()))
+    }
+    this.setState({searchedAtoms})
   }
 
   renderAtom(name) {
