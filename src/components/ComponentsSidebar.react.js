@@ -2,7 +2,7 @@ import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 
 @Radium
-export default class Sidebar extends Component {
+export default class ComponentsSidebar extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
@@ -59,8 +59,11 @@ export default class Sidebar extends Component {
 const styles = {
   wrapper: {
     backgroundColor: 'white',
-    width: '260px',
-    marginRight: '10px'
+    width: '250px',
+    position: 'fixed',
+    left: 0,
+    top: 0,
+    bottom: 0
   },
 
   sidebar: {
@@ -68,6 +71,7 @@ const styles = {
     zIndex: 2,
     flex: '0 0 20rem',
     padding: '0',
+    margin: 0
   },
 
   sidebarElement: {
