@@ -19,17 +19,27 @@ export default class ComponentsSidebar extends Component {
   }
 
   componentWillMount() {
-    let nodes = [];
-    DirectoryTree.generateTree(this.state.searchedAtoms).iterate(node=> { nodes.push(node) })
-    nodes = nodes.reverse()
+    const nodes = [];
+    DirectoryTree.generateTree(this.state.searchedAtoms).iterate(node=> { nodes.unshift(node) })
     this.setState({
       nodes
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    const nodes = [];
+    if (nextProps.componentsIndex !== this.props.componentsIndex) {
+      DirectoryTree.generateTree(this.state.searchedAtoms).iterate(node=> { nodes.unshift(node) })
+      this.setState({
+        nodes
+      });
+    }
+  }
+
   render() {
     const {componentsIndex, selectAtom, selectedAtom} = this.props
     const {nodes} = this.state
+
     return (
       <div style={styles.wrapper}>
         <SearchBar
@@ -54,14 +64,11 @@ export default class ComponentsSidebar extends Component {
 
   searchAtoms(searchInput) {
     const {componentsIndex} = this.props
-    let nodes = [];
-    let searchedAtoms = Object.keys(componentsIndex)
-    if (!!searchInput) {
-      searchedAtoms = Object.keys(componentsIndex)
-        .filter(name => name.toLowerCase().includes(searchInput) || searchInput.includes(name.toLowerCase()))
-    }
-    DirectoryTree.generateTree(searchedAtoms).iterate(node=> { nodes.push(node) })
-    nodes = nodes.reverse()
+    const nodes = [];
+    const searchedAtoms = (!!searchInput)
+      ? Object.keys(componentsIndex).filter(name => name.toLowerCase().includes(searchInput) || searchInput.includes(name.toLowerCase()))
+      : Object.keys(componentsIndex)
+    DirectoryTree.generateTree(searchedAtoms).iterate(node=> { nodes.unshift(node) })
     this.setState({nodes, searchedAtoms})
   }
 
