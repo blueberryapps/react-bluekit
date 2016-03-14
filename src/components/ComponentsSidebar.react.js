@@ -21,6 +21,7 @@ export default class ComponentsSidebar extends Component {
   componentWillMount() {
     let nodes = [];
     DirectoryTree.generateTree(this.state.searchedAtoms).iterate(node=> { nodes.push(node) })
+    nodes = nodes.reverse()
     this.setState({
       nodes
     });
@@ -45,7 +46,7 @@ export default class ComponentsSidebar extends Component {
                 All components
             </div>
           </li>
-          {nodes.reverse().map(node => this.renderAtom(node))}
+          {nodes.map(node => this.renderAtom(node))}
         </ul>
       </div>
     );
@@ -60,6 +61,7 @@ export default class ComponentsSidebar extends Component {
         .filter(name => name.toLowerCase().includes(searchInput) || searchInput.includes(name.toLowerCase()))
     }
     DirectoryTree.generateTree(searchedAtoms).iterate(node=> { nodes.push(node) })
+    nodes = nodes.reverse()
     this.setState({nodes, searchedAtoms})
   }
 
