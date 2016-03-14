@@ -1,3 +1,3 @@
-import BlueKit from './components/Library';
+import BlueKit from './components/Page.react';
 
 export default BlueKit

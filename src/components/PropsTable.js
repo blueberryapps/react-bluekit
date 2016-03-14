@@ -6,11 +6,13 @@ import {Map, fromJS} from 'immutable';
 @Radium
 export default class PropsTable extends Component {
 
+  static contextTypes = {
+    createSetAtomProp: RPT.func.isRequired
+  }
+
   static propTypes = {
     atom: RPT.object.isRequired,
-    componentProps: RPT.object.isRequired,
-    handleChange: RPT.func.isRequired,
-    mountPoint: RPT.string
+    componentProps: RPT.object.isRequired
   }
 
   render() {
@@ -87,10 +89,11 @@ export default class PropsTable extends Component {
   }
 
   renderValueSelection(key, type, scope = []) {
-    const {componentProps, handleChange} = this.props
+    const {componentProps} = this.props
+    const {createSetAtomProp} = this.context
 
     const defaultProps = {
-      onChange: handleChange(key, type.name, scope),
+      onChange: createSetAtomProp(key, type.name, scope),
       value: fromJS(componentProps).getIn(scope.concat([key]))
     }
 
