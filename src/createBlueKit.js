@@ -1,6 +1,5 @@
 import buildProps from './helpers/buildProps';
 import fs from 'fs';
-import gulp from 'gulp';
 import normalizePath from './helpers/normalizePath';
 import nunjucks from 'nunjucks';
 import path from 'path';
@@ -95,7 +94,7 @@ function getValidFiles(files) {
   return [].concat.apply([], files).filter(file => !!file);
 }
 
-export default function createBlueKit(config) {
+export default function createBlueKit(gulp, config) {
 
   const {buildCommand, watchCommand} = config
 
