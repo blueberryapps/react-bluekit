@@ -1,5 +1,6 @@
 import buildProps from './helpers/buildProps';
 import fs from 'fs';
+import packagedGulp from 'gulp';
 import normalizePath from './helpers/normalizePath';
 import nunjucks from 'nunjucks';
 import path from 'path';
@@ -94,10 +95,11 @@ function getValidFiles(files) {
   return [].concat.apply([], files).filter(file => !!file);
 }
 
-export default function createBlueKit(gulp, config) {
+export default function createBlueKit(config) {
 
-  const {buildCommand, watchCommand} = config
+  const {buildCommand, watchCommand, gulp} = config
 
+  const gulpRuntime = gulp || packagedGulp
   const buildCommandName = buildCommand || 'build-bluekit'
   const watchCommandName = watchCommand || 'watch-bluekit'
 
@@ -108,15 +110,15 @@ export default function createBlueKit(gulp, config) {
 
     console.log('Watching BlueKit in and automatically rebuilding on paths:') // eslint-disable-line no-console
     console.log(watchPaths.join('\n')); // eslint-disable-line no-console
-    gulp.watch(watchPaths, [buildCommandName]);
+    gulpRuntime.watch(watchPaths, [buildCommandName]);
   }
 
-  gulp.task(buildCommandName, () => {
+  gulpRuntime.task(buildCommandName, () => {
     console.log('Rebuilding BlueKit'); // eslint-disable-line no-console
     generate();
   })
 
-  gulp.task(watchCommandName, () => {
+  gulpRuntime.task(watchCommandName, () => {
     watch();
   })
 
