@@ -1,4 +1,5 @@
 import font from './styles/Font';
+import DirectoryTree from '../helpers/directoryTree'
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import SearchBar from './SearchBar'
@@ -13,13 +14,21 @@ export default class ComponentsSidebar extends Component {
   }
 
   state = {
-    searchedAtoms: Object.keys(this.props.componentsIndex)
+    nodes: [],
+    searchedAtoms: Object.keys(this.props.componentsIndex),
+  }
+
+  componentWillMount() {
+    let nodes = [];
+    DirectoryTree.generateTree(this.state.searchedAtoms).iterate(node=> { nodes.push(node) })
+    this.setState({
+      nodes
+    });
   }
 
   render() {
     const {componentsIndex, selectAtom, selectedAtom} = this.props
-    const {searchedAtoms} = this.state
-
+    const {nodes} = this.state
     return (
       <div style={styles.wrapper}>
         <SearchBar
@@ -36,7 +45,7 @@ export default class ComponentsSidebar extends Component {
                 All components
             </div>
           </li>
-          { searchedAtoms.map(name => this.renderAtom(name))}
+          {nodes.reverse().map(node => this.renderAtom(node))}
         </ul>
       </div>
     );
@@ -44,29 +53,42 @@ export default class ComponentsSidebar extends Component {
 
   searchAtoms(searchInput) {
     const {componentsIndex} = this.props
+    let nodes = [];
     let searchedAtoms = Object.keys(componentsIndex)
     if (!!searchInput) {
       searchedAtoms = Object.keys(componentsIndex)
         .filter(name => name.toLowerCase().includes(searchInput) || searchInput.includes(name.toLowerCase()))
     }
-    this.setState({searchedAtoms})
+    DirectoryTree.generateTree(searchedAtoms).iterate(node=> { nodes.push(node) })
+    this.setState({nodes, searchedAtoms})
   }
 
-  renderAtom(name) {
-    const {selectAtom, selectedAtom} = this.props
-    const data = this.getComponentData(name)
 
-    return (
-      <li key={name} style={styles.sidebarElement}>
+  renderAtom(node) {
+    const {selectAtom, selectedAtom} = this.props
+    const data = this.getComponentData(node.fullName())
+    if (!!data) {
+      return (
+      <li key={node.fullName()} style={styles.sidebarElement}>
         <div
-          key={name}
-          onClick={() => selectAtom(name)}
-          style={[styles.link, selectedAtom === name && styles.sidebarLinkActive, font]}
+          key={node.fullName()}
+          onClick={() => selectAtom(node.fullName())}
+          style={[styles.link, selectedAtom === node.data && styles.sidebarLinkActive, font]}
         >
             {data.menu}
         </div>
       </li>
-    );
+      );
+    }
+    else {
+      return (
+        <li style={styles.sidebarElement}>
+          <div key={node.fullName()} style={[styles.link, dynamicMargin(node.depth)]}>
+            {node.data}
+          </div>
+        </li>
+      )
+    }
   }
 
   getComponentData(name) {
@@ -75,6 +97,12 @@ export default class ComponentsSidebar extends Component {
     return componentsIndex[name]
   }
 
+}
+
+const dynamicMargin = function(depth) {
+  return {
+    marginLeft: `${depth * 10}px`
+  }
 }
 
 const styles = {
