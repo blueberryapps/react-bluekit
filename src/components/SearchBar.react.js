@@ -1,5 +1,6 @@
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
+import Input from './atoms/Input.react'
 
 @Radium
 export default class SearchBar extends Component {
@@ -13,7 +14,7 @@ export default class SearchBar extends Component {
 
     return (
       <div>
-        <input onChange={e => searchAtoms(e.target.value)} type="text" />
+        <Input onChange={e => searchAtoms(e.target.value)} placeholder='Search your component' type='text' />
       </div>
      );
   }

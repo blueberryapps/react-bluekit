@@ -5,6 +5,7 @@ import List from './List.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import StateProvider from './StateProvider.react'
+import * as colors from './styles/Colors.js'
 
 @StateProvider
 @Radium
@@ -102,7 +103,9 @@ const styles = {
     width: '20%',
     height: '100%',
     display: 'inline-block',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    boxSizing: 'border-box',
+    borderRight: `1px solid ${colors.GRAY_DARKER}`
   },
   content: {
     width: '80%',

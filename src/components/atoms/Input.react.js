@@ -21,6 +21,7 @@ export default class Input extends Component {
         style={styles.input}
         type={type}
         value={value}
+        {...this.props}
       />
     );
   }
