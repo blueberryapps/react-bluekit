@@ -1,8 +1,9 @@
-import ExampleSource from './ExampleSource';
+import ExampleSource from './ExampleSource.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import resolveComponent from '../helpers/resolveComponent';
-import Variants from './Variants';
+import Variants from './Variants.react';
+import font from './styles/Font';
 
 @Radium
 export default class Detail extends Component {
@@ -19,21 +20,21 @@ export default class Detail extends Component {
 
     return (
       <div>
-        <h1 style={styles.heading}>
+        <h1 style={[styles.heading, font]}>
           {atom.componentName}
           <small style={styles.headingSmall}>{atom.file}</small>
         </h1>
         <div style={styles.panel}>
-          <h3 style={styles.blockHeading}>Example</h3>
+          <h3 style={[styles.blockHeading, font]}>Example</h3>
           <div>
             <ExampleAtom {...extendedProps} />
           </div>
         </div>
         <div style={styles.panel}>
-          <h3 style={styles.blockHeading}>Code</h3>
+          <h3 style={[styles.blockHeading, font]}>Code</h3>
           <ExampleSource atom={atom} componentProps={currentProps} />
         </div>
-        <h3 style={styles.blockHeading}>
+        <h3 style={[styles.blockHeading, font]}>
           Prop Variants
         </h3>
         <Variants atom={atom} componentProps={currentProps} styles={styles} />

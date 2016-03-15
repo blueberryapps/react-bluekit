@@ -1,7 +1,8 @@
 import Button from './Button.react';
-import PropsTable from './PropsTable';
+import PropsTable from './PropsTable.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
+import {GRAY} from './styles/Colors'
 
 @Radium
 export default class ControlsSidebar extends Component {
@@ -34,11 +35,9 @@ export default class ControlsSidebar extends Component {
 
 const styles = {
   wrapper: {
-    backgroundColor: '#dedede',
-    width: '300px',
-    position: 'fixed',
-    left: '250px',
-    top: 0,
-    bottom: 0
+    backgroundColor: GRAY,
+    width: '100%',
+    display: 'inline-block',
+    minHeight: '100%'
   }
 };

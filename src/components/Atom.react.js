@@ -5,6 +5,7 @@ import extendComponentProps from '../helpers/extendComponentProps';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import resolveComponent from '../helpers/resolveComponent';
+
 @Radium
 export default class Atom extends Component {
 
@@ -57,18 +58,41 @@ export default class Atom extends Component {
 
     return (
       <div>
-        <ControlsSidebar
-          atom={atom}
-          currentProps={currentProps}
-          simplePropsSelected={simplePropsSelected}
-        />
-        <Detail
-          atom={atom}
-          currentProps={currentProps}
-          extendedProps={extendedProps}
-        />
+        <div style={[styles.wrapper, styles.wrapper.sidebar]}>
+          <ControlsSidebar
+            atom={atom}
+            currentProps={currentProps}
+            simplePropsSelected={simplePropsSelected}
+          />
+        </div>
+        <div style={[styles.wrapper, styles.wrapper.detail]}>
+          <Detail
+            atom={atom}
+            currentProps={currentProps}
+            extendedProps={extendedProps}
+          />
+        </div>
       </div>
     )
   }
 
+}
+
+const styles = {
+  wrapper: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    overflowY: 'auto',
+
+    sidebar: {
+      width: '40%',
+      left: 0,
+    },
+
+    detail: {
+      width: '60%',
+      right: 0,
+    }
+  }
 }
