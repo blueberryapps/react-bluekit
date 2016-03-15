@@ -5,7 +5,9 @@ import componentsIndex from './componentsIndex';
 export default class App extends Component {
   render() {
     return (
-      <BlueKit componentsIndex={componentsIndex} />
+      <BlueKit
+        componentsIndex={componentsIndex}
+      />
     );
   }
 }

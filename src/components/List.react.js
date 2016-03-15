@@ -1,4 +1,5 @@
 import extendComponentProps from '../helpers/extendComponentProps';
+import font from './styles/Font';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import resolveComponent from '../helpers/resolveComponent';
@@ -31,7 +32,7 @@ export default class List extends Component {
         <div
           key={name}
           onClick={() => selectAtom(name)}
-          style={styles.headingLink}
+          style={[styles.headingLink, font]}
         >
           {data.menu}
         </div>
