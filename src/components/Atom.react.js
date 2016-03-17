@@ -84,14 +84,12 @@ const styles = {
     top: 0,
     bottom: 0,
     overflowY: 'auto',
-
     sidebar: {
-      width: '40%',
+      width: '25%',
       left: 0,
     },
-
     detail: {
-      width: '60%',
+      width: '75%',
       right: 0,
     }
   }

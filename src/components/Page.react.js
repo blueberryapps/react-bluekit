@@ -13,7 +13,7 @@ export default class Page extends Component {
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
     customProps: RPT.object,
-    height: RPT.number,
+    height: RPT.string,
     inline: RPT.bool,
     mountPoint: RPT.string,
     selectedAtom: RPT.string,
@@ -95,17 +95,17 @@ const styles = {
       left: 0,
       right: 0,
       top: 0,
-      bottom: 0,
+      bottom: 0
     }
   },
   sidebar: {
-    width: '25%',
+    width: '20%',
     height: '100%',
     display: 'inline-block',
     overflowY: 'auto'
   },
   content: {
-    width: '75%',
+    width: '80%',
     height: '100%',
     display: 'inline-block',
     position: 'relative'
@@ -117,6 +117,5 @@ const styles = {
     top: 0,
     bottom: 0,
     overflowY: 'auto'
-  },
-
+  }
 };

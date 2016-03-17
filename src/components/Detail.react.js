@@ -1,9 +1,10 @@
 import ExampleSource from './ExampleSource.react';
+import headingStyles from './styles/Headings';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import resolveComponent from '../helpers/resolveComponent';
 import Variants from './Variants.react';
-import font from './styles/Font';
+import * as colors from './styles/Colors.js';
 
 @Radium
 export default class Detail extends Component {
@@ -19,24 +20,14 @@ export default class Detail extends Component {
     const ExampleAtom = resolveComponent(atom.component)
 
     return (
-      <div>
-        <h1 style={[styles.heading, font]}>
-          {atom.componentName}
-          <small style={styles.headingSmall}>{atom.file}</small>
-        </h1>
-        <div style={styles.panel}>
-          <h3 style={[styles.blockHeading, font]}>Example</h3>
+      <div style={styles.wrapper}>
+        <div style={[styles.panel, styles.panel.first]}>
+          <h2 style={headingStyles}>Preview</h2>
           <div>
             <ExampleAtom {...extendedProps} />
           </div>
-        </div>
-        <div style={styles.panel}>
-          <h3 style={[styles.blockHeading, font]}>Code</h3>
           <ExampleSource atom={atom} componentProps={currentProps} />
         </div>
-        <h3 style={[styles.blockHeading, font]}>
-          Prop Variants
-        </h3>
         <Variants atom={atom} componentProps={currentProps} styles={styles} />
       </div>
     )
@@ -45,38 +36,21 @@ export default class Detail extends Component {
 }
 
 const styles = {
-  heading: {
-    color: 'hsl(26, 100%, 58%)',
-    fontSize: '32px',
-    fontWeight: '400',
-    padding: '30px 10px 0 10px',
-    margin: '0',
+  wrapper: {
+    padding: '30px'
   },
 
-  headingSmall: {
-    color: 'hsl(202, 40%, 50%)',
-    fontSize: '14px',
-    fontWeight: '300',
-    display: 'block',
-    width: '100%'
-  },
-
-  blockHeading: {
-    color: 'hsl(202, 40%, 50%)',
-    marginRight: '20px',
-    display: 'inline-block'
-  },
+  headingStyles,
 
   panel: {
-    borderLeft: '10px solid hsl(202, 100%, 85%)',
-    marginTop: '2rem',
-    marginBottom: '2rem',
-    background: 'hsl(202, 100%, 96%)',
-    padding: '10px 10px 30px 20px'
-  },
-
-  pre: {
-    background: 'white',
-    border: '1px solid hsl(0, 0%, 70%)',
-  },
+    paddingTop: '50px',
+    marginBottom: '50px',
+    borderTop: `1px solid ${colors.GRAY_DARKER}`,
+    first: {
+      paddingTop: 0,
+      borderTop: 0,
+      paddingBottom: '40px',
+      marginBottom: 0
+    }
+  }
 };
