@@ -1,3 +1,4 @@
+import CopyCode from './CopyCode.react';
 import extendComponentProps from '../helpers/extendComponentProps';
 import Highlight from './Highlight.react';
 import Radium from 'radium';
@@ -55,7 +56,7 @@ export default class Variants extends Component {
 
     return (
       <div style={[styles.paddedElement, styles.panel]}>
-        <h3 id={key} style={styles.blockHeading}>{key} ({type})</h3>
+        <h2 id={key} style={styles.headingStyles}>Prop variant: {key}</h2>
         {variants.map(variant => this.renderVariant(key, type, variant))}
       </div>
     )
@@ -65,11 +66,13 @@ export default class Variants extends Component {
     const {atom, componentProps} = this.props
     const ExampleAtom = resolveComponent(atom.component)
     const variantProps = {...componentProps, [key]: variant}
+    const source = `<${atom.componentName} ${renderProp(key, type, variant)} />`
 
     return (
       <div key={variant}>
         <Highlight className='javascript'>
-          &lt;{atom.componentName} {renderProp(key, type, variant)} /&gt;
+          {source}
+          <CopyCode source={source} />
         </Highlight>
         <ExampleAtom {...this.getComponentExtendendProps()} {...variantProps} />
       </div>
