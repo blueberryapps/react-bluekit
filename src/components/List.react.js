@@ -1,8 +1,9 @@
 import extendComponentProps from '../helpers/extendComponentProps';
-import font from './styles/Font';
+import headingStyles from './styles/Headings';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import resolveComponent from '../helpers/resolveComponent';
+import * as colors from './styles/Colors'
 
 @Radium
 export default class List extends Component {
@@ -16,23 +17,33 @@ export default class List extends Component {
     const {componentsIndex} = this.props
 
     return (
-      <div>
-        {Object.keys(componentsIndex).map(name => this.renderAtom(name))}
+      <div style={styles.wrapper}>
+        <div style={styles.wrapper.row}>
+          {Object.keys(componentsIndex).map(
+            (name, index) => this.renderAtom(name, index % 2)
+          )}
+        </div>
       </div>
     );
   }
 
-  renderAtom(name) {
+  renderAtom(name, isOdd) {
     const {componentsIndex, selectAtom} = this.props
     const data = componentsIndex[name]
     const ExampleComponent = resolveComponent(data.component)
 
     return (
-      <div key={name}>
+      <div
+        key={name}
+        style={[
+          styles.atom.wrapper,
+          isOdd && styles.atom.wrapper.odd
+        ]}
+      >
         <div
           key={name}
           onClick={() => selectAtom(name)}
-          style={[styles.headingLink, font]}
+          style={headingStyles}
         >
           {data.menu}
         </div>
@@ -48,24 +59,29 @@ export default class List extends Component {
 }
 
 const styles = {
-  column: {
-    width: '49%',
-    display: 'inline-block',
-    borderLeft: '10px solid hsl(202, 100%, 85%)',
-    marginTop: '5px',
-    marginBottom: '0',
-    marginRight: '10px',
-    paddingTop: '20px',
-    paddingBottom: '50px',
-    paddingLeft: '20px',
-    paddingRight: '30px',
-    background: 'hsl(202, 100%, 96%)',
+  wrapper: {
+    padding: '15px',
+    row: {
+      display: 'flex',
+      flexWrap: 'wrap'
+    }
   },
 
-  headingLink: {
-    display: 'block',
-    color: 'hsl(26, 100%, 58%)',
-    textDecoration: 'underline',
-    padding: '30px 0 10px 0',
+  atom: {
+    wrapper: {
+      width: '50%',
+      float: 'left',
+      padding: '15px 15px 15px 0',
+      boxSizing: 'border-box',
+      borderBottom: `1px solid ${colors.GRAY_DARKER}`,
+      borderRight: `1px solid ${colors.GRAY_DARKER}`,
+      odd: {
+        borderRight: 0,
+        padding: '15px 0 15px 15px'
+      }
+    },
+    column: {
+      textAlign: 'center'
+    }
   }
 }

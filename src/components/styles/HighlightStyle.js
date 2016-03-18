@@ -1,5 +1,6 @@
 import Radium, {Style} from 'radium';
 import React, {Component} from 'react';
+import * as colors from './Colors'
 
 @Radium
 export default class HighlightStyle extends Component {
@@ -57,10 +58,11 @@ export default class HighlightStyle extends Component {
         },
 
         '.javascript': {
-          border: '1px solid #b3e3ff',
-          margin: 0,
+          border: `1px solid ${colors.GRAY_DARKER}`,
+          margin: '20px 0',
           padding: '10px 20px',
           fontSize: '14px',
+          position: 'relative'
         }
       }}/>
     )
