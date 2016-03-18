@@ -1,17 +1,17 @@
 import deepMerge from './deepMerge';
 
-export default function extendProps(defaultProps, customProps, component, propsDefinition, library) {
+export default function extendProps({defaultProps, customProps, component, propsDefinition, createSetAtomProp, setAtomProp}) {
   const override = {}
 
   if (propsDefinition.onChange && propsDefinition.value)
-    override.onChange = library.createHandleChange(library)('value', propsDefinition.value.type.name)
+    override.onChange = createSetAtomProp('value', propsDefinition.value.type.name)
 
   const enhance = component.enhanceComponentLibraryDefaults
-    ? component.enhanceComponentLibraryDefaults(override, library)
+    ? component.enhanceComponentLibraryDefaults(override, setAtomProp)
     : override
 
   const extend = component.extendComponentLibraryProps
-    ? component.extendComponentLibraryProps(enhance, library)
+    ? component.extendComponentLibraryProps(enhance, setAtomProp)
     : enhance
 
   return deepMerge(defaultProps, customProps, extend)

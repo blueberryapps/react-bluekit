@@ -2,15 +2,18 @@ import FluidTextArea from './FluidTextArea.react.js';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import {Map, fromJS} from 'immutable';
+import font from './styles/Font';
 
 @Radium
 export default class PropsTable extends Component {
 
+  static contextTypes = {
+    createSetAtomProp: RPT.func.isRequired
+  }
+
   static propTypes = {
     atom: RPT.object.isRequired,
-    componentProps: RPT.object.isRequired,
-    handleChange: RPT.func.isRequired,
-    mountPoint: RPT.string
+    componentProps: RPT.object.isRequired
   }
 
   render() {
@@ -19,7 +22,7 @@ export default class PropsTable extends Component {
       return <i>No props defined</i>
 
     return (
-      <table style={styles.table}>
+      <table style={[styles.table, font]}>
         <thead>
           <tr style={styles.tableHeader}>
             <th style={styles.tableCell}>prop</th>
@@ -87,10 +90,11 @@ export default class PropsTable extends Component {
   }
 
   renderValueSelection(key, type, scope = []) {
-    const {componentProps, handleChange} = this.props
+    const {componentProps} = this.props
+    const {createSetAtomProp} = this.context
 
     const defaultProps = {
-      onChange: handleChange(key, type.name, scope),
+      onChange: createSetAtomProp(key, type.name, scope),
       value: fromJS(componentProps).getIn(scope.concat([key]))
     }
 

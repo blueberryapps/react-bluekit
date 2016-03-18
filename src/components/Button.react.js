@@ -1,6 +1,7 @@
 import color from 'color';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
+import font from './styles/Font';
 
 @Radium
 export default class Button extends Component {
@@ -17,7 +18,12 @@ export default class Button extends Component {
     return (
       <button
         onClick={onClick}
-        style={[styles.button, styles.kind[kind]]}
+        style={[
+          styles.button,
+          styles.kind[kind],
+          font,
+          font.bold
+        ]}
       >
         {children}
       </button>
@@ -33,7 +39,6 @@ const styles = {
     borderRadius: 0,
     color: 'white',
     fontSize: '14px',
-    fontWeight: 'bold',
     padding: '5px 10px',
     marginRight: '5px',
     outline: 'none',

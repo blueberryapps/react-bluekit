@@ -1,8 +1,9 @@
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
+import font from './styles/Font';
 
 @Radium
-export default class Sidebar extends Component {
+export default class ComponentsSidebar extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
@@ -20,7 +21,7 @@ export default class Sidebar extends Component {
             <div
               key="all-components"
               onClick={() => selectAtom(null)}
-              style={[styles.link, !selectedAtom && styles.sidebarLinkActive]}
+              style={[styles.link, !selectedAtom && styles.sidebarLinkActive, font]}
             >
                 All components
             </div>
@@ -40,7 +41,7 @@ export default class Sidebar extends Component {
         <div
           key={name}
           onClick={() => selectAtom(name)}
-          style={[styles.link, selectedAtom === name && styles.sidebarLinkActive]}
+          style={[styles.link, selectedAtom === name && styles.sidebarLinkActive, font]}
         >
             {data.menu}
         </div>
@@ -59,15 +60,6 @@ export default class Sidebar extends Component {
 const styles = {
   wrapper: {
     backgroundColor: 'white',
-    width: '260px',
-    marginRight: '10px'
-  },
-
-  sidebar: {
-    position: 'relative',
-    zIndex: 2,
-    flex: '0 0 20rem',
-    padding: '0',
   },
 
   sidebarElement: {
