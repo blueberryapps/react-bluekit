@@ -3,6 +3,8 @@ import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import {Map, fromJS} from 'immutable';
 import font from './styles/Font';
+import spaces from './styles/Spaces'
+import * as colors from './styles/Colors'
 
 @Radium
 export default class PropsTable extends Component {
@@ -22,19 +24,9 @@ export default class PropsTable extends Component {
       return <i>No props defined</i>
 
     return (
-      <table style={[styles.table, font]}>
-        <thead>
-          <tr style={styles.tableHeader}>
-            <th style={styles.tableCell}>prop</th>
-            <th style={styles.tableCell}>type</th>
-            <th style={styles.tableCell}>required</th>
-            <th style={styles.tableCell}>value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Map(propsDefinition).map((value, key) => this.renderPropRow(value, key))}
-        </tbody>
-      </table>
+      <div style={font}>
+        {Map(propsDefinition).map((value, key) => this.renderPropRow(value, key))}
+      </div>
     )
   }
 
@@ -46,13 +38,22 @@ export default class PropsTable extends Component {
         Map(data.type.value).map((v, k) => this.renderShapePropRow(v, k, [key]))
       )
 
+    const required = data.required
+
     return (
-      <tr key={key} style={styles.tableRow}>
-        <td style={styles.tableCell}><b>{this.renderNameOfProp(key, data.type.name)}</b></td>
-        <td style={styles.tableCell}>{data.type.name}</td>
-        <td style={styles.tableCell}>{data.required && 'true'}</td>
-        <td style={styles.tableCell}>{this.renderValueSelection(key, data.type)}</td>
-      </tr>
+      <div key={key} style={styles.row}>
+        <div style={[styles.prop, styles.prop.info, required && font.bold]}>
+          {this.renderNameOfProp(key, data.type.name)}
+          {required && '*'}
+          <small style={styles.prop.small}>{data.type.name}</small>
+        </div>
+        <div style={[styles.prop, styles.prop.value]}>
+          {data.type.name === 'func'
+            ? 'func()'
+            : this.renderValueSelection(key, data.type)
+          }
+        </div>
+      </div>
     )
   }
 
@@ -119,8 +120,37 @@ export default class PropsTable extends Component {
 }
 
 const styles = {
+  row: {
+    clear: 'both'
+  },
+
+  prop: {
+    float: 'left',
+    width: '50%',
+    boxSizing: 'border-box',
+    info: {
+      color: colors.BLUE,
+      wordBreak: 'break-all',
+      borderLeft: '5px solid transparent',
+      padding: `${spaces.small} ${spaces.small} ${spaces.small} ${spaces.smaller}`,
+      active: {
+        borderLeft: `5px solid ${colors.BLUE}`
+      }
+    },
+    value: {
+      color: 'yellow',
+      padding: `${spaces.small} ${spaces.normal} ${spaces.small} ${spaces.small}`,
+      textAlign: 'right'
+    },
+    small: {
+      display: 'block',
+      color: 'orange'
+    }
+  },
+
   table: {
     width: '100%',
+    maxWidth: '100%',
     fontSize: '12px',
     textAlign: 'left',
     color: 'hsl(202, 71%, 36%)'
