@@ -1,8 +1,13 @@
+import {Map, fromJS} from 'immutable';
 import FluidTextArea from './FluidTextArea.react.js';
+import font from './styles/Font';
+import Checkbox from './atoms/Checkbox.react';
+import Input from './atoms/Input.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import {Map, fromJS} from 'immutable';
-import font from './styles/Font';
+import Select from './atoms/Select.react';
+import spaces from './styles/Spaces'
+import * as colors from './styles/Colors'
 
 @Radium
 export default class PropsTable extends Component {
@@ -22,19 +27,9 @@ export default class PropsTable extends Component {
       return <i>No props defined</i>
 
     return (
-      <table style={[styles.table, font]}>
-        <thead>
-          <tr style={styles.tableHeader}>
-            <th style={styles.tableCell}>prop</th>
-            <th style={styles.tableCell}>type</th>
-            <th style={styles.tableCell}>required</th>
-            <th style={styles.tableCell}>value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {Map(propsDefinition).map((value, key) => this.renderPropRow(value, key))}
-        </tbody>
-      </table>
+      <div style={font}>
+        {Map(propsDefinition).map((value, key) => this.renderPropRow(value, key))}
+      </div>
     )
   }
 
@@ -46,13 +41,22 @@ export default class PropsTable extends Component {
         Map(data.type.value).map((v, k) => this.renderShapePropRow(v, k, [key]))
       )
 
+    const required = data.required
+
     return (
-      <tr key={key} style={styles.tableRow}>
-        <td style={styles.tableCell}><b>{this.renderNameOfProp(key, data.type.name)}</b></td>
-        <td style={styles.tableCell}>{data.type.name}</td>
-        <td style={styles.tableCell}>{data.required && 'true'}</td>
-        <td style={styles.tableCell}>{this.renderValueSelection(key, data.type)}</td>
-      </tr>
+      <div key={key} style={styles.row}>
+        <div style={[styles.prop, styles.prop.info, required && font.bold]}>
+          {this.renderNameOfProp(key, data.type.name)}
+          {required && '*'}
+          <small style={styles.prop.small}>{data.type.name}</small>
+        </div>
+        <div style={[styles.prop, styles.prop.value]}>
+          {data.type.name === 'func'
+            ? 'func()'
+            : this.renderValueSelection(key, data.type)
+          }
+        </div>
+      </div>
     )
   }
 
@@ -60,7 +64,7 @@ export default class PropsTable extends Component {
     if (['string', 'number', 'bool', 'enum'].indexOf(kind) === -1)
       return name
     else
-      return <a href={`#${name}`} style={styles.propLink}>{name}</a>
+      return <a href={`#${name}`} style={styles.prop.value.link}>{name}</a>
   }
 
   renderShapePropRow(data, key, scope = []) {
@@ -99,89 +103,52 @@ export default class PropsTable extends Component {
     }
 
     switch (type.name) {
-      case 'any': return <input key={key} style={styles.input} type='text' {...defaultProps} />
-      case 'node': return <input key={key} style={styles.input} type='text' {...defaultProps} />
-      case 'shape': return <FluidTextArea type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
-      case 'arrayOf': return <FluidTextArea type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
-      case 'string': return <input key={key} style={styles.input} type='text' {...defaultProps} />
-      case 'number': return <input key={key} style={styles.input} type='number' {...defaultProps} />
-      case 'bool': return <input type='checkbox' {...{...defaultProps, checked: defaultProps.value}} />
-      case 'enum' : {
-        return (
-          <div style={styles.selectWrapper}>
-            <select children={this.selectOptions(type)} style={styles.select} {...defaultProps} />
-            <div style={styles.selectArrow} />
-          </div>
-        )
-      }
+      case 'any': return <Input key={key} type='text' {...defaultProps} />
+      case 'node': return <Input key={key} type='text' {...defaultProps} />
+      case 'shape': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
+      case 'arrayOf': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
+      case 'string': return <Input key={key} type='text' {...{...defaultProps, value: defaultProps.value}} />
+      case 'number': return <Input key={key} type='number' {...defaultProps} />
+      case 'bool': return <Checkbox key={key} {...{...defaultProps, checked: defaultProps.value, name: key}} />
+      case 'enum' : return <Select key={key} options={this.selectOptions(type)} {...defaultProps} />
     }
   }
 }
 
 const styles = {
-  table: {
-    width: '100%',
-    fontSize: '12px',
-    textAlign: 'left',
-    color: 'hsl(202, 71%, 36%)'
+  row: {
+    clear: 'both'
   },
 
-  tableRow: {padding: '10px'},
-
-  tableCell: {padding: '5px 10px'},
-
-  td: {
-    background: 'white',
-    border: '1px solid hsl(0, 0%, 70%)',
-  },
-
-  tableHeader: {
-    background: 'hsl(202, 100%, 85%)',
-    color: 'hsl(202, 71%, 36%)',
-  },
-
-  propLink: {
-    color: 'hsl(26, 100%, 58%)'
-  },
-
-  input: {
-    width: '100%',
-    height: '30px',
-    outline: 'none',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: 'hsl(202, 100%, 85%)',
-    padding: '3px 5px',
-    ':focus': {
-      borderColor: 'hsl(26, 100%, 58%)'
+  prop: {
+    float: 'left',
+    boxSizing: 'border-box',
+    info: {
+      ...font.size.small,
+      width: '55%',
+      color: colors.BLUE,
+      wordBreak: 'break-all',
+      borderLeft: '5px solid transparent',
+      padding: `${spaces.small} ${spaces.small} ${spaces.small} ${spaces.smaller}`,
+      active: {
+        borderLeft: `5px solid ${colors.BLUE}`
+      }
+    },
+    value: {
+      ...font.size.small,
+      width: '45%',
+      color: colors.BLACK_BRIGHT,
+      padding: `${spaces.small} ${spaces.normal} ${spaces.small} ${spaces.small}`,
+      link: {
+        color: colors.BLUE
+      }
+    },
+    small: {
+      fontWeight: 'normal',
+      fontSize: '95%',
+      display: 'block',
+      color: colors.BLACK_BRIGHT
     }
-  },
-
-  selectWrapper: {
-    position: 'relative'
-  },
-
-  select: {
-    width: '100%',
-    height: '30px',
-    appearance: 'none',
-    borderRadius: '0',
-    background: 'white',
-    padding: '3px 5px',
-    outline: 'none',
-    borderWidth: '1px',
-    borderStyle: 'solid',
-    borderColor: 'hsl(202, 100%, 85%)',
-  },
-
-  selectArrow: {
-    width: 0,
-    height: 0,
-    borderLeft: '10px solid transparent',
-    borderRight: '10px solid transparent',
-    borderTop: '10px solid hsl(202, 40%, 50%)',
-    position: 'absolute',
-    top: '10px',
-    right: '6px'
   }
+
 }

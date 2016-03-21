@@ -8,7 +8,7 @@ createBlueKit({
   // base file of start - this is location where componentsIndex.js will be generated to
   baseDir: path.join(__dirname, 'src'),
   // relative paths from base dir where to look for components
-  paths: ['../../example_components'],
+  paths: ['../../src/components/atoms', '../../example_components'],
 })
 
 gulp.task('server', function() {

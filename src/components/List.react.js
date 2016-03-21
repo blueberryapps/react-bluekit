@@ -47,10 +47,10 @@ export default class List extends Component {
         >
           {data.menu}
         </div>
-        <div style={styles.column}>
+        <div style={styles.atom.column}>
           <ExampleComponent {...extendComponentProps(data.simpleProps, data.propsDefinition)} />
         </div>
-        <div style={styles.column}>
+        <div style={styles.atom.column}>
           <ExampleComponent {...extendComponentProps(data.fullProps, data.propsDefinition)} />
         </div>
       </div>
@@ -81,7 +81,7 @@ const styles = {
       }
     },
     column: {
-      textAlign: 'center'
+      clear: 'both'
     }
   }
 }

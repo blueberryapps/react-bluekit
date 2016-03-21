@@ -63,7 +63,7 @@ export default class Variants extends Component {
   }
 
   renderVariant(key, type, variant) {
-    const {atom, componentProps} = this.props
+    const {atom, componentProps, styles} = this.props
     const ExampleAtom = resolveComponent(atom.component)
     const variantProps = {...componentProps, [key]: variant}
     const source = `<${atom.componentName} ${renderProp(key, type, variant)} />`
@@ -74,7 +74,10 @@ export default class Variants extends Component {
           {source}
           <CopyCode source={source} />
         </Highlight>
-        <ExampleAtom {...this.getComponentExtendendProps()} {...variantProps} />
+        <div style={styles.clear}>
+          <ExampleAtom {...this.getComponentExtendendProps()} {...variantProps} />
+        </div>
+        <div style={[styles.clear, styles.clear.after]} />
       </div>
     )
   }
