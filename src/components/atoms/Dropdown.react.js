@@ -1,6 +1,7 @@
 import font from '../styles/Font';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
+import ReactDOM from 'react-dom';
 import * as colors from '../styles/Colors'
 
 @Radium
@@ -14,6 +15,23 @@ export default class Dropdown extends Component {
     visible: RPT.bool.isRequired
   }
 
+  componentDidMount() {
+    window.addEventListener('click', this.handleDocumentClick)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('click', this.handleDocumentClick)
+  }
+
+   /* using fat arrow to bind to instance */
+   handleDocumentClick = (evt) => {
+     const area = ReactDOM.findDOMNode(this.refs.dropdown)
+
+     if (!area.contains(evt.target) && this.props.visible) {
+       this.props.handleGeneralIconClick()
+     }
+   }
+
   render() {
     const {
       handleGeneralIconClick,
@@ -22,39 +40,36 @@ export default class Dropdown extends Component {
       simplePropsSelected,
       visible
     } = this.props
+    const hovered = Radium.getState(this.state, 'dropdown-option1', ':hover');
 
     return (
-      <div style={styles.general}>
+      <div ref='dropdown' style={styles.general}>
         <i
-          onClick={() => handleGeneralIconClick()}
+          onClick={handleGeneralIconClick}
           style={styles.generalIcon}
         >
-          A
+          Set
         </i>
         <div
           style={[styles.wrapper, visible && styles.wrapper.visible]}
         >
           <ul style={styles.list}>
             <li
-              key='option1'
+              key='dropdown-option1'
               onClick={handleToggleProps}
-              style={[
-                styles.list.option,
-                styles.list.option.active,
-                font
-              ]}
+              style={[styles.list.option, font]}
             >
               {simplePropsSelected ? 'All props' : 'Only required props'}
             </li>
             <li
-              key='option2'
+              key='dropdown-option2'
               onClick={handleResetProps}
               style={[styles.list.option, font]}
             >
               Reset props to default
             </li>
           </ul>
-          <i style={styles.arrow} />
+          <i style={[styles.arrow, hovered && styles.arrow.hovered]} />
           <i style={styles.arrow.bordered} />
         </div>
       </div>
@@ -69,7 +84,7 @@ const styles = {
     width: '200px',
     border: `1px solid ${colors.GRAY_DARKER}`,
     position: 'absolute',
-    top: '100%',
+    top: '105%',
     right: '-13px',
     boxSizing: 'border-box',
     display: 'none',
@@ -103,16 +118,13 @@ const styles = {
         backgroundColor: colors.BLUE,
         color: 'white',
         cursor: 'pointer'
-      },
-      active: {
-        backgroundColor: colors.GRAY
       }
     }
   },
 
   arrow: {
     bottom: '100%',
-    right: '10px',
+    right: '5px',
     borderStyle: 'solid',
     height: 0,
     width: 0,
@@ -123,10 +135,14 @@ const styles = {
     borderWidth: '6px',
     marginLeft: '-6px',
     transform: 'translateX(-50%)',
+    transition: 'all .1s ease',
     zIndex: 3,
+    hovered: {
+      borderBottomColor: colors.BLUE
+    },
     bordered: {
       bottom: '100%',
-      right: '10px',
+      right: '5px',
       borderStyle: 'solid',
       height: 0,
       width: 0,

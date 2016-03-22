@@ -35,8 +35,8 @@ export default class ControlsSidebar extends Component {
         <h1 style={styles.heading}>{atom.componentName}</h1>
         <div style={styles.dropdown}>
           <Dropdown
-            handleGeneralIconClick={this.handleGeneralIconClick}
-            handleResetProps={resetPropsToDefault}
+            handleGeneralIconClick={this.handleGeneralIconClick.bind(this)}
+            handleResetProps={this.resetPropsToDefault.bind(this)}
             handleToggleProps={toggleProps}
             simplePropsSelected={simplePropsSelected}
             visible={dropdownOpened}
@@ -51,6 +51,12 @@ export default class ControlsSidebar extends Component {
         <PropsTable atom={atom} componentProps={currentProps} />
       </div>
     );
+  }
+
+  resetPropsToDefault() {
+    const {resetPropsToDefault} = this.context
+    this.setState({dropdownOpened: false})
+    resetPropsToDefault()
   }
 
   handleGeneralIconClick() {
@@ -110,6 +116,7 @@ const styles = {
 
   wrapper: {
     backgroundColor: colors.GRAY,
+    boxSizing: 'border-box',
     width: '100%',
     display: 'inline-block',
     minHeight: '100%',
