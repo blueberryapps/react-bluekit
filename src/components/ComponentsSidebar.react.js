@@ -1,7 +1,8 @@
 import font from './styles/Font';
-import DirectoryTree from '../helpers/directoryTree'
+import generateTree from '../helpers/generateTree'
+import MenuNode from './MenuNode.react'
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {Component, PropTypes as RPT} from 'react'
 import SearchBar from './SearchBar'
 
 @Radium
@@ -14,24 +15,24 @@ export default class ComponentsSidebar extends Component {
   }
 
   state = {
-    nodes: [],
+    nodes: {},
     searchedAtoms: Object.keys(this.props.componentsIndex),
   }
 
   componentWillMount() {
-    const nodes = [];
-    DirectoryTree.generateTree(this.state.searchedAtoms).iterate(node=> { nodes.unshift(node) })
+    const {componentsIndex} = this.props
+
     this.setState({
-      nodes
+      nodes: generateTree(componentsIndex)
     });
   }
 
   componentWillReceiveProps(nextProps) {
-    const nodes = [];
+    const {componentsIndex} = this.props
+
     if (nextProps.componentsIndex !== this.props.componentsIndex) {
-      DirectoryTree.generateTree(this.state.searchedAtoms).iterate(node=> { nodes.unshift(node) })
       this.setState({
-        nodes
+        nodes: generateTree(componentsIndex)
       });
     }
   }
@@ -56,65 +57,27 @@ export default class ComponentsSidebar extends Component {
                 All components
             </div>
           </li>
-          {nodes.map(node => this.renderAtom(node))}
+          <MenuNode nodes={nodes} selectAtom={selectAtom} selectedAtom={selectedAtom} />
+          {JSON.stringify(nodes)}
         </ul>
       </div>
     );
   }
-
+//{nodes.map(node => this.renderAtom(node))}
   searchAtoms(searchInput) {
     const {componentsIndex} = this.props
-    const nodes = [];
     const searchedAtoms = (!!searchInput)
-      ? Object.keys(componentsIndex).filter(name => name.toLowerCase().includes(searchInput) || searchInput.includes(name.toLowerCase()))
+      ? Object.keys(componentsIndex).filter(name => name.toLowerCase().includes(searchInput.toLowerCase()) || searchInput.toLowerCase().includes(name.toLowerCase()))
       : Object.keys(componentsIndex)
-    DirectoryTree.generateTree(searchedAtoms).iterate(node=> { nodes.unshift(node) })
-    this.setState({nodes, searchedAtoms})
-  }
 
-
-  renderAtom(node) {
-    const {selectAtom, selectedAtom} = this.props
-    const data = this.getComponentData(node.fullName())
-    if (!!data) {
-      return (
-      <li key={node.fullName()} style={styles.sidebarElement}>
-        <div
-          key={node.fullName()}
-          onClick={() => selectAtom(node.fullName())}
-          style={[styles.link, selectedAtom === node.data && styles.sidebarLinkActive, font]}
-        >
-            {data.menu}
-        </div>
-      </li>
-      );
-    }
-    else {
-      return (
-        <li style={styles.sidebarElement}>
-          <div key={node.fullName()} style={[styles.link, dynamicMargin(node.depth)]}>
-            {node.data}
-          </div>
-        </li>
-      )
-    }
-  }
-
-  getComponentData(name) {
-    const {componentsIndex} = this.props
-
-    return componentsIndex[name]
-  }
-
-}
-
-const dynamicMargin = function(depth) {
-  return {
-    marginLeft: `${depth * 10}px`
+    this.setState({
+      nodes: generateTree(componentsIndex),
+      searchedAtoms
+    })
   }
 }
 
-const styles = {
+export const styles = {
   wrapper: {
     backgroundColor: 'white',
   },
@@ -123,6 +86,10 @@ const styles = {
     listStyle: 'none',
     margin: 0,
     padding: 0,
+  },
+
+  list: {
+    paddingLeft: '10px'
   },
 
   link: {
