@@ -1,5 +1,4 @@
 import {Map} from 'immutable';
-import toSource from 'tosource';
 
 export default function buildProps(propsDefinition, allProps = false) {
   const props = {}

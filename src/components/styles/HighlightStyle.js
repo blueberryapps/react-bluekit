@@ -62,7 +62,9 @@ export default class HighlightStyle extends Component {
           margin: '20px 0',
           padding: '10px 20px',
           fontSize: '14px',
-          position: 'relative'
+          position: 'relative',
+          display: 'block',
+          clear: 'both'
         }
       }}/>
     )

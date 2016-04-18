@@ -23,7 +23,7 @@ export default class Detail extends Component {
       <div style={styles.wrapper}>
         <div style={[styles.panel, styles.panel.first]}>
           <h2 style={headingStyles}>Preview</h2>
-          <div>
+          <div style={styles.atomWrapper}>
             <ExampleAtom {...extendedProps} />
           </div>
           <ExampleSource atom={atom} componentProps={currentProps} />
@@ -36,6 +36,11 @@ export default class Detail extends Component {
 }
 
 const styles = {
+  atomWrapper: {
+    position: 'relative',
+    clear: 'both'
+  },
+
   wrapper: {
     padding: '30px'
   },
@@ -46,11 +51,22 @@ const styles = {
     paddingTop: '50px',
     marginBottom: '50px',
     borderTop: `1px solid ${colors.GRAY_DARKER}`,
+    position: 'relative',
+    clear: 'both',
+    display: 'table',
+    width: '100%',
     first: {
       paddingTop: 0,
       borderTop: 0,
       paddingBottom: '40px',
       marginBottom: 0
+    }
+  },
+
+  clear: {
+    display: 'block',
+    after: {
+      clear: 'both'
     }
   }
 };

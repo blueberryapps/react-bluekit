@@ -1,9 +1,10 @@
-import Button from './Button.react';
+import Dropdown from './atoms/Dropdown.react';
 import headingStyles from './styles/Headings'
 import font from './styles/Font';
 import PropsTable from './PropsTable.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
+import spaces from './styles/Spaces'
 import * as colors from './styles/Colors'
 
 @Radium
@@ -20,31 +21,50 @@ export default class ControlsSidebar extends Component {
     resetPropsToDefault: RPT.func
   }
 
+  state = {
+    dropdownOpened: false
+  }
+
   render() {
     const {toggleProps, resetPropsToDefault} = this.context
     const {atom, currentProps, simplePropsSelected} = this.props
+    const {dropdownOpened} = this.state
 
     return (
       <div style={styles.wrapper}>
         <h1 style={styles.heading}>{atom.componentName}</h1>
-        <div>
+        <div style={styles.dropdown}>
+          <Dropdown
+            handleGeneralIconClick={this.handleGeneralIconClick.bind(this)}
+            handleResetProps={this.resetPropsToDefault.bind(this)}
+            handleToggleProps={toggleProps}
+            simplePropsSelected={simplePropsSelected}
+            visible={dropdownOpened}
+          />
+        </div>
+        <div style={styles.clearfix}>
           <h3 style={[styles.propName, styles.propName.active]}>Preview</h3>
           <div style={styles.header}>
             <div style={styles.bg}>Background</div>
           </div>
         </div>
-        <Button kind='primary' onClick={toggleProps}>{simplePropsSelected ? 'All props' : 'Only required props'}</Button>
-        <Button kind='secondary' onClick={resetPropsToDefault}>Reset props to default</Button>
         <PropsTable atom={atom} componentProps={currentProps} />
       </div>
     );
   }
 
-}
+  resetPropsToDefault() {
+    const {resetPropsToDefault} = this.context
+    this.setState({dropdownOpened: false})
+    resetPropsToDefault()
+  }
 
-const spaces = {
-  normal: '20px',
-  small: '8px'
+  handleGeneralIconClick() {
+    const {dropdownOpened} = this.state
+
+    this.setState({dropdownOpened: !dropdownOpened})
+  }
+
 }
 
 const styles = {
@@ -55,10 +75,26 @@ const styles = {
     marginBottom: spaces.normal
   },
 
+  clearfix: {
+    clear: 'both'
+  },
+
+  dropdown: {
+    float: 'left',
+    width: '25%',
+    textAlign: 'right',
+    paddingRight: '20px',
+    boxSizing: 'border-box',
+    position: 'relative'
+  },
+
   heading: {
     ...headingStyles,
+    boxSizing: 'border-box',
     color: 'black',
-    padding: `0 ${spaces.normal}`
+    float: 'left',
+    padding: `0 ${spaces.normal}`,
+    width: '75%'
   },
 
   header: {
@@ -80,6 +116,7 @@ const styles = {
 
   wrapper: {
     backgroundColor: colors.GRAY,
+    boxSizing: 'border-box',
     width: '100%',
     display: 'inline-block',
     minHeight: '100%',
