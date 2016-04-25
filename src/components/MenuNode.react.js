@@ -1,7 +1,6 @@
-import font from './styles/Font'
 import Radium from 'radium'
 import React, {Component, PropTypes as RPT} from 'react'
-import {styles} from './ComponentsSidebar.react'
+import {nodesStyles} from './ComponentsSidebar.react'
 
 @Radium
 export default class MenuNode extends Component {
@@ -16,7 +15,7 @@ export default class MenuNode extends Component {
     const {nodes} = this.props
 
     return (
-      <ul style={styles.list}>
+      <ul style={nodesStyles.list}>
         {nodes.map((subnodes, node) => this.renderNode(node, subnodes))}
       </ul>
     )
@@ -24,13 +23,14 @@ export default class MenuNode extends Component {
 
   renderNode(node, subnodes) {
     const {selectAtom, selectedAtom} = this.props
+    const mergedStyles = {...nodesStyles.link, ...nodesStyles.sidebarLinkActive}
 
     if (typeof subnodes === 'string')
       return (
-        <li key={node} style={styles.sidebarElement}>
+        <li key={node} style={nodesStyles.sidebarElement}>
           <div
             onClick={() => selectAtom(subnodes)}
-            style={[styles.link, styles.sidebarLinkActive]}
+            style={selectedAtom ? mergedStyles : nodesStyles.link}
           >
             {node}
           </div>
@@ -38,7 +38,7 @@ export default class MenuNode extends Component {
       )
 
     return (
-      <li key={node} style={styles.sidebarElement} >
+      <li key={node} style={nodesStyles.sidebarElement} >
         {node}
         {subnodes && <MenuNode nodes={subnodes} selectAtom={selectAtom} selectedAtom={selectedAtom} />}
       </li>

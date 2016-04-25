@@ -3,7 +3,8 @@ import generateTree from '../helpers/generateTree'
 import MenuNode from './MenuNode.react'
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react'
-import SearchBar from './SearchBar'
+import SearchBox from './SearchBox.react'
+import * as colors from './styles/Colors'
 
 @Radium
 export default class ComponentsSidebar extends Component {
@@ -42,21 +43,14 @@ export default class ComponentsSidebar extends Component {
     const {nodes} = this.state
 
     return (
-      <div style={styles.wrapper}>
-        <SearchBar
+      <div style={nodesStyles.wrapper}>
+        <SearchBox
             componentsIndex={componentsIndex}
-            searchAtoms={this.searchAtoms.bind(this)}
+            nodeOnClick={() => selectAtom(null)}
+            searchAtoms={this.searchAtoms}
+            selectedAtom={selectedAtom}
         />
-        <ul style={styles.sidebar}>
-          <li key={name} style={styles.sidebarElement}>
-            <div
-              key="all-components"
-              onClick={() => selectAtom(null)}
-              style={[styles.link, !selectedAtom && styles.sidebarLinkActive, font]}
-            >
-                All components
-            </div>
-          </li>
+        <ul style={nodesStyles.sidebar}>
           <MenuNode nodes={nodes} selectAtom={selectAtom} selectedAtom={selectedAtom} />
           {JSON.stringify(nodes)}
         </ul>
@@ -77,9 +71,13 @@ export default class ComponentsSidebar extends Component {
   }
 }
 
-export const styles = {
+export const nodesStyles = {
   wrapper: {
     backgroundColor: 'white',
+  },
+
+  sidebar: {
+    paddingLeft: 0
   },
 
   sidebarElement: {
@@ -93,19 +91,20 @@ export const styles = {
   },
 
   link: {
-    padding: '8px 20px',
-    fontSize: '12px',
-    fontWeight: 'normal',
-    color: 'rgb(27, 111, 159)',
+    ...font,
+    padding: '10px 20px',
+    fontSize: '16px',
+    color: colors.BLACK_BRIGHT,
     display: 'block',
     textDecoration: 'none',
+    transition: 'all .1s ease-out',
     ':hover': {
-      color: 'white',
-      backgroundColor: 'rgb(255, 134, 43)'
+      backgroundColor: colors.GRAY_DARKER,
+      cursor: 'pointer'
     }
   },
 
   sidebarLinkActive: {
-    backgroundColor: 'hsl(202, 100%, 96%)',
+    backgroundColor: colors.GRAY
   },
 };
