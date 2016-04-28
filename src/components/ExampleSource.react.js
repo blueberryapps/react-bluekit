@@ -65,6 +65,9 @@ export default class ExampleSource extends Component {
 const styles = {
   pre: {
     margin: 0,
-    padding: 0
+    padding: 0,
+    width: '100%',
+    display: 'table',
+    tableLayout: 'fixed'
   }
 };
