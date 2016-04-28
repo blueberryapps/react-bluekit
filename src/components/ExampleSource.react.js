@@ -1,3 +1,4 @@
+import CopyCode from './CopyCode.react';
 import Highlight from './Highlight.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
@@ -9,6 +10,7 @@ export default class ExampleSource extends Component {
   static propTypes = {
     atom: RPT.object.isRequired,
     componentProps: RPT.object.isRequired,
+    visible: RPT.bool.isRequired
   }
 
   render() {
@@ -20,33 +22,37 @@ export default class ExampleSource extends Component {
   }
 
   renderWithChildren() {
-    const {atom: {componentName, file}, componentProps} = this.props
+    const {atom: {componentName, file}, componentProps, visible} = this.props
+    const source = `import ${componentName} from '${file}' \n\n<${componentName} \n${this.renderInlineProps()}\n>\n  ${componentProps.children}\n</${componentName}>`
 
     return (
-      <div style={styles.pre}>
-        <Highlight className='javascript'>
-        import {componentName} from '{file}'{'\n\n'}
-      &lt;{componentName}
-        {`\n${this.renderInlineProps()}\n`}
-      &gt;
-        {`\n  ${componentProps.children}\n`}
-      &lt;/{componentName}&gt;
-        </Highlight>
+      <div style={styles.copyWrapper}>
+        <CopyCode inheritedStyles={styles.copy} source={source} />
+        <div style={[styles.sourceWrapper, visible && styles.sourceWrapper.visible]}>
+          <div style={styles.pre}>
+            <Highlight className='javascript'>
+              {source}
+            </Highlight>
+          </div>
+        </div>
       </div>
     )
   }
 
   renderWithoutChildren() {
-    const {atom: {componentName, file}} = this.props
+    const {atom: {componentName, file}, visible} = this.props
+    const source = `import ${componentName} from '${file}' \n\n<${componentName} \n${this.renderInlineProps()}\n>`
 
     return (
-      <div style={styles.pre}>
-        <Highlight className='javascript'>
-        import {componentName} from '{file}'{'\n\n'}
-      &lt;{componentName}
-        {`\n${this.renderInlineProps()}\n`}
-      /&gt;
-        </Highlight>
+      <div style={styles.copyWrapper}>
+        <CopyCode inheritedStyles={styles.copy} source={source} />
+          <div style={[styles.sourceWrapper, visible && styles.sourceWrapper.visible]}>
+            <div style={styles.pre}>
+              <Highlight className='javascript'>
+                {source}
+              </Highlight>
+            </div>
+          </div>
       </div>
     )
   }
@@ -63,11 +69,28 @@ export default class ExampleSource extends Component {
 }
 
 const styles = {
+  copy: {
+    backgroundColor: 'transparent',
+    top: '-17px'
+  },
+
+  copyWrapper: {
+    position: 'relative'
+  },
+
   pre: {
     margin: 0,
     padding: 0,
     width: '100%',
     display: 'table',
     tableLayout: 'fixed'
+  },
+
+  sourceWrapper: {
+    position: 'relative',
+    display: 'none',
+    visible: {
+      display: 'block'
+    }
   }
 };
