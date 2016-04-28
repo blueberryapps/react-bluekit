@@ -22,13 +22,14 @@ export default class ControlsSidebar extends Component {
   }
 
   state = {
+    activeProps:    'preview',
     dropdownOpened: false
   }
 
   render() {
-    const {toggleProps, resetPropsToDefault} = this.context
+    const {toggleProps} = this.context
     const {atom, currentProps, simplePropsSelected} = this.props
-    const {dropdownOpened} = this.state
+    const {activeProps, dropdownOpened} = this.state
 
     return (
       <div style={styles.wrapper}>
@@ -43,12 +44,27 @@ export default class ControlsSidebar extends Component {
           />
         </div>
         <div style={styles.clearfix}>
-          <h3 style={[styles.propName, styles.propName.active]}>Preview</h3>
+          <h3
+            style={[
+              styles.propName,
+              activeProps === 'preview' && styles.propName.active
+            ]}
+          >
+            <a href='#preview' onClick={() => this.handlePropsNameClick('preview')} style={styles.propName.link}>
+              Preview
+            </a>
+          </h3>
           <div style={styles.header}>
             <div style={styles.bg}>Background</div>
           </div>
         </div>
-        <PropsTable atom={atom} componentProps={currentProps} />
+        <PropsTable
+          activeProps={activeProps}
+          atom={atom}
+          commonStyles={styles}
+          componentProps={currentProps}
+          handlePropsNameClick={this.handlePropsNameClick.bind(this)}
+        />
       </div>
     );
   }
@@ -63,6 +79,10 @@ export default class ControlsSidebar extends Component {
     const {dropdownOpened} = this.state
 
     this.setState({dropdownOpened: !dropdownOpened})
+  }
+
+  handlePropsNameClick(key) {
+    this.setState({activeProps: key})
   }
 
 }
@@ -102,13 +122,15 @@ const styles = {
   },
 
   propName: {
-    ...font,
-    ...font.size.normal,
     margin: 0,
     borderLeft: '5px solid transparent',
-    color: colors.BLUE,
     padding: `${spaces.small} ${spaces.normal} ${spaces.small} 15px`,
     boxSizing: 'border-box',
+    link: {
+      ...font,
+      ...font.size.normal,
+      color: colors.BLUE,
+    },
     active: {
       borderLeft: `5px solid ${colors.BLUE}`
     }

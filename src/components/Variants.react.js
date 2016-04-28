@@ -69,7 +69,7 @@ export default class Variants extends Component {
     const source = `<${atom.componentName} ${renderProp(key, type, variant)} />`
 
     return (
-      <div key={variant}>
+      <div key={variant} style={styles.pre}>
         <Highlight className='javascript'>
           {source}
           <CopyCode source={source} />

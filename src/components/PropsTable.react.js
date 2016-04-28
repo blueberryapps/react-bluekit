@@ -17,8 +17,11 @@ export default class PropsTable extends Component {
   }
 
   static propTypes = {
+    activeProps: RPT.any,
     atom: RPT.object.isRequired,
-    componentProps: RPT.object.isRequired
+    commonStyles: RPT.object.isRequired,
+    componentProps: RPT.object.isRequired,
+    handlePropsNameClick: RPT.func.isRequired
   }
 
   render() {
@@ -34,6 +37,8 @@ export default class PropsTable extends Component {
   }
 
   renderPropRow(data, key) {
+    const {activeProps, commonStyles} = this.props
+
     if (!data.type) return null
 
     if (data.type.name === 'shape')
@@ -45,7 +50,14 @@ export default class PropsTable extends Component {
 
     return (
       <div key={key} style={styles.row}>
-        <div style={[styles.prop, styles.prop.info, required && font.bold]}>
+        <div
+          style={[
+            styles.prop,
+            styles.prop.info,
+            activeProps === key && commonStyles.propName.active,
+            required && font.bold
+          ]}
+        >
           {this.renderNameOfProp(key, data.type.name)}
           {required && '*'}
           <small style={styles.prop.small}>{data.type.name}</small>
@@ -61,10 +73,20 @@ export default class PropsTable extends Component {
   }
 
   renderNameOfProp(name, kind) {
+    const {handlePropsNameClick} = this.props
+
     if (['string', 'number', 'bool', 'enum'].indexOf(kind) === -1)
       return name
     else
-      return <a href={`#${name}`} style={styles.prop.value.link}>{name}</a>
+      return (
+        <a
+          href={`#${name}`}
+          onClick={() => handlePropsNameClick(name)}
+          style={styles.prop.value.link}
+        >
+          {name}
+        </a>
+      )
   }
 
   renderShapePropRow(data, key, scope = []) {
@@ -130,6 +152,7 @@ const styles = {
       wordBreak: 'break-all',
       borderLeft: '5px solid transparent',
       padding: `${spaces.small} ${spaces.small} ${spaces.small} ${spaces.smaller}`,
+      transition: 'all .2s ease-out',
       active: {
         borderLeft: `5px solid ${colors.BLUE}`
       }

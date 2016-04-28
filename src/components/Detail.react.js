@@ -22,7 +22,7 @@ export default class Detail extends Component {
     return (
       <div style={styles.wrapper}>
         <div style={[styles.panel, styles.panel.first]}>
-          <h2 style={headingStyles}>Preview</h2>
+          <h2 id='preview' style={headingStyles}>Preview</h2>
           <div style={styles.atomWrapper}>
             <ExampleAtom {...extendedProps} />
           </div>
@@ -61,6 +61,12 @@ const styles = {
       paddingBottom: '40px',
       marginBottom: 0
     }
+  },
+
+  pre: {
+    width: '100%',
+    display: 'table',
+    tableLayout: 'fixed'
   },
 
   clear: {
