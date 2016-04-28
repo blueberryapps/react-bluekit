@@ -13,12 +13,11 @@ export default class Button extends Component {
     inheritedStyle: React.PropTypes.object,
     kind:           React.PropTypes.oneOf(['primary', 'secondary', 'outlined']).isRequired,
     onClick:        React.PropTypes.func.isRequired,
-    size:           React.PropTypes.oneOf(['small', 'large']),
-    type:           React.PropTypes.string
+    size:           React.PropTypes.oneOf(['small', 'large'])
   }
 
   render() {
-    const {disabled, kind, size, fullWidth, onClick, inheritedStyle, children, type} = this.props;
+    const {disabled, kind, size, fullWidth, onClick, inheritedStyle, children} = this.props;
 
     return (
       <button
@@ -29,9 +28,9 @@ export default class Button extends Component {
           button.kind[kind],
           button.size[size],
           fullWidth && button.fullWidth,
+          disabled && button.disabled,
           inheritedStyle
         ]}
-        type={type}
       >
         {children}
       </button>

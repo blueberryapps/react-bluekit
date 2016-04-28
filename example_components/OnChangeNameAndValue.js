@@ -29,10 +29,7 @@ const styles = {
     width: '58px',
     height: form.input.size.regular.height,
     transition: 'border-color .2s',
-    float: 'left',
-    '@media (max-width: 480px)': {
-      height: '40px'
-    }
+    float: 'left'
   },
 
   prependFocus: {
@@ -42,11 +39,7 @@ const styles = {
   icon: {
     lineHeight: form.input.size.regular.height,
     textAlign: 'center',
-    fontSize: '58px',
-    '@media (max-width: 480px)': {
-      lineHeight: '40px',
-      fontSize: '20px'
-    }
+    fontSize: '58px'
   },
 
   input: {
@@ -65,10 +58,6 @@ const styles = {
     lineHeight: form.input.size.regular.height,
     paddingRight: '20px',
     userSelect: 'none',
-    '@media (max-width: 480px)': {
-      height: '40px',
-      lineHeight: '40px'
-    }
   },
 
   errorInput: {

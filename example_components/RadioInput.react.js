@@ -7,11 +7,7 @@ const styles = {
     padding: '0 30px 0 25px',
     userSelect: 'none',
     cursor: 'pointer',
-    fontWeight: 'normal',
-    '@media (max-width: 991px)': {
-      display: 'block',
-      margin: '10px 0'
-    }
+    fontWeight: 'normal'
   },
 
   horizontal: {
