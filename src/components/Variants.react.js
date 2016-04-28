@@ -70,9 +70,9 @@ export default class Variants extends Component {
 
     return (
       <div key={variant} style={styles.pre}>
+        <CopyCode source={source} />
         <Highlight className='javascript'>
           {source}
-          <CopyCode source={source} />
         </Highlight>
         <div style={styles.clear}>
           <ExampleAtom {...this.getComponentExtendendProps()} {...variantProps} />

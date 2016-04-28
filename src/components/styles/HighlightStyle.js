@@ -1,5 +1,6 @@
 import Radium, {Style} from 'radium';
 import React, {Component} from 'react';
+import spaces from './Spaces';
 import * as colors from './Colors'
 
 @Radium
@@ -59,8 +60,8 @@ export default class HighlightStyle extends Component {
 
         '.javascript': {
           border: `1px solid ${colors.GRAY_DARKER}`,
-          margin: '20px 0',
-          padding: '10px 20px',
+          margin: '30px 0',
+          padding: spaces.smaller,
           fontSize: '14px',
           position: 'relative',
           display: 'block',

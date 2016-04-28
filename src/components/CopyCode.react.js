@@ -8,6 +8,7 @@ import React, {Component, PropTypes as RPT} from 'react';
 export default class CopyCode extends Component {
 
   static propTypes = {
+    inheritedStyles: RPT.object,
     source: RPT.node.isRequired
   }
 
@@ -16,13 +17,13 @@ export default class CopyCode extends Component {
   }
 
   render() {
-    const {source} = this.props;
+    const {inheritedStyles, source} = this.props;
     const {copied} = this.state;
 
     return (
       <CopyToClipboard onCopy={this.onCopy.bind(this)} text={source}>
-        <div>
-          <div style={styles.copyCode}>
+        <div style={[styles.copyCode.wrapper, inheritedStyles]}>
+          <div style={styles.copyCode.inner}>
             {copied ? 'copied' : 'Copy'}
           </div>
         </div>
@@ -39,17 +40,24 @@ export default class CopyCode extends Component {
 
 const styles = {
   copyCode: {
-    ...font,
-    ...font.bold,
-    color: colors.BLUE,
-    textTransform: 'uppercase',
-    position: 'absolute',
-    top: '10px',
-    right: '10px',
-    paddingLeft: '10px',
-    borderLeft: `1px solid ${colors.GRAY_DARKER}`,
-    ':hover': {
-      cursor: 'pointer'
+    wrapper: {
+      backgroundColor: 'white',
+      position: 'absolute',
+      padding: '15px 10px',
+      top: '31px',
+      right: '1px',
+      zIndex: 2
+    },
+    inner: {
+      ...font,
+      ...font.bold,
+      color: colors.BLUE,
+      textTransform: 'uppercase',
+      paddingLeft: '10px',
+      borderLeft: `1px solid ${colors.GRAY_DARKER}`,
+      ':hover': {
+        cursor: 'pointer'
+      }
     }
   }
 }
