@@ -25,7 +25,6 @@ export const button = {
     fontWeight: 'bold',
     textDecoration: 'none',
     padding: '13px 22px',
-    margin: '10px 10px 0 0',
     borderWidth: 0,
     borderStyle: 'none',
     borderColor: 'transparent',
@@ -33,6 +32,10 @@ export const button = {
     outline: 'none',
     cursor: 'pointer',
     transition: 'background-color .2s, color .2s'
+  },
+
+  disabled: {
+    opacity: '.5'
   },
 
   kind: {
@@ -102,18 +105,11 @@ export const form = {
       regular: {
         height: '50px',
         padding: '0 20px',
-        fontSize: '16px',
-        '@media (max-width: 480px)': {
-          height: '40px'
-        }
+        fontSize: '16px'
       },
       large: {
         fontSize: '18px',
-        padding: '20px 20px',
-        '@media (max-width: 480px)': {
-          padding: '10px 15px',
-          fontSize: '15px'
-        }
+        padding: '20px 20px'
       }
     }
   },

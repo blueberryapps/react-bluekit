@@ -19,7 +19,8 @@ export default class Page extends Component {
     mountPoint: RPT.string,
     searchedText: RPT.string,
     selectedAtom: RPT.string,
-    simplePropsSelected: RPT.bool
+    simplePropsSelected: RPT.bool,
+    sourceBackground: RPT.string
   }
 
   static contextTypes = {
@@ -60,7 +61,7 @@ export default class Page extends Component {
   }
 
   renderAtom() {
-    const {componentsIndex, customProps, selectedAtom, simplePropsSelected} = this.props
+    const {componentsIndex, customProps, selectedAtom, simplePropsSelected, sourceBackground} = this.props
 
     return (
       <Atom
@@ -68,6 +69,7 @@ export default class Page extends Component {
         customProps={customProps}
         selectedAtom={selectedAtom}
         simplePropsSelected={simplePropsSelected}
+        sourceBackground={sourceBackground}
       />
     );
   }

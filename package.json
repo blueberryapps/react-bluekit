@@ -62,9 +62,10 @@
     "nunjucks": ">=2",
     "radium": ">=0.15",
     "react": "^0.14.7",
+    "react-color": "^2.0.0",
     "react-copy-to-clipboard": "^4.0.2",
     "react-docgen": ">=2.4.0",
-    "react-dom": ">=0.13",
+    "react-dom": "^0.14.8",
     "react-highlight": ">=0.5",
     "tosource": ">=1"
   }

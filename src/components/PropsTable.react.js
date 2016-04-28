@@ -1,12 +1,13 @@
-import {Map, fromJS} from 'immutable';
+import Checkbox from './atoms/Checkbox.react';
+import ExpandableInput from './atoms/ExpandableInput.react';
 import FluidTextArea from './FluidTextArea.react.js';
 import font from './styles/Font';
-import Checkbox from './atoms/Checkbox.react';
 import Input from './atoms/Input.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import Select from './atoms/Select.react';
 import spaces from './styles/Spaces'
+import {Map, fromJS} from 'immutable';
 import * as colors from './styles/Colors'
 
 @Radium
@@ -27,7 +28,7 @@ export default class PropsTable extends Component {
   render() {
     const {atom: {propsDefinition}} = this.props
     if (Object.keys(propsDefinition).length === 0)
-      return <i>No props defined</i>
+      return <div style={styles.prop.noProps}>No props defined</div>
 
     return (
       <div style={font}>
@@ -125,11 +126,11 @@ export default class PropsTable extends Component {
     }
 
     switch (type.name) {
-      case 'any': return <Input key={key} type='text' {...defaultProps} />
+      case 'any': return <ExpandableInput key={key} type='text' {...defaultProps} />
       case 'node': return <Input key={key} type='text' {...defaultProps} />
       case 'shape': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
       case 'arrayOf': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
-      case 'string': return <Input key={key} type='text' {...{...defaultProps, value: defaultProps.value}} />
+      case 'string': return <ExpandableInput key={key} type='text' {...{...defaultProps, value: defaultProps.value}} />
       case 'number': return <Input key={key} type='number' {...defaultProps} />
       case 'bool': return <Checkbox key={key} {...{...defaultProps, checked: defaultProps.value, name: key}} />
       case 'enum' : return <Select key={key} options={this.selectOptions(type)} {...defaultProps} />
@@ -171,6 +172,11 @@ const styles = {
       fontSize: '95%',
       display: 'block',
       color: colors.BLACK_BRIGHT
+    },
+    noProps: {
+      ...font,
+      ...font.bold,
+      padding: `8px ${spaces.normal}`
     }
   }
 

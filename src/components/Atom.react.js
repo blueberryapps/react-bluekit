@@ -13,7 +13,8 @@ export default class Atom extends Component {
     componentsIndex: RPT.object.isRequired,
     customProps: RPT.object,
     selectedAtom: RPT.string,
-    simplePropsSelected: RPT.bool
+    simplePropsSelected: RPT.bool,
+    sourceBackground: RPT.string
   }
 
   static contextTypes = {
@@ -54,7 +55,7 @@ export default class Atom extends Component {
     const atom = this.getCurrentComponent()
     const currentProps = this.getCurrentProps()
     const extendedProps = this.getComponentExtendendProps()
-    const {simplePropsSelected} = this.props
+    const {simplePropsSelected, sourceBackground} = this.props
 
     return (
       <div>
@@ -63,9 +64,16 @@ export default class Atom extends Component {
             atom={atom}
             currentProps={currentProps}
             simplePropsSelected={simplePropsSelected}
+            sourceBackground={sourceBackground}
           />
         </div>
-        <div style={[styles.wrapper, styles.wrapper.detail]}>
+        <div
+          style={[
+            styles.wrapper,
+            styles.wrapper.detail,
+            {backgroundColor: sourceBackground}
+          ]}
+        >
           <Detail
             atom={atom}
             currentProps={currentProps}
