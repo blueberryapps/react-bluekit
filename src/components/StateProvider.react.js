@@ -11,21 +11,23 @@ export default function StateProvider(Wrapped) {
 
     static childContextTypes = {
       createSetAtomProp: RPT.func,
+      resetPropsToDefault: RPT.func,
       selectAtom: RPT.func,
       searchAtoms: RPT.func,
       setAtomProp: RPT.func,
-      toggleProps: RPT.func,
-      resetPropsToDefault: RPT.func,
+      setSourceBackground: RPT.func,
+      toggleProps: RPT.func
     }
 
     getChildContext() {
       return {
         createSetAtomProp: this.createSetAtomProp.bind(this),
+        resetPropsToDefault: this.resetPropsToDefault.bind(this),
         selectAtom: this.selectAtom.bind(this),
         searchAtoms: this.searchAtoms.bind(this),
         setAtomProp: this.setAtomProp.bind(this),
-        toggleProps: this.toggleProps.bind(this),
-        resetPropsToDefault: this.resetPropsToDefault.bind(this),
+        setSourceBackground: this.setSourceBackground.bind(this),
+        toggleProps: this.toggleProps.bind(this)
       }
     }
 
@@ -33,7 +35,8 @@ export default function StateProvider(Wrapped) {
       customProps: {},
       selectedAtom: null,
       searchedText: '',
-      simplePropsSelected: true
+      simplePropsSelected: true,
+      sourceBackground: '#ffffff'
     }
 
     createSetAtomProp(key, type, scope = []) {
@@ -79,7 +82,8 @@ export default function StateProvider(Wrapped) {
       const {customProps, selectedAtom} = this.state
 
       this.setState({
-        customProps: {...customProps, [selectedAtom]: {}}
+        customProps: {...customProps, [selectedAtom]: {}},
+        sourceBackground: '#ffffff'
       })
     }
 
@@ -102,8 +106,11 @@ export default function StateProvider(Wrapped) {
           .filter(key => key.toLowerCase().indexOf(searchedText.toLowerCase()) !== -1)
           .reduce((acc, key) => ({...acc, [key]: componentsIndex[key]}), {})
 
-
       return componentsIndex
+    }
+
+    setSourceBackground(color) {
+      this.setState({sourceBackground: color})
     }
 
     render() {
