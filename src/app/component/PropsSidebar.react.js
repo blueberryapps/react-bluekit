@@ -1,4 +1,4 @@
-import ColorPicker from 'react-color';
+import ColorPicker from '../atoms/ColorPicker.react';
 import Component from 'react-pure-render/component';
 import Dropdown from '../atoms/Dropdown.react';
 import headingStyles from '../styles/Headings'
@@ -7,6 +7,7 @@ import font from '../styles/Font';
 import PropsTable from './PropsTable.react';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
+import ReactDOM from 'react-dom';
 import spaces from '../styles/Spaces'
 import * as colors from '../styles/Colors'
 
@@ -34,9 +35,17 @@ export default class PropsSidebar extends Component {
     dropdownOpened: false
   }
 
+  componentDidMount() {
+    document.addEventListener('click', this.handleDocumentClick)
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleDocumentClick)
+  }
+
   render() {
     const {toggleProps, setSourceBackground} = this.context
-    const {atom, currentProps, simplePropsSelected, triggeredProps} = this.props
+    const {atom, currentProps, simplePropsSelected, sourceBackground, triggeredProps} = this.props
     const {activeProps, displayColorPicker, dropdownOpened} = this.state
 
     return (
@@ -85,6 +94,7 @@ export default class PropsSidebar extends Component {
                   key='interactiveColor'
                   kind='colorpicker'
                   onClick={this.handleColorPickerClick.bind(this)}
+                  ref="pickerButton"
                   size='20px'
                   style={[styles.bgColor, styles.bgColor.interactive]}
                 />
@@ -95,7 +105,10 @@ export default class PropsSidebar extends Component {
                   ]}
                 >
                   <ColorPicker
-                    onChangeComplete={this.handleColorPickerClose.bind(this)}
+                    color={sourceBackground}
+                    onChangeComplete={this.handleColorPickerChange.bind(this)}
+                    ref="colorpicker"
+                    visible={displayColorPicker}
                   />
                 </div>
               </div>
@@ -131,17 +144,23 @@ export default class PropsSidebar extends Component {
     resetPropsToDefault()
   }
 
-  handleColorPickerClick() {
-    const {displayColorPicker} = this.state
+  handleDocumentClick = (evt) => {
+    const area = ReactDOM.findDOMNode(this.refs.colorpicker)
+    const pickerButton = ReactDOM.findDOMNode(this.refs.pickerButton)
 
-    this.setState({displayColorPicker: !displayColorPicker})
+    if (!area.contains(evt.target) && !pickerButton.contains(evt.target) && this.state.displayColorPicker) {
+      this.setState({displayColorPicker: false})
+    }
   }
 
-  handleColorPickerClose(color) {
+  handleColorPickerClick() {
+    this.setState({displayColorPicker: !this.state.displayColorPicker})
+  }
+
+  handleColorPickerChange(color) {
     const {setSourceBackground} = this.context
 
     setSourceBackground(`#${color.hex}`)
-    this.setState({displayColorPicker: false})
   }
 
   handleGeneralIconClick() {
@@ -186,7 +205,7 @@ const styles = {
     display: 'none',
     position: 'absolute',
     zIndex: 2,
-    right: '-5px',
+    right: '0px',
     visible: {
       display: 'block'
     }
