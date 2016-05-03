@@ -17,7 +17,7 @@ export default class MenuNode extends Component {
 
     return (
       <ul style={nodesStyles.list}>
-        {nodes.map((subnodes, node) => this.renderNode(node, subnodes))}
+        {Object.keys(nodes).sort().map((key) => this.renderNode(key, nodes[key]))}
       </ul>
     )
   }
@@ -26,32 +26,28 @@ export default class MenuNode extends Component {
     const {parent, selectAtom, selectedAtom} = this.props
     const mergedStyles = {...nodesStyles.link, ...nodesStyles.sidebarLinkActive}
 
-
     if (typeof subnodes === 'string') {
       const selected = selectedAtom === subnodes
 
       return (
         <li key={node} style={nodesStyles.sidebarElement}>
           <div
+            dangerouslySetInnerHTML={{__html: node}}
             onClick={() => selectAtom(subnodes)}
             style={selected ? mergedStyles : nodesStyles.link}
-          >
-            {node}
-          </div>
+          />
         </li>
       )
     }
 
     const selected = selectedAtom && selectedAtom.indexOf(parent.concat(node).join('')) !== -1
-
     return (
       <li key={node} style={nodesStyles.sidebarElement} >
         <div
+          dangerouslySetInnerHTML={{__html: node}}
           key={node}
           style={selected ? mergedStyles : nodesStyles.link}
-        >
-          {node}
-        </div>
+        />
         {subnodes && <MenuNode nodes={subnodes} parent={parent.concat(node)} selectAtom={selectAtom} selectedAtom={selectedAtom} />}
       </li>
     )
