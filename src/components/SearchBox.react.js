@@ -1,6 +1,6 @@
+import Input from './atoms/Input.react'
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import SearchBar from './SearchBar.react'
 import spaces from './styles/Spaces'
 import {nodesStyles} from './ComponentsSidebar.react'
 import * as colors from './styles/Colors'
@@ -9,21 +9,23 @@ import * as colors from './styles/Colors'
 export default class SearchBox extends Component {
 
   static propTypes = {
-    componentsIndex: RPT.object.isRequired,
     nodeOnClick: RPT.func.isRequired,
     searchAtoms: RPT.func.isRequired,
+    searchedText: RPT.string,
     selectedAtom: RPT.string
   }
 
   render() {
-    const {componentsIndex, nodeOnClick, searchAtoms, selectedAtom} = this.props
+    const {nodeOnClick, searchAtoms, selectedAtom, searchedText} = this.props
 
     return (
       <div style={styles.wrapper}>
-        <img src='src/img/bluekit-logo.svg' style={styles.logo} />
-        <SearchBar
-            componentsIndex={componentsIndex}
-            searchAtoms={searchAtoms.bind(this)}
+        <img src="src/img/bluekit-logo.svg" style={styles.logo} />
+        <Input
+          onChange={({target: {value}}) => searchAtoms(value)}
+          placeholder="Search your component"
+          type="text"
+          value={searchedText}
         />
         <div
           onClick={nodeOnClick}

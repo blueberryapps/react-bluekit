@@ -11,63 +11,31 @@ export default class ComponentsSidebar extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
+    searchAtoms: RPT.func.isRequired,
+    searchedText: RPT.string,
     selectAtom: RPT.func.isRequired,
     selectedAtom: RPT.string
   }
 
-  state = {
-    nodes: {},
-    searchedAtoms: Object.keys(this.props.componentsIndex),
-  }
-
-  componentWillMount() {
-    const {componentsIndex} = this.props
-
-    this.setState({
-      nodes: generateTree(componentsIndex)
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const {componentsIndex} = this.props
-
-    if (nextProps.componentsIndex !== this.props.componentsIndex) {
-      this.setState({
-        nodes: generateTree(componentsIndex)
-      });
-    }
-  }
 
   render() {
-    const {componentsIndex, selectAtom, selectedAtom} = this.props
-    const {nodes} = this.state
+    const {componentsIndex, selectAtom, selectedAtom, searchAtoms, searchedText} = this.props
+    const nodes = generateTree(componentsIndex)
 
     return (
       <div style={nodesStyles.wrapper}>
         <SearchBox
             componentsIndex={componentsIndex}
             nodeOnClick={() => selectAtom(null)}
-            searchAtoms={this.searchAtoms}
+            searchAtoms={searchAtoms}
+            searchedText={searchedText}
             selectedAtom={selectedAtom}
         />
         <ul style={nodesStyles.sidebar}>
-          <MenuNode nodes={nodes} selectAtom={selectAtom} selectedAtom={selectedAtom} />
-          {JSON.stringify(nodes)}
+          <MenuNode nodes={nodes} parent={[]} selectAtom={selectAtom} selectedAtom={selectedAtom} />
         </ul>
       </div>
     );
-  }
-//{nodes.map(node => this.renderAtom(node))}
-  searchAtoms(searchInput) {
-    const {componentsIndex} = this.props
-    const searchedAtoms = (!!searchInput)
-      ? Object.keys(componentsIndex).filter(name => name.toLowerCase().includes(searchInput.toLowerCase()) || searchInput.toLowerCase().includes(name.toLowerCase()))
-      : Object.keys(componentsIndex)
-
-    this.setState({
-      nodes: generateTree(componentsIndex),
-      searchedAtoms
-    })
   }
 }
 
@@ -93,7 +61,7 @@ export const nodesStyles = {
   link: {
     ...font,
     padding: '10px 20px',
-    fontSize: '16px',
+    fontSize: '13px',
     color: colors.BLACK_BRIGHT,
     display: 'block',
     textDecoration: 'none',

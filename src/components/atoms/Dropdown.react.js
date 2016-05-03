@@ -16,11 +16,11 @@ export default class Dropdown extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('click', this.handleDocumentClick)
+    //window.addEventListener('click', this.handleDocumentClick)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('click', this.handleDocumentClick)
+    //window.removeEventListener('click', this.handleDocumentClick)
   }
 
    /* using fat arrow to bind to instance */
