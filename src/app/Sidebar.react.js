@@ -21,7 +21,6 @@ export default class Sidebar extends Component {
   render() {
     const {componentsIndex, selectAtom, selectedAtom, searchAtoms, searchedText} = this.props
     const nodes = generateTree(componentsIndex)
-
     return (
       <div style={nodesStyles.wrapper}>
         <SearchBox
