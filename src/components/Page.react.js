@@ -17,6 +17,7 @@ export default class Page extends Component {
     height: RPT.string,
     inline: RPT.bool,
     mountPoint: RPT.string,
+    searchedText: RPT.string,
     selectedAtom: RPT.string,
     simplePropsSelected: RPT.bool
   }
@@ -24,6 +25,7 @@ export default class Page extends Component {
   static contextTypes = {
     resetPropsToDefault: RPT.func.isRequired,
     selectAtom: RPT.func.isRequired,
+    searchAtoms: RPT.func.isRequired,
     toggleProps: RPT.func.isRequired
   }
 
@@ -33,8 +35,8 @@ export default class Page extends Component {
   }
 
   render() {
-    const {componentsIndex, height, inline, selectedAtom} = this.props
-    const {selectAtom} = this.context
+    const {componentsIndex, height, inline, selectedAtom, searchedText} = this.props
+    const {selectAtom, searchAtoms} = this.context
 
     return (
       <div>
@@ -42,7 +44,9 @@ export default class Page extends Component {
           <div style={styles.sidebar}>
             <ComponentsSidebar
               componentsIndex={componentsIndex}
-              selectAtom={selectAtom.bind(this)}
+              searchAtoms={searchAtoms}
+              searchedText={searchedText}
+              selectAtom={selectAtom}
               selectedAtom={selectedAtom}
             />
           </div>

@@ -7,6 +7,7 @@ export default class MenuNode extends Component {
 
   static propTypes = {
     nodes: RPT.object.isRequired,
+    parent: RPT.array.isRequired,
     selectAtom: RPT.func.isRequired,
     selectedAtom: RPT.string
   }
@@ -22,25 +23,36 @@ export default class MenuNode extends Component {
   }
 
   renderNode(node, subnodes) {
-    const {selectAtom, selectedAtom} = this.props
+    const {parent, selectAtom, selectedAtom} = this.props
     const mergedStyles = {...nodesStyles.link, ...nodesStyles.sidebarLinkActive}
 
-    if (typeof subnodes === 'string')
+
+    if (typeof subnodes === 'string') {
+      const selected = selectedAtom === subnodes
+
       return (
         <li key={node} style={nodesStyles.sidebarElement}>
           <div
             onClick={() => selectAtom(subnodes)}
-            style={selectedAtom ? mergedStyles : nodesStyles.link}
+            style={selected ? mergedStyles : nodesStyles.link}
           >
             {node}
           </div>
         </li>
       )
+    }
+
+    const selected = selectedAtom && selectedAtom.indexOf(parent.concat(node).join('')) !== -1
 
     return (
       <li key={node} style={nodesStyles.sidebarElement} >
-        {node}
-        {subnodes && <MenuNode nodes={subnodes} selectAtom={selectAtom} selectedAtom={selectedAtom} />}
+        <div
+          key={node}
+          style={selected ? mergedStyles : nodesStyles.link}
+        >
+          {node}
+        </div>
+        {subnodes && <MenuNode nodes={subnodes} parent={parent.concat(node)} selectAtom={selectAtom} selectedAtom={selectedAtom} />}
       </li>
     )
   }
