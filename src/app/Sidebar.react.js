@@ -17,7 +17,6 @@ export default class Sidebar extends Component {
     selectedAtom: RPT.string
   }
 
-
   render() {
     const {componentsIndex, selectAtom, selectedAtom, searchAtoms, searchedText} = this.props
     const nodes = generateTree(componentsIndex)
@@ -31,17 +30,30 @@ export default class Sidebar extends Component {
             searchedText={searchedText}
             selectedAtom={selectedAtom}
         />
-        <ul style={nodesStyles.sidebar}>
-          <MenuNode nodes={nodes} parent={[]} selectAtom={selectAtom} selectedAtom={selectedAtom} />
-        </ul>
+        <div style={styles.componentsTree}>
+          <ul style={nodesStyles.sidebar}>
+            <MenuNode nodes={nodes} parent={[]} selectAtom={selectAtom} selectedAtom={selectedAtom} />
+          </ul>
+        </div>
       </div>
     );
+  }
+}
+
+const styles = {
+  componentsTree: {
+    flex: '1 1 auto',
+    position: 'relative',
+    overflowY: 'auto'
   }
 }
 
 export const nodesStyles = {
   wrapper: {
     backgroundColor: 'white',
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%'
   },
 
   sidebar: {
@@ -66,9 +78,13 @@ export const nodesStyles = {
     display: 'block',
     textDecoration: 'none',
     transition: 'all .1s ease-out',
+    position: 'relative',
     ':hover': {
       backgroundColor: colors.GRAY_DARKER,
       cursor: 'pointer'
+    },
+    overview: {
+      padding: '10px 20px 10px 30px'
     }
   },
 
