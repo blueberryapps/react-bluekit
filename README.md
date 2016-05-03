@@ -73,6 +73,11 @@ open http://127.0.0.1:8001
 ```
 this will start development server and then you can play with Library components
 
+Generate new svg icons from `src/icons` directory
+```
+gulp svg-icon
+```
+
 ## License
 
 MIT © [Ondrej Bartas](https://github.com/ondrejbartas)
