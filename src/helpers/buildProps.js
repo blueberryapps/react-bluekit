@@ -22,7 +22,7 @@ function calculateProp(type, prop) {
     case 'string': return `Default string ${prop}`
     case 'bool':   return true
     case 'number': return 1
-    case 'func':   return eval(`[function () { alert('called function ${prop}') }][0]`) // eslint-disable-line no-eval
+    case 'func':   return eval(`[function () { document.dispatchEvent(new BluekitEvent('functionTriggered', {detail: {prop: "${prop}"}})) }][0]`) // eslint-disable-line no-eval
     case 'enum':   return type.value[0].value.replace(/'/g, '')
     case 'shape':  return Map(type.value)
       .map((subType, name) => calculateProp(subType, name))

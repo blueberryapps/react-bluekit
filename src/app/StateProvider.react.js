@@ -1,5 +1,5 @@
 import React, {Component, PropTypes as RPT} from 'react';
-import {fromJS} from 'immutable';
+import {List, fromJS} from 'immutable';
 
 export default function StateProvider(Wrapped) {
 
@@ -36,7 +36,31 @@ export default function StateProvider(Wrapped) {
       selectedAtom: null,
       searchedText: '',
       simplePropsSelected: true,
-      sourceBackground: '#ffffff'
+      sourceBackground: '#ffffff',
+      triggeredProps: new List()
+    }
+
+    componentDidMount() {
+      document.addEventListener('functionTriggered', this.propFunctionTriggered.bind(this))
+    }
+
+    componentWillUnmount() {
+      document.removeEventListener('functionTriggered', this.propFunctionTriggered.bind(this))
+    }
+
+    propFunctionTriggered({detail: {prop}}) {
+      const {triggeredProps} = this.state
+      this.setState({
+        triggeredProps: triggeredProps.push(prop)
+      })
+      setTimeout(this.cleanupTriggeredProp.bind(this), 1000)
+    }
+
+    cleanupTriggeredProp() {
+      const {triggeredProps} = this.state
+      this.setState({
+        triggeredProps: triggeredProps.shift()
+      })
     }
 
     createSetAtomProp(key, type, scope = []) {

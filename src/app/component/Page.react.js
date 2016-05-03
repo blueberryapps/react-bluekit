@@ -14,7 +14,8 @@ export default class Page extends Component {
     customProps: RPT.object,
     selectedAtom: RPT.string,
     simplePropsSelected: RPT.bool,
-    sourceBackground: RPT.string
+    sourceBackground: RPT.string,
+    triggeredProps: RPT.array
   }
 
   static contextTypes = {
@@ -55,7 +56,7 @@ export default class Page extends Component {
     const atom = this.getCurrentComponent()
     const currentProps = this.getCurrentProps()
     const extendedProps = this.getComponentExtendendProps()
-    const {simplePropsSelected, sourceBackground} = this.props
+    const {simplePropsSelected, sourceBackground, triggeredProps} = this.props
 
     return (
       <div>
@@ -65,6 +66,7 @@ export default class Page extends Component {
             currentProps={currentProps}
             simplePropsSelected={simplePropsSelected}
             sourceBackground={sourceBackground}
+            triggeredProps={triggeredProps}
           />
         </div>
         <div

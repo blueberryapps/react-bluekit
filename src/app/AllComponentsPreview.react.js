@@ -1,9 +1,8 @@
-import extendComponentProps from '../helpers/extendComponentProps';
+import AtomPreview from './atoms/AtomPreview.react';
 import headingStyles from './styles/Headings';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import resolveComponent from '../helpers/resolveComponent';
-import * as colors from './styles/Colors'
+import * as colors from './styles/Colors';
 
 @Radium
 export default class AllComponentsPreview extends Component {
@@ -29,8 +28,7 @@ export default class AllComponentsPreview extends Component {
 
   renderAtom(name, isOdd) {
     const {componentsIndex, selectAtom} = this.props
-    const data = componentsIndex[name]
-    const ExampleComponent = resolveComponent(data.component)
+    const atom = componentsIndex[name]
 
     return (
       <div
@@ -45,13 +43,10 @@ export default class AllComponentsPreview extends Component {
           onClick={() => selectAtom(name)}
           style={headingStyles}
         >
-          {data.menu}
+          {atom.menu}
         </div>
         <div style={styles.atom.column}>
-          <ExampleComponent {...extendComponentProps(data.simpleProps, data.propsDefinition)} />
-        </div>
-        <div style={styles.atom.column}>
-          <ExampleComponent {...extendComponentProps(data.fullProps, data.propsDefinition)} />
+          <AtomPreview atom={atom} disableFunctionProps />
         </div>
       </div>
     );

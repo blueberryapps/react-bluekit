@@ -16,7 +16,8 @@ export default class PropsSidebar extends Component {
     atom: RPT.object,
     currentProps: RPT.object,
     simplePropsSelected: RPT.bool,
-    sourceBackground: RPT.string
+    sourceBackground: RPT.string,
+    triggeredProps: RPT.array
   }
 
   static contextTypes = {
@@ -34,7 +35,7 @@ export default class PropsSidebar extends Component {
 
   render() {
     const {toggleProps, setSourceBackground} = this.context
-    const {atom, currentProps, simplePropsSelected} = this.props
+    const {atom, currentProps, simplePropsSelected, triggeredProps} = this.props
     const {activeProps, controlsHeaderHeight, displayColorPicker, dropdownOpened} = this.state
 
     return (
@@ -105,6 +106,7 @@ export default class PropsSidebar extends Component {
             commonStyles={styles}
             componentProps={currentProps}
             handlePropsNameClick={this.handlePropsNameClick.bind(this)}
+            triggeredProps={triggeredProps}
           />
         </div>
       </div>
