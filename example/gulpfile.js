@@ -7,6 +7,7 @@ const createBlueKit = require('../src/createBlueKit').default
 createBlueKit({
   // base file of start - this is location where componentsIndex.js will be generated to
   baseDir: path.join(__dirname, 'src'),
+  gulp,
   // relative paths from base dir where to look for components
   paths: ['../../src/components/atoms', '../../example_components'],
 })
