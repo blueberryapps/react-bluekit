@@ -1,6 +1,6 @@
 import buildProps from './helpers/buildProps';
 import fs from 'fs';
-import gulp from 'gulp';
+import normalizePath from './helpers/normalizePath';
 import nunjucks from 'nunjucks';
 import path from 'path';
 import toSource from 'tosource';
@@ -56,7 +56,8 @@ function generateComponentData(config, file, directory) {
       propsDefinition: objectToString(docgen.props)
     }
 
-    const menu = file
+    const normalizedFile = normalizePath(file);
+    const menu = normalizedFile
       .replace(/\.\.\//g, '')
       .replace('.react', '')
       .replace(/\.(js|jsx)$/, '')
@@ -65,8 +66,8 @@ function generateComponentData(config, file, directory) {
       .trim();
     const name = menu.replace(/\s/g, '');
 
-    const importFile = getImportFile(directory, file)
-    const componentName = file.replace(/.*\//, '').split('.')[0];
+    const importFile = normalizePath(getImportFile(directory, file));
+    const componentName = normalizedFile.replace(/.*\//, '').split('.')[0];
     const simpleProps = objectToString(buildProps(docgen.props))
     const fullProps = objectToString(buildProps(docgen.props, true))
 
@@ -93,7 +94,7 @@ function getValidFiles(files) {
   return [].concat.apply([], files).filter(file => !!file);
 }
 
-export default function createBlueKit(config) {
+export default function createBlueKit(gulp, config) {
 
   const {buildCommand, watchCommand} = config
 
