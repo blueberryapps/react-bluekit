@@ -12,7 +12,8 @@ export default class Variants extends Component {
 
   static propTypes = {
     atom: RPT.object.isRequired,
-    componentProps: RPT.object.isRequired
+    componentProps: RPT.object.isRequired,
+    headingColor: RPT.string.isRequired
   }
 
   render() {
@@ -52,10 +53,12 @@ export default class Variants extends Component {
   }
 
   renderVariants(key, type, variants) {
+    const {headingColor} = this.props
+
     return (
       <div>
         <div style={styles.panel}>
-          <h2 id={key} style={headingStyles}>Prop variant: {key}</h2>
+          <h2 id={key} style={[headingStyles, {color: headingColor}]}>Prop variant: {key}</h2>
           {variants.map(variant => this.renderVariant(key, type, variant))}
         </div>
       </div>

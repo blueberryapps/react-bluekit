@@ -6,6 +6,7 @@ import extendComponentProps from '../../helpers/extendComponentProps';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import resolveComponent from '../../helpers/resolveComponent';
+import * as colors from '../styles/Colors';
 
 @Radium
 export default class Page extends Component {
@@ -56,6 +57,14 @@ export default class Page extends Component {
     return extendComponentProps(this.getCurrentProps(), propsDefinition)
   }
 
+  textColor(hex) {
+    const r = parseInt(hex.substr(1, 2), 16)
+    const g = parseInt(hex.substr(3, 2), 16)
+    const b = parseInt(hex.substr(5, 2), 16)
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000
+    return (yiq >= 128) ? colors.BLACK_BRIGHT : colors.GRAY_BRIGHT
+  }
+
   render() {
     const atom = this.getCurrentComponent()
     if (!atom)
@@ -63,6 +72,8 @@ export default class Page extends Component {
     const currentProps = this.getCurrentProps()
     const extendedProps = this.getComponentExtendendProps()
     const {simplePropsSelected, sourceBackground, triggeredProps} = this.props
+
+    const headingColor = this.textColor(sourceBackground)
 
     return (
       <div>
@@ -86,6 +97,7 @@ export default class Page extends Component {
             atom={atom}
             currentProps={currentProps}
             extendedProps={extendedProps}
+            headingColor={headingColor}
           />
         </div>
       </div>
