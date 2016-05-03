@@ -1,11 +1,13 @@
-import ComponentPage from './component/Page.react';
-import Sidebar from './Sidebar.react';
-import HighlightStyle from './styles/HighlightStyle';
+import '../helpers/BluekitEvent';
+import * as colors from './styles/Colors.js'
 import AllComponentsPreview from './AllComponentsPreview.react';
+import ComponentPage from './component/Page.react';
+import HighlightStyle from './styles/HighlightStyle';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
+import Sidebar from './Sidebar.react';
 import StateProvider from './StateProvider.react'
-import * as colors from './styles/Colors.js'
+import {FontStyle} from './styles/Font';
 
 @StateProvider
 @Radium
@@ -20,7 +22,8 @@ export default class Page extends Component {
     searchedText: RPT.string,
     selectedAtom: RPT.string,
     simplePropsSelected: RPT.bool,
-    sourceBackground: RPT.string
+    sourceBackground: RPT.string,
+    triggeredProps: RPT.array
   }
 
   static contextTypes = {
@@ -56,12 +59,13 @@ export default class Page extends Component {
           </div>
         </div>
         <HighlightStyle />
+        <FontStyle />
       </div>
     );
   }
 
   renderAtom() {
-    const {componentsIndex, customProps, selectedAtom, simplePropsSelected, sourceBackground} = this.props
+    const {componentsIndex, customProps, selectedAtom, simplePropsSelected, sourceBackground, triggeredProps} = this.props
 
     return (
       <ComponentPage
@@ -70,6 +74,7 @@ export default class Page extends Component {
         selectedAtom={selectedAtom}
         simplePropsSelected={simplePropsSelected}
         sourceBackground={sourceBackground}
+        triggeredProps={triggeredProps}
       />
     );
   }

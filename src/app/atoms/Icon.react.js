@@ -77,5 +77,3 @@ export default class Icon extends Component {
       }
   }
 }
-
-

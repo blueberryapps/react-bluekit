@@ -16,18 +16,18 @@ export default class Dropdown extends Component {
   }
 
   componentDidMount() {
-    //window.addEventListener('click', this.handleDocumentClick)
+    document.addEventListener('click', this.handleDocumentClick)
   }
 
   componentWillUnmount() {
-    //window.removeEventListener('click', this.handleDocumentClick)
+    document.removeEventListener('click', this.handleDocumentClick)
   }
 
    /* using fat arrow to bind to instance */
    handleDocumentClick = (evt) => {
      const area = ReactDOM.findDOMNode(this.refs.dropdown)
 
-     if (!area.contains(evt.target) && this.props.visible) {
+     if (!area.contains(evt.target) && this.props.visible && this.props.handleGeneralIconClick) {
        this.props.handleGeneralIconClick()
      }
    }
