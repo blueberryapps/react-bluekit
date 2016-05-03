@@ -62,7 +62,8 @@ export default class SourceCode extends Component {
 
     const {componentProps} = this.props
 
-    return Object.keys(componentProps)
+    return Object.keys(propsDefinition)
+      .filter(key => propsDefinition[key].type)
       .map((key) => `  ${renderProp(key, propsDefinition[key].type.name, componentProps[key])}`)
       .join('\n')
   }

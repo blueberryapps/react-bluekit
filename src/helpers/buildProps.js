@@ -8,7 +8,7 @@ export default function buildProps(propsDefinition, allProps = false) {
       props[prop] = data.defaultValue.computed
         ? data.defaultValue.value
         : eval(`(${data.defaultValue.value})`) // eslint-disable-line no-eval
-    else if (allProps || data.required)
+    else if (allProps || data.required || data.type.name === 'func')
       props[prop] = calculateProp(data.type, prop)
   })
 
