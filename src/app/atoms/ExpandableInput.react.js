@@ -13,11 +13,11 @@ export default class ExpandableInput extends Component {
     textarea: false
   }
 
-  componentDidUpdate() {
-    const node = ReactDOM.findDOMNode(this.refs.textarea)
-
-    if (node) {
-      node.focus()
+  componentDidUpdate(_, prevState) {
+    if (!prevState.textarea && this.state.textarea) {
+      const node = ReactDOM.findDOMNode(this.refs.textarea)
+      if (node)
+        node.focus()
     }
   }
 

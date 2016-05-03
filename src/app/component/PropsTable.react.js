@@ -22,7 +22,8 @@ export default class PropsTable extends Component {
     atom: RPT.object.isRequired,
     commonStyles: RPT.object.isRequired,
     componentProps: RPT.object.isRequired,
-    handlePropsNameClick: RPT.func.isRequired
+    handlePropsNameClick: RPT.func.isRequired,
+    triggeredProps: RPT.array
   }
 
   render() {
@@ -38,7 +39,7 @@ export default class PropsTable extends Component {
   }
 
   renderPropRow(data, key) {
-    const {activeProps, commonStyles} = this.props
+    const {activeProps, commonStyles, triggeredProps} = this.props
 
     if (!data.type) return null
 
@@ -48,6 +49,7 @@ export default class PropsTable extends Component {
       )
 
     const required = data.required
+    const triggered = triggeredProps.includes(key)
 
     return (
       <div key={key} style={styles.row}>
@@ -56,6 +58,7 @@ export default class PropsTable extends Component {
             styles.prop,
             styles.prop.info,
             activeProps === key && commonStyles.propName.active,
+            triggered && {backgroundColor: 'green'},
             required && font.bold
           ]}
         >

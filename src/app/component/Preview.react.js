@@ -1,9 +1,9 @@
+import AtomPreview from '../atoms/AtomPreview.react';
 import SourceCode from './SourceCode.react';
 import font from '../styles/Font';
 import headingStyles from '../styles/Headings';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import resolveComponent from '../../helpers/resolveComponent';
 import spaces from '../styles/Spaces';
 import Variants from './Variants.react';
 import * as colors from '../styles/Colors';
@@ -14,7 +14,6 @@ export default class Preview extends Component {
   static propTypes = {
     atom: RPT.object,
     currentProps: RPT.object,
-    extendedProps: RPT.object
   }
 
   state = {
@@ -22,16 +21,15 @@ export default class Preview extends Component {
   }
 
   render() {
-    const {atom, currentProps, extendedProps} = this.props
+    const {atom, currentProps} = this.props
     const {visiblePreviewSource} = this.state
-    const PreviewAtom = resolveComponent(atom.component)
 
     return (
       <div style={styles.wrapper}>
         <div style={[styles.panel, styles.panel.first, !visiblePreviewSource && styles.panel.source]}>
           <h2 id='preview' style={[headingStyles, headingStyles.preview]}>Preview</h2>
           <div style={styles.atomWrapper}>
-            <PreviewAtom {...extendedProps} />
+            <AtomPreview atom={atom} variantProps={currentProps}/>
           </div>
           <div
             onClick={this.handlePreviewSourceClick.bind(this)}

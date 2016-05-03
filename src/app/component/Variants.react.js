@@ -1,10 +1,9 @@
+import AtomPreview from '../atoms/AtomPreview.react';
 import CopyCode from '../atoms/CopyCode.react';
-import extendComponentProps from '../../helpers/extendComponentProps';
 import Highlight from '../atoms/Highlight.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import renderProp from '../../helpers/renderProp';
-import resolveComponent from '../../helpers/resolveComponent';
 import {Map} from 'immutable';
 
 @Radium
@@ -14,12 +13,6 @@ export default class Variants extends Component {
     atom: RPT.object.isRequired,
     componentProps: RPT.object.isRequired,
     styles: RPT.object.isRequired,
-  }
-
-  getComponentExtendendProps() {
-    const {atom: {propsDefinition}, componentProps} = this.props
-
-    return extendComponentProps(componentProps, propsDefinition)
   }
 
   render() {
@@ -64,7 +57,6 @@ export default class Variants extends Component {
 
   renderVariant(key, type, variant) {
     const {atom, componentProps, styles} = this.props
-    const ExampleAtom = resolveComponent(atom.component)
     const variantProps = {...componentProps, [key]: variant}
     const source = `<${atom.componentName} ${renderProp(key, type, variant)} />`
 
@@ -75,7 +67,7 @@ export default class Variants extends Component {
           {source}
         </Highlight>
         <div style={styles.clear}>
-          <ExampleAtom {...this.getComponentExtendendProps()} {...variantProps} />
+          <AtomPreview atom={atom} variantProps={variantProps} />
         </div>
         <div style={[styles.clear, styles.clear.after]} />
       </div>
