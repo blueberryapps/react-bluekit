@@ -1,15 +1,15 @@
-import ExampleSource from './ExampleSource.react';
-import font from './styles/Font';
-import headingStyles from './styles/Headings';
+import SourceCode from './SourceCode.react';
+import font from '../styles/Font';
+import headingStyles from '../styles/Headings';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import resolveComponent from '../helpers/resolveComponent';
-import spaces from './styles/Spaces';
+import resolveComponent from '../../helpers/resolveComponent';
+import spaces from '../styles/Spaces';
 import Variants from './Variants.react';
-import * as colors from './styles/Colors';
+import * as colors from '../styles/Colors';
 
 @Radium
-export default class Detail extends Component {
+export default class Preview extends Component {
 
   static propTypes = {
     atom: RPT.object,
@@ -24,14 +24,14 @@ export default class Detail extends Component {
   render() {
     const {atom, currentProps, extendedProps} = this.props
     const {visiblePreviewSource} = this.state
-    const ExampleAtom = resolveComponent(atom.component)
+    const PreviewAtom = resolveComponent(atom.component)
 
     return (
       <div style={styles.wrapper}>
         <div style={[styles.panel, styles.panel.first, !visiblePreviewSource && styles.panel.source]}>
           <h2 id='preview' style={[headingStyles, headingStyles.preview]}>Preview</h2>
           <div style={styles.atomWrapper}>
-            <ExampleAtom {...extendedProps} />
+            <PreviewAtom {...extendedProps} />
           </div>
           <div
             onClick={this.handlePreviewSourceClick.bind(this)}
@@ -40,7 +40,7 @@ export default class Detail extends Component {
             {visiblePreviewSource ? 'Hide ' : 'Show '}
             source code
           </div>
-          <ExampleSource atom={atom} componentProps={currentProps} visible={visiblePreviewSource} />
+          <SourceCode atom={atom} componentProps={currentProps} visible={visiblePreviewSource} />
         </div>
         <Variants atom={atom} componentProps={currentProps} styles={styles} />
       </div>

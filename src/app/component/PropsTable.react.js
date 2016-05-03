@@ -1,14 +1,14 @@
-import Checkbox from './atoms/Checkbox.react';
-import ExpandableInput from './atoms/ExpandableInput.react';
-import FluidTextArea from './FluidTextArea.react.js';
-import font from './styles/Font';
-import Input from './atoms/Input.react';
+import Checkbox from '../atoms/Checkbox.react';
+import ExpandableInput from '../atoms/ExpandableInput.react';
+import FluidTextArea from '../atoms/FluidTextArea.react.js';
+import font from '../styles/Font';
+import Input from '../atoms/Input.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import Select from './atoms/Select.react';
-import spaces from './styles/Spaces'
+import Select from '../atoms/Select.react';
+import spaces from '../styles/Spaces'
 import {Map, fromJS} from 'immutable';
-import * as colors from './styles/Colors'
+import * as colors from '../styles/Colors'
 
 @Radium
 export default class PropsTable extends Component {

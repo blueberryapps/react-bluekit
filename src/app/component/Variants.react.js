@@ -1,10 +1,10 @@
-import CopyCode from './CopyCode.react';
-import extendComponentProps from '../helpers/extendComponentProps';
-import Highlight from './Highlight.react';
+import CopyCode from '../atoms/CopyCode.react';
+import extendComponentProps from '../../helpers/extendComponentProps';
+import Highlight from '../atoms/Highlight.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import renderProp from '../helpers/renderProp';
-import resolveComponent from '../helpers/resolveComponent';
+import renderProp from '../../helpers/renderProp';
+import resolveComponent from '../../helpers/resolveComponent';
 import {Map} from 'immutable';
 
 @Radium

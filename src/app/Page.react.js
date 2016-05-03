@@ -1,7 +1,7 @@
-import Atom from './Atom.react';
-import ComponentsSidebar from './ComponentsSidebar.react';
+import ComponentPage from './component/Page.react';
+import Sidebar from './Sidebar.react';
 import HighlightStyle from './styles/HighlightStyle';
-import List from './List.react';
+import AllComponentsPreview from './AllComponentsPreview.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import StateProvider from './StateProvider.react'
@@ -43,7 +43,7 @@ export default class Page extends Component {
       <div>
         <div style={[styles.wrapper.base, inline ? {height: height} : styles.wrapper.full]}>
           <div style={styles.sidebar}>
-            <ComponentsSidebar
+            <Sidebar
               componentsIndex={componentsIndex}
               searchAtoms={searchAtoms}
               searchedText={searchedText}
@@ -64,7 +64,7 @@ export default class Page extends Component {
     const {componentsIndex, customProps, selectedAtom, simplePropsSelected, sourceBackground} = this.props
 
     return (
-      <Atom
+      <ComponentPage
         componentsIndex={componentsIndex}
         customProps={customProps}
         selectedAtom={selectedAtom}
@@ -80,7 +80,7 @@ export default class Page extends Component {
 
     return (
       <div style={[styles.list]}>
-        <List
+        <AllComponentsPreview
           componentsIndex={componentsIndex}
           selectAtom={selectAtom}
           selectedAtom={selectedAtom}

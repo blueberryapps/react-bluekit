@@ -1,6 +1,6 @@
 import Radium from 'radium'
 import React, {Component, PropTypes as RPT} from 'react'
-import {nodesStyles} from './ComponentsSidebar.react'
+import {nodesStyles} from './Sidebar.react'
 
 @Radium
 export default class MenuNode extends Component {
