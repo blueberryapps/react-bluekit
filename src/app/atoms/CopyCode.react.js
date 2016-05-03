@@ -1,5 +1,6 @@
 import CopyToClipboard from 'react-copy-to-clipboard';
 import font from '../styles/Font';
+import Icon from '../atoms/Icon.react';
 import * as colors from '../styles/Colors';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
@@ -24,7 +25,12 @@ export default class CopyCode extends Component {
       <CopyToClipboard onCopy={this.onCopy.bind(this)} text={source}>
         <div style={[styles.copyCode.wrapper, inheritedStyles]}>
           <div style={styles.copyCode.inner}>
-            {copied ? 'copied' : 'Copy'}
+            <Icon
+              color={colors.BLUE}
+              kind='copy'
+              size='20px'
+              wrapperStyle={copied && {opacity: '.3'}}
+            />
           </div>
         </div>
       </CopyToClipboard>
@@ -43,7 +49,7 @@ const styles = {
     wrapper: {
       backgroundColor: 'white',
       position: 'absolute',
-      padding: '15px 10px',
+      padding: '11px 10px',
       top: '31px',
       right: '1px',
       zIndex: 2
@@ -53,7 +59,7 @@ const styles = {
       ...font.bold,
       color: colors.BLUE,
       textTransform: 'uppercase',
-      paddingLeft: '10px',
+      paddingLeft: '15px',
       borderLeft: `1px solid ${colors.GRAY_DARKER}`,
       ':hover': {
         cursor: 'pointer'

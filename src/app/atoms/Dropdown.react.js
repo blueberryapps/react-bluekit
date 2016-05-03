@@ -1,4 +1,5 @@
 import font from '../styles/Font';
+import Icon from './Icon.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import ReactDOM from 'react-dom';
@@ -48,7 +49,7 @@ export default class Dropdown extends Component {
           onClick={handleGeneralIconClick}
           style={styles.generalIcon}
         >
-          Set
+          <Icon color={colors.BLUE} kind='settings' size='21px' />
         </i>
         <div
           style={[styles.wrapper, visible && styles.wrapper.visible]}
@@ -84,8 +85,8 @@ const styles = {
     width: '200px',
     border: `1px solid ${colors.GRAY_DARKER}`,
     position: 'absolute',
-    top: '105%',
-    right: '-13px',
+    top: '110%',
+    right: '-7px',
     boxSizing: 'border-box',
     display: 'none',
     textAlign: 'left',
