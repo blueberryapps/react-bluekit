@@ -1,11 +1,11 @@
 import ColorPicker from 'react-color';
 import Dropdown from '../atoms/Dropdown.react';
 import headingStyles from '../styles/Headings'
+import Icon from '../atoms/Icon.react';
 import font from '../styles/Font';
 import PropsTable from './PropsTable.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import ReactDOM from 'react-dom';
 import spaces from '../styles/Spaces'
 import * as colors from '../styles/Colors'
 
@@ -28,7 +28,6 @@ export default class PropsSidebar extends Component {
 
   state = {
     activeProps: 'preview',
-    controlsHeaderHeight: 134,
     displayColorPicker: false,
     dropdownOpened: false
   }
@@ -36,7 +35,7 @@ export default class PropsSidebar extends Component {
   render() {
     const {toggleProps, setSourceBackground} = this.context
     const {atom, currentProps, simplePropsSelected, triggeredProps} = this.props
-    const {activeProps, controlsHeaderHeight, displayColorPicker, dropdownOpened} = this.state
+    const {activeProps, displayColorPicker, dropdownOpened} = this.state
 
     return (
       <div style={styles.wrapper}>
@@ -79,9 +78,11 @@ export default class PropsSidebar extends Component {
                 >
                   {this.renderActiveSourceBg('#000000')}
                 </div>
-                <div
+                <Icon
                   key='interactiveColor'
+                  kind='colorpicker'
                   onClick={this.handleColorPickerClick.bind(this)}
+                  size='20px'
                   style={[styles.bgColor, styles.bgColor.interactive]}
                 />
                 <div
@@ -99,7 +100,7 @@ export default class PropsSidebar extends Component {
             </div>
           </div>
         </div>
-        <div style={[styles.controls.body, {top: `${controlsHeaderHeight}px`}]}>
+        <div style={styles.controls.body}>
           <PropsTable
             activeProps={activeProps}
             atom={atom}
@@ -143,17 +144,6 @@ export default class PropsSidebar extends Component {
     this.setState({activeProps: key})
   }
 
-  componentDidMount() {
-    this.getControlsHeaderHeight()
-  }
-
-  getControlsHeaderHeight() {
-    const ref = this.refs['controlsHeader']
-    const height = ReactDOM.findDOMNode(ref).getBoundingClientRect().height
-
-    this.setState({controlsHeaderHeight: height})
-  }
-
   renderActiveSourceBg(color) {
     const {sourceBackground} = this.props
 
@@ -172,13 +162,11 @@ export default class PropsSidebar extends Component {
 const styles = {
   controls: {
     header: {
-      paddingTop: spaces.normal
+      paddingTop: spaces.normal,
+      flex: '0 0 auto'
     },
     body: {
-      position: 'absolute',
-      left: 0,
-      right: 0,
-      bottom: 0,
+      flex: '1 1 auto',
       overflow: 'auto',
       paddingTop: '12px'
     }
@@ -212,9 +200,9 @@ const styles = {
     boxSizing: 'border-box',
     display: 'inline-block',
     position: 'relative',
-    width: '25px',
-    height: '25px',
-    marginRight: '5px',
+    width: '22px',
+    height: '22px',
+    marginRight: '7px',
     border: `1px solid ${colors.GRAY_DARKER}`,
     backgroundColor: '#ffffff',
     ':hover': {
@@ -224,9 +212,8 @@ const styles = {
       backgroundColor: '#000000'
     },
     interactive: {
-      borderRadius: '50%',
       backgroundColor: 'transparent',
-      backgroundImage: 'linear-gradient(135deg, rgba(255,255,255,0) 0%,rgba(0,64,134,1) 100%)',
+      border: 0,
       marginRight: 0
     },
     active: {
@@ -297,8 +284,9 @@ const styles = {
     backgroundColor: colors.GRAY,
     boxSizing: 'border-box',
     width: '100%',
-    display: 'inline-block',
-    minHeight: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
     padding: 0
   }
 };

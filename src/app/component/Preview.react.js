@@ -1,9 +1,10 @@
 import AtomPreview from '../atoms/AtomPreview.react';
-import SourceCode from './SourceCode.react';
 import font from '../styles/Font';
 import headingStyles from '../styles/Headings';
+import Icon from '../atoms/Icon.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
+import SourceCode from './SourceCode.react';
 import spaces from '../styles/Spaces';
 import Variants from './Variants.react';
 import * as colors from '../styles/Colors';
@@ -17,7 +18,7 @@ export default class Preview extends Component {
   }
 
   state = {
-    visiblePreviewSource: false
+    visiblePreviewSource: true
   }
 
   render() {
@@ -35,8 +36,18 @@ export default class Preview extends Component {
             onClick={this.handlePreviewSourceClick.bind(this)}
             style={[styles.sourceHeader, !visiblePreviewSource && styles.sourceHeader.hiddenSource]}
           >
+            <Icon color={colors.BLUE} kind='code' size='28px' wrapperStyle={styles.icon.code} />
             {visiblePreviewSource ? 'Hide ' : 'Show '}
             source code
+            <Icon
+              color={colors.BLUE}
+              kind='arrow'
+              size='10px'
+              wrapperStyle={[
+                styles.icon.arrow,
+                visiblePreviewSource && styles.sourceHeader.hiddenSource.arrow
+              ]}
+            />
           </div>
           <SourceCode atom={atom} componentProps={currentProps} visible={visiblePreviewSource} />
         </div>
@@ -67,7 +78,7 @@ const styles = {
     borderLeft: `1px solid ${colors.GRAY_DARKER}`,
     backgroundColor: colors.GRAY,
     fontSize: '15px',
-    padding: spaces.smaller,
+    padding: `${spaces.smaller} ${spaces.smaller} ${spaces.smaller} 55px`,
     position: 'relative',
     top: '30px',
     zIndex: 1,
@@ -76,6 +87,9 @@ const styles = {
     },
     hiddenSource: {
       borderBottom: `1px solid ${colors.GRAY_DARKER}`,
+      arrow: {
+        transform: 'rotate(180deg)'
+      }
     }
   },
 
@@ -101,6 +115,19 @@ const styles = {
     },
     source: {
       paddingBottom: '80px'
+    }
+  },
+
+  icon: {
+    code: {
+      position: 'absolute',
+      left: '15px',
+      top: '10px'
+    },
+    arrow: {
+      position: 'absolute',
+      right: '61px',
+      top: '15px'
     }
   },
 

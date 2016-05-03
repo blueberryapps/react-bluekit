@@ -114,9 +114,10 @@ const styles = {
     width: '20%',
     height: '100%',
     display: 'inline-block',
-    overflowY: 'auto',
+    overflow: 'hidden',
     boxSizing: 'border-box',
-    borderRight: `1px solid ${colors.GRAY_DARKER}`
+    borderRight: `1px solid ${colors.GRAY_DARKER}`,
+    position: 'relative'
   },
   content: {
     width: '80%',
