@@ -6,7 +6,7 @@ import resolveComponent from '../helpers/resolveComponent';
 import * as colors from './styles/Colors'
 
 @Radium
-export default class List extends Component {
+export default class AllComponentsPreview extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,

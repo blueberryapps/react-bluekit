@@ -1,13 +1,13 @@
-import ControlsSidebar from './ControlsSidebar.react';
-import Detail from './Detail.react';
-import extendProps from '../helpers/extendProps';
-import extendComponentProps from '../helpers/extendComponentProps';
+import PropsSidebar from './PropsSidebar.react';
+import Preview from './Preview.react';
+import extendProps from '../../helpers/extendProps';
+import extendComponentProps from '../../helpers/extendComponentProps';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import resolveComponent from '../helpers/resolveComponent';
+import resolveComponent from '../../helpers/resolveComponent';
 
 @Radium
-export default class Atom extends Component {
+export default class Page extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
@@ -60,7 +60,7 @@ export default class Atom extends Component {
     return (
       <div>
         <div style={[styles.wrapper, styles.wrapper.sidebar]}>
-          <ControlsSidebar
+          <PropsSidebar
             atom={atom}
             currentProps={currentProps}
             simplePropsSelected={simplePropsSelected}
@@ -74,7 +74,7 @@ export default class Atom extends Component {
             {backgroundColor: sourceBackground}
           ]}
         >
-          <Detail
+          <Preview
             atom={atom}
             currentProps={currentProps}
             extendedProps={extendedProps}

@@ -8,10 +8,6 @@ export default class TextField extends Component {
     value: RPT.string
   };
 
-  static defaultProps = {
-    type: 'text'
-  };
-
   render() {
     const {value, onChange} = this.props
 
@@ -28,7 +24,7 @@ export default class TextField extends Component {
   numberOfRows() {
     const {value} = this.props
 
-    return value.split(/\n/g).length
+    return `${value}`.split(/\n/g).length
   }
 
 };

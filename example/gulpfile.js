@@ -9,7 +9,7 @@ createBlueKit({
   baseDir: path.join(__dirname, 'src'),
   gulp,
   // relative paths from base dir where to look for components
-  paths: ['../../src/components/atoms', '../../example_components'],
+  paths: ['../../src/app/atoms', '../../example_components'],
 })
 
 gulp.task('server', function() {

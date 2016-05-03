@@ -7,7 +7,7 @@ import SearchBox from './SearchBox.react'
 import * as colors from './styles/Colors'
 
 @Radium
-export default class ComponentsSidebar extends Component {
+export default class Sidebar extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
