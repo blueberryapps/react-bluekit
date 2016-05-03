@@ -1,16 +1,16 @@
 import ColorPicker from 'react-color';
-import Dropdown from './atoms/Dropdown.react';
-import headingStyles from './styles/Headings'
-import font from './styles/Font';
+import Dropdown from '../atoms/Dropdown.react';
+import headingStyles from '../styles/Headings'
+import font from '../styles/Font';
 import PropsTable from './PropsTable.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import ReactDOM from 'react-dom';
-import spaces from './styles/Spaces'
-import * as colors from './styles/Colors'
+import spaces from '../styles/Spaces'
+import * as colors from '../styles/Colors'
 
 @Radium
-export default class ControlsSidebar extends Component {
+export default class PropsSidebar extends Component {
 
   static propTypes = {
     atom: RPT.object,

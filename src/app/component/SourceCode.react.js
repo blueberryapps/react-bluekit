@@ -1,11 +1,11 @@
-import CopyCode from './CopyCode.react';
-import Highlight from './Highlight.react';
+import CopyCode from '../atoms/CopyCode.react';
+import Highlight from '../atoms/Highlight.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
-import renderProp from '../helpers/renderProp';
+import renderProp from '../../helpers/renderProp';
 
 @Radium
-export default class ExampleSource extends Component {
+export default class SourceCode extends Component {
 
   static propTypes = {
     atom: RPT.object.isRequired,
@@ -61,6 +61,7 @@ export default class ExampleSource extends Component {
     const {atom: {propsDefinition}} = this.props
 
     const {componentProps} = this.props
+
     return Object.keys(componentProps)
       .map((key) => `  ${renderProp(key, propsDefinition[key].type.name, componentProps[key])}`)
       .join('\n')
