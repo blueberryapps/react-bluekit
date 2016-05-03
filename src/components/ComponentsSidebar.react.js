@@ -1,65 +1,51 @@
-import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
 import font from './styles/Font';
+import generateTree from '../helpers/generateTree'
+import MenuNode from './MenuNode.react'
+import Radium from 'radium';
+import React, {Component, PropTypes as RPT} from 'react'
+import SearchBox from './SearchBox.react'
+import * as colors from './styles/Colors'
 
 @Radium
 export default class ComponentsSidebar extends Component {
 
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
+    searchAtoms: RPT.func.isRequired,
+    searchedText: RPT.string,
     selectAtom: RPT.func.isRequired,
     selectedAtom: RPT.string
   }
 
+
   render() {
-    const {componentsIndex, selectAtom, selectedAtom} = this.props
+    const {componentsIndex, selectAtom, selectedAtom, searchAtoms, searchedText} = this.props
+    const nodes = generateTree(componentsIndex)
 
     return (
-      <div style={styles.wrapper}>
-        <ul style={styles.sidebar}>
-          <li key={name} style={styles.sidebarElement}>
-            <div
-              key="all-components"
-              onClick={() => selectAtom(null)}
-              style={[styles.link, !selectedAtom && styles.sidebarLinkActive, font]}
-            >
-                All components
-            </div>
-          </li>
-          {Object.keys(componentsIndex).map(name => this.renderAtom(name))}
+      <div style={nodesStyles.wrapper}>
+        <SearchBox
+            componentsIndex={componentsIndex}
+            nodeOnClick={() => selectAtom(null)}
+            searchAtoms={searchAtoms}
+            searchedText={searchedText}
+            selectedAtom={selectedAtom}
+        />
+        <ul style={nodesStyles.sidebar}>
+          <MenuNode nodes={nodes} parent={[]} selectAtom={selectAtom} selectedAtom={selectedAtom} />
         </ul>
       </div>
     );
   }
-
-  renderAtom(name) {
-    const {selectAtom, selectedAtom} = this.props
-    const data = this.getComponentData(name)
-
-    return (
-      <li key={name} style={styles.sidebarElement}>
-        <div
-          key={name}
-          onClick={() => selectAtom(name)}
-          style={[styles.link, selectedAtom === name && styles.sidebarLinkActive, font]}
-        >
-            {data.menu}
-        </div>
-      </li>
-    );
-  }
-
-  getComponentData(name) {
-    const {componentsIndex} = this.props
-
-    return componentsIndex[name]
-  }
-
 }
 
-const styles = {
+export const nodesStyles = {
   wrapper: {
     backgroundColor: 'white',
+  },
+
+  sidebar: {
+    paddingLeft: 0
   },
 
   sidebarElement: {
@@ -68,20 +54,25 @@ const styles = {
     padding: 0,
   },
 
+  list: {
+    paddingLeft: '10px'
+  },
+
   link: {
-    padding: '8px 20px',
-    fontSize: '12px',
-    fontWeight: 'normal',
-    color: 'rgb(27, 111, 159)',
+    ...font,
+    padding: '10px 20px',
+    fontSize: '13px',
+    color: colors.BLACK_BRIGHT,
     display: 'block',
     textDecoration: 'none',
+    transition: 'all .1s ease-out',
     ':hover': {
-      color: 'white',
-      backgroundColor: 'rgb(255, 134, 43)'
+      backgroundColor: colors.GRAY_DARKER,
+      cursor: 'pointer'
     }
   },
 
   sidebarLinkActive: {
-    backgroundColor: 'hsl(202, 100%, 96%)',
+    backgroundColor: colors.GRAY
   },
 };

@@ -5,6 +5,7 @@ import List from './List.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import StateProvider from './StateProvider.react'
+import * as colors from './styles/Colors.js'
 
 @StateProvider
 @Radium
@@ -16,6 +17,7 @@ export default class Page extends Component {
     height: RPT.string,
     inline: RPT.bool,
     mountPoint: RPT.string,
+    searchedText: RPT.string,
     selectedAtom: RPT.string,
     simplePropsSelected: RPT.bool
   }
@@ -23,6 +25,7 @@ export default class Page extends Component {
   static contextTypes = {
     resetPropsToDefault: RPT.func.isRequired,
     selectAtom: RPT.func.isRequired,
+    searchAtoms: RPT.func.isRequired,
     toggleProps: RPT.func.isRequired
   }
 
@@ -32,8 +35,8 @@ export default class Page extends Component {
   }
 
   render() {
-    const {componentsIndex, height, inline, selectedAtom} = this.props
-    const {selectAtom} = this.context
+    const {componentsIndex, height, inline, selectedAtom, searchedText} = this.props
+    const {selectAtom, searchAtoms} = this.context
 
     return (
       <div>
@@ -41,7 +44,9 @@ export default class Page extends Component {
           <div style={styles.sidebar}>
             <ComponentsSidebar
               componentsIndex={componentsIndex}
-              selectAtom={selectAtom.bind(this)}
+              searchAtoms={searchAtoms}
+              searchedText={searchedText}
+              selectAtom={selectAtom}
               selectedAtom={selectedAtom}
             />
           </div>
@@ -102,7 +107,9 @@ const styles = {
     width: '20%',
     height: '100%',
     display: 'inline-block',
-    overflowY: 'auto'
+    overflowY: 'auto',
+    boxSizing: 'border-box',
+    borderRight: `1px solid ${colors.GRAY_DARKER}`
   },
   content: {
     width: '80%',

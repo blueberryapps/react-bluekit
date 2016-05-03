@@ -3,14 +3,16 @@ import {fromJS} from 'immutable';
 
 export default function StateProvider(Wrapped) {
 
-  return class Page extends Component {
+  return class StateProvider extends Component {
 
     static propTypes = {
+      componentsIndex: RPT.object.isRequired
     }
 
     static childContextTypes = {
       createSetAtomProp: RPT.func,
       selectAtom: RPT.func,
+      searchAtoms: RPT.func,
       setAtomProp: RPT.func,
       toggleProps: RPT.func,
       resetPropsToDefault: RPT.func,
@@ -20,6 +22,7 @@ export default function StateProvider(Wrapped) {
       return {
         createSetAtomProp: this.createSetAtomProp.bind(this),
         selectAtom: this.selectAtom.bind(this),
+        searchAtoms: this.searchAtoms.bind(this),
         setAtomProp: this.setAtomProp.bind(this),
         toggleProps: this.toggleProps.bind(this),
         resetPropsToDefault: this.resetPropsToDefault.bind(this),
@@ -29,6 +32,7 @@ export default function StateProvider(Wrapped) {
     state = {
       customProps: {},
       selectedAtom: null,
+      searchedText: '',
       simplePropsSelected: true
     }
 
@@ -83,8 +87,27 @@ export default function StateProvider(Wrapped) {
       this.setState({selectedAtom})
     }
 
+    searchAtoms(searchedText) {
+
+      this.setState({
+        searchedText
+      })
+    }
+
+    filterComponentsIndex() {
+      const {componentsIndex} = this.props
+      const {searchedText} = this.state
+      if (`${searchedText}`.length > 0)
+        return Object.keys(componentsIndex)
+          .filter(key => key.toLowerCase().indexOf(searchedText.toLowerCase()) !== -1)
+          .reduce((acc, key) => ({...acc, [key]: componentsIndex[key]}), {})
+
+
+      return componentsIndex
+    }
+
     render() {
-      return <Wrapped {...this.state} {...this.props} />
+      return <Wrapped {...this.state} {...this.props} componentsIndex={this.filterComponentsIndex()} />
     }
   }
 }
