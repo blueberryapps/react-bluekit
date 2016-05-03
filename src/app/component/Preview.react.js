@@ -1,10 +1,10 @@
 import AtomPreview from '../atoms/AtomPreview.react';
-import SourceCode from './SourceCode.react';
 import font from '../styles/Font';
-import Icon from '../atoms/Icon.react';
 import headingStyles from '../styles/Headings';
+import Icon from '../atoms/Icon.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
+import SourceCode from './SourceCode.react';
 import spaces from '../styles/Spaces';
 import Variants from './Variants.react';
 import * as colors from '../styles/Colors';

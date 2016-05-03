@@ -1,4 +1,6 @@
+import Icon from './atoms/Icon.react'
 import Input from './atoms/Input.react'
+import Logo from './atoms/Logo.react'
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import spaces from './styles/Spaces'
@@ -20,7 +22,7 @@ export default class SearchBox extends Component {
 
     return (
       <div style={styles.wrapper}>
-        <img src="src/img/bluekit-logo.svg" style={styles.logo} />
+        <Logo />
         <Input
           onChange={({target: {value}}) => searchAtoms(value)}
           placeholder="Search your component"
@@ -29,8 +31,19 @@ export default class SearchBox extends Component {
         />
         <div
           onClick={nodeOnClick}
-          style={[styles.all, nodesStyles.link, !selectedAtom && nodesStyles.sidebarLinkActive]}
+          style={[
+            styles.all,
+            nodesStyles.link,
+            nodesStyles.link.overview,
+            !selectedAtom && nodesStyles.sidebarLinkActive
+          ]}
         >
+          <Icon
+            color={colors.BLUE}
+            kind='overview'
+            size='14px'
+            style={styles.overviewIcon}
+          />
             All components
         </div>
       </div>
@@ -43,7 +56,14 @@ const styles = {
     marginTop: spaces.small
   },
 
+  overviewIcon: {
+    position: 'absolute',
+    left: '8px',
+    top: '10px'
+  },
+
   wrapper: {
+    flex: '0 0 auto',
     padding: spaces.normal,
     borderBottom: `1px solid ${colors.GRAY_DARKER}`
   },

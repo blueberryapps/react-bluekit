@@ -24,12 +24,11 @@ export default class CopyCode extends Component {
     return (
       <CopyToClipboard onCopy={this.onCopy.bind(this)} text={source}>
         <div style={[styles.copyCode.wrapper, inheritedStyles]}>
-          <div style={styles.copyCode.inner}>
+          <div style={[styles.copyCode.inner, copied && styles.copyCode.copied]}>
             <Icon
               color={colors.BLUE}
               kind='copy'
               size='20px'
-              wrapperStyle={copied && {opacity: '.3'}}
             />
           </div>
         </div>
@@ -63,6 +62,12 @@ const styles = {
       borderLeft: `1px solid ${colors.GRAY_DARKER}`,
       ':hover': {
         cursor: 'pointer'
+      }
+    },
+    copied: {
+      opacity: '.3',
+      ':hover': {
+        cursor: 'default'
       }
     }
   }

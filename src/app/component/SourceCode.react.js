@@ -41,7 +41,7 @@ export default class SourceCode extends Component {
 
   renderWithoutChildren() {
     const {atom: {componentName, file}, visible} = this.props
-    const source = `import ${componentName} from '${file}' \n\n<${componentName} \n${this.renderInlineProps()}\n>`
+    const source = `import ${componentName} from '${file}' \n\n<${componentName} \n${this.renderInlineProps()}\n/>`
 
     return (
       <div style={styles.copyWrapper}>
