@@ -13,6 +13,7 @@ export default class Page extends Component {
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
     customProps: RPT.object,
+    selectAtom: RPT.func.isRequired,
     selectedAtom: RPT.string,
     simplePropsSelected: RPT.bool,
     sourceBackground: RPT.string,
@@ -25,8 +26,10 @@ export default class Page extends Component {
   }
 
   getCurrentComponent() {
-    const {selectedAtom, componentsIndex} = this.props
-
+    const {selectAtom, selectedAtom, componentsIndex} = this.props
+    const atom = componentsIndex.get(selectedAtom)
+    if (!atom)
+      selectAtom(null)
     return componentsIndex.get(selectedAtom)
   }
 
@@ -55,6 +58,8 @@ export default class Page extends Component {
 
   render() {
     const atom = this.getCurrentComponent()
+    if (!atom)
+      return null
     const currentProps = this.getCurrentProps()
     const extendedProps = this.getComponentExtendendProps()
     const {simplePropsSelected, sourceBackground, triggeredProps} = this.props
