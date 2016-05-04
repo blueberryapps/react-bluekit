@@ -68,6 +68,7 @@ export default function StateProvider(Wrapped) {
     createSetAtomProp(key, type, scope = []) {
       return event => {
         let value = event
+
         // Get value from event
         if (event.target && event.target.value !== undefined)
           value = event.target.value
@@ -81,9 +82,6 @@ export default function StateProvider(Wrapped) {
           value = event.target.checked
         else if (type === 'number')
           value = parseInt(value, 10)
-        else if (type === 'shape' || type === 'arrayOf')
-          value = JSON.parse(value)
-
         this.setAtomProp(key, value, scope)
       }
     }

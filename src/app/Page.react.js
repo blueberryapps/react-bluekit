@@ -1,4 +1,10 @@
 import '../helpers/BluekitEvent';
+import 'brace';
+import 'brace/ext/language_tools';
+import 'brace/mode/jsx';
+import 'brace/mode/html';
+import 'brace/mode/javascript';
+import 'brace/theme/chrome';
 import * as colors from './styles/Colors.js'
 import AllComponentsPreview from './AllComponentsPreview.react';
 import ComponentPage from './component/Page.react';

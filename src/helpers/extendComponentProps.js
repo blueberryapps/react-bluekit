@@ -5,11 +5,11 @@ export default function extendComponentProps(buildedProps, propsDefinition) {
   const componentProps = {}
 
   if (propsDefinition.children)
-    componentProps.children = <div>{buildedProps.children || 'DEFAULT CHILDREN'}</div>
+    componentProps.children = <span dangerouslySetInnerHTML={{__html: (buildedProps.children || 'DEFAULT CHILDREN')}} />
 
   Map(propsDefinition).map((data, prop) => {
-    if (data.type === 'node')
-      componentProps[prop] = <div>{buildedProps[prop]}</div>
+    if (data.type && (data.type.name === 'node' || data.type.name === 'element'))
+      componentProps[prop] = buildedProps[prop] ? <span dangerouslySetInnerHTML={{__html: buildedProps[prop]}} /> : ''
   })
 
   return {...buildedProps, ...componentProps}

@@ -15,26 +15,24 @@ export default class AtomPreview extends Component {
   }
 
   atomProps() {
-    const {atom, disableFunctionProps} = this.props
-    const props = extendComponentProps(atom.simpleProps, atom.propsDefinition)
+    const {atom, disableFunctionProps, variantProps} = this.props
 
-    if (disableFunctionProps)
-      return filterFunctionProps(props)
+    const filteredProps = disableFunctionProps ? filterFunctionProps(atom.simpleProps) : atom.simpleProps
+    const customProps = variantProps ? variantProps : {}
 
-    return props
+    return {...extendComponentProps(filteredProps, atom.propsDefinition), ...extendComponentProps(customProps, atom.propsDefinition)}
   }
 
   render() {
-    const {atom, variantProps} = this.props
+    const {atom} = this.props
 
     if (!atom)
       return null
 
     const ExampleComponent = resolveComponent(atom.component)
-    const customProps = variantProps ? variantProps : {}
 
     return (
-      <ExampleComponent {...this.atomProps()} {...customProps} />
+      <ExampleComponent {...this.atomProps()}/>
     );
   }
 

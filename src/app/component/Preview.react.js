@@ -49,7 +49,7 @@ export default class Preview extends Component {
               ]}
             />
           </div>
-          <SourceCode atom={atom} componentProps={currentProps} visible={visiblePreviewSource} />
+          <SourceCode atom={atom} componentProps={currentProps} name={atom.name} visible={visiblePreviewSource} />
         </div>
         <Variants atom={atom} componentProps={currentProps} styles={styles} />
       </div>
