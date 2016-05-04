@@ -200,7 +200,7 @@ export default function StateProvider(Wrapped) {
       localStorage.removeItem('bluekitSimplePropsSelected')
       localStorage.removeItem('bluekitSourceBackground')
       // refresh page after reset
-      window.location = window.location
+      window.location = window.location.pathname.replace(/#.*/, '')
     }
   }
 }
