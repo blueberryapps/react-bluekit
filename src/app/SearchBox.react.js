@@ -1,8 +1,9 @@
+import Component from 'react-pure-render/component';
 import Icon from './atoms/Icon.react'
 import Input from './atoms/Input.react'
 import Logo from './atoms/Logo.react'
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import spaces from './styles/Spaces'
 import {nodesStyles} from './Sidebar.react'
 import * as colors from './styles/Colors'

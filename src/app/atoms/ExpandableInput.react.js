@@ -1,8 +1,9 @@
+import Component from 'react-pure-render/component';
 import font from '../styles/Font';
 import Input from './Input.react';
 import Radium from 'radium';
 import ReactDOM from 'react-dom';
-import React, {Component} from 'react';
+import React from 'react';
 import Textarea from './Textarea.react';
 import * as colors from '../styles/Colors'
 

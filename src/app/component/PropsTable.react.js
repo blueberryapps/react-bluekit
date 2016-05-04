@@ -1,12 +1,12 @@
 import Checkbox from '../atoms/Checkbox.react';
+import Component from 'react-pure-render/component';
 import ExpandableInput from '../atoms/ExpandableInput.react';
-import FluidTextArea from '../atoms/FluidTextArea.react';
 import HtmlEditor from '../atoms/HtmlEditor.react';
 import JsonEditor from '../atoms/JsonEditor.react';
 import font from '../styles/Font';
 import Input from '../atoms/Input.react';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import Select from '../atoms/Select.react';
 import spaces from '../styles/Spaces'
 import {OrderedMap, Map, fromJS} from 'immutable';

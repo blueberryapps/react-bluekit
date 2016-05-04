@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import Component from 'react-pure-render/component';
+import React from 'react'
 
 export default class Logo extends Component {
 

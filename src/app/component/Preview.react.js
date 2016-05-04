@@ -1,9 +1,10 @@
 import AtomPreview from '../atoms/AtomPreview.react';
+import Component from 'react-pure-render/component';
 import font from '../styles/Font';
 import headingStyles from '../styles/Headings';
 import Icon from '../atoms/Icon.react';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import SourceCode from './SourceCode.react';
 import spaces from '../styles/Spaces';
 import Variants from './Variants.react';

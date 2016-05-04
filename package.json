@@ -71,6 +71,7 @@
     "react-docgen": ">=2.4.0",
     "react-dom": "^0.14.8",
     "react-highlight": ">=0.5",
+    "react-pure-render": "^1.0.2",
     "tosource": ">=1"
   }
 }

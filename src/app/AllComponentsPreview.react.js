@@ -1,7 +1,8 @@
 import AtomPreview from './atoms/AtomPreview.react';
+import Component from 'react-pure-render/component';
 import headingStyles from './styles/Headings';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import * as colors from './styles/Colors';
 
 @Radium

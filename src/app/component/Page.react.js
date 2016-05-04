@@ -1,9 +1,10 @@
+import Component from 'react-pure-render/component';
 import PropsSidebar from './PropsSidebar.react';
 import Preview from './Preview.react';
 import extendProps from '../../helpers/extendProps';
 import extendComponentProps from '../../helpers/extendComponentProps';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import resolveComponent from '../../helpers/resolveComponent';
 
 @Radium

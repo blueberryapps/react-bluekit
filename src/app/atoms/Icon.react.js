@@ -3,7 +3,8 @@
 
 import Radium from 'radium';
 
-import React, {Component} from 'react';
+import Component from 'react-pure-render/component';
+import React from 'react';
 
 const iconList = [
   'arrow',
