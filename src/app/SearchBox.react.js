@@ -1,11 +1,11 @@
 import Component from 'react-pure-render/component';
 import Icon from './atoms/Icon.react'
-import Input from './atoms/Input.react'
+import Input, {INPUT_SEARCH} from './atoms/Input.react';
 import Logo from './atoms/Logo.react'
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import spaces from './styles/Spaces'
-import {nodesStyles} from './Sidebar.react'
+import nodesStyles from './styles/Nodes';
 import * as colors from './styles/Colors'
 
 @Radium
@@ -24,12 +24,22 @@ export default class SearchBox extends Component {
     return (
       <div style={styles.wrapper}>
         <Logo />
-        <Input
-          onChange={({target: {value}}) => searchAtoms(value)}
-          placeholder="Search your component"
-          type="text"
-          value={searchedText}
-        />
+        <div style={styles.search.group}>
+          <Input
+            inheritedStyle={styles.search.input}
+            kind={INPUT_SEARCH}
+            onChange={({target: {value}}) => searchAtoms(value)}
+            placeholder="Search your component"
+            type="text"
+            value={searchedText}
+          />
+          <Icon
+            color={colors.BLUE}
+            kind='search'
+            size='18px'
+            wrapperStyle={styles.search.icon}
+          />
+        </div>
         <div
           onClick={nodeOnClick}
           style={[
@@ -61,6 +71,21 @@ const styles = {
     position: 'absolute',
     left: '8px',
     top: '10px'
+  },
+
+  search: {
+    group: {
+      paddingTop: '8px',
+      position: 'relative'
+    },
+    input: {
+      padding: '10px 35px 10px 10px'
+    },
+    icon: {
+      position: 'absolute',
+      top: '19px',
+      right: '10px'
+    }
   },
 
   wrapper: {
