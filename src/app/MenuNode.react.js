@@ -1,5 +1,6 @@
+import Component from 'react-pure-render/component';
 import Radium from 'radium'
-import React, {Component, PropTypes as RPT} from 'react'
+import React, {PropTypes as RPT} from 'react'
 import {nodesStyles} from './Sidebar.react'
 
 @Radium

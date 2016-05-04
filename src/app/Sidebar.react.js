@@ -1,8 +1,9 @@
+import Component from 'react-pure-render/component';
 import font from './styles/Font';
 import generateTree from '../helpers/generateTree'
 import MenuNode from './MenuNode.react'
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react'
+import React, {PropTypes as RPT} from 'react'
 import SearchBox from './SearchBox.react'
 import * as colors from './styles/Colors'
 
@@ -23,7 +24,6 @@ export default class Sidebar extends Component {
     return (
       <div style={nodesStyles.wrapper}>
         <SearchBox
-            componentsIndex={componentsIndex}
             nodeOnClick={() => selectAtom(null)}
             searchAtoms={searchAtoms}
             searchedText={searchedText}
@@ -31,7 +31,7 @@ export default class Sidebar extends Component {
         />
         <div style={styles.componentsTree}>
           <ul style={nodesStyles.sidebar}>
-            <MenuNode nodes={nodes} parent={[]} selectAtom={selectAtom} selectedAtom={selectedAtom} />
+            <MenuNode nodes={nodes.toJS()} parent={[]} selectAtom={selectAtom} selectedAtom={selectedAtom} />
           </ul>
         </div>
       </div>

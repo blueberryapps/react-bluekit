@@ -1,7 +1,8 @@
 import AtomPreview from './atoms/AtomPreview.react';
+import Component from 'react-pure-render/component';
 import headingStyles from './styles/Headings';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import * as colors from './styles/Colors';
 
 @Radium
@@ -14,21 +15,20 @@ export default class AllComponentsPreview extends Component {
 
   render() {
     const {componentsIndex} = this.props
-
+    let index = 0
     return (
       <div style={styles.wrapper}>
         <div style={styles.wrapper.row}>
-          {Object.keys(componentsIndex).map(
-            (name, index) => this.renderAtom(name, index % 2)
+          {componentsIndex.map(
+            (atom, name) => this.renderAtom(name, atom, (index++ % 2))
           )}
         </div>
       </div>
     );
   }
 
-  renderAtom(name, isOdd) {
-    const {componentsIndex, selectAtom} = this.props
-    const atom = componentsIndex[name]
+  renderAtom(name, atom, isOdd) {
+    const {selectAtom} = this.props
 
     return (
       <div
@@ -43,7 +43,7 @@ export default class AllComponentsPreview extends Component {
           onClick={() => selectAtom(name)}
           style={headingStyles}
         >
-          {atom.menu}
+          {atom.get('menu')}
         </div>
         <div style={styles.atom.column}>
           <AtomPreview atom={atom} disableFunctionProps />

@@ -1,4 +1,4 @@
-import deepMerge from './deepMerge';
+import {fromJS} from 'immutable';
 
 export default function extendProps({defaultProps, customProps, component, propsDefinition, createSetAtomProp, setAtomProp}) {
   const override = {}
@@ -22,5 +22,5 @@ export default function extendProps({defaultProps, customProps, component, props
     ? component.extendBluekitProps(extendOld, setAtomProp)
     : extendOld
 
-  return deepMerge(defaultProps, customProps, extendBluekit)
+  return fromJS(defaultProps).mergeDeep(customProps, fromJS(extendBluekit))
 }

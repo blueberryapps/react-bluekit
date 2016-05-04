@@ -1,11 +1,12 @@
 import ColorPicker from 'react-color';
+import Component from 'react-pure-render/component';
 import Dropdown from '../atoms/Dropdown.react';
 import headingStyles from '../styles/Headings'
 import Icon from '../atoms/Icon.react';
 import font from '../styles/Font';
 import PropsTable from './PropsTable.react';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import spaces from '../styles/Spaces'
 import * as colors from '../styles/Colors'
 

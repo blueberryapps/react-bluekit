@@ -1,6 +1,6 @@
 import React, {Component, PropTypes as RPT} from 'react';
 import {filter as fuzzyFilter} from 'fuzzy';
-import {fromJS, List} from 'immutable';
+import {fromJS, Map, List} from 'immutable';
 import {HIGHLIGHT} from './styles/Colors';
 
 export default function StateProvider(Wrapped) {
@@ -34,7 +34,7 @@ export default function StateProvider(Wrapped) {
     }
 
     state = {
-      customProps: {},
+      customProps: Map(),
       selectedAtom: null,
       searchedText: '',
       simplePropsSelected: true,
@@ -92,7 +92,7 @@ export default function StateProvider(Wrapped) {
       if (!selectedAtom) return false
 
       this.setState({
-        customProps: fromJS(customProps).setIn([selectedAtom].concat(scope).concat(key), value).toJS()
+        customProps: customProps.setIn([selectedAtom].concat(scope).concat(key), value)
       })
     }
 
@@ -136,7 +136,7 @@ export default function StateProvider(Wrapped) {
     }
 
     render() {
-      return <Wrapped {...this.state} {...this.props} componentsIndex={this.filterComponentsIndex()} />
+      return <Wrapped {...this.state} {...this.props} componentsIndex={fromJS(this.filterComponentsIndex())} />
     }
   }
 }

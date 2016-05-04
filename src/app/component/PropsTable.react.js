@@ -1,12 +1,12 @@
 import Checkbox from '../atoms/Checkbox.react';
+import Component from 'react-pure-render/component';
 import ExpandableInput from '../atoms/ExpandableInput.react';
-import FluidTextArea from '../atoms/FluidTextArea.react';
 import HtmlEditor from '../atoms/HtmlEditor.react';
 import JsonEditor from '../atoms/JsonEditor.react';
 import font from '../styles/Font';
 import Input from '../atoms/Input.react';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import Select from '../atoms/Select.react';
 import spaces from '../styles/Spaces'
 import {OrderedMap, Map, fromJS} from 'immutable';
@@ -29,7 +29,9 @@ export default class PropsTable extends Component {
   }
 
   render() {
-    const {atom: {propsDefinition}} = this.props
+    const {atom} = this.props
+    const propsDefinition = atom.get('propsDefinition').toJS()
+
     if (Object.keys(propsDefinition).length === 0)
       return <div style={styles.prop.noProps}>No props defined</div>
 
@@ -124,7 +126,7 @@ export default class PropsTable extends Component {
   renderValueSelection(key, type, scope = []) {
     const {atom, componentProps} = this.props
     const {createSetAtomProp} = this.context
-    const name = `${atom.name}-${scope.concat(key).join('-')}`
+    const name = `${atom.get('name')}-${scope.concat(key).join('-')}`
 
     const defaultProps = {
       onChange: createSetAtomProp(key, type.name, scope),

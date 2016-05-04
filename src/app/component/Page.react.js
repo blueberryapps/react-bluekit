@@ -1,9 +1,10 @@
+import Component from 'react-pure-render/component';
 import PropsSidebar from './PropsSidebar.react';
 import Preview from './Preview.react';
 import extendProps from '../../helpers/extendProps';
 import extendComponentProps from '../../helpers/extendComponentProps';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import resolveComponent from '../../helpers/resolveComponent';
 
 @Radium
@@ -26,28 +27,28 @@ export default class Page extends Component {
   getCurrentComponent() {
     const {selectedAtom, componentsIndex} = this.props
 
-    return componentsIndex[selectedAtom]
+    return componentsIndex.get(selectedAtom)
   }
 
   getCurrentProps() {
     const {simplePropsSelected} = this.props
     const {createSetAtomProp, setAtomProp} = this.context
     const atom = this.getCurrentComponent()
-    const defaultProps = simplePropsSelected ? atom.simpleProps : atom.fullProps
-    const customProps = this.props.customProps[atom.name] || {}
+    const defaultProps = simplePropsSelected ? atom.get('simpleProps') : atom.get('fullProps')
+    const customProps = this.props.customProps.get(atom.get('name')) || {}
 
     return extendProps({
-      component: resolveComponent(atom.component),
+      component: resolveComponent(atom.get('component')),
       createSetAtomProp,
       customProps,
       defaultProps,
-      propsDefinition: atom.propsDefinition,
+      propsDefinition: atom.get('propsDefinition'),
       setAtomProp
     })
   }
 
   getComponentExtendendProps() {
-    const {propsDefinition} = this.getCurrentComponent()
+    const propsDefinition = this.getCurrentComponent().get('propsDefinition')
 
     return extendComponentProps(this.getCurrentProps(), propsDefinition)
   }

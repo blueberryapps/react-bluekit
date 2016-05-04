@@ -1,7 +1,8 @@
+import Component from 'react-pure-render/component';
 import font from '../styles/Font';
 import Icon from './Icon.react';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import ReactDOM from 'react-dom';
 import * as colors from '../styles/Colors'
 
