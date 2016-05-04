@@ -1,10 +1,9 @@
 import Component from 'react-pure-render/component';
 import Radium from 'radium'
 import React, {PropTypes as RPT} from 'react'
-import {nodesStyles} from './Sidebar.react'
+import nodesStyles from './styles/Nodes'
 
-@Radium
-export default class MenuNode extends Component {
+class MenuNode extends Component {
 
   static propTypes = {
     nodes: RPT.object.isRequired,
@@ -14,10 +13,15 @@ export default class MenuNode extends Component {
   }
 
   render() {
-    const {nodes} = this.props
+    const {nodes, parent} = this.props
 
     return (
-      <ul style={nodesStyles.list}>
+      <ul
+        style={[
+          nodesStyles.list,
+          parent.length === 0 && nodesStyles.list.first
+        ]}
+      >
         {Object.keys(nodes).sort().map((key) => this.renderNode(key, nodes[key]))}
       </ul>
     )
@@ -31,9 +35,10 @@ export default class MenuNode extends Component {
       const selected = selectedAtom === subnodes
 
       return (
-        <li key={node} style={nodesStyles.sidebarElement}>
+        <li key={node}>
           <div
             dangerouslySetInnerHTML={{__html: node}}
+            key={node}
             onClick={() => selectAtom(subnodes)}
             style={selected ? mergedStyles : nodesStyles.link}
           />
@@ -43,14 +48,20 @@ export default class MenuNode extends Component {
 
     const selected = selectedAtom && selectedAtom.indexOf(parent.concat(node).join('')) !== -1
     return (
-      <li key={node} style={nodesStyles.sidebarElement} >
+      <li key={node}>
         <div
           dangerouslySetInnerHTML={{__html: node}}
           key={node}
-          style={selected ? mergedStyles : nodesStyles.link}
+          style={[
+            selected ? mergedStyles : nodesStyles.link,
+            parent && selected ? nodesStyles.link.folder.selected : nodesStyles.link.folder
+          ]}
         />
-        {subnodes && <MenuNode nodes={subnodes} parent={parent.concat(node)} selectAtom={selectAtom} selectedAtom={selectedAtom} />}
+        {subnodes && <RadiumMenuNode nodes={subnodes} parent={parent.concat(node)} selectAtom={selectAtom} selectedAtom={selectedAtom} />}
       </li>
     )
   }
 }
+
+const RadiumMenuNode = Radium(MenuNode)
+export default RadiumMenuNode

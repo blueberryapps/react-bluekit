@@ -1,11 +1,9 @@
 import Component from 'react-pure-render/component';
-import font from './styles/Font';
 import generateTree from '../helpers/generateTree'
 import MenuNode from './MenuNode.react'
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react'
 import SearchBox from './SearchBox.react'
-import * as colors from './styles/Colors'
 
 @Radium
 export default class Sidebar extends Component {
@@ -22,7 +20,7 @@ export default class Sidebar extends Component {
     const {componentsIndex, selectAtom, selectedAtom, searchAtoms, searchedText} = this.props
     const nodes = generateTree(componentsIndex)
     return (
-      <div style={nodesStyles.wrapper}>
+      <div style={styles.wrapper}>
         <SearchBox
             nodeOnClick={() => selectAtom(null)}
             searchAtoms={searchAtoms}
@@ -30,9 +28,9 @@ export default class Sidebar extends Component {
             selectedAtom={selectedAtom}
         />
         <div style={styles.componentsTree}>
-          <ul style={nodesStyles.sidebar}>
+          <div style={styles.nodes}>
             <MenuNode nodes={nodes.toJS()} parent={[]} selectAtom={selectAtom} selectedAtom={selectedAtom} />
-          </ul>
+          </div>
         </div>
       </div>
     );
@@ -44,10 +42,8 @@ const styles = {
     flex: '1 1 auto',
     position: 'relative',
     overflowY: 'auto'
-  }
-}
+  },
 
-export const nodesStyles = {
   wrapper: {
     backgroundColor: 'white',
     display: 'flex',
@@ -55,39 +51,7 @@ export const nodesStyles = {
     height: '100%'
   },
 
-  sidebar: {
-    paddingLeft: 0
-  },
-
-  sidebarElement: {
-    listStyle: 'none',
-    margin: 0,
-    padding: 0,
-  },
-
-  list: {
-    paddingLeft: '10px'
-  },
-
-  link: {
-    ...font,
-    padding: '10px 20px',
-    fontSize: '13px',
-    color: colors.BLACK_BRIGHT,
-    display: 'block',
-    textDecoration: 'none',
-    transition: 'all .1s ease-out',
-    position: 'relative',
-    ':hover': {
-      backgroundColor: colors.GRAY_DARKER,
-      cursor: 'pointer'
-    },
-    overview: {
-      padding: '10px 20px 10px 30px'
-    }
-  },
-
-  sidebarLinkActive: {
-    backgroundColor: colors.GRAY
-  },
+  nodes: {
+    padding: '10px 0'
+  }
 };
