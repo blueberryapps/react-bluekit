@@ -3,8 +3,8 @@ import {fromJS} from 'immutable';
 export default function extendProps({defaultProps, customProps, component, propsDefinition, createSetAtomProp, setAtomProp}) {
   const override = {}
 
-  if (propsDefinition.onChange && propsDefinition.value)
-    override.onChange = createSetAtomProp('value', propsDefinition.value.type.name)
+  if (propsDefinition.get('onChange') && propsDefinition.get('value'))
+    override.onChange = createSetAtomProp('value', propsDefinition.getIn(['value', 'type', 'name']))
 
   const enhanceOld = component.enhanceComponentLibraryDefaults
     ? component.enhanceComponentLibraryDefaults(override, setAtomProp)
