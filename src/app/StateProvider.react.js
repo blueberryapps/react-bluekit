@@ -44,6 +44,12 @@ export default function StateProvider(Wrapped) {
       triggeredProps: new List()
     }
 
+    render() {
+      const {componentsIndex} = this.props
+
+      return <Wrapped {...this.state} {...this.props} componentsIndex={fromJS(componentsIndex)} filteredComponentsIndex={fromJS(this.filterComponentsIndex())} />
+    }
+
     componentWillMount() {
       this.loadStateFromLocalStorage()
     }
@@ -145,10 +151,6 @@ export default function StateProvider(Wrapped) {
     setSourceBackground(color) {
       this.setState({sourceBackground: color})
       this.storeStateToLocalStorage('sourceBackground', color)
-    }
-
-    render() {
-      return <Wrapped {...this.state} {...this.props} componentsIndex={fromJS(this.filterComponentsIndex())} />
     }
 
     hasLocalStorage() {
