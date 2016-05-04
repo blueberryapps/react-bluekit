@@ -15,6 +15,7 @@ export default {
     description: '{{component.description}}',
     customProps: {},
     propsDefinition: {{component.propsDefinition}},
+    originalSource: `{{component.originalSource}}`,
     simpleProps: {{component.simpleProps}},
     fullProps: {{component.fullProps}}
   },

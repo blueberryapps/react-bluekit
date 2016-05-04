@@ -9,6 +9,7 @@ import SourceCode from './SourceCode.react';
 import spaces from '../styles/Spaces';
 import Variants from './Variants.react';
 import * as colors from '../styles/Colors';
+import {unpackSourceCode} from '../../helpers/reformatSourceCode';
 
 @Radium
 export default class Preview extends Component {
@@ -53,6 +54,7 @@ export default class Preview extends Component {
           <SourceCode atom={atom} componentProps={currentProps} name={atom.name} visible={visiblePreviewSource} />
         </div>
         <Variants atom={atom} componentProps={currentProps} styles={styles} />
+        <SourceCode atom={atom} customSource={unpackSourceCode(atom.get('originalSource'))} name={`${atom.get('name')}-original-source-code`} visible />
       </div>
     )
   }

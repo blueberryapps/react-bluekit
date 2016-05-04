@@ -6,6 +6,7 @@ import nunjucks from 'nunjucks';
 import path from 'path';
 import toSource from 'tosource';
 import {parse as docgenParse} from 'react-docgen';
+import {packSourceCode} from './helpers/reformatSourceCode';
 
 const nunjuckEnv = nunjucks.configure(`${__dirname}/../nunjucks/`, {autoescape: false});
 
@@ -46,9 +47,11 @@ function getImportFile(directory, file) {
 
 function generateComponentData(config, file, directory) {
   const filePath = path.join(directory, file);
-  const content = fs.readFileSync(filePath)
-    .toString()
-    .replace('_interopRequireDefault(_react)', 'require("react")');
+  const originalSource = fs.readFileSync(filePath).toString()
+  const content = originalSource
+    .replace('_interopRequireDefault(_react)', 'require("react")')
+    .replace(/import Component from ["']react-pure-render\/component["']/, 'import {Component} from "react"')
+    .replace(/export default Radium\((.*)\)/, 'export default $1;')
 
   try {
     const docgen = docgenParse(content);
@@ -78,6 +81,7 @@ function generateComponentData(config, file, directory) {
       componentName,
       menu,
       name,
+      originalSource: packSourceCode(originalSource),
       simpleProps,
       fullProps,
       ...doc,
