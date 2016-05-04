@@ -4,7 +4,6 @@ import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import renderProp from '../../helpers/renderProp';
 import SourceCode from './SourceCode.react';
-import {Map} from 'immutable';
 
 @Radium
 export default class Variants extends Component {
@@ -16,11 +15,12 @@ export default class Variants extends Component {
   }
 
   render() {
-    const {atom: {propsDefinition}} = this.props
+    const {atom} = this.props
+    const propsDefinition = atom.get('propsDefinition')
 
     return (
       <div>
-        {Map(propsDefinition).map((value, key) => this.renderProp(key, value))}
+        {propsDefinition.map((value, key) => this.renderProp(key, value))}
       </div>
     )
   }
@@ -30,15 +30,15 @@ export default class Variants extends Component {
   }
 
   renderProp(key, definition) {
-    if (!definition.type) return null
+    if (!definition.get('type')) return null
 
-    const {type: {name, value}} = definition
-
+    const name = definition.getIn(['type', 'name'])
+    const value = definition.getIn(['type', 'value'])
     switch (name) {
       case 'string': return this.renderVariants(key, name, ['', `Default string ${key}`])
       case 'number': return this.renderVariants(key, name, [0, 1, 100, 1234.56])
       case 'bool': return this.renderVariants(key, name, [false, true])
-      case 'enum' : return this.renderVariants(key, name, value.map(text => text.value.replace(/\'/g, '')))
+      case 'enum' : return this.renderVariants(key, name, value.map(text => text.get('value').replace(/\'/g, '')))
     }
 
     return null
@@ -57,12 +57,12 @@ export default class Variants extends Component {
 
   renderVariant(key, type, variant) {
     const {atom, componentProps, styles} = this.props
-    const variantProps = {...componentProps, [key]: variant}
-    const source = `<${atom.componentName} ${renderProp(key, type, variant)} />`
+    const variantProps = componentProps.set(key,  variant)
+    const source = `<${atom.get('componentName')} ${renderProp(key, type, variant)} />`
 
     return (
       <div key={variant} style={styles.pre}>
-        <SourceCode atom={atom} customSource={source} name={`${atom.name}-${key}-${type}-${variant}`} visible />
+        <SourceCode atom={atom} customSource={source} name={`${atom.get('name')}-${key}-${type}-${variant}`} visible />
         <div style={styles.clear}>
           <AtomPreview atom={atom} variantProps={variantProps} />
         </div>

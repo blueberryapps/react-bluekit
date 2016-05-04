@@ -61,7 +61,7 @@ export default class SourceCode extends Component {
     return Object.keys(propsDefinition)
       .filter(key => renderChildren || key !== 'children')
       .filter(key => propsDefinition[key].type)
-      .map((key) => `  ${renderProp(key, propsDefinition[key].type.name, componentProps[key])}`)
+      .map((key) => `  ${renderProp(key, propsDefinition[key].type.name, componentProps.get(key))}`)
       .join('\n')
   }
 
