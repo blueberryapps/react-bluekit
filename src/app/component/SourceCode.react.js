@@ -17,7 +17,9 @@ export default class SourceCode extends Component {
   }
 
   render() {
-    const {atom: {componentName, file}, customSource, componentProps, visible, name} = this.props
+    const {atom, customSource, componentProps, visible, name} = this.props
+    const componentName = atom.get('componentName')
+    const file = atom.get('file')
 
     const source = customSource || (
       componentProps.children
@@ -52,8 +54,8 @@ export default class SourceCode extends Component {
   }
 
   renderInlineProps(renderChildren = true) {
-    const {atom: {propsDefinition}} = this.props
-
+    const {atom} = this.props
+    const propsDefinition = atom.get('propsDefinition').toJS()
     const {componentProps} = this.props
 
     return Object.keys(propsDefinition)

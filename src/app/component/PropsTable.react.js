@@ -29,7 +29,9 @@ export default class PropsTable extends Component {
   }
 
   render() {
-    const {atom: {propsDefinition}} = this.props
+    const {atom} = this.props
+    const propsDefinition = atom.get('propsDefinition').toJS()
+
     if (Object.keys(propsDefinition).length === 0)
       return <div style={styles.prop.noProps}>No props defined</div>
 
@@ -124,7 +126,7 @@ export default class PropsTable extends Component {
   renderValueSelection(key, type, scope = []) {
     const {atom, componentProps} = this.props
     const {createSetAtomProp} = this.context
-    const name = `${atom.name}-${scope.concat(key).join('-')}`
+    const name = `${atom.get('name')}-${scope.concat(key).join('-')}`
 
     const defaultProps = {
       onChange: createSetAtomProp(key, type.name, scope),

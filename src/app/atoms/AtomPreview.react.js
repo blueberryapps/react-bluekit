@@ -17,11 +17,11 @@ export default class AtomPreview extends Component {
 
   atomProps() {
     const {atom, disableFunctionProps, variantProps} = this.props
-
-    const filteredProps = disableFunctionProps ? filterFunctionProps(atom.simpleProps) : atom.simpleProps
+    const simpleProps = atom.get('simpleProps').toJS()
+    const filteredProps = disableFunctionProps ? filterFunctionProps(simpleProps) : simpleProps
     const customProps = variantProps ? variantProps : {}
 
-    return {...extendComponentProps(filteredProps, atom.propsDefinition), ...extendComponentProps(customProps, atom.propsDefinition)}
+    return extendComponentProps(filteredProps, atom.get('propsDefinition')).mergeDeep(extendComponentProps(customProps, atom.get('propsDefinition')))
   }
 
   render() {
@@ -30,10 +30,10 @@ export default class AtomPreview extends Component {
     if (!atom)
       return null
 
-    const ExampleComponent = resolveComponent(atom.component)
+    const ExampleComponent = resolveComponent(atom.get('component'))
 
     return (
-      <ExampleComponent {...this.atomProps()}/>
+      <ExampleComponent {...this.atomProps().toJS()}/>
     );
   }
 

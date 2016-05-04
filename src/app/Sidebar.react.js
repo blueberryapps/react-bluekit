@@ -24,7 +24,6 @@ export default class Sidebar extends Component {
     return (
       <div style={nodesStyles.wrapper}>
         <SearchBox
-            componentsIndex={componentsIndex}
             nodeOnClick={() => selectAtom(null)}
             searchAtoms={searchAtoms}
             searchedText={searchedText}
@@ -32,7 +31,7 @@ export default class Sidebar extends Component {
         />
         <div style={styles.componentsTree}>
           <ul style={nodesStyles.sidebar}>
-            <MenuNode nodes={nodes} parent={[]} selectAtom={selectAtom} selectedAtom={selectedAtom} />
+            <MenuNode nodes={nodes.toJS()} parent={[]} selectAtom={selectAtom} selectedAtom={selectedAtom} />
           </ul>
         </div>
       </div>
