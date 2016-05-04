@@ -1,6 +1,7 @@
-import Component from 'react-pure-render/component';
+import Component from 'react-pure-render/component'
 import generateTree from '../helpers/generateTree'
 import MenuNode from './MenuNode.react'
+import NotFound from './atoms/NotFound.react'
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react'
 import SearchBox from './SearchBox.react'
@@ -18,7 +19,7 @@ export default class Sidebar extends Component {
 
   render() {
     const {componentsIndex, selectAtom, selectedAtom, searchAtoms, searchedText} = this.props
-    const nodes = generateTree(componentsIndex)
+    const nodes = generateTree(componentsIndex).toJS()
     return (
       <div style={styles.wrapper}>
         <SearchBox
@@ -29,11 +30,23 @@ export default class Sidebar extends Component {
         />
         <div style={styles.componentsTree}>
           <div style={styles.nodes}>
-            <MenuNode nodes={nodes.toJS()} parent={[]} selectAtom={selectAtom} selectedAtom={selectedAtom} />
+            <MenuNode nodes={nodes} parent={[]} selectAtom={selectAtom} selectedAtom={selectedAtom} />
+            {this.renderNoComponentFound(nodes)}
           </div>
         </div>
       </div>
     );
+  }
+
+  renderNoComponentFound(nodes) {
+    const {searchedText} = this.props
+
+    if (Object.keys(nodes).length !== 0)
+      return null
+
+    if (`${searchedText}`.length > 0)
+      return <NotFound>No components found by: <b>{searchedText}</b></NotFound>
+    return <NotFound>No components</NotFound>
   }
 }
 
