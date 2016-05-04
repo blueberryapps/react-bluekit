@@ -22,6 +22,7 @@ export default class Page extends Component {
   static propTypes = {
     componentsIndex: RPT.object.isRequired,
     customProps: RPT.object,
+    filteredComponentsIndex: RPT.object.isRequired,
     height: RPT.string,
     inline: RPT.bool,
     mountPoint: RPT.string,
@@ -46,7 +47,7 @@ export default class Page extends Component {
   }
 
   render() {
-    const {componentsIndex, height, inline, selectedAtom, searchedText} = this.props
+    const {filteredComponentsIndex, height, inline, selectedAtom, searchedText} = this.props
     const {selectAtom, searchAtoms} = this.context
 
     return (
@@ -54,7 +55,7 @@ export default class Page extends Component {
         <div style={[styles.wrapper.base, inline ? {height: height} : styles.wrapper.full]}>
           <div style={styles.sidebar}>
             <Sidebar
-              componentsIndex={componentsIndex}
+              componentsIndex={filteredComponentsIndex}
               searchAtoms={searchAtoms}
               searchedText={searchedText}
               selectAtom={selectAtom}
@@ -87,13 +88,13 @@ export default class Page extends Component {
   }
 
   renderList() {
-    const {componentsIndex, selectedAtom} = this.props
+    const {filteredComponentsIndex, selectedAtom} = this.props
     const {selectAtom} = this.context
 
     return (
       <div style={[styles.list]}>
         <AllComponentsPreview
-          componentsIndex={componentsIndex}
+          componentsIndex={filteredComponentsIndex}
           selectAtom={selectAtom}
           selectedAtom={selectedAtom}
         />
