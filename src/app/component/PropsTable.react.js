@@ -77,16 +77,14 @@ export default class PropsTable extends Component {
           style={[
             styles.prop,
             styles.prop.info,
-            activeProps === key && commonStyles.propName.active,
-            triggered && {backgroundColor: 'green'},
-            required && font.bold
+            activeProps === key && commonStyles.propName.active
           ]}
         >
           {this.renderNameOfProp(scope.concat(key).join('.'), data.type.name)}
           {required && '*'}
           <small style={styles.prop.small}>{data.type.name}</small>
         </div>
-        <div style={[styles.prop, styles.prop.value]}>
+        <div style={[styles.prop, styles.prop.value, triggered && {backgroundColor: colors.GRAY_DARKER}]}>
           {data.type.name === 'func'
             ? 'func()'
             : this.renderValueSelection(key, data.type, scope)

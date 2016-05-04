@@ -1,17 +1,18 @@
 import AtomPreview from '../atoms/AtomPreview.react';
 import Component from 'react-pure-render/component';
+import headingStyles from '../styles/Headings';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import renderProp from '../../helpers/renderProp';
 import SourceCode from './SourceCode.react';
+import styles from '../styles/Sources';
 
 @Radium
 export default class Variants extends Component {
 
   static propTypes = {
     atom: RPT.object.isRequired,
-    componentProps: RPT.object.isRequired,
-    styles: RPT.object.isRequired,
+    componentProps: RPT.object.isRequired
   }
 
   render() {
@@ -35,8 +36,8 @@ export default class Variants extends Component {
     const name = definition.getIn(['type', 'name'])
     const value = definition.getIn(['type', 'value'])
     switch (name) {
-      case 'string': return this.renderVariants(key, name, ['', `Default string ${key}`])
-      case 'number': return this.renderVariants(key, name, [0, 1, 100, 1234.56])
+      case 'string': return this.renderVariants(key, name, ['', `String ${key}`])
+      case 'number': return this.renderVariants(key, name, [0, 5, 100, 123.45])
       case 'bool': return this.renderVariants(key, name, [false, true])
       case 'enum' : return this.renderVariants(key, name, value.map(text => text.get('value').replace(/\'/g, '')))
     }
@@ -45,18 +46,18 @@ export default class Variants extends Component {
   }
 
   renderVariants(key, type, variants) {
-    const {styles} = this.props
-
     return (
-      <div style={[styles.paddedElement, styles.panel]}>
-        <h2 id={key} style={styles.headingStyles}>Prop variant: {key}</h2>
-        {variants.map(variant => this.renderVariant(key, type, variant))}
+      <div>
+        <div style={styles.panel}>
+          <h2 id={key} style={headingStyles}>Prop variant: {key}</h2>
+          {variants.map(variant => this.renderVariant(key, type, variant))}
+        </div>
       </div>
     )
   }
 
   renderVariant(key, type, variant) {
-    const {atom, componentProps, styles} = this.props
+    const {atom, componentProps} = this.props
     const variantProps = componentProps.set(key,  variant)
     const source = `<${atom.get('componentName')} ${renderProp(key, type, variant)} />`
 
