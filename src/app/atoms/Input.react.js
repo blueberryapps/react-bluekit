@@ -4,27 +4,24 @@ import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import * as colors from '../styles/Colors'
 
-export const INPUT_DEFAULT = 'inputDefault';
-export const INPUT_SEARCH = 'inputSearch';
-
 @Radium
 export default class Input extends Component {
   static propTypes = {
     inheritedStyle: RPT.oneOfType([RPT.array, RPT.object]),
     key: RPT.string,
     kind: RPT.oneOf([
-      INPUT_DEFAULT,
-      INPUT_SEARCH
+      'inputDefault',
+      'inputSearch'
     ]),
     onChange: RPT.func.isRequired,
-    type: RPT.oneOf(['text', 'number', 'email']).isRequired,
+    type: RPT.string.isRequired,
     value: RPT.string.isRequired
   }
 
   static defaultProps = {
     inheritedStyle: {},
-    kind: INPUT_DEFAULT
-  };
+    kind: 'inputDefault'
+  }
 
   render() {
     const {inheritedStyle, key, kind, onChange, type, value} = this.props;
@@ -61,10 +58,10 @@ const styles = {
       borderColor: colors.BLUE_LIGHT
     }
   },
-  [INPUT_DEFAULT]: {
+  inputDefault: {
     backgroundColor: 'white'
   },
-  [INPUT_SEARCH]: {
+  inputSearch: {
     ...font,
     fontSize: '13px',
     padding: '10px',

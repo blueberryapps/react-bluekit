@@ -33,8 +33,15 @@ export default class AtomPreview extends Component {
     const ExampleComponent = resolveComponent(atom.get('component'))
 
     return (
-      <ExampleComponent {...this.atomProps().toJS()}/>
+      <div style={styles}>
+        <ExampleComponent {...this.atomProps().toJS()}/>
+      </div>
     );
   }
 
 };
+
+const styles = {
+  position: 'relative',
+  minHeight: '35px'
+}

@@ -1,6 +1,7 @@
 import AtomPreview from './atoms/AtomPreview.react';
 import Component from 'react-pure-render/component';
 import headingStyles from './styles/Headings';
+import NotFound from './atoms/NotFound.react';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import * as colors from './styles/Colors';
@@ -22,9 +23,14 @@ export default class AllComponentsPreview extends Component {
           {componentsIndex.map(
             (atom, name) => this.renderAtom(name, atom, (index++ % 2))
           )}
+          {Object.keys(componentsIndex.toJS()).length === 0 && this.renderNotFound()}
         </div>
       </div>
     );
+  }
+
+  renderNotFound() {
+    return <NotFound>No components to display</NotFound>
   }
 
   renderAtom(name, atom, isOdd) {
