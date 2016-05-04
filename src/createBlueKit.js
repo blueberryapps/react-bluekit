@@ -62,7 +62,8 @@ function generateComponentData(config, file, directory) {
       .replace(/\.\.\//g, '')
       .replace('.react', '')
       .replace(/\.(js|jsx)$/, '')
-      .replace(/(?:^|[-_/])(\w)/g, (_, c) => c ? ` ${c.toUpperCase()}` : '')
+      .replace(/(?:^|\/)(\w)/g, (_, c) => c ? ` ${c.toUpperCase()}` : '')
+      .replace(/(?:^|[-_])(\w)/g, (_, c) => c ? `${c.toUpperCase()}` : '')
       .replace(/\//g, '')
       .trim();
     const name = menu.replace(/\s/g, '');
