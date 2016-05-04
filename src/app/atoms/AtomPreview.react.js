@@ -1,7 +1,8 @@
+import Component from 'react-pure-render/component';
 import extendComponentProps from '../../helpers/extendComponentProps';
 import filterFunctionProps from '../../helpers/filterFunctionProps';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import resolveComponent from '../../helpers/resolveComponent';
 
 @Radium

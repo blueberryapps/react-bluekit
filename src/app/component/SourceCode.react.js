@@ -1,7 +1,8 @@
 import AceEditor from 'react-ace';
+import Component from 'react-pure-render/component';
 import CopyCode from '../atoms/CopyCode.react';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import renderProp from '../../helpers/renderProp';
 
 @Radium

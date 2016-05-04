@@ -1,8 +1,7 @@
 import AtomPreview from '../atoms/AtomPreview.react';
-import CopyCode from '../atoms/CopyCode.react';
-import Highlight from '../atoms/Highlight.react';
+import Component from 'react-pure-render/component';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import renderProp from '../../helpers/renderProp';
 import SourceCode from './SourceCode.react';
 import {Map} from 'immutable';

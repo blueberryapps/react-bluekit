@@ -1,9 +1,10 @@
+import Component from 'react-pure-render/component';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 import * as colors from '../styles/Colors'
 
 @Radium
-export default class Input extends Component {
+export default class Textarea extends Component {
   static propTypes = {
     key: RPT.string,
     onChange: RPT.func.isRequired,

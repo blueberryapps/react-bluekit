@@ -1,9 +1,10 @@
+import Component from 'react-pure-render/component';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import font from '../styles/Font';
 import Icon from '../atoms/Icon.react';
 import * as colors from '../styles/Colors';
 import Radium from 'radium';
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {PropTypes as RPT} from 'react';
 
 @Radium
 export default class CopyCode extends Component {
