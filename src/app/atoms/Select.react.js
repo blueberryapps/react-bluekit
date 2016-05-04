@@ -45,7 +45,7 @@ const styles = {
     outline: 'none',
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: colors.GRAY_BRIGHT,
+    borderColor: colors.GRAY_DARKER,
   },
 
   selectArrow: {

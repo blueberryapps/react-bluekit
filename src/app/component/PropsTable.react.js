@@ -69,14 +69,15 @@ export default class PropsTable extends Component {
       )
 
     const required = data.required
-
     const triggered = triggeredProps.includes(key)
+    const fullWidth = ['any', 'array', 'arrayOf', 'element', 'enum', 'node', 'object', 'shape', 'string'].indexOf(data.type.name) !== -1
     return (
       <div key={key} style={styles.row}>
         <div
           style={[
             styles.prop,
             styles.prop.info,
+            fullWidth && styles.prop.fullWidth, styles.prop.fullWidth.name,
             activeProps === key && commonStyles.propName.active
           ]}
         >
@@ -84,7 +85,13 @@ export default class PropsTable extends Component {
           {required && '*'}
           <small style={styles.prop.small}>{data.type.name}</small>
         </div>
-        <div style={[styles.prop, styles.prop.value, triggered && {backgroundColor: colors.GRAY_DARKER}]}>
+        <div
+          style={[
+            styles.prop,
+            styles.prop.value,
+            fullWidth && styles.prop.fullWidth,
+            triggered && {backgroundColor: colors.GRAY_DARKER}]}
+        >
           {data.type.name === 'func'
             ? 'func()'
             : this.renderValueSelection(key, data.type, scope)
@@ -188,6 +195,13 @@ const styles = {
       fontSize: '95%',
       display: 'block',
       color: colors.BLACK_BRIGHT
+    },
+    fullWidth: {
+      width: '100%',
+      padding: `0 ${spaces.normal} ${spaces.small}`,
+      name: {
+        padding: `0 ${spaces.normal} ${spaces.small} 15px`
+      }
     },
     noProps: {
       ...font,
