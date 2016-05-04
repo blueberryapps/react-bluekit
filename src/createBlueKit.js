@@ -48,7 +48,9 @@ function generateComponentData(config, file, directory) {
   const filePath = path.join(directory, file);
   const content = fs.readFileSync(filePath)
     .toString()
-    .replace('_interopRequireDefault(_react)', 'require("react")');
+    .replace('_interopRequireDefault(_react)', 'require("react")')
+    .replace(/import Component from ["']react-pure-render\/component["']/, 'import {Component} from "react"')
+    .replace(/export default Radium\((.*)\)/, 'export default $1;')
 
   try {
     const docgen = docgenParse(content);
