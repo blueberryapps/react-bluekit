@@ -22,8 +22,8 @@ export default class SourceCode extends Component {
     const file = atom.get('file')
 
     const source = customSource || (
-      componentProps.children
-        ? `import ${componentName} from '${file}' \n\n<${componentName} \n${this.renderInlineProps(false)}\n>\n  ${componentProps.children}\n</${componentName}>`
+      componentProps.get('children')
+        ? `import ${componentName} from '${file}' \n\n<${componentName} \n${this.renderInlineProps(false)}\n>\n  ${componentProps.get('children')}\n</${componentName}>`
         : `import ${componentName} from '${file}' \n\n<${componentName} \n${this.renderInlineProps()}\n/>`
     )
 
