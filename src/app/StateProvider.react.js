@@ -1,7 +1,7 @@
 import React, {Component, PropTypes as RPT} from 'react';
 import {filter as fuzzyFilter} from 'fuzzy';
 import {fromJS, Map, List} from 'immutable';
-import {HIGHLIGHT} from './styles/Colors';
+import {HIGHLIGHT, HIGHLIGHT_BACKGROUND} from './styles/Colors';
 
 export default function StateProvider(Wrapped) {
 
@@ -153,7 +153,7 @@ export default function StateProvider(Wrapped) {
     filterComponentsIndex() {
       const {componentsIndex} = this.props
       const {searchedText} = this.state
-      const options = {pre: `<bstyle="color:${HIGHLIGHT}">`, post: '</b>'}
+      const options = {pre: `<bstyle="color:${HIGHLIGHT};background:${HIGHLIGHT_BACKGROUND}">`, post: '</b>'}
       if (`${searchedText}`.length > 0)
         return fuzzyFilter(searchedText.toLowerCase(), Object.keys(componentsIndex))
           .reduce((acc, key) => ({...acc, [key.original]: {...componentsIndex[key.original], highlightedMenu: fuzzyFilter(searchedText.toLowerCase(), [componentsIndex[key.original].menu], options)[0].string}}), {})
