@@ -6,7 +6,7 @@ export default {
   ...font.size.medium,
   color: colors.BLACK_BRIGHT,
   marginTop: 0,
-  marginBottom: '10px',
+  marginBottom: 0,
   preview: {
     marginBottom: '30px'
   }

@@ -50,7 +50,7 @@ const styles = {
       backgroundColor: 'white',
       position: 'absolute',
       padding: '11px 10px',
-      top: '31px',
+      top: '1px',
       right: '1px',
       zIndex: 2
     },
