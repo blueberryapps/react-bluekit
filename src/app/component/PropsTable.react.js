@@ -1,6 +1,8 @@
 import Checkbox from '../atoms/Checkbox.react';
 import ExpandableInput from '../atoms/ExpandableInput.react';
-import FluidTextArea from '../atoms/FluidTextArea.react.js';
+import FluidTextArea from '../atoms/FluidTextArea.react';
+import HtmlEditor from '../atoms/HtmlEditor.react';
+import JsonEditor from '../atoms/JsonEditor.react';
 import font from '../styles/Font';
 import Input from '../atoms/Input.react';
 import Radium from 'radium';
@@ -120,8 +122,9 @@ export default class PropsTable extends Component {
   }
 
   renderValueSelection(key, type, scope = []) {
-    const {componentProps} = this.props
+    const {atom, componentProps} = this.props
     const {createSetAtomProp} = this.context
+    const name = `${atom.name}-${scope.concat(key).join('-')}`
 
     const defaultProps = {
       onChange: createSetAtomProp(key, type.name, scope),
@@ -129,16 +132,17 @@ export default class PropsTable extends Component {
     }
 
     switch (type.name) {
-      case 'any': return <ExpandableInput key={key} type='text' {...defaultProps} />
-      case 'node': return <Input key={key} type='text' {...defaultProps} />
-      case 'shape': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
-      case 'array': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
-      case 'object': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
-      case 'arrayOf': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
-      case 'string': return <ExpandableInput key={key} type='text' {...{...defaultProps, value: defaultProps.value}} />
-      case 'number': return <Input key={key} type='number' {...defaultProps} />
-      case 'bool': return <Checkbox key={key} {...{...defaultProps, checked: defaultProps.value, name: key}} />
-      case 'enum' : return <Select key={key} options={this.selectOptions(type)} {...defaultProps} />
+      case 'any': return <ExpandableInput key={name} type='text' {...defaultProps} />
+      case 'array': return <JsonEditor key={name} name={name} {...defaultProps} />
+      case 'arrayOf': return <JsonEditor key={name} name={name} {...defaultProps} />
+      case 'bool': return <Checkbox key={name} {...{...defaultProps, checked: defaultProps.value, name: key}} />
+      case 'element': return <HtmlEditor key={name} name={name} {...defaultProps} />
+      case 'enum' : return <Select key={name} options={this.selectOptions(type)} {...defaultProps} />
+      case 'node': return <HtmlEditor key={name} name={name} {...defaultProps} />
+      case 'number': return <Input key={name} type='number' {...defaultProps} />
+      case 'object': return <JsonEditor key={name} name={name} {...defaultProps} />
+      case 'shape': return <JsonEditor key={name} name={name} {...defaultProps} />
+      case 'string': return <ExpandableInput key={name} type='text' {...{...defaultProps, value: defaultProps.value}} />
     }
   }
 }

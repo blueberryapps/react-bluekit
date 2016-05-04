@@ -65,6 +65,7 @@
     "nunjucks": ">=2",
     "radium": ">=0.15",
     "react": "^0.14.7",
+    "react-ace": "^3.4.1",
     "react-color": "^2.0.0",
     "react-copy-to-clipboard": "^4.0.2",
     "react-docgen": ">=2.4.0",

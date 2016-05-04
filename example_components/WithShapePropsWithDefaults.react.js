@@ -7,7 +7,12 @@ export default class WithShapeWithDefaults extends Component {
     interval:     RPT.shape({
       value: RPT.number.isRequired,
       text:  RPT.string.isRequired,
-    }).isRequired
+    }).isRequired,
+    items: RPT.array,
+    object: RPT.object,
+    element: RPT.element,
+    children: RPT.element,
+    node: RPT.node
   }
 
   static defaultProps = {
@@ -18,8 +23,12 @@ export default class WithShapeWithDefaults extends Component {
   }
 
   render() {
+    const {children, element, node} = this.props
     return (
-      <div>No props component</div>
+      <div>
+        No props component node: {node} element: {element}
+        children: {children}
+      </div>
     );
   }
 }

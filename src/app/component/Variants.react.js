@@ -4,6 +4,7 @@ import Highlight from '../atoms/Highlight.react';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import renderProp from '../../helpers/renderProp';
+import SourceCode from './SourceCode.react';
 import {Map} from 'immutable';
 
 @Radium
@@ -62,10 +63,7 @@ export default class Variants extends Component {
 
     return (
       <div key={variant} style={styles.pre}>
-        <CopyCode source={source} />
-        <Highlight className='javascript'>
-          {source}
-        </Highlight>
+        <SourceCode atom={atom} customSource={source} name={`${atom.name}-${key}-${type}-${variant}`} visible />
         <div style={styles.clear}>
           <AtomPreview atom={atom} variantProps={variantProps} />
         </div>
