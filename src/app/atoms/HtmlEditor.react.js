@@ -37,6 +37,7 @@ export default class HtmlEditor extends Component {
           tabSize={2}
           theme="chrome"
           value={value}
+          width="100%"
         />
       </div>
     );
