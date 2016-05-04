@@ -9,5 +9,13 @@ export default {
   marginBottom: 0,
   preview: {
     marginBottom: '30px'
+  },
+  allComponents: {
+    display: 'inline-block',
+    marginBottom: '20px',
+    borderBottom: `1px solid ${colors.BLACK_BRIGHT}`,
+    ':hover': {
+      cursor: 'pointer'
+    }
   }
 }
