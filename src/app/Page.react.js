@@ -74,11 +74,13 @@ export default class Page extends Component {
 
   renderAtom() {
     const {componentsIndex, customProps, selectedAtom, simplePropsSelected, sourceBackground, triggeredProps} = this.props
+    const {selectAtom} = this.context
 
     return (
       <ComponentPage
         componentsIndex={componentsIndex}
         customProps={customProps}
+        selectAtom={selectAtom}
         selectedAtom={selectedAtom}
         simplePropsSelected={simplePropsSelected}
         sourceBackground={sourceBackground}
