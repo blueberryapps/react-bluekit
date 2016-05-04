@@ -14,6 +14,7 @@ export default function StateProvider(Wrapped) {
     static childContextTypes = {
       createSetAtomProp: RPT.func,
       resetPropsToDefault: RPT.func,
+      resetLocalStorage: RPT.func,
       selectAtom: RPT.func,
       searchAtoms: RPT.func,
       setAtomProp: RPT.func,
@@ -25,6 +26,7 @@ export default function StateProvider(Wrapped) {
       return {
         createSetAtomProp: this.createSetAtomProp.bind(this),
         resetPropsToDefault: this.resetPropsToDefault.bind(this),
+        resetLocalStorage: this.resetLocalStorage.bind(this),
         selectAtom: this.selectAtom.bind(this),
         searchAtoms: this.searchAtoms.bind(this),
         setAtomProp: this.setAtomProp.bind(this),
@@ -40,6 +42,10 @@ export default function StateProvider(Wrapped) {
       simplePropsSelected: true,
       sourceBackground: '#ffffff',
       triggeredProps: new List()
+    }
+
+    componentWillMount() {
+      this.loadStateFromLocalStorage()
     }
 
     componentDidMount() {
@@ -91,34 +97,39 @@ export default function StateProvider(Wrapped) {
 
       if (!selectedAtom) return false
 
-      this.setState({
-        customProps: customProps.setIn([selectedAtom].concat(scope).concat(key), value)
-      })
+      const newCustomProps = customProps.setIn([selectedAtom].concat(scope).concat(key), value)
+
+      this.setState({customProps: newCustomProps})
+      this.storeStateToLocalStorage('customProps', newCustomProps)
     }
 
     toggleProps() {
       const {simplePropsSelected} = this.state
 
       this.setState({simplePropsSelected: !simplePropsSelected})
+      this.storeStateToLocalStorage('simplePropsSelected', !simplePropsSelected)
     }
 
     resetPropsToDefault() {
       const {customProps, selectedAtom} = this.state
 
+      const newCustomProps = customProps.set(selectedAtom, Map())
       this.setState({
-        customProps: {...customProps, [selectedAtom]: {}},
+        customProps: newCustomProps,
         sourceBackground: '#ffffff'
       })
+      this.storeStateToLocalStorage('customProps', newCustomProps)
+      this.storeStateToLocalStorage('sourceBackground', '#ffffff')
     }
 
     selectAtom(selectedAtom) {
       this.setState({selectedAtom})
+      this.storeStateToLocalStorage('selectedAtom', selectedAtom)
     }
 
     searchAtoms(searchedText) {
-      this.setState({
-        searchedText
-      })
+      this.setState({searchedText})
+      this.storeStateToLocalStorage('searchedText', searchedText)
     }
 
     filterComponentsIndex() {
@@ -133,10 +144,63 @@ export default function StateProvider(Wrapped) {
 
     setSourceBackground(color) {
       this.setState({sourceBackground: color})
+      this.storeStateToLocalStorage('sourceBackground', color)
     }
 
     render() {
       return <Wrapped {...this.state} {...this.props} componentsIndex={fromJS(this.filterComponentsIndex())} />
+    }
+
+    hasLocalStorage() {
+      return typeof Storage !== 'undefined'
+    }
+
+    storeStateToLocalStorage(kind, value) {
+      if (!this.hasLocalStorage())
+        return
+
+      switch (kind) {
+        case 'customProps': return localStorage.setItem('bluekitCustomProps', JSON.stringify(value))
+        case 'selectedAtom': return localStorage.setItem('bluekitSelectedAtom', value)
+        case 'searchedText': return localStorage.setItem('bluekitSearchedText', value)
+        case 'simplePropsSelected': return localStorage.setItem('bluekitSimplePropsSelected', JSON.stringify(value))
+        case 'sourceBackground': return localStorage.setItem('bluekitSourceBackground', value)
+      }
+    }
+
+    loadStateFromLocalStorage() {
+      if (!this.hasLocalStorage())
+        return
+
+      const storedCustomProps = localStorage.getItem('bluekitCustomProps')
+      const storedSimplePropsSelected = localStorage.getItem('bluekitSimplePropsSelected')
+
+      const customProps = storedCustomProps ? JSON.parse(storedCustomProps) : this.state.customProps
+      const selectedAtom = localStorage.getItem('bluekitSelectedAtom') || this.state.selectedAtom
+      const searchedText = localStorage.getItem('bluekitSearchedText') || this.state.searchedText
+      const simplePropsSelected = storedSimplePropsSelected ? JSON.parse(storedSimplePropsSelected) : this.state.simplePropsSelected
+      const sourceBackground = localStorage.getItem('bluekitSourceBackground') || this.state.sourceBackground
+
+      this.setState({
+        customProps: fromJS(customProps),
+        selectedAtom,
+        searchedText,
+        simplePropsSelected: fromJS(simplePropsSelected),
+        sourceBackground
+      })
+    }
+
+    resetLocalStorage() {
+      if (!this.hasLocalStorage())
+        return
+
+      localStorage.removeItem('bluekitCustomProps')
+      localStorage.removeItem('bluekitSelectedAtom')
+      localStorage.removeItem('bluekitSearchedText')
+      localStorage.removeItem('bluekitSimplePropsSelected')
+      localStorage.removeItem('bluekitSourceBackground')
+      // refresh page after reset
+      window.location = window.location
     }
   }
 }

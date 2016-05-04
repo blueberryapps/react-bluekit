@@ -11,6 +11,7 @@ export default class Dropdown extends Component {
 
   static propTypes = {
     handleGeneralIconClick: RPT.func.isRequired,
+    handleResetLocalStorage: RPT.func.isRequired,
     handleResetProps: RPT.func.isRequired,
     handleToggleProps: RPT.func.isRequired,
     simplePropsSelected: RPT.bool,
@@ -37,6 +38,7 @@ export default class Dropdown extends Component {
   render() {
     const {
       handleGeneralIconClick,
+      handleResetLocalStorage,
       handleResetProps,
       handleToggleProps,
       simplePropsSelected,
@@ -70,7 +72,13 @@ export default class Dropdown extends Component {
             >
               Reset props to default
             </li>
-          </ul>
+            <li
+              key='dropdown-option3'
+              onClick={handleResetLocalStorage}
+              style={[styles.list.option, font]}
+            >
+              Reset local storage
+            </li>          </ul>
           <i style={[styles.arrow, hovered && styles.arrow.hovered]} />
           <i style={styles.arrow.bordered} />
         </div>
