@@ -1,6 +1,6 @@
 {
   "name": "react-bluekit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Visualisation and Playground generated from Components",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
@@ -55,22 +55,24 @@
     "react-svg-icon-generator": "0.2.0",
     "rimraf": "^2.4.3"
   },
+  "peerDependencies": {
+    "react": ">=0.13",
+    "react-dom": ">=0.13"
+  },
   "dependencies": {
     "color": ">=0.10",
-    "fuzzy": "^0.1.1",
+    "fuzzy": ">=0.1",
     "gulp": ">=3",
     "history": ">=1",
     "immutable": ">=3",
     "nunjucks": ">=2",
     "radium": ">=0.15",
-    "react": "^0.14.7",
-    "react-ace": "^3.4.1",
-    "react-color": "^2.0.0",
-    "react-copy-to-clipboard": "^4.0.2",
-    "react-docgen": ">=2.4.0",
-    "react-dom": "^0.14.8",
+    "react-ace": ">=3",
+    "react-color": ">=2",
+    "react-copy-to-clipboard": ">=4",
+    "react-docgen": ">=2.4",
     "react-highlight": ">=0.5",
-    "react-pure-render": "^1.0.2",
+    "react-pure-render": ">=1",
     "tosource": ">=1"
   }
 }
