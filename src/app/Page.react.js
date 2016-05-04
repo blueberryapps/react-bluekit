@@ -33,6 +33,7 @@ export default class Page extends Component {
   }
 
   static contextTypes = {
+    resetLocalStorage: RPT.func.isRequired,
     resetPropsToDefault: RPT.func.isRequired,
     selectAtom: RPT.func.isRequired,
     searchAtoms: RPT.func.isRequired,

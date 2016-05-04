@@ -22,6 +22,7 @@ export default class PropsSidebar extends Component {
   }
 
   static contextTypes = {
+    resetLocalStorage: RPT.func,
     resetPropsToDefault: RPT.func,
     setSourceBackground: RPT.func,
     toggleProps: RPT.func
@@ -45,6 +46,7 @@ export default class PropsSidebar extends Component {
           <div style={styles.dropdown}>
             <Dropdown
               handleGeneralIconClick={this.handleGeneralIconClick.bind(this)}
+              handleResetLocalStorage={this.resetLocalStorage.bind(this)}
               handleResetProps={this.resetPropsToDefault.bind(this)}
               handleToggleProps={toggleProps}
               simplePropsSelected={simplePropsSelected}
@@ -113,6 +115,13 @@ export default class PropsSidebar extends Component {
         </div>
       </div>
     );
+  }
+
+  resetLocalStorage() {
+    const {resetLocalStorage} = this.context
+
+    this.setState({dropdownOpened: false})
+    resetLocalStorage()
   }
 
   resetPropsToDefault() {

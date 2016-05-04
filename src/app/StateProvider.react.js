@@ -14,6 +14,7 @@ export default function StateProvider(Wrapped) {
     static childContextTypes = {
       createSetAtomProp: RPT.func,
       resetPropsToDefault: RPT.func,
+      resetLocalStorage: RPT.func,
       selectAtom: RPT.func,
       searchAtoms: RPT.func,
       setAtomProp: RPT.func,
@@ -25,6 +26,7 @@ export default function StateProvider(Wrapped) {
       return {
         createSetAtomProp: this.createSetAtomProp.bind(this),
         resetPropsToDefault: this.resetPropsToDefault.bind(this),
+        resetLocalStorage: this.resetLocalStorage.bind(this),
         selectAtom: this.selectAtom.bind(this),
         searchAtoms: this.searchAtoms.bind(this),
         setAtomProp: this.setAtomProp.bind(this),
@@ -186,6 +188,19 @@ export default function StateProvider(Wrapped) {
         simplePropsSelected: fromJS(simplePropsSelected),
         sourceBackground
       })
+    }
+
+    resetLocalStorage() {
+      if (!this.hasLocalStorage())
+        return
+
+      localStorage.removeItem('bluekitCustomProps')
+      localStorage.removeItem('bluekitSelectedAtom')
+      localStorage.removeItem('bluekitSearchedText')
+      localStorage.removeItem('bluekitSimplePropsSelected')
+      localStorage.removeItem('bluekitSourceBackground')
+      // refresh page after reset
+      window.location = window.location
     }
   }
 }
