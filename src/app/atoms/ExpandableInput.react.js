@@ -70,6 +70,7 @@ const styles = {
     color: colors.BLUE,
     display: 'none',
     margin: '0 0 5px 0',
+    textAlign: 'right',
     ':hover': {
       cursor: 'pointer'
     },

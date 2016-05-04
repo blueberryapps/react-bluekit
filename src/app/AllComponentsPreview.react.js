@@ -44,12 +44,14 @@ export default class AllComponentsPreview extends Component {
           isOdd && styles.atom.wrapper.odd
         ]}
       >
-        <div
-          key={name}
-          onClick={() => selectAtom(name)}
-          style={headingStyles}
-        >
-          {atom.get('menu')}
+        <div>
+          <h2
+            key={name}
+            onClick={() => selectAtom(name)}
+            style={[headingStyles, headingStyles.allComponents]}
+          >
+            {atom.get('menu')}
+          </h2>
         </div>
         <div style={styles.atom.column}>
           <AtomPreview atom={atom} disableFunctionProps />

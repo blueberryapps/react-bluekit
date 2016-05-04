@@ -38,6 +38,7 @@ export default class JsonEditor extends Component {
           tabSize={2}
           theme="chrome"
           value={value}
+          width="100%"
         />
         {error && <div style={{color: 'red'}}>error.message</div>}
       </div>
@@ -62,8 +63,4 @@ export default class JsonEditor extends Component {
     return `${value}`.split(/\n/g).length
   }
 
-};
-
-const styles = {
-  width: '100%'
 };
