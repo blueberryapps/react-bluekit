@@ -7,7 +7,7 @@ import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import Select from '../atoms/Select.react';
 import spaces from '../styles/Spaces'
-import {Map, fromJS} from 'immutable';
+import {OrderedMap, Map, fromJS} from 'immutable';
 import * as colors from '../styles/Colors'
 
 @Radium
@@ -31,26 +31,42 @@ export default class PropsTable extends Component {
     if (Object.keys(propsDefinition).length === 0)
       return <div style={styles.prop.noProps}>No props defined</div>
 
+    const sortedProps = Object.keys(propsDefinition)
+      .sort()
+      .reduce((acc, k) => acc.set(k, propsDefinition[k]), new OrderedMap())
+
     return (
       <div style={font}>
-        {Map(propsDefinition).map((value, key) => this.renderPropRow(value, key))}
+        {sortedProps.map((value, key) => this.renderProp(value, key, true))}
+        {sortedProps.map((value, key) => this.renderProp(value, key, false))}
       </div>
     )
   }
 
-  renderPropRow(data, key) {
+  renderProp(data, key, renderRequired) {
+    if (!data.type) return null
+
+    const required = data.required
+
+    if ((renderRequired && !required) || (!renderRequired && required))
+      return null
+
+    return this.renderPropTableRow(data, key, renderRequired, [])
+  }
+
+  renderPropTableRow(data, key, renderRequired, scope) {
     const {activeProps, commonStyles, triggeredProps} = this.props
 
     if (!data.type) return null
 
     if (data.type.name === 'shape')
       return (
-        Map(data.type.value).map((v, k) => this.renderShapePropRow(v, k, [key]))
+        Map(data.type.value).map((v, k) => this.renderPropTableRow({type: v}, k, renderRequired, [key]))
       )
 
     const required = data.required
-    const triggered = triggeredProps.includes(key)
 
+    const triggered = triggeredProps.includes(key)
     return (
       <div key={key} style={styles.row}>
         <div
@@ -62,14 +78,14 @@ export default class PropsTable extends Component {
             required && font.bold
           ]}
         >
-          {this.renderNameOfProp(key, data.type.name)}
+          {this.renderNameOfProp(scope.concat(key).join('.'), data.type.name)}
           {required && '*'}
           <small style={styles.prop.small}>{data.type.name}</small>
         </div>
         <div style={[styles.prop, styles.prop.value]}>
           {data.type.name === 'func'
             ? 'func()'
-            : this.renderValueSelection(key, data.type)
+            : this.renderValueSelection(key, data.type, scope)
           }
         </div>
       </div>
@@ -91,22 +107,6 @@ export default class PropsTable extends Component {
           {name}
         </a>
       )
-  }
-
-  renderShapePropRow(data, key, scope = []) {
-    if (data.name === 'shape')
-      return (
-        Map(data.value).map((v, k) => this.renderShapePropRow(v, k, scope.concat([key])))
-      )
-
-    return (
-      <tr key={key} style={styles.tableRow}>
-        <td style={styles.tableCell}>{scope.join('.')}.<b>{key}</b></td>
-        <td style={styles.tableCell}>{data.name}</td>
-        <td style={styles.tableCell}>{data.required && 'true'}</td>
-        <td style={styles.tableCell}>{this.renderValueSelection(key, data, scope)}</td>
-      </tr>
-    )
   }
 
   selectOptions(type) {
@@ -132,6 +132,8 @@ export default class PropsTable extends Component {
       case 'any': return <ExpandableInput key={key} type='text' {...defaultProps} />
       case 'node': return <Input key={key} type='text' {...defaultProps} />
       case 'shape': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
+      case 'array': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
+      case 'object': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
       case 'arrayOf': return <FluidTextArea key={key} type='text' {...{...defaultProps, value: JSON.stringify(defaultProps.value, null, 2)}} />
       case 'string': return <ExpandableInput key={key} type='text' {...{...defaultProps, value: defaultProps.value}} />
       case 'number': return <Input key={key} type='number' {...defaultProps} />
