@@ -57,7 +57,7 @@
   },
   "peerDependencies": {
     "react": ">=0.13",
-    "react-dom": ">=0.13",
+    "react-dom": ">=0.13"
   },
   "dependencies": {
     "color": ">=0.10",
