@@ -42,7 +42,7 @@ export default class PropsSidebar extends Component {
     return (
       <div style={styles.wrapper}>
         <div ref='controlsHeader' style={styles.controls.header}>
-          <h1 style={styles.heading}>{atom.componentName}</h1>
+          <h1 style={styles.heading}>{atom.get('componentName')}</h1>
           <div style={styles.dropdown}>
             <Dropdown
               handleGeneralIconClick={this.handleGeneralIconClick.bind(this)}
