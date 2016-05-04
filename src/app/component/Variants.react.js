@@ -38,9 +38,15 @@ export default class Variants extends Component {
       case 'string': return this.renderVariants(key, name, ['', `Default string ${key}`])
       case 'number': return this.renderVariants(key, name, [0, 1, 100, 1234.56])
       case 'bool': return this.renderVariants(key, name, [false, true])
-      case 'enum' : return this.renderVariants(key, name, value.map(text => text.get('value').replace(/\'/g, '')))
+      case 'enum' : return this.renderEnumVariant(key, name, value)
     }
 
+    return null
+  }
+
+  renderEnumVariant(key, name, value) {
+    if (typeof value === 'object')
+      return this.renderVariants(key, name, value.map(text => text.get('value').replace(/\'/g, '')))
     return null
   }
 
