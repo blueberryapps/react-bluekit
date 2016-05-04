@@ -113,16 +113,6 @@ export default class PropsTable extends Component {
       )
   }
 
-  selectOptions(type) {
-    const options = type.value
-      .map(v => <option value={v.value.replace(/'/g, '')}>{v.value.replace(/'/g, '')}</option>)
-
-    if (!type.required)
-      return [<option value=''></option>].concat(options)
-
-    return options
-  }
-
   renderValueSelection(key, type, scope = []) {
     const {atom, componentProps} = this.props
     const {createSetAtomProp} = this.context
@@ -139,13 +129,30 @@ export default class PropsTable extends Component {
       case 'arrayOf': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'bool': return <Checkbox key={name} {...{...defaultProps, checked: defaultProps.value, name: key}} />
       case 'element': return <HtmlEditor key={name} name={name} {...defaultProps} />
-      case 'enum' : return <Select key={name} options={this.selectOptions(type)} {...defaultProps} />
+      case 'enum' : return this.renderEnum(name, type, defaultProps)
       case 'node': return <HtmlEditor key={name} name={name} {...defaultProps} />
       case 'number': return <Input key={name} type='number' {...defaultProps} />
       case 'object': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'shape': return <JsonEditor key={name} name={name} {...defaultProps} />
-      case 'string': return <ExpandableInput key={name} type='text' {...{...defaultProps, value: defaultProps.value}} />
+      case 'string': return <ExpandableInput key={name} type='text' {...defaultProps} />
     }
+  }
+
+  renderEnum(name, type, defaultProps) {
+    if (typeof type.value === 'object')
+      return <Select key={name} options={this.selectOptions(type)} {...defaultProps} />
+
+    return <ExpandableInput key={name} type='text' {...defaultProps} />
+  }
+
+  selectOptions(type) {
+    const options = type.value
+      .map(v => <option value={v.value.replace(/'/g, '')}>{v.value.replace(/'/g, '')}</option>)
+
+    if (!type.required)
+      return [<option value=''></option>].concat(options)
+
+    return options
   }
 }
 
