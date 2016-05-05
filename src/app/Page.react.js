@@ -8,7 +8,7 @@ import 'brace/theme/chrome';
 import * as colors from './styles/Colors.js'
 import AllComponentsPreview from './AllComponentsPreview.react';
 import ComponentPage from './component/Page.react';
-import HighlightStyle from './styles/HighlightStyle';
+import FontBold from './styles/FontBold';
 import Radium from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import Sidebar from './Sidebar.react';
@@ -66,8 +66,8 @@ export default class Page extends Component {
             {selectedAtom ? this.renderAtom() : this.renderList()}
           </div>
         </div>
-        <HighlightStyle />
         <FontStyle />
+        <FontBold />
       </div>
     );
   }

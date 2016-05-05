@@ -76,8 +76,9 @@ export default class PropsTable extends Component {
         <div
           style={[
             styles.prop,
-            styles.prop.info,
+            styles.prop.name,
             fullWidth && styles.prop.fullWidth, styles.prop.fullWidth.name,
+            required && styles.prop.required,
             activeProps === key && commonStyles.propName.active
           ]}
         >
@@ -90,7 +91,7 @@ export default class PropsTable extends Component {
             styles.prop,
             styles.prop.value,
             fullWidth && styles.prop.fullWidth,
-            triggered && {backgroundColor: colors.GRAY_DARKER}]}
+            triggered && {backgroundColor: colors.GRAY_BRIGHT}]}
         >
           {data.type.name === 'func'
             ? 'func()'
@@ -163,19 +164,26 @@ export default class PropsTable extends Component {
 
 const styles = {
   row: {
-    clear: 'both'
+    clear: 'both',
+    float: 'left',
+    width: '100%',
+    paddingBottom: '10px',
+    display: 'flex',
+    flexWrap: 'wrap',
+    alignItems: 'stretch',
+    justifyContent: 'none'
   },
 
   prop: {
     float: 'left',
     boxSizing: 'border-box',
-    info: {
+    name: {
       ...font.size.small,
       width: '55%',
       color: colors.BLUE,
       wordBreak: 'break-all',
       borderLeft: '5px solid transparent',
-      padding: `${spaces.small} ${spaces.small} ${spaces.small} ${spaces.smaller}`,
+      padding: `0 ${spaces.small} 0 ${spaces.smaller}`,
       transition: 'all .2s ease-out',
       active: {
         borderLeft: `5px solid ${colors.BLUE}`
@@ -185,7 +193,7 @@ const styles = {
       ...font.size.small,
       width: '45%',
       color: colors.BLACK_BRIGHT,
-      padding: `${spaces.small} ${spaces.normal} ${spaces.small} ${spaces.small}`,
+      padding: `0 ${spaces.normal} 0 ${spaces.small}`,
       link: {
         color: colors.BLUE
       }
@@ -198,10 +206,13 @@ const styles = {
     },
     fullWidth: {
       width: '100%',
-      padding: `0 ${spaces.normal} ${spaces.small}`,
+      padding: `0 ${spaces.normal}`,
       name: {
-        padding: `0 ${spaces.normal} ${spaces.small} 15px`
+        padding: `0 ${spaces.normal} 2px 15px`
       }
+    },
+    required: {
+      fontWeight: 'bold'
     },
     noProps: {
       ...font,
