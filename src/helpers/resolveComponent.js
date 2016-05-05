@@ -1,9 +1,19 @@
-import {Component} from 'react';
+import React, {Component} from 'react';
+
+class InvalidComponent extends Component {
+  render() {
+    return (
+      <div>
+        Invalid component exported
+      </div>
+    )
+  }
+}
 
 function canBeReactComponent(component) {
   return typeof component === 'string'
     || typeof component === 'function'
-    || component.prototype === Component
+    || (component && component.prototype === Component)
 }
 
 function isInDefault(component) {
@@ -12,6 +22,9 @@ function isInDefault(component) {
 }
 
 export default function resolveComponent(component) {
+  if (!component)
+    return InvalidComponent
+
   const resolvedComponent = isInDefault(component) ? component.default : component
 
   return resolvedComponent.WrappedComponent
