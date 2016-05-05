@@ -75,7 +75,7 @@ const styles = {
   },
 
   h1: {
-    fontSize: '255px',
+    fontSize: '55px',
     fontWeight: '100'
   },
 

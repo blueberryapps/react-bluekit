@@ -250,7 +250,7 @@ const styles = {
       backgroundColor: colors.BLUE,
       height: '3px',
       position: 'absolute',
-      top: '100%',
+      top: 'calc(100% + 1px)',
       left: 0,
       right: 0,
       transition: 'opacity .1s linear',

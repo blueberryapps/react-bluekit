@@ -1,14 +1,31 @@
-import {Component} from 'react';
-import Radium from 'radium'
-import React from 'react'
-import {colors} from './styleGlobals'
+import Component from 'react-pure-render/component';
+import Radium from 'radium';
+import React, {PropTypes as RPT} from 'react';
+
+
+@Radium
+export default class ErrorMessage extends Component {
+  static propTypes = {
+    children: RPT.any.isRequired,
+    type:     RPT.string
+  }
+
+  render() {
+    const {children} = this.props;
+
+    return (
+      <div style={styles.wrapper}>
+        <div className="errorMessage" style={styles.errorMessage}>{children}</div>
+      </div>
+    );
+  }
+}
 
 const styles = {
   wrapper: {
-    color: 'white',
-    backgroundColor: colors.error,
+    color: 'hsl(351, 100%, 42%)',
     marginTop: '6px',
-    padding: '3px 10px',
+    padding: '3px 0px',
     textAlign: 'left',
     position: 'relative',
     maxWidth: '400px'
@@ -25,30 +42,11 @@ const styles = {
     borderRightColor: 'transparent',
     borderBottomWidth: '4px',
     borderBottomStyle: 'solid',
-    borderBottomColor: colors.error,
+    borderBottomColor: 'hsl(351, 100%, 42%)',
     fontSize: 0,
     lineHeight: 0,
     position: 'absolute',
     top: '-4px',
     left: '25px'
-  }
-};
-
-@Radium
-export default class ErrorMessage extends Component {
-  static propTypes = {
-    children: React.PropTypes.any.isRequired,
-    type: React.PropTypes.string
-  }
-
-  render() {
-    const {children} = this.props
-
-    return (
-      <div style={styles.wrapper}>
-        <div className='errorMessage' style={styles.errorMessage}>{children}</div>
-        <div style={styles.arrow} />
-      </div>
-    );
   }
 };
