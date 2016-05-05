@@ -259,12 +259,12 @@ const styles = {
     base: {
       borderLeft: '4px solid transparent',
       display: 'block',
-      paddingLeft: '16px',
       margin: '10px 0 25px 0',
       transition: 'border-left 0.2s'
     },
     hasError: {
-      borderLeft: '4px solid hsl(351, 100%, 42%)'
+      borderLeft: '4px solid hsl(351, 100%, 42%)',
+      paddingLeft: '16px',
     },
     errorInput: {
       borderColor: 'hsl(351, 100%, 42%)',
