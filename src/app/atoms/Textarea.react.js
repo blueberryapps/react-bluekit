@@ -34,7 +34,7 @@ const styles = {
     boxSizing: 'border-box',
     borderWidth: '1px',
     borderStyle: 'solid',
-    borderColor: colors.GRAY_BRIGHT,
+    borderColor: colors.GRAY_DARKER,
     padding: '3px 5px',
     fontSize: '11px',
     lineHeight: '1.5',
