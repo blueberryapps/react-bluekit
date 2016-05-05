@@ -7,7 +7,7 @@ import * as colors from '../styles/Colors'
 @Radium
 export default class Input extends Component {
   static propTypes = {
-    inheritedStyle: RPT.oneOfType([RPT.array, RPT.object]),
+    inheritedStyles: RPT.oneOfType([RPT.array, RPT.object]),
     key: RPT.string,
     kind: RPT.oneOf([
       'inputDefault',
@@ -24,7 +24,7 @@ export default class Input extends Component {
   }
 
   render() {
-    const {inheritedStyle, key, kind, onChange, type, value} = this.props;
+    const {inheritedStyles, key, kind, onChange, type, value} = this.props;
 
     return (
       <input
@@ -33,7 +33,7 @@ export default class Input extends Component {
         style={[
           styles.base,
           styles[kind],
-          inheritedStyle
+          inheritedStyles
         ]}
         type={type}
         value={value}
