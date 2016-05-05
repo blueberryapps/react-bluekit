@@ -2,9 +2,10 @@ import Component from 'react-pure-render/component';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import font from '../styles/Font';
 import Icon from '../atoms/Icon.react';
-import * as colors from '../styles/Colors';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
+import ToolTip from '../atoms/ToolTip.react';
+import * as colors from '../styles/Colors';
 
 @Radium
 export default class CopyCode extends Component {
@@ -24,7 +25,12 @@ export default class CopyCode extends Component {
 
     return (
       <CopyToClipboard onCopy={this.onCopy.bind(this)} text={source}>
-        <div style={[styles.copyCode.wrapper, inheritedStyles]}>
+        <div style={[styles.copyCode.innerWrapper, inheritedStyles]}>
+          {copied &&
+            <ToolTip inheritedStyles={styles.tooltip} kind='top'>
+              Copied
+            </ToolTip>
+          }
           <div style={[styles.copyCode.inner, copied && styles.copyCode.copied]}>
             <Icon
               color={colors.BLUE}
@@ -46,7 +52,7 @@ export default class CopyCode extends Component {
 
 const styles = {
   copyCode: {
-    wrapper: {
+    innerWrapper: {
       backgroundColor: 'white',
       position: 'absolute',
       padding: '11px 10px',
@@ -71,5 +77,12 @@ const styles = {
         cursor: 'default'
       }
     }
+  },
+
+  tooltip: {
+    top: '-24px',
+    right: '-24px',
+    left: 'auto',
+    transform: 'translateX(-50%)'
   }
 }

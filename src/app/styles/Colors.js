@@ -6,3 +6,4 @@ export const BLUE = '#004086';
 export const HIGHLIGHT = BLACK_BRIGHT;
 export const BLUE_LIGHT = '#a1e3f2';
 export const HIGHLIGHT_BACKGROUND = '#a1e3f2';
+export const TOOLTIP = 'rgba(0,0,0,.7)';
