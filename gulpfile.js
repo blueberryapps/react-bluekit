@@ -1,3 +1,4 @@
+require('babel-core/register')
 const path = require('path')
 
 const configureSvgIcon = require('react-svg-icon-generator').default;
