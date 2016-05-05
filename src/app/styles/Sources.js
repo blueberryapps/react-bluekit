@@ -1,4 +1,4 @@
-import headingStyles from './HighlightStyle';
+import headingStyles from './Headings';
 import * as colors from './Colors';
 
 export default {
