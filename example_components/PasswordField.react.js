@@ -63,7 +63,7 @@ export default class PasswordField extends Component {
         <Icon
           color={showPassword ? '#fff' : '#363636'}
           kind={showPassword ? 'eye' : 'eye-hidden'}
-          size="18"
+          size={18}
           style={{height: '40px'}}
         />
       </div>

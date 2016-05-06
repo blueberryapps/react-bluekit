@@ -20,7 +20,8 @@ export default class Input extends Component {
 
   static defaultProps = {
     inheritedStyle: {},
-    kind: 'inputDefault'
+    kind: 'inputDefault',
+    value: 'Default value'
   }
 
   render() {

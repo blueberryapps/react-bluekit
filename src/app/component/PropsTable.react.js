@@ -1,6 +1,5 @@
 import Checkbox from '../atoms/Checkbox.react';
 import Component from 'react-pure-render/component';
-import ExpandableInput from '../atoms/ExpandableInput.react';
 import HtmlEditor from '../atoms/HtmlEditor.react';
 import JsonEditor from '../atoms/JsonEditor.react';
 import font from '../styles/Font';
@@ -133,7 +132,7 @@ export default class PropsTable extends Component {
     }
 
     switch (type.name) {
-      case 'any': return <ExpandableInput key={name} type='text' {...defaultProps} />
+      case 'any': return <Input key={name} type='text' {...defaultProps} />
       case 'array': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'arrayOf': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'bool': return <Checkbox key={name} {...{...defaultProps, checked: defaultProps.value, name: key}} />
@@ -143,7 +142,7 @@ export default class PropsTable extends Component {
       case 'number': return <Input key={name} type='number' {...defaultProps} />
       case 'object': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'shape': return <JsonEditor key={name} name={name} {...defaultProps} />
-      case 'string': return <ExpandableInput key={name} type='text' {...defaultProps} />
+      case 'string': return <Input key={name} type='text' {...defaultProps} />
     }
   }
 
@@ -151,7 +150,7 @@ export default class PropsTable extends Component {
     if (typeof type.value === 'object')
       return <Select key={name} options={this.selectOptions(type)} {...defaultProps} />
 
-    return <ExpandableInput key={name} type='text' {...defaultProps} />
+    return <Input key={name} type='text' {...defaultProps} />
   }
 
   selectOptions(type) {

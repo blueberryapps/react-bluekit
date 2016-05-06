@@ -13,6 +13,10 @@ export default class Checkbox extends Component {
     value:    RPT.bool.isRequired
   }
 
+  static defaultProps = {
+    value: false
+  }
+
   render() {
     const {name, onChange, label, value} = this.props;
 
