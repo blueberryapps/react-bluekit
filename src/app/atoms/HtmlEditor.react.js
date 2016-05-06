@@ -23,6 +23,7 @@ export default class HtmlEditor extends Component {
       <div>
         <AceEditor
           editorProps={{$blockScrolling: true}}
+          fontSize="11px"
           height="auto"
           highlightActiveLine={false}
           maxLines={this.numberOfRows() + 1}
@@ -57,8 +58,4 @@ export default class HtmlEditor extends Component {
     return `${value}`.split(/\n/g).length
   }
 
-};
-
-const styles = {
-  width: '100%'
 };
