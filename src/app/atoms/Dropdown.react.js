@@ -94,8 +94,8 @@ const styles = {
     width: '200px',
     border: `1px solid ${colors.GRAY_DARKER}`,
     position: 'absolute',
-    top: '110%',
-    right: '-7px',
+    top: 'calc(100% + 5px)',
+    left: '20px',
     boxSizing: 'border-box',
     display: 'none',
     textAlign: 'left',
@@ -134,7 +134,7 @@ const styles = {
 
   arrow: {
     bottom: '100%',
-    right: '5px',
+    left: '13px',
     borderStyle: 'solid',
     height: 0,
     width: 0,
@@ -143,7 +143,6 @@ const styles = {
     borderColor: 'rgba(136, 183, 213, 0)',
     borderBottomColor: 'white',
     borderWidth: '6px',
-    marginLeft: '-6px',
     transform: 'translateX(-50%)',
     transition: 'all .1s ease',
     zIndex: 3,
@@ -152,7 +151,7 @@ const styles = {
     },
     bordered: {
       bottom: '100%',
-      right: '5px',
+      left: '6px',
       borderStyle: 'solid',
       height: 0,
       width: 0,
@@ -161,8 +160,6 @@ const styles = {
       borderColor: 'rgba(136, 183, 213, 0)',
       borderBottomColor: colors.GRAY_DARKER,
       borderWidth: '7px',
-      marginLeft: '-7px',
-      transform: 'translateX(-37%)',
       zIndex: 2,
     }
   }
