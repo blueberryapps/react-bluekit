@@ -9,7 +9,7 @@ export default class Checkbox extends Component {
   static propTypes = {
     label:    RPT.string,
     name:     RPT.string.isRequired,
-    onChange: RPT.func.isRequired,
+    onChange: RPT.func,
     value:    RPT.bool.isRequired
   }
 

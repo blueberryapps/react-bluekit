@@ -19,7 +19,7 @@ export default class MultiField extends Component {
     label: RPT.string.isRequired,
     name: RPT.string.isRequired,
     onBlur: RPT.func,
-    onChange: RPT.func.isRequired,
+    onChange: RPT.func,
     value: RPT.string
   };
 

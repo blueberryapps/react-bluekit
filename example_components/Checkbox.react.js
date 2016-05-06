@@ -11,13 +11,9 @@ export default class Checkbox extends Component {
     error:    React.PropTypes.string,
     label:    React.PropTypes.string.isRequired,
     name:     React.PropTypes.string.isRequired,
-    onChange: React.PropTypes.func.isRequired,
+    onChange: React.PropTypes.func,
     tooltip:  React.PropTypes.string,
     value:    React.PropTypes.bool
-  }
-
-  static defaultProps = {
-    onChange: {function() {}}
   }
 
   render() {
