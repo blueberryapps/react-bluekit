@@ -1,4 +1,4 @@
-import ColorPicker from 'react-color';
+import Color from 'react-color';
 import React, {Component, PropTypes as RPT} from 'react';
 
 export default class ColorPicker extends Component {
@@ -13,7 +13,7 @@ export default class ColorPicker extends Component {
     const {onChangeComplete} = this.props
 
     return (
-      <ColorPicker
+      <Color
         color={this.props.color}
         onChangeComplete={onChangeComplete}
       />
