@@ -1,17 +1,57 @@
-import {Component} from 'react';
-import Radium from 'radium'
-import React from 'react'
-import {colors} from './styleGlobals'
+import Component from 'react-pure-render/component';
+import Radium from 'radium';
+import React, {PropTypes as RPT} from 'react';
+
+
+@Radium
+export default class ErrorMessage extends Component {
+  static propTypes = {
+    children: RPT.any.isRequired,
+    kind: RPT.oneOf([
+      'plain',
+      'block'
+    ])
+  }
+
+  static defaultProps = {
+    kind: 'block'
+  }
+
+  render() {
+    const {children, kind} = this.props;
+
+    return (
+      <div
+        style={[
+          styles.wrapper,
+          styles.wrapper[kind]
+        ]}
+      >
+        <div style={styles.errorMessage}>
+          {children}
+        </div>
+        {kind === 'block' &&
+          <div style={styles.arrow} />
+        }
+      </div>
+    );
+  }
+}
 
 const styles = {
   wrapper: {
-    color: 'white',
-    backgroundColor: colors.error,
-    marginTop: '6px',
-    padding: '3px 10px',
+    color: 'hsl(351, 100%, 42%)',
+    marginTop: '10px',
+    padding: '3px 0px',
     textAlign: 'left',
     position: 'relative',
-    maxWidth: '400px'
+    maxWidth: '400px',
+    block: {
+      backgroundColor: 'hsl(351, 100%, 42%)',
+      color: 'white',
+      marginTop: '18px',
+      padding: '3px 10px',
+    }
   },
 
   arrow: {
@@ -25,30 +65,11 @@ const styles = {
     borderRightColor: 'transparent',
     borderBottomWidth: '4px',
     borderBottomStyle: 'solid',
-    borderBottomColor: colors.error,
+    borderBottomColor: 'hsl(351, 100%, 42%)',
     fontSize: 0,
     lineHeight: 0,
     position: 'absolute',
     top: '-4px',
     left: '25px'
-  }
-};
-
-@Radium
-export default class ErrorMessage extends Component {
-  static propTypes = {
-    children: React.PropTypes.any.isRequired,
-    type: React.PropTypes.string
-  }
-
-  render() {
-    const {children} = this.props
-
-    return (
-      <div style={styles.wrapper}>
-        <div className='errorMessage' style={styles.errorMessage}>{children}</div>
-        <div style={styles.arrow} />
-      </div>
-    );
   }
 };

@@ -205,7 +205,8 @@ const styles = {
     display: 'none',
     position: 'absolute',
     zIndex: 2,
-    right: '0px',
+    left: 'calc(100% - 20px)',
+    top: 'calc(100% + 5px)',
     visible: {
       display: 'block'
     }
@@ -250,7 +251,7 @@ const styles = {
       backgroundColor: colors.BLUE,
       height: '3px',
       position: 'absolute',
-      top: '100%',
+      top: 'calc(100% + 1px)',
       left: 0,
       right: 0,
       transition: 'opacity .1s linear',

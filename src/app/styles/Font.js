@@ -25,6 +25,7 @@ export default {
   fontFamily: 'Source Sans Pro, sans-serif',
   fontWeight: 'normal',
   fontSize: '14px',
+  textAlign: 'left',
   bold: {
     fontWeight: 'bold',
   },

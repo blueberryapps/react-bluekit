@@ -3,7 +3,7 @@ import PropsSidebar from './PropsSidebar.react';
 import Preview from './Preview.react';
 import extendProps from '../../helpers/extendProps';
 import extendComponentProps from '../../helpers/extendComponentProps';
-import Radium from 'radium';
+import Radium, {StyleRoot} from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import resolveComponent from '../../helpers/resolveComponent';
 import * as colors from '../styles/Colors';
@@ -76,7 +76,7 @@ export default class Page extends Component {
     const headingColor = this.textColor(sourceBackground)
 
     return (
-      <div>
+      <StyleRoot>
         <div style={[styles.wrapper, styles.wrapper.sidebar]}>
           <PropsSidebar
             atom={atom}
@@ -100,7 +100,7 @@ export default class Page extends Component {
             headingColor={headingColor}
           />
         </div>
-      </div>
+      </StyleRoot>
     )
   }
 
@@ -111,7 +111,6 @@ const styles = {
     position: 'absolute',
     top: 0,
     bottom: 0,
-    overflowY: 'auto',
     sidebar: {
       width: '25%',
       left: 0,
@@ -119,6 +118,7 @@ const styles = {
     detail: {
       width: '75%',
       right: 0,
+      overflow: 'auto'
     }
   }
 }

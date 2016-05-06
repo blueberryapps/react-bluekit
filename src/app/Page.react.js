@@ -9,7 +9,7 @@ import * as colors from './styles/Colors.js'
 import AllComponentsPreview from './AllComponentsPreview.react';
 import ComponentPage from './component/Page.react';
 import FontBold from './styles/FontBold';
-import Radium from 'radium';
+import Radium, {StyleRoot} from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import Sidebar from './Sidebar.react';
 import StateProvider from './StateProvider.react'
@@ -51,7 +51,7 @@ export default class Page extends Component {
     const {selectAtom, searchAtoms} = this.context
 
     return (
-      <div>
+      <StyleRoot>
         <div style={[styles.wrapper.base, inline ? {height: height} : styles.wrapper.full]}>
           <div style={styles.sidebar}>
             <Sidebar
@@ -68,7 +68,7 @@ export default class Page extends Component {
         </div>
         <FontStyle />
         <FontBold />
-      </div>
+      </StyleRoot>
     );
   }
 
