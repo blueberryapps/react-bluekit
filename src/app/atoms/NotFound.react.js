@@ -18,7 +18,7 @@ export default class NotFound extends Component {
     const {children} = this.props
 
     return (
-      <div style={[styles, font]}>
+      <div style={styles}>
         {children}
       </div>
     )
@@ -27,5 +27,6 @@ export default class NotFound extends Component {
 }
 
 const styles = {
+  ...font,
   padding: '10px 20px'
 }

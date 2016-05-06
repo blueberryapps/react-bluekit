@@ -6,7 +6,7 @@ import FontBold from './styles/FontBold';
 import Radium, {StyleRoot} from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
 import Sidebar from './Sidebar.react';
-import StateProvider from './StateProvider.react'
+import StateProvider from './StateProvider.react';
 import {FontStyle} from './styles/Font';
 
 if (typeof window !== 'undefined') {

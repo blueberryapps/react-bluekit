@@ -1,15 +1,15 @@
 import ColorPicker from '../atoms/ColorPicker.react';
 import Component from 'react-pure-render/component';
 import Dropdown from '../atoms/Dropdown.react';
-import headingStyles from '../styles/Headings'
+import headingStyles from '../styles/Headings';
 import Icon from '../atoms/Icon.react';
 import font from '../styles/Font';
 import PropsTable from './PropsTable.react';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import ReactDOM from 'react-dom';
-import spaces from '../styles/Spaces'
-import * as colors from '../styles/Colors'
+import spaces from '../styles/Spaces';
+import * as colors from '../styles/Colors';
 
 @Radium
 export default class PropsSidebar extends Component {
@@ -54,7 +54,7 @@ export default class PropsSidebar extends Component {
           <h1 style={styles.heading}>{atom.get('componentName')}</h1>
           <div style={styles.dropdown}>
             <Dropdown
-              handleGeneralIconClick={this.handleGeneralIconClick.bind(this)}
+              handleIconClick={this.handleDropdownIconClick.bind(this)}
               handleResetLocalStorage={this.resetLocalStorage.bind(this)}
               handleResetProps={this.resetPropsToDefault.bind(this)}
               handleToggleProps={toggleProps}
@@ -73,20 +73,20 @@ export default class PropsSidebar extends Component {
                 Preview
               </a>
             </h3>
-            <div style={styles.header}>
+            <div style={styles.bgWrapper}>
               <div style={styles.bg}>Background</div>
               <div style={styles.bg.options}>
                 <div
                   key='whiteColor'
                   onClick={() => setSourceBackground('#ffffff')}
-                  style={styles.bgColor}
+                  style={styles.bg.color}
                 >
                   {this.renderActiveSourceBg('#ffffff')}
                 </div>
                 <div
                   key='blackColor'
                   onClick={() => setSourceBackground('#000000')}
-                  style={[styles.bgColor, styles.bgColor.black]}
+                  style={[styles.bg.color, styles.bg.color.black]}
                 >
                   {this.renderActiveSourceBg('#000000')}
                 </div>
@@ -96,7 +96,7 @@ export default class PropsSidebar extends Component {
                   onClick={this.handleColorPickerClick.bind(this)}
                   ref="pickerButton"
                   size={20}
-                  style={[styles.bgColor, styles.bgColor.interactive]}
+                  style={[styles.bg.color, styles.bg.color.interactive]}
                 />
                 <div
                   style={[
@@ -163,7 +163,7 @@ export default class PropsSidebar extends Component {
     setSourceBackground(`#${color.hex}`)
   }
 
-  handleGeneralIconClick() {
+  handleDropdownIconClick() {
     const {dropdownOpened} = this.state
 
     this.setState({dropdownOpened: !dropdownOpened})
@@ -179,8 +179,8 @@ export default class PropsSidebar extends Component {
     return (
       <div
         style={[
-          styles.bgColor.active,
-          sourceBackground === color && styles.bgColor.active.visible
+          styles.bg.color.active,
+          sourceBackground === color && styles.bg.color.active.visible
         ]}
       />
     )
@@ -217,47 +217,46 @@ const styles = {
     float: 'left',
     width: '50%',
     paddingBottom: spaces.normal,
+    color: {
+      boxSizing: 'border-box',
+      display: 'inline-block',
+      position: 'relative',
+      width: '22px',
+      height: '22px',
+      marginRight: '7px',
+      border: `1px solid ${colors.GRAY_DARKER}`,
+      backgroundColor: '#ffffff',
+      ':hover': {
+        cursor: 'pointer'
+      },
+      black: {
+        backgroundColor: '#000000'
+      },
+      interactive: {
+        backgroundColor: 'transparent',
+        border: 0,
+        marginRight: 0
+      },
+      active: {
+        opacity: 0,
+        backgroundColor: colors.BLUE,
+        height: '3px',
+        position: 'absolute',
+        top: 'calc(100% + 1px)',
+        left: 0,
+        right: 0,
+        transition: 'opacity .1s linear',
+        visible: {
+          opacity: 1
+        }
+      }
+    },
     options: {
       float: 'left',
       width: '50%',
       position: 'relative',
       top: '-5px',
       textAlign: 'right'
-    }
-  },
-
-  bgColor: {
-    boxSizing: 'border-box',
-    display: 'inline-block',
-    position: 'relative',
-    width: '22px',
-    height: '22px',
-    marginRight: '7px',
-    border: `1px solid ${colors.GRAY_DARKER}`,
-    backgroundColor: '#ffffff',
-    ':hover': {
-      cursor: 'pointer'
-    },
-    black: {
-      backgroundColor: '#000000'
-    },
-    interactive: {
-      backgroundColor: 'transparent',
-      border: 0,
-      marginRight: 0
-    },
-    active: {
-      opacity: 0,
-      backgroundColor: colors.BLUE,
-      height: '3px',
-      position: 'absolute',
-      top: 'calc(100% + 1px)',
-      left: 0,
-      right: 0,
-      transition: 'opacity .1s linear',
-      visible: {
-        opacity: 1
-      }
     }
   },
 
@@ -284,7 +283,7 @@ const styles = {
     wordBreak: 'break-all'
   },
 
-  header: {
+  bgWrapper: {
     padding: `${spaces.small} ${spaces.normal} 0 ${spaces.normal}`
   },
 

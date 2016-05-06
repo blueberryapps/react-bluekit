@@ -10,6 +10,7 @@ export default {
   preview: {
     marginBottom: '30px'
   },
+
   allComponents: {
     display: 'inline-block',
     marginBottom: '20px',

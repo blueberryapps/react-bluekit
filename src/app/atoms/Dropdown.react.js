@@ -10,12 +10,16 @@ import * as colors from '../styles/Colors'
 export default class Dropdown extends Component {
 
   static propTypes = {
-    handleGeneralIconClick: RPT.func.isRequired,
+    handleIconClick: RPT.func.isRequired,
     handleResetLocalStorage: RPT.func.isRequired,
     handleResetProps: RPT.func.isRequired,
     handleToggleProps: RPT.func.isRequired,
     simplePropsSelected: RPT.bool,
     visible: RPT.bool.isRequired
+  }
+
+  static defaultProps = {
+    visible: false
   }
 
   componentDidMount() {
@@ -30,14 +34,14 @@ export default class Dropdown extends Component {
    handleDocumentClick = (evt) => {
      const area = ReactDOM.findDOMNode(this.refs.dropdown)
 
-     if (!area.contains(evt.target) && this.props.visible && this.props.handleGeneralIconClick) {
-       this.props.handleGeneralIconClick()
+     if (!area.contains(evt.target) && this.props.visible && this.props.handleIconClick) {
+       this.props.handleIconClick()
      }
    }
 
   render() {
     const {
-      handleGeneralIconClick,
+      handleIconClick,
       handleResetLocalStorage,
       handleResetProps,
       handleToggleProps,
@@ -47,15 +51,15 @@ export default class Dropdown extends Component {
     const hovered = Radium.getState(this.state, 'dropdown-option1', ':hover');
 
     return (
-      <div ref='dropdown' style={styles.general}>
+      <div ref='dropdown' style={styles.wrapper}>
         <i
-          onClick={handleGeneralIconClick}
-          style={styles.generalIcon}
+          onClick={handleIconClick}
+          style={styles.iconWrapper}
         >
           <Icon color={colors.BLUE} kind='settings' size='21px' />
         </i>
         <div
-          style={[styles.wrapper, visible && styles.wrapper.visible]}
+          style={[styles.dropdownWrapper, visible && styles.dropdownWrapper.visible]}
         >
           <ul style={styles.list}>
             <li
@@ -78,7 +82,8 @@ export default class Dropdown extends Component {
               style={[styles.list.option, font]}
             >
               Reset local storage
-            </li>          </ul>
+            </li>
+          </ul>
           <i style={[styles.arrow, hovered && styles.arrow.hovered]} />
           <i style={styles.arrow.bordered} />
         </div>
@@ -90,6 +95,11 @@ export default class Dropdown extends Component {
 
 const styles = {
   wrapper: {
+    position: 'relative',
+    textAlign: 'right'
+  },
+
+  dropdownWrapper: {
     backgroundColor: 'white',
     width: '200px',
     border: `1px solid ${colors.GRAY_DARKER}`,
@@ -105,12 +115,7 @@ const styles = {
     }
   },
 
-  general: {
-    position: 'relative',
-    textAlign: 'right'
-  },
-
-  generalIcon: {
+  iconWrapper: {
     ':hover': {
       cursor: 'pointer'
     }

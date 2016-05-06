@@ -16,11 +16,11 @@ export default class Select extends Component {
   }
 
   render() {
-    const {options, onChange, value} = this.props;
+    const {options, onChange, value} = this.props
 
     return (
       <div style={styles.selectWrapper}>
-        <select onChange={onChange} style={[styles.select]} value={value} >
+        <select onChange={onChange} style={styles.select} value={value} >
           {options}
         </select>
         <div style={styles.selectArrow} />
