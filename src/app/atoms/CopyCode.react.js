@@ -20,8 +20,8 @@ export default class CopyCode extends Component {
   }
 
   render() {
-    const {inheritedStyles, source} = this.props;
-    const {copied} = this.state;
+    const {inheritedStyles, source} = this.props
+    const {copied} = this.state
 
     return (
       <CopyToClipboard onCopy={this.onCopy.bind(this)} text={source}>

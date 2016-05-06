@@ -13,7 +13,7 @@ export default class Preview extends Component {
   static propTypes = {
     atom: RPT.object,
     currentProps: RPT.object,
-    headingColor: RPT.string.isRequired,
+    headingColor: RPT.string.isRequired
   }
 
   render() {
@@ -23,7 +23,7 @@ export default class Preview extends Component {
       <div style={styles.wrapper}>
         <div style={[styles.panel, styles.panel.first]}>
           <h2
-            id='preview'
+            id="preview"
             style={[
               headingStyles,
               headingStyles.preview,

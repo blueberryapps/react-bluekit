@@ -7,6 +7,7 @@ import * as colors from '../styles/Colors';
 
 @Radium
 export default class ZoomContent extends Component {
+
   static propTypes = {
     children: RPT.node
   }
@@ -79,10 +80,12 @@ const styles = {
     position: 'relative',
     display: 'inline-block'
   },
+
   wrapper: {
     position: 'relative',
     width: '100%',
   },
+
   zoom: {
     ...font,
     position: 'absolute',

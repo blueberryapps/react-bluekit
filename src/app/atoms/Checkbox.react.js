@@ -1,10 +1,11 @@
 import Component from 'react-pure-render/component';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
-import * as colors from '../styles/Colors'
+import * as colors from '../styles/Colors';
 
 @Radium
 export default class Checkbox extends Component {
+
   static propTypes = {
     label:    RPT.string,
     name:     RPT.string.isRequired,

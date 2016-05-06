@@ -2,7 +2,7 @@ import Component from 'react-pure-render/component';
 import font from '../styles/Font';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
-import * as colors from '../styles/Colors'
+import * as colors from '../styles/Colors';
 
 @Radium
 export default class Input extends Component {
@@ -58,9 +58,11 @@ const styles = {
       borderColor: colors.BLUE_LIGHT
     }
   },
+
   inputDefault: {
     backgroundColor: 'white'
   },
+
   inputSearch: {
     ...font,
     fontSize: '13px',

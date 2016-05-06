@@ -73,10 +73,12 @@ const styles = {
     borderTopColor: TOOLTIP,
     top: '100%'
   },
+
   bottom: {
     borderBottomColor: TOOLTIP,
     bottom: '100%'
   },
+
   left: {
     borderLeftColor: TOOLTIP,
     left: '100%',
@@ -84,6 +86,7 @@ const styles = {
     top: '50%',
     transform: 'translateY(-50%)'
   },
+
   right: {
     borderRightColor: TOOLTIP,
     right: '100%',
