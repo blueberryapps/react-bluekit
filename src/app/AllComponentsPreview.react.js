@@ -5,6 +5,7 @@ import NotFound from './atoms/NotFound.react';
 import parseHighlightedMenu from '../helpers/parseHighlightedMenu';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
+import ZoomContent from './atoms/ZoomContent.react';
 import * as colors from './styles/Colors';
 
 @Radium
@@ -55,7 +56,9 @@ export default class AllComponentsPreview extends Component {
           />
         </div>
         <div style={styles.atom.column}>
-          <AtomPreview atom={atom} disableFunctionProps />
+          <ZoomContent>
+            <AtomPreview atom={atom} disableFunctionProps />
+          </ZoomContent>
         </div>
       </div>
     );
