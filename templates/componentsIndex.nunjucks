@@ -9,7 +9,7 @@ export default {
   {{ component.name }}: {
     name: '{{component.name}}',
     menu: '{{component.menu}}',
-    file: '{{component.file}}',
+    file: '{{component.importFileSourceCode}}',
     component: {{component.name}},
     componentName: '{{component.componentName}}',
     description: '{{component.description}}',

@@ -41,14 +41,14 @@ export default function createBlueKit(config) {
     return toSource(object || {}, null, 0)
   }
 
-  function getImportFile(directory, file) {
+  function getImportFile(directory, file, relativeTo) {
     if (directory.match(/node_modules/)) {
       const pathParts = file.replace(/\.(js|jsx)$/, '').split(path.sep)
       pathParts[1] = 'lib'
       return pathParts.join(path.sep)
     }
 
-    const filePath = path.relative(componentsIndex, path.join(directory, file))
+    const filePath = path.relative(relativeTo, path.join(directory, file))
 
     return filePath[0] === '.' ? filePath : `./${filePath}`
   }
@@ -79,13 +79,15 @@ export default function createBlueKit(config) {
         .trim();
 
       const name = menu.replace(/\s/g, '');
-      const importFile = normalizePath(getImportFile(directory, file));
+      const importFile = normalizePath(getImportFile(directory, file, componentsIndex));
+      const importFileSourceCode = normalizePath(getImportFile(directory, file, baseDir));
       const componentName = normalizedFile.replace(/.*\//, '').split('.')[0];
       const simpleProps = objectToString(buildProps(docgen.props))
       const fullProps = objectToString(buildProps(docgen.props, true))
 
       return {
         file: importFile,
+        importFileSourceCode,
         componentName,
         menu,
         name,
