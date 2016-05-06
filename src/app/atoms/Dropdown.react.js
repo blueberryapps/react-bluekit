@@ -56,7 +56,7 @@ export default class Dropdown extends Component {
           onClick={handleIconClick}
           style={styles.iconWrapper}
         >
-          <Icon color={colors.BLUE} kind='settings' size='21px' />
+          <Icon color={colors.BLUE} kind='settings' size={21} />
         </i>
         <div
           style={[styles.dropdownWrapper, visible && styles.dropdownWrapper.visible]}

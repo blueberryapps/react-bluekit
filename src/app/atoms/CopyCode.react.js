@@ -35,7 +35,7 @@ export default class CopyCode extends Component {
             <Icon
               color={colors.BLUE}
               kind='copy'
-              size='20px'
+              size={20}
             />
           </div>
         </div>

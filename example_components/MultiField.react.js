@@ -25,7 +25,7 @@ export default class MultiField extends Component {
 
   static defaultProps = {
     delimiter: '-',
-    error: 'Default error string',
+    error: 'Default error message',
     fields: [
       {length: 1, type: 'text'},
       {length: 1, type: 'text'},

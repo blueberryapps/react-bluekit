@@ -20,7 +20,7 @@ export default class Select extends Component {
 
     return (
       <div style={styles.selectWrapper}>
-        <select onChange={onChange} style={styles.select} value={value} >
+        <select onChange={onChange} style={styles.select} value={value}>
           {options}
         </select>
         <div style={styles.selectArrow} />

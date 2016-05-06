@@ -56,13 +56,13 @@ export default class SourceCode extends Component {
         onClick={toggleSourceCode.bind(this)}
         style={styles.sourceHeader}
       >
-        <Icon color={colors.BLUE} kind='code' size='28px' wrapperStyle={styles.icon.code} />
+        <Icon color={colors.BLUE} kind='code' size={28} wrapperStyle={styles.icon.code} />
         {showSourceCode ? 'Hide ' : 'Show '}
         source code
         <Icon
           color={colors.BLUE}
           kind='arrow'
-          size='10px'
+          size={10}
           wrapperStyle={[
             styles.icon.arrow,
             showSourceCode && styles.sourceHeader.visible.arrow
