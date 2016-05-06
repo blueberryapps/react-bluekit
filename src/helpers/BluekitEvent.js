@@ -5,6 +5,9 @@ function BluekitEvent(event, params) {
   return evt;
 }
 
-BluekitEvent.prototype = window.Event.prototype;
-window.BluekitEvent = BluekitEvent;
+if (typeof window !== 'undefined') {
+  BluekitEvent.prototype = window.Event.prototype;
+  window.BluekitEvent = BluekitEvent;
+}
+
 export default BluekitEvent;

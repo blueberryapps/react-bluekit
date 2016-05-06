@@ -19,7 +19,7 @@ export default class PropsSidebar extends Component {
     currentProps: RPT.object,
     simplePropsSelected: RPT.bool,
     sourceBackground: RPT.string,
-    triggeredProps: RPT.array
+    triggeredProps: RPT.object
   }
 
   static contextTypes = {
