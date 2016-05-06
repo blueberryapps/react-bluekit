@@ -205,7 +205,8 @@ const styles = {
     display: 'none',
     position: 'absolute',
     zIndex: 2,
-    right: '0px',
+    left: 'calc(100% - 20px)',
+    top: 'calc(100% + 5px)',
     visible: {
       display: 'block'
     }

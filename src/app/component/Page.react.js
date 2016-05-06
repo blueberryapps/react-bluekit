@@ -111,7 +111,6 @@ const styles = {
     position: 'absolute',
     top: 0,
     bottom: 0,
-    overflowY: 'auto',
     sidebar: {
       width: '25%',
       left: 0,
@@ -119,6 +118,7 @@ const styles = {
     detail: {
       width: '75%',
       right: 0,
+      overflow: 'auto'
     }
   }
 }
