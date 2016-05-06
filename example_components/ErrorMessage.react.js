@@ -7,15 +7,32 @@ import React, {PropTypes as RPT} from 'react';
 export default class ErrorMessage extends Component {
   static propTypes = {
     children: RPT.any.isRequired,
-    type:     RPT.string
+    kind: RPT.oneOf([
+      'plain',
+      'block'
+    ])
+  }
+
+  static defaultProps = {
+    kind: 'block'
   }
 
   render() {
-    const {children} = this.props;
+    const {children, kind} = this.props;
 
     return (
-      <div style={styles.wrapper}>
-        <div className="errorMessage" style={styles.errorMessage}>{children}</div>
+      <div
+        style={[
+          styles.wrapper,
+          styles.wrapper[kind]
+        ]}
+      >
+        <div style={styles.errorMessage}>
+          {children}
+        </div>
+        {kind === 'block' &&
+          <div style={styles.arrow} />
+        }
       </div>
     );
   }
@@ -24,11 +41,17 @@ export default class ErrorMessage extends Component {
 const styles = {
   wrapper: {
     color: 'hsl(351, 100%, 42%)',
-    marginTop: '6px',
+    marginTop: '10px',
     padding: '3px 0px',
     textAlign: 'left',
     position: 'relative',
-    maxWidth: '400px'
+    maxWidth: '400px',
+    block: {
+      backgroundColor: 'hsl(351, 100%, 42%)',
+      color: 'white',
+      marginTop: '18px',
+      padding: '3px 10px',
+    }
   },
 
   arrow: {
