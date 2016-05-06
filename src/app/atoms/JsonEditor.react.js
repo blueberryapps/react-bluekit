@@ -24,6 +24,7 @@ export default class JsonEditor extends Component {
       <div>
         <AceEditor
           editorProps={{$blockScrolling: true}}
+          fontSize="11px"
           height="auto"
           highlightActiveLine={false}
           maxLines={this.numberOfRows() + 1}
@@ -41,7 +42,7 @@ export default class JsonEditor extends Component {
           value={value}
           width="100%"
         />
-        {error && <div style={{color: 'red'}}>error.message</div>}
+        {error && <div style={{color: 'red'}}>{error.message}</div>}
       </div>
     );
   };
