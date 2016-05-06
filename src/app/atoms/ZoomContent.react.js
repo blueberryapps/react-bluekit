@@ -82,7 +82,6 @@ const styles = {
   wrapper: {
     position: 'relative',
     width: '100%',
-    height: '100%'
   },
   zoom: {
     ...font,
