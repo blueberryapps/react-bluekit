@@ -2,6 +2,7 @@ import AtomPreview from './atoms/AtomPreview.react';
 import Component from 'react-pure-render/component';
 import headingStyles from './styles/Headings';
 import NotFound from './atoms/NotFound.react';
+import parseHighlightedMenu from '../helpers/parseHighlightedMenu';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import * as colors from './styles/Colors';
@@ -35,6 +36,7 @@ export default class AllComponentsPreview extends Component {
 
   renderAtom(name, atom, isOdd) {
     const {selectAtom} = this.props
+    const heading = parseHighlightedMenu(atom.get('highlightedMenu') || atom.get('menu'))
 
     return (
       <div
@@ -46,12 +48,11 @@ export default class AllComponentsPreview extends Component {
       >
         <div>
           <h2
+            dangerouslySetInnerHTML={{__html: heading}}
             key={name}
             onClick={() => selectAtom(name)}
             style={[headingStyles, headingStyles.allComponents]}
-          >
-            {atom.get('menu')}
-          </h2>
+          />
         </div>
         <div style={styles.atom.column}>
           <AtomPreview atom={atom} disableFunctionProps />
