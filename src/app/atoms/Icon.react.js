@@ -25,7 +25,18 @@ class Icon extends Component {
   static propTypes = {
     color: React.PropTypes.string,
     height: React.PropTypes.number,
-    kind: React.PropTypes.oneOf(iconList).isRequired,
+    kind: React.PropTypes.oneOf([
+      'arrow',
+      'close',
+      'code',
+      'colorpicker',
+      'copy',
+      'eye',
+      'eye-hidden',
+      'overview',
+      'search',
+      'settings',
+    ]).isRequired,
     onClick: React.PropTypes.func,
     preview: React.PropTypes.bool,
     size: React.PropTypes.number,
@@ -46,20 +57,11 @@ class Icon extends Component {
   }
 
   render() {
-    const {preview} = this.props
+    const {kind, preview} = this.props
 
     return preview ?
       this.renderPreview() :
-      this.renderIcon()
-  }
-
-  renderIcon() {
-    const {kind, wrapperStyle} = this.props;
-
-    if (wrapperStyle)
-      return <div style={wrapperStyle}>{this.getIcon(kind)}</div>
-
-    return this.getIcon(kind)
+      this.renderIcon(kind)
   }
 
   renderPreview() {
@@ -68,6 +70,15 @@ class Icon extends Component {
         {iconList.map(kind => this.renderPreviewKind(kind))}
       </div>
     )
+  }
+
+  renderIcon(kind) {
+    const {wrapperStyle} = this.props;
+
+    if (wrapperStyle)
+      return <div style={wrapperStyle}>{this.getIcon(kind)}</div>
+
+    return this.getIcon(kind)
   }
 
   renderPreviewKind(kind) {
