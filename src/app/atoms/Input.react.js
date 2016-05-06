@@ -13,7 +13,7 @@ export default class Input extends Component {
       'inputDefault',
       'inputSearch'
     ]),
-    onChange: RPT.func.isRequired,
+    onChange: RPT.func,
     type: RPT.string.isRequired,
     value: RPT.string.isRequired
   }

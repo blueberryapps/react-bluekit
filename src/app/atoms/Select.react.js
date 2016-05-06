@@ -6,7 +6,7 @@ import * as colors from '../styles/Colors';
 @Radium
 export default class Select extends Component {
   static propTypes = {
-    onChange: RPT.func.isRequired,
+    onChange: RPT.func,
     options: RPT.array.isRequired,
     value: RPT.any
   }

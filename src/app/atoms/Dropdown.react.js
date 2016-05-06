@@ -10,10 +10,10 @@ import * as colors from '../styles/Colors'
 export default class Dropdown extends Component {
 
   static propTypes = {
-    handleIconClick: RPT.func.isRequired,
-    handleResetLocalStorage: RPT.func.isRequired,
-    handleResetProps: RPT.func.isRequired,
-    handleToggleProps: RPT.func.isRequired,
+    handleIconClick: RPT.func,
+    handleResetLocalStorage: RPT.func,
+    handleResetProps: RPT.func,
+    handleToggleProps: RPT.func,
     simplePropsSelected: RPT.bool,
     visible: RPT.bool.isRequired
   }

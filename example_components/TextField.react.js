@@ -15,7 +15,7 @@ export default class TextField extends Component {
     label:          RPT.string,
     name:           RPT.string.isRequired,
     onBlur:         RPT.func,
-    onChange:       RPT.func.isRequired,
+    onChange:       RPT.func,
     placeholder:    RPT.string,
     tooltip:        RPT.string,
     type:           RPT.string.isRequired,

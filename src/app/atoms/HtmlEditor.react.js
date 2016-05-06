@@ -7,7 +7,7 @@ import React, {PropTypes as RPT} from 'react';
 export default class HtmlEditor extends Component {
   static propTypes = {
     name: RPT.string,
-    onChange: RPT.func.isRequired,
+    onChange: RPT.func,
     value: RPT.any
   };
 

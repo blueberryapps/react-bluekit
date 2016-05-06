@@ -12,7 +12,7 @@ export default class PasswordField extends Component {
     hidePasswordToggle: RPT.bool,
     label:              RPT.string,
     name:               RPT.string.isRequired,
-    onChange:           RPT.func.isRequired,
+    onChange:           RPT.func,
     placeholder:        RPT.string,
     tooltip:            RPT.string,
     type:               RPT.string.isRequired,

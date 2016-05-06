@@ -8,7 +8,7 @@ export default class Textarea extends Component {
 
   static propTypes = {
     key: RPT.string,
-    onChange: RPT.func.isRequired,
+    onChange: RPT.func,
     value: RPT.string.isRequired
   }
 
