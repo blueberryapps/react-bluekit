@@ -57,7 +57,7 @@ export default class AllComponentsPreview extends Component {
         </div>
         <div style={styles.atom.column}>
           <ZoomContent>
-            <AtomPreview atom={atom} disableFunctionProps />
+            <AtomPreview atom={atom} />
           </ZoomContent>
         </div>
       </div>
