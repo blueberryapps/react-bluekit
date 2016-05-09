@@ -40,12 +40,12 @@ class Icon extends Component {
     onClick: React.PropTypes.func,
     preview: React.PropTypes.bool,
     size: React.PropTypes.number,
-    style: React.PropTypes.oneOf([
+    style: React.PropTypes.oneOfType([
       React.PropTypes.arrayOf(React.PropTypes.object),
       React.PropTypes.object
     ]),
     width: React.PropTypes.number,
-    wrapperStyle: React.PropTypes.oneOf([
+    wrapperStyle: React.PropTypes.oneOfType([
       React.PropTypes.arrayOf(React.PropTypes.object),
       React.PropTypes.object
     ])
