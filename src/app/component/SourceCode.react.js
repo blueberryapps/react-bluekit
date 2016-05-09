@@ -83,6 +83,7 @@ export default class SourceCode extends Component {
         <div style={styles.pre}>
           <AceEditor
             editorProps={{$blockScrolling: true}}
+            fontSize={11}
             highlightActiveLine={false}
             maxLines={`${source}`.split(/\n/).length}
             mode="jsx"

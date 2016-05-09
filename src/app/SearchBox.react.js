@@ -74,7 +74,7 @@ export default class SearchBox extends Component {
           color={colors.BLUE}
           kind='close'
           onClick={() => this.clearText('')}
-          size='18px'
+          size={18}
           wrapperStyle={[styles.search.icon, styles.search.clear]}
         />
       )
@@ -83,7 +83,7 @@ export default class SearchBox extends Component {
       <Icon
         color={colors.BLUE}
         kind='search'
-        size='18px'
+        size={18}
         wrapperStyle={styles.search.icon}
       />
     )
