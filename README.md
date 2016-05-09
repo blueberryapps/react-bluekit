@@ -6,7 +6,7 @@
 $ npm install --save react-bluekit
 ```
 
-## Usage in gulpfile to configure BlueKit
+## Gulpfile configuration
 
 ```js
 import createBlueKit from 'react-bluekit/lib/createBlueKit';
@@ -19,26 +19,25 @@ createBlueKit({
 });
 ```
 
-this will provide you with two gulp tasks: `build-bluekit` and `watch-bluekit` which are doing static analysis of your components.
+This will provide you with two gulp tasks: `build-bluekit` and `watch-bluekit`, which perform static analysis of your components.
 
-you can setup build of BlueKit on application start and then watch components for changes by editing default task to:
+You can setup the build of BlueKit on application start and then watch components for changes by editing the `default` task to:
 
 ```js
 // from gulp.task('default', ['server']); to:
 gulp.task('default', ['build-bluekit', 'server', 'watch-bluekit']);
 ```
 
-do not forget to add it to build process (for example on stage or production)
+Do not forget to add it to build process (for example on stage or production):
 ```js
 gulp.task('build', ['build-bluekit', 'build-webpack']);
 // make sure that component build is before webpack
 ```
-it will be build when needed
+It will be built when needed.
 
 ## Add it to your project
 
-look at example directory
-and you need to add only:
+Look at the `example` directory, you only need to add:
 
 ```js
 import BlueKit from 'react-bluekit';
@@ -57,16 +56,16 @@ export default class PageWithBlueKit extends Component {
 }
 ```
 
-What it exactly does:
-- it takes previous props
-- merge to them your own defined functions or values
-- this is returned to props in component library
+What it does exactly:
+- It takes previous props,
+- merges them with your own defined functions or values,
+- returns this as props to BlueKit.
 
-you can use `library.setValue(propName, newValue)` which take two arguments:
-- propName: name of the prop where you need to change value
-- newValue: exact value which will be set to props
+You can use `library.setValue(propName, newValue)` which takes two arguments:
+- `propName`: name of the prop where you need to change the value
+- `newValue`: exact value which will be set to props
 
-## Development of Component library
+## BlueKit development
 ```
 npm install
 cd ./example
@@ -74,9 +73,9 @@ npm install
 gulp
 open http://127.0.0.1:8001
 ```
-this will start development server and then you can play with Library components
+This will start the development server and then you can play with components in BlueKit.
 
-Generate new svg icons from `src/icons` directory
+This is how you can generate new svg icons from `src/icons` directory:
 ```
 gulp svg-icon
 ```
