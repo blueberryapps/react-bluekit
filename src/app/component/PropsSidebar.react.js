@@ -160,7 +160,7 @@ export default class PropsSidebar extends Component {
   handleColorPickerChange(color) {
     const {setSourceBackground} = this.context
 
-    setSourceBackground(`#${color.hex}`)
+    setSourceBackground(`#${color.hex}`.replace(/#+/, '#'))
   }
 
   handleDropdownIconClick() {

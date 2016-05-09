@@ -58,7 +58,7 @@ export default class Variants extends Component {
     return (
       <div>
         <div style={styles.panel}>
-          <h2 id={key} style={[headingStyles, {color: headingColor}]}>Prop variant: <b>{key}</b></h2>
+          <h2 id={`${key}-variant`} style={[headingStyles, {color: headingColor}]}>Prop variant: <b>{key}</b></h2>
           {variants.map(variant => this.renderVariant(key, type, variant))}
         </div>
       </div>
