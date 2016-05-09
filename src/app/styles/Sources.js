@@ -1,3 +1,4 @@
+import font from './Font';
 import headingStyles from './Headings';
 import * as colors from './Colors';
 
@@ -38,6 +39,10 @@ export default {
     display: 'table',
     tableLayout: 'fixed',
     position: 'relative'
+  },
+
+  noVariants: {
+    ...font
   },
 
   clear: {

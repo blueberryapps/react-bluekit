@@ -1,13 +1,13 @@
 import AceEditor from './AceEditor.react';
 import Component from 'react-pure-render/component';
-import Radium from 'radium'
-import React, {PropTypes as RPT} from 'react'
+import Radium from 'radium';
+import React, {PropTypes as RPT} from 'react';
 
 @Radium
 export default class JsonEditor extends Component {
   static propTypes = {
     name: RPT.string,
-    onChange: RPT.func.isRequired,
+    onChange: RPT.func,
     value: RPT.any
   };
 

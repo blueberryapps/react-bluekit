@@ -43,5 +43,6 @@ export default class AtomPreview extends Component {
 
 const styles = {
   position: 'relative',
-  minHeight: '35px'
+  minHeight: '35px',
+  minWidth: '50px'
 }

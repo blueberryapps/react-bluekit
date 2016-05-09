@@ -6,11 +6,12 @@ import ToolTip from '../src/app/atoms/ToolTip.react';
 
 @Radium
 export default class Checkbox extends Component {
+
   static propTypes = {
     error:    React.PropTypes.string,
     label:    React.PropTypes.string.isRequired,
     name:     React.PropTypes.string.isRequired,
-    onChange: React.PropTypes.func.isRequired,
+    onChange: React.PropTypes.func,
     tooltip:  React.PropTypes.string,
     value:    React.PropTypes.bool
   }

@@ -1,6 +1,5 @@
 import Checkbox from '../atoms/Checkbox.react';
 import Component from 'react-pure-render/component';
-import ExpandableInput from '../atoms/ExpandableInput.react';
 import HtmlEditor from '../atoms/HtmlEditor.react';
 import JsonEditor from '../atoms/JsonEditor.react';
 import font from '../styles/Font';
@@ -8,9 +7,9 @@ import Input from '../atoms/Input.react';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import Select from '../atoms/Select.react';
-import spaces from '../styles/Spaces'
+import spaces from '../styles/Spaces';
 import {OrderedMap, Map, fromJS} from 'immutable';
-import * as colors from '../styles/Colors'
+import * as colors from '../styles/Colors';
 
 @Radium
 export default class PropsTable extends Component {
@@ -72,32 +71,35 @@ export default class PropsTable extends Component {
     const triggered = triggeredProps.includes(key)
     const fullWidth = ['any', 'array', 'arrayOf', 'element', 'enum', 'node', 'object', 'shape', 'string'].indexOf(data.type.name) !== -1
     return (
-      <div key={key} style={styles.row}>
-        <div
-          style={[
-            styles.prop,
-            styles.prop.name,
-            fullWidth && styles.prop.fullWidth, styles.prop.fullWidth.name,
-            required && styles.prop.required,
-            activeProps === key && commonStyles.propName.active
-          ]}
-        >
-          {this.renderNameOfProp(scope.concat(key).join('.'), data.type.name)}
-          {required && '*'}
-          <small style={styles.prop.small}>{data.type.name}</small>
+      <div key={key}>
+        <div style={styles.row}>
+          <div
+            style={[
+              styles.prop,
+              styles.prop.name,
+              fullWidth && styles.prop.fullWidth, styles.prop.fullWidth.name,
+              required && styles.prop.required,
+              activeProps === key && commonStyles.propName.active
+            ]}
+          >
+            {this.renderNameOfProp(scope.concat(key).join('.'), data.type.name)}
+            {required && '*'}
+            <small style={styles.prop.small}>{data.type.name}</small>
+          </div>
+          <div
+            style={[
+              styles.prop,
+              styles.prop.value,
+              fullWidth && styles.prop.fullWidth,
+              triggered && {backgroundColor: colors.GRAY_BRIGHT}]}
+          >
+            {data.type.name === 'func'
+              ? 'func()'
+              : this.renderValueSelection(key, data.type, scope)
+            }
+          </div>
         </div>
-        <div
-          style={[
-            styles.prop,
-            styles.prop.value,
-            fullWidth && styles.prop.fullWidth,
-            triggered && {backgroundColor: colors.GRAY_BRIGHT}]}
-        >
-          {data.type.name === 'func'
-            ? 'func()'
-            : this.renderValueSelection(key, data.type, scope)
-          }
-        </div>
+        <div styles={styles.clearfix} />
       </div>
     )
   }
@@ -130,7 +132,7 @@ export default class PropsTable extends Component {
     }
 
     switch (type.name) {
-      case 'any': return <ExpandableInput key={name} type='text' {...defaultProps} />
+      case 'any': return <Input key={name} type='text' {...defaultProps} />
       case 'array': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'arrayOf': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'bool': return <Checkbox key={name} {...{...defaultProps, checked: defaultProps.value, name: key}} />
@@ -140,7 +142,7 @@ export default class PropsTable extends Component {
       case 'number': return <Input key={name} type='number' {...defaultProps} />
       case 'object': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'shape': return <JsonEditor key={name} name={name} {...defaultProps} />
-      case 'string': return <ExpandableInput key={name} type='text' {...defaultProps} />
+      case 'string': return <Input key={name} type='text' {...defaultProps} />
     }
   }
 
@@ -148,7 +150,7 @@ export default class PropsTable extends Component {
     if (typeof type.value === 'object')
       return <Select key={name} options={this.selectOptions(type)} {...defaultProps} />
 
-    return <ExpandableInput key={name} type='text' {...defaultProps} />
+    return <Input key={name} type='text' {...defaultProps} />
   }
 
   selectOptions(type) {
@@ -163,10 +165,11 @@ export default class PropsTable extends Component {
 }
 
 const styles = {
+  clearfix: {
+    clear: 'both'
+  },
+
   row: {
-    clear: 'both',
-    float: 'left',
-    width: '100%',
     paddingBottom: '10px',
     display: 'flex',
     flexWrap: 'wrap',
@@ -220,5 +223,4 @@ const styles = {
       padding: `8px ${spaces.normal}`
     }
   }
-
 }

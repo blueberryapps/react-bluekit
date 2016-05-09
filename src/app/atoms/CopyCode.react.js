@@ -20,8 +20,8 @@ export default class CopyCode extends Component {
   }
 
   render() {
-    const {inheritedStyles, source} = this.props;
-    const {copied} = this.state;
+    const {inheritedStyles, source} = this.props
+    const {copied} = this.state
 
     return (
       <CopyToClipboard onCopy={this.onCopy.bind(this)} text={source}>
@@ -35,7 +35,7 @@ export default class CopyCode extends Component {
             <Icon
               color={colors.BLUE}
               kind='copy'
-              size='20px'
+              size={20}
             />
           </div>
         </div>

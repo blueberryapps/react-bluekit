@@ -1,10 +1,10 @@
-import Component from 'react-pure-render/component'
-import generateTree from '../helpers/generateTree'
-import MenuNode from './MenuNode.react'
-import NotFound from './atoms/NotFound.react'
+import Component from 'react-pure-render/component';
+import generateTree from '../helpers/generateTree';
+import MenuNode from './MenuNode.react';
+import NotFound from './atoms/NotFound.react';
 import Radium from 'radium';
-import React, {PropTypes as RPT} from 'react'
-import SearchBox from './SearchBox.react'
+import React, {PropTypes as RPT} from 'react';
+import SearchBox from './SearchBox.react';
 
 @Radium
 export default class Sidebar extends Component {

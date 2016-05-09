@@ -1,5 +1,5 @@
-import parseHighlightedMenu from './parseHighlightedMenu'
-import {Map} from 'immutable'
+import parseHighlightedMenu from './parseHighlightedMenu';
+import {Map} from 'immutable';
 
 export default function generateTree(componentsIndex) {
   return componentsIndex.reduce((acc, component, x, y) => (

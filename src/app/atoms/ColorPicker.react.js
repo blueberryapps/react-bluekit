@@ -5,7 +5,7 @@ export default class ColorPicker extends Component {
 
   static propTypes = {
     color: RPT.string,
-    onChangeComplete: RPT.func.isRequired,
+    onChangeComplete: RPT.func,
     visible: RPT.bool.isRequired
   }
 

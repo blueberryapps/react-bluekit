@@ -28,7 +28,7 @@ export default class Variants extends Component {
   }
 
   renderNoVariants() {
-    return <i>There are no possible variants</i>
+    return <b style={styles.noVariants}>There are no possible variants</b>
   }
 
   renderProp(key, definition) {

@@ -19,13 +19,13 @@ export default class MultiField extends Component {
     label: RPT.string.isRequired,
     name: RPT.string.isRequired,
     onBlur: RPT.func,
-    onChange: RPT.func.isRequired,
+    onChange: RPT.func,
     value: RPT.string
   };
 
   static defaultProps = {
     delimiter: '-',
-    error: 'Default error string',
+    error: 'Default error message',
     fields: [
       {length: 1, type: 'text'},
       {length: 1, type: 'text'},

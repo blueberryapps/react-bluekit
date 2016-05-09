@@ -6,7 +6,7 @@ import * as colors from '../styles/Colors';
 @Radium
 export default class Select extends Component {
   static propTypes = {
-    onChange: RPT.func.isRequired,
+    onChange: RPT.func,
     options: RPT.array.isRequired,
     value: RPT.any
   }
@@ -16,11 +16,11 @@ export default class Select extends Component {
   }
 
   render() {
-    const {options, onChange, value} = this.props;
+    const {options, onChange, value} = this.props
 
     return (
       <div style={styles.selectWrapper}>
-        <select onChange={onChange} style={[styles.select]} value={value} >
+        <select onChange={onChange} style={styles.select} value={value}>
           {options}
         </select>
         <div style={styles.selectArrow} />

@@ -12,7 +12,7 @@ export default class PasswordField extends Component {
     hidePasswordToggle: RPT.bool,
     label:              RPT.string,
     name:               RPT.string.isRequired,
-    onChange:           RPT.func.isRequired,
+    onChange:           RPT.func,
     placeholder:        RPT.string,
     tooltip:            RPT.string,
     type:               RPT.string.isRequired,
@@ -63,7 +63,7 @@ export default class PasswordField extends Component {
         <Icon
           color={showPassword ? '#fff' : '#363636'}
           kind={showPassword ? 'eye' : 'eye-hidden'}
-          size="18"
+          size={18}
           style={{height: '40px'}}
         />
       </div>

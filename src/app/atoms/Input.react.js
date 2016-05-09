@@ -2,7 +2,7 @@ import Component from 'react-pure-render/component';
 import font from '../styles/Font';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
-import * as colors from '../styles/Colors'
+import * as colors from '../styles/Colors';
 
 @Radium
 export default class Input extends Component {
@@ -13,14 +13,15 @@ export default class Input extends Component {
       'inputDefault',
       'inputSearch'
     ]),
-    onChange: RPT.func.isRequired,
+    onChange: RPT.func,
     type: RPT.string.isRequired,
     value: RPT.string.isRequired
   }
 
   static defaultProps = {
     inheritedStyle: {},
-    kind: 'inputDefault'
+    kind: 'inputDefault',
+    value: 'Default value'
   }
 
   render() {
@@ -58,9 +59,11 @@ const styles = {
       borderColor: colors.BLUE_LIGHT
     }
   },
+
   inputDefault: {
     backgroundColor: 'white'
   },
+
   inputSearch: {
     ...font,
     fontSize: '13px',
