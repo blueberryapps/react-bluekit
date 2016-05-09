@@ -162,7 +162,7 @@ const styles = {
     transition: 'border-color .2s',
     boxSizing: 'border-box',
     float: 'left',
-    '@media (maxWidth: 480px)?': {
+    '@media (max-width: 480px)?': {
       height: '40px'
     }
   },
@@ -175,7 +175,7 @@ const styles = {
     lineHeight: '40px',
     textAlign: 'center',
     fontSize: '40px',
-    '@media (maxWidth: 480px)?': {
+    '@media (max-width: 480px)?': {
       lineHeight: '40px',
       fontSize: '20px'
     }
@@ -207,7 +207,7 @@ const styles = {
     lineHeight: '40px',
     paddingRight: '20px',
     userSelect: 'none',
-    '@media (maxWidth: 480px)?': {
+    '@media (max-width: 480px)?': {
       height: '40px',
       lineHeight: '40px'
     }
@@ -242,7 +242,7 @@ const styles = {
         large: {
           fontSize: '18px',
           padding: '20px 20px',
-          '@media (maxWidth: 480px)?': {
+          '@media (max-width: 480px)?': {
             padding: '10px 15px',
             fontSize: '15px'
           }

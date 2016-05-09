@@ -8,7 +8,7 @@ export default function renderProp(key, type, value) {
   else if (type === 'element' || type === 'node')
     return `${key}={${value}}`
   else if (typeof value === 'number')
-    return `${key}=${value}`
+    return `${key}={${value}}`
   else
     return `${key}="${value}"`
 }

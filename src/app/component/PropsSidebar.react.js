@@ -84,6 +84,13 @@ export default class PropsSidebar extends Component {
                   {this.renderActiveSourceBg('#ffffff')}
                 </div>
                 <div
+                  key='grayColor'
+                  onClick={() => setSourceBackground('#aaaaaa')}
+                  style={[styles.bg.color, styles.bg.color.gray]}
+                >
+                  {this.renderActiveSourceBg('#aaaaaa')}
+                </div>
+                <div
                   key='blackColor'
                   onClick={() => setSourceBackground('#000000')}
                   style={[styles.bg.color, styles.bg.color.black]}
@@ -160,7 +167,7 @@ export default class PropsSidebar extends Component {
   handleColorPickerChange(color) {
     const {setSourceBackground} = this.context
 
-    setSourceBackground(`#${color.hex}`)
+    setSourceBackground(`#${color.hex}`.replace(/#+/, '#'))
   }
 
   handleDropdownIconClick() {
@@ -215,7 +222,7 @@ const styles = {
   bg: {
     ...font,
     float: 'left',
-    width: '50%',
+    width: '40%',
     paddingBottom: spaces.normal,
     color: {
       boxSizing: 'border-box',
@@ -231,6 +238,9 @@ const styles = {
       },
       black: {
         backgroundColor: '#000000'
+      },
+      gray: {
+        backgroundColor: '#aaaaaa'
       },
       interactive: {
         backgroundColor: 'transparent',
@@ -252,11 +262,14 @@ const styles = {
       }
     },
     options: {
-      float: 'left',
-      width: '50%',
+      display: 'inline-block',
+      width: '60%',
       position: 'relative',
       top: '-5px',
-      textAlign: 'right'
+      textAlign: 'right',
+      '@media (max-width: 1120px)': {
+        width: '100%'
+      }
     }
   },
 

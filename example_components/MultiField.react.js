@@ -223,7 +223,7 @@ const styles = {
         large: {
           fontSize: '18px',
           padding: '20px 20px',
-          '@media (maxWidth: 480px)?': {
+          '@media (max-width: 480px)?': {
             padding: '10px 15px',
             fontSize: '15px'
           }

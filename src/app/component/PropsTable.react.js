@@ -112,7 +112,7 @@ export default class PropsTable extends Component {
     else
       return (
         <a
-          href={`#${name}`}
+          href={`#${name}-variant`}
           onClick={() => handlePropsNameClick(name)}
           style={styles.prop.value.link}
         >
