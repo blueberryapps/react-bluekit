@@ -105,7 +105,7 @@ const styles = {
     border: `1px solid ${colors.GRAY_DARKER}`,
     position: 'absolute',
     top: 'calc(100% + 5px)',
-    left: '20px',
+    left: 'calc(100% + -25px)',
     boxSizing: 'border-box',
     display: 'none',
     textAlign: 'left',
