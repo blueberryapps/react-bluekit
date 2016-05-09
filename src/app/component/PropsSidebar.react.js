@@ -95,7 +95,7 @@ export default class PropsSidebar extends Component {
                   kind='colorpicker'
                   onClick={this.handleColorPickerClick.bind(this)}
                   ref="pickerButton"
-                  size='20px'
+                  size={20}
                   style={[styles.bgColor, styles.bgColor.interactive]}
                 />
                 <div

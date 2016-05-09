@@ -25,9 +25,5 @@ export default function resolveComponent(component) {
   if (!component)
     return InvalidComponent
 
-  const resolvedComponent = isInDefault(component) ? component.default : component
-
-  return resolvedComponent.WrappedComponent
-    ? resolvedComponent.WrappedComponent
-    : resolvedComponent
+  return isInDefault(component) ? component.default : component
 }
