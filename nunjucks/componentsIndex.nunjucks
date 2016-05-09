@@ -4,6 +4,13 @@
 import {{ component.name }} from '{{component.file}}';
 {%- endfor %}
 
+function dispatchEvent(data) {
+  if (typeof window !== 'undefined')
+    document.dispatchEvent(new BluekitEvent('functionTriggered', data));
+  else
+    console.log('Bluekit received function triggered', data)
+}
+
 export default {
 {%- for component in components %}
   {{ component.name }}: {
