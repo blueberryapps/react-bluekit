@@ -22,9 +22,9 @@ export default class AllComponentsPreview extends Component {
     return (
       <div style={styles.wrapper}>
         <div style={styles.wrapper.row}>
-          {componentsIndex.sortBy((value, key) => key).map(
-            (atom, name) => this.renderAtom(name, atom, (index++ % 2))
-          ).toJS()}
+          {componentsIndex.sortBy((value, key) => key).reduce(
+            (acc, atom, name) => acc.concat(this.renderAtom(name, atom, (index++ % 2)))
+          , [])}
           {Object.keys(componentsIndex.toJS()).length === 0 && this.renderNotFound()}
         </div>
       </div>
