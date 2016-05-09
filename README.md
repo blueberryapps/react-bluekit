@@ -9,17 +9,20 @@ $ npm install --save react-bluekit
 ## Usage in gulpfile to configure BlueKit
 
 ```js
-import createBlueKit from 'react-bluekit/lib/createBlueKit'
+import createBlueKit from 'react-bluekit/lib/createBlueKit';
 
 createBlueKit({
   // your directory where components are located
   baseDir: `${__dirname}/src/browser`,
   // relative paths from base dir where to look for components
   paths: ['./components/', './auth']
-})
+});
 ```
 
+this will provide you with two gulp tasks: `build-bluekit` and `watch-bluekit` which are doing static analysis of your components.
+
 you can setup build of BlueKit on application start and then watch components for changes by editing default task to:
+
 ```js
 // from gulp.task('default', ['server']); to:
 gulp.task('default', ['build-bluekit', 'server', 'watch-bluekit']);
@@ -39,8 +42,8 @@ and you need to add only:
 
 ```js
 import BlueKit from 'react-bluekit';
-import componentsIndex from './componentsIndex';
-import React, {Component} from 'react';
+import componentsIndex from '../componentsIndex';
+import React, { Component } from 'react';
 
 export default class PageWithBlueKit extends Component {
   render() {
@@ -49,7 +52,7 @@ export default class PageWithBlueKit extends Component {
         componentsIndex={componentsIndex}
         inline // display inline (not full page)
       />
-    )
+    );
   }
 }
 ```

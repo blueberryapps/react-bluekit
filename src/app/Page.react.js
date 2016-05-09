@@ -1,10 +1,4 @@
 import '../helpers/BluekitEvent';
-import 'brace';
-import 'brace/ext/language_tools';
-import 'brace/mode/jsx';
-import 'brace/mode/html';
-import 'brace/mode/javascript';
-import 'brace/theme/chrome';
 import * as colors from './styles/Colors.js'
 import AllComponentsPreview from './AllComponentsPreview.react';
 import ComponentPage from './component/Page.react';
@@ -14,6 +8,16 @@ import React, {Component, PropTypes as RPT} from 'react';
 import Sidebar from './Sidebar.react';
 import StateProvider from './StateProvider.react'
 import {FontStyle} from './styles/Font';
+
+if (typeof window !== 'undefined') {
+  require('brace');
+  require('brace/ext/language_tools');
+  require('brace/mode/jsx');
+  require('brace/mode/html');
+  require('brace/mode/javascript');
+  require('brace/theme/chrome');
+}
+
 
 @StateProvider
 @Radium

@@ -1,4 +1,4 @@
-import AceEditor from 'react-ace';
+import AceEditor from './AceEditor.react';
 import Component from 'react-pure-render/component';
 import CopyCode from '../atoms/CopyCode.react';
 import Icon from '../atoms/Icon.react';
