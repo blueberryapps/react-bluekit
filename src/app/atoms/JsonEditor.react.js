@@ -24,7 +24,7 @@ export default class JsonEditor extends Component {
       <div>
         <AceEditor
           editorProps={{$blockScrolling: true}}
-          fontSize="11px"
+          fontSize={11}
           height="auto"
           highlightActiveLine={false}
           maxLines={this.numberOfRows() + 1}
