@@ -16,8 +16,8 @@ export default class SourceCode extends Component {
     atom: RPT.object.isRequired,
     componentProps: RPT.object,
     customSource: RPT.string,
-    name: RPT.string.isRequired,
-    showToggl: RPT.bool
+    name: RPT.object.isRequired,
+    showToggle: RPT.bool
   }
 
   static contextTypes = {
@@ -26,7 +26,7 @@ export default class SourceCode extends Component {
   }
 
   render() {
-    const {atom, customSource, componentProps, showToggl} = this.props
+    const {atom, customSource, componentProps, showToggle} = this.props
     const componentName = atom.get('componentName')
     const file = atom.get('file')
     const source = customSource || (
@@ -36,19 +36,19 @@ export default class SourceCode extends Component {
     )
 
     return (
-      <div style={[styles.copyWrapper, showToggl && styles.copyWrapper.toggl]}>
-        {this.renderToggl()}
-        <CopyCode inheritedStyles={showToggl && styles.copy} source={source} />
+      <div style={[styles.copyWrapper, showToggle && styles.copyWrapper.toggle]}>
+        {this.renderToggle()}
+        <CopyCode inheritedStyles={showToggle && styles.copy} source={source} />
         {this.renderSource(source)}
       </div>
     )
   }
 
-  renderToggl() {
-    const {showToggl} = this.props
+  renderToggle() {
+    const {showToggle} = this.props
     const {toggleSourceCode, showSourceCode} = this.context
 
-    if (!showToggl)
+    if (!showToggle)
       return null
 
     return (
@@ -72,14 +72,14 @@ export default class SourceCode extends Component {
     )
   }
   renderSource(source) {
-    const {name, showToggl} = this.props
+    const {name, showToggle} = this.props
     const {showSourceCode} = this.context
 
-    if (!showSourceCode && showToggl)
+    if (!showSourceCode && showToggle)
       return null
 
     return (
-      <div style={[styles.sourceWrapper, !showToggl && styles.sourceWrapper.withoutToggl]}>
+      <div style={[styles.sourceWrapper, !showToggle && styles.sourceWrapper.withoutToggle]}>
         <div style={styles.pre}>
           <AceEditor
             editorProps={{$blockScrolling: true}}
@@ -158,7 +158,7 @@ const styles = {
 
   copyWrapper: {
     position: 'relative',
-    toggl: {
+    toggle: {
       marginBottom: '50px'
     }
   },
@@ -179,7 +179,7 @@ const styles = {
     borderColor: colors.GRAY_DARKER,
     borderStyle: 'solid',
     margin: 0,
-    withoutToggl: {
+    withoutToggle: {
       margin: '30px 0',
       borderWidth: '1px'
     }

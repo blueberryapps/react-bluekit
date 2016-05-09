@@ -55,7 +55,7 @@ const styles = {
     innerWrapper: {
       backgroundColor: 'white',
       position: 'absolute',
-      padding: '11px 10px',
+      padding: '10px',
       top: '1px',
       right: '1px',
       zIndex: 2

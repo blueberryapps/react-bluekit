@@ -27,7 +27,7 @@ export default class SearchBox extends Component {
         <Logo />
         <div style={styles.search.group}>
           <Input
-            inheritedStyle={styles.search.input}
+            inheritedStyles={styles.search.input}
             kind="inputSearch"
             onChange={({target: {value}}) => searchAtoms(value)}
             placeholder="Search your component"

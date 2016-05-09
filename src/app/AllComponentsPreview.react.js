@@ -47,7 +47,7 @@ export default class AllComponentsPreview extends Component {
           isOdd && styles.atom.wrapper.odd
         ]}
       >
-        <div>
+        <div style={styles.headingWrapper}>
           <h2
             dangerouslySetInnerHTML={{__html: heading}}
             key={name}
@@ -72,6 +72,10 @@ const styles = {
       display: 'flex',
       flexWrap: 'wrap'
     }
+  },
+
+  headingWrapper: {
+    marginBottom: '20px',
   },
 
   atom: {

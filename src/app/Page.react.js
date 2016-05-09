@@ -131,13 +131,15 @@ const styles = {
     overflow: 'hidden',
     boxSizing: 'border-box',
     borderRight: `1px solid ${colors.GRAY_DARKER}`,
-    position: 'relative'
+    position: 'relative',
+    verticalAlign: 'top'
   },
   content: {
     width: '80%',
     height: '100%',
     display: 'inline-block',
-    position: 'relative'
+    position: 'relative',
+    verticalAlign: 'top'
   },
   list: {
     position: 'absolute',
