@@ -18,7 +18,7 @@ export default class Page extends Component {
     selectedAtom: RPT.string,
     simplePropsSelected: RPT.bool,
     sourceBackground: RPT.string,
-    triggeredProps: RPT.array
+    triggeredProps: RPT.object
   }
 
   static contextTypes = {
@@ -29,8 +29,10 @@ export default class Page extends Component {
   getCurrentComponent() {
     const {selectAtom, selectedAtom, componentsIndex} = this.props
     const atom = componentsIndex.get(selectedAtom)
-    if (!atom)
-      selectAtom(null)
+    if (!atom) {
+      setTimeout(() => selectAtom(null), 10)
+      return null
+    }
     return componentsIndex.get(selectedAtom)
   }
 

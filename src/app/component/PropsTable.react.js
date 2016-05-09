@@ -25,7 +25,7 @@ export default class PropsTable extends Component {
     commonStyles: RPT.object.isRequired,
     componentProps: RPT.object.isRequired,
     handlePropsNameClick: RPT.func.isRequired,
-    triggeredProps: RPT.array
+    triggeredProps: RPT.object
   }
 
   render() {

@@ -34,7 +34,7 @@ export default class Page extends Component {
     selectedAtom: RPT.string,
     simplePropsSelected: RPT.bool,
     sourceBackground: RPT.string,
-    triggeredProps: RPT.array
+    triggeredProps: RPT.object
   }
 
   static contextTypes = {

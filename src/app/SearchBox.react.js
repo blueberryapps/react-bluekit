@@ -49,7 +49,7 @@ export default class SearchBox extends Component {
           <Icon
             color={colors.BLUE}
             kind='overview'
-            size='14px'
+            size={14}
             style={styles.overviewIcon}
           />
             All components
