@@ -35,7 +35,7 @@ export default class Preview extends Component {
           <div style={styles.atomWrapper}>
             <AtomPreview atom={atom} variantProps={currentProps}/>
           </div>
-          <SourceCode atom={atom} componentProps={currentProps} name={`${atom.get('name')}-preview`} showToggl />
+          <SourceCode atom={atom} componentProps={currentProps} name={`${atom.get('name')}-preview`} showToggle />
         </div>
         <Variants atom={atom} componentProps={currentProps} headingColor={headingColor} styles={styles} />
       </div>
