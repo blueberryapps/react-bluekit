@@ -50,7 +50,7 @@ function generateComponentData(config, file, directory) {
     .toString()
     .replace('_interopRequireDefault(_react)', 'require("react")')
     .replace(/import Component from ["']react-pure-render\/component["']/, 'import {Component} from "react"')
-    .replace(/export default Radium\((.*)\)/, 'export default $1;')
+    .replace(/export default .*\((\w*)\)+/m, 'export default $1')
 
   try {
     const docgen = docgenParse(content);
@@ -68,6 +68,8 @@ function generateComponentData(config, file, directory) {
       .replace(/(?:^|[-_])(\w)/g, (_, c) => c ? `${c.toUpperCase()}` : '')
       .replace(/\//g, '')
       .trim();
+
+
     const name = menu.replace(/\s/g, '');
 
     const importFile = normalizePath(getImportFile(directory, file));

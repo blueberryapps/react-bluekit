@@ -2,8 +2,7 @@ import Component from 'react-pure-render/component';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 
-@Radium
-export default class Heading extends Component {
+class Heading extends Component {
 
   static propTypes = {
     centered:        RPT.bool,
@@ -64,6 +63,12 @@ export default class Heading extends Component {
     );
   }
 }
+
+function superDecorator(options) {
+  return (component) => component
+}
+
+export default superDecorator({})(Radium(Heading))
 
 const styles = {
   base: {
