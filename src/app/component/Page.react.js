@@ -5,6 +5,7 @@ import extendProps from '../../helpers/extendProps';
 import extendComponentProps from '../../helpers/extendComponentProps';
 import Radium, {StyleRoot} from 'radium';
 import React, {PropTypes as RPT} from 'react';
+import ReactDOM from 'react-dom';
 import resolveComponent from '../../helpers/resolveComponent';
 import * as colors from '../styles/Colors';
 
@@ -24,6 +25,18 @@ export default class Page extends Component {
   static contextTypes = {
     createSetAtomProp: RPT.func.isRequired,
     setAtomProp: RPT.func.isRequired
+  }
+
+  componentDidUpdate(previousProps) {
+    const {selectedAtom} = this.props
+    if (selectedAtom !== previousProps.selectedAtom)
+      this.scrollDetailToTop()
+  }
+
+  scrollDetailToTop() {
+    const wrapper = ReactDOM.findDOMNode(this.refs.wrapper)
+    if (wrapper)
+      wrapper.scrollTop = 0
   }
 
   getCurrentComponent() {
@@ -89,6 +102,7 @@ export default class Page extends Component {
           />
         </div>
         <div
+          ref="wrapper"
           style={[
             styles.wrapper,
             styles.wrapper.detail,
