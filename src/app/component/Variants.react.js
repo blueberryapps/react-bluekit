@@ -72,10 +72,10 @@ export default class Variants extends Component {
 
     return (
       <div key={variant} style={styles.pre}>
-        <SourceCode atom={atom} customSource={source} name={`${atom.get('name')}-${key}-${type}-${variant}`} visible />
         <div style={styles.clear}>
           <AtomPreview atom={atom} variantProps={variantProps} />
         </div>
+        <SourceCode atom={atom} customSource={source} name={`${atom.get('name')}-${key}-${type}-${variant}`} visible />
         <div style={[styles.clear, styles.clear.after]} />
       </div>
     )

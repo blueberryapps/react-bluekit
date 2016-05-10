@@ -38,7 +38,8 @@ export default {
     width: '100%',
     display: 'table',
     tableLayout: 'fixed',
-    position: 'relative'
+    position: 'relative',
+
   },
 
   noVariants: {

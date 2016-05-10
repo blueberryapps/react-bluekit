@@ -181,7 +181,7 @@ const styles = {
     borderStyle: 'solid',
     margin: 0,
     withoutToggle: {
-      margin: '30px 0',
+      margin: '10px 0 40px',
       borderWidth: '1px'
     }
   }
