@@ -56,15 +56,6 @@ export default class PageWithBlueKit extends Component {
 }
 ```
 
-What it does exactly:
-- It takes previous props,
-- merges them with your own defined functions or values,
-- returns this as props to BlueKit.
-
-You can use `library.setValue(propName, newValue)` which takes two arguments:
-- `propName`: name of the prop where you need to change the value
-- `newValue`: exact value which will be set to props
-
 ## BlueKit development
 ```
 npm install
