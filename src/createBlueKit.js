@@ -70,7 +70,7 @@ function generateComponentData(config, file, directory) {
       .trim();
 
 
-    const name = menu.replace(/\s/g, '');
+    const name = menu.replace(/\W/g, '');
 
     const importFile = normalizePath(getImportFile(directory, file));
     const componentName = normalizedFile.replace(/.*\//, '').split('.')[0];
