@@ -15,6 +15,11 @@ export default class Button extends Component {
     kind:           RPT.oneOf(['primary', 'primaryInverted', 'secondary', 'simple']),
     loading:        RPT.bool,
     loadingText:    RPT.string,
+        user: RPT.shape({
+      name: RPT.string,
+      kind22: RPT.oneOf(['blue','red', 'purple', 'green', 'orange'])
+    }),
+
     name:           RPT.string,
     onClick:        RPT.func,
     size:           RPT.oneOf(['small', 'large']),

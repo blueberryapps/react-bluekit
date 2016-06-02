@@ -7,10 +7,6 @@ export default function StateProvider(Wrapped) {
 
   return class StateProvider extends Component {
 
-    static propTypes = {
-      componentsIndex: RPT.object.isRequired
-    }
-
     static childContextTypes = {
       createSetAtomProp: RPT.func,
       resetPropsToDefault: RPT.func,
@@ -50,9 +46,7 @@ export default function StateProvider(Wrapped) {
     }
 
     render() {
-      const {componentsIndex} = this.props
-
-      return <Wrapped {...this.state} {...this.props} componentsIndex={fromJS(componentsIndex)} filteredComponentsIndex={fromJS(this.filterComponentsIndex())} />
+      return <Wrapped {...this.state} {...this.props} />
     }
 
     componentWillMount() {
