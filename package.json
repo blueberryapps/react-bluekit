@@ -1,6 +1,6 @@
 {
   "name": "react-bluekit",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Visualisation and Playground generated from Components",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
@@ -24,8 +24,14 @@
   "keywords": [
     "es6",
     "es7",
-    "mocha",
-    "module",
+    "babel",
+    "react-component",
+    "visualization",
+    "playground",
+    "development",
+    "ui-ki",
+    "ui",
+    "design",
     "node"
   ],
   "author": "Ondrej Bartas",
