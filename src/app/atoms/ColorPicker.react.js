@@ -1,4 +1,4 @@
-import Color from 'react-color';
+import {CompactPicker as Color} from 'react-color';
 import React, {Component, PropTypes as RPT} from 'react';
 
 export default class ColorPicker extends Component {
