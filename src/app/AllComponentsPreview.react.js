@@ -1,7 +1,6 @@
 import AtomPreview from './Detail/AtomPreview.react';
 import Component from 'react-pure-render/component';
 import getComponentProps from '../helpers/getComponentProps';
-import getComponentPropsDefinition from '../helpers/getComponentPropsDefinition';
 import headingStyles from './styles/Headings';
 import NotFound from './atoms/NotFound.react';
 import parseHighlightedMenu from '../helpers/parseHighlightedMenu';
@@ -41,7 +40,6 @@ export default class AllComponentsPreview extends Component {
   renderComponent(name, component, isOdd) {
     const {selectAtom} = this.props
     const heading = parseHighlightedMenu(component.get('highlightedMenu') || component.get('name'))
-    const definition = getComponentPropsDefinition(component.get('component'))
 
     return (
       <div
@@ -64,7 +62,7 @@ export default class AllComponentsPreview extends Component {
             <AtomPreview
               Component={component.get('component')}
               componentProps={getComponentProps(definition, true)}
-              componentPropsDefinition={definition}
+              componentPropsDefinition={component.get('definition')}
             />
           </ZoomContent>
         </div>

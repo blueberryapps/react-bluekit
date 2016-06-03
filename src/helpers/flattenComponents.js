@@ -1,9 +1,10 @@
 import getComponentName from './getComponentName'
+import getComponentPropsDefinition from './getComponentPropsDefinition'
 
 function getComponent(component, scope) {
   const nameArray = scope.concat(getComponentName(component))
   const key = nameArray.join(' ')
-  return {component, key, name: key, menuName: nameArray}
+  return {component, key, name: key, menuName: nameArray, definition: getComponentPropsDefinition(component)}
 }
 
 export default function flattenComponents(components, scope = []) {

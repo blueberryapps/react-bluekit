@@ -4,6 +4,7 @@ import DetailPage from './Detail/Page.react';
 import {StyleRoot} from 'radium';
 import {fromJS, Map, List} from 'immutable';
 import getComponentName from '../helpers/getComponentName';
+import getComponentPropsDefinition from '../helpers/getComponentPropsDefinition';
 import {FontStyle} from './styles/Font';
 import FontBold from './styles/FontBold';
 
@@ -72,6 +73,7 @@ export default class Detail extends PureComponent {
               Component={component}
               backgroundColor={backgroundColor || sourceBackground}
               componentName={this.getComponentName()}
+              componentPropsDefinition={getComponentPropsDefinition(component)}
               customProps={customProps}
               simplePropsSelected={simplePropsSelected}
               triggeredProps={triggeredProps}

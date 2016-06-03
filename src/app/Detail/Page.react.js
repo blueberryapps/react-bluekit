@@ -3,7 +3,6 @@ import React, {PropTypes as RPT} from 'react';
 import Preview from './Preview.react';
 import * as colors from '../styles/Colors';
 import getComponentProps from '../../helpers/getComponentProps';
-import getComponentPropsDefinition from '../../helpers/getComponentPropsDefinition';
 import extendComponentProps from '../../helpers/extendComponentProps';
 import Radium from 'radium';
 import ReactDOM from 'react-dom';
@@ -20,6 +19,7 @@ export default class Page extends PureComponent {
     Component: RPT.func.isRequired,
     backgroundColor: RPT.string,
     componentName: RPT.string,
+    componentPropsDefinition: RPT.object,
     customProps: RPT.object,
     selectedAtom: RPT.string,
     simplePropsSelected: RPT.bool,
@@ -48,9 +48,8 @@ export default class Page extends PureComponent {
 
   render() {
     const {createSetAtomProp} = this.context
-    const {Component, componentName, customProps, backgroundColor, simplePropsSelected, triggeredProps} = this.props
-    const definition = getComponentPropsDefinition(Component)
-    const componentProps = extendComponentProps(getComponentProps(definition, simplePropsSelected).mergeDeep(customProps), componentName, definition, createSetAtomProp)
+    const {Component, componentName, componentPropsDefinition, customProps, backgroundColor, simplePropsSelected, triggeredProps} = this.props
+    const componentProps = extendComponentProps(getComponentProps(componentPropsDefinition, simplePropsSelected).mergeDeep(customProps), componentName, componentPropsDefinition, createSetAtomProp)
     const headingColor = this.textColor(backgroundColor)
 
     return (
@@ -61,7 +60,7 @@ export default class Page extends PureComponent {
             backgroundColor={backgroundColor}
             componentName={componentName}
             componentProps={componentProps}
-            componentPropsDefinition={definition}
+            componentPropsDefinition={componentPropsDefinition}
             simplePropsSelected={simplePropsSelected}
             triggeredProps={triggeredProps}
           />
@@ -78,7 +77,7 @@ export default class Page extends PureComponent {
             Component={Component}
             componentName={componentName}
             componentProps={componentProps}
-            componentPropsDefinition={definition}
+            componentPropsDefinition={componentPropsDefinition}
             headingColor={headingColor}
           />
         </div>

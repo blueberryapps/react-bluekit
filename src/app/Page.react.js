@@ -87,6 +87,7 @@ export default class Page extends Component {
         Component={components.getIn([selectedAtom, 'component'])}
         backgroundColor={sourceBackground}
         componentName={components.getIn([selectedAtom, 'name'])}
+        componentPropsDefinition={components.getIn([selectedAtom, 'definition'])}
         customProps={customProps.get(selectedAtom)}
         selectedAtom={selectedAtom}
         simplePropsSelected={simplePropsSelected}
