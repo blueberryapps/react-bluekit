@@ -221,7 +221,7 @@ export default function StateProvider(Wrapped) {
 
       this.setState({
         customProps: fromJS(customProps),
-        selectedAtom,
+        selectedAtom: selectedAtom === 'null' ? null : selectedAtom,
         searchedText,
         simplePropsSelected: fromJS(simplePropsSelected),
         showSourceCode: fromJS(showSourceCode),

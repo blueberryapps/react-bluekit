@@ -7,7 +7,7 @@ import Spinner from './Spinner.react';
 export default class Button extends Component {
 
   static propTypes = {
-    children:       RPT.any.isRequired,
+    children:       RPT.node.isRequired,
     className:      RPT.string,
     disabled:       RPT.bool,
     fullWidth:      RPT.bool,

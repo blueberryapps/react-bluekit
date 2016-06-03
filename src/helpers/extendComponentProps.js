@@ -9,12 +9,6 @@ export default function extendComponentProps(props, componentName, definition, c
     return props
   }
 
-  const extendChildren = (props) => {
-    if (definition.get('children'))
-      return props.set('children', <span dangerouslySetInnerHTML={{__html: (props.get('children') || 'DEFAULT CHILDREN')}} />)
-    return props
-  }
-
   const extendFunctions = (props) => {
     return definition
       .filter(data => data.get('type') === 'func')
@@ -23,15 +17,7 @@ export default function extendComponentProps(props, componentName, definition, c
         , props)
   }
 
-  const extendNodes = (props) => {
-    return definition
-      .filter(data => data.get('type') === 'node' || data.get('type') === 'element')
-      .reduce((acc, data, key) =>
-        props.set(key, props.get(key) ? <span dangerouslySetInnerHTML={{__html: props.get(key)}} /> : '')
-        , props)
-  }
-
-  return extendNodes(extendChildren(extendFunctions(extendOnChangeValue(props))))
+  return extendFunctions(extendOnChangeValue(props))
 }
 
 function dispatchEvent(name) {

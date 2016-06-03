@@ -1,6 +1,7 @@
 import PureComponent from 'react-pure-render/component';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
+import transformPropNodes from '../../helpers/transformPropNodes';
 
 @Radium
 export default class AtomPreview extends PureComponent {
@@ -9,18 +10,18 @@ export default class AtomPreview extends PureComponent {
   static propTypes = {
     Component: RPT.object,
     componentProps: RPT.object,
-    variantProps: RPT.object
+    componentPropsDefinition: RPT.object
   }
 
   render() {
-    const {Component, componentProps} = this.props
+    const {Component, componentProps, componentPropsDefinition} = this.props
 
     if (!Component)
       return null
 
     return (
       <div style={styles}>
-        <Component {...componentProps.toJS()}/>
+        <Component {...transformPropNodes(componentProps, componentPropsDefinition).toJS()}/>
       </div>
     );
   }

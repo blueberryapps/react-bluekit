@@ -26,12 +26,12 @@ function generateDefaultValue(name, type, data) {
   switch (type) {
     case 'any':    return `ANY ${name}`
     case 'node':   return `NODE ${name}`
+    case 'element': return `ELEMENT ${name}`
     case 'string': return `${name}`
     case 'bool':   return true
     case 'number': return 1
     case 'array':  return []
     case 'object': return {}
-    case 'enum':   return data ? data[0] : ''
     case 'oneOf':  return data ? data[0] : ''
     case 'shape':  return Map(data)
       .map((shapeData, name) => generateDefaultValue(name, shapeData.propType, shapeData.propData))

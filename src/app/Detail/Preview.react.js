@@ -7,6 +7,7 @@ import styles from '../styles/Sources';
 import headingStyles from '../styles/Headings';
 import * as colors from '../styles/Colors';
 import Radium from 'radium';
+import transformPropNodes from '../../helpers/transformPropNodes';
 
 @Radium
 export default class Preview extends PureComponent {
@@ -37,7 +38,11 @@ export default class Preview extends PureComponent {
             Preview of {componentName}
           </h2>
           <div style={styles.atomWrapper}>
-            <AtomPreview Component={Component} componentProps={componentProps} />
+            <AtomPreview
+              Component={Component}
+              componentProps={componentProps}
+              componentPropsDefinition={componentPropsDefinition}
+            />
           </div>
           <SourceCode
             componentName={componentName}

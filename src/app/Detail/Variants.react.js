@@ -63,14 +63,18 @@ export default class Variants extends Component {
   }
 
   renderVariant(name, type, variant) {
-    const {Component, componentName, componentProps} = this.props
+    const {Component, componentName, componentProps, componentPropsDefinition} = this.props
     const variantProps = componentProps.set(name,  variant)
     const source = `<${componentName} ${renderProp(name, type, variant)} />`
 
     return (
       <div key={`name-${variant}`} style={styles.pre}>
         <div style={styles.clear}>
-          <AtomPreview Component={Component} componentProps={variantProps} />
+          <AtomPreview
+            Component={Component}
+            componentProps={variantProps}
+            componentPropsDefinition={componentPropsDefinition}
+          />
         </div>
         <SourceCode componentName={componentName} customSource={source} name={`${componentName}-${name}-${type}-${variant}`} visible />
         <div style={[styles.clear, styles.clear.after]} />

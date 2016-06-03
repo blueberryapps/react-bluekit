@@ -130,7 +130,6 @@ class PropsTableRow extends Component {
       case 'arrayOf': return <JsonEditor key={selectionName} name={name} {...defaultProps} />
       case 'bool': return    <Checkbox key={selectionName} name={name} {...{...defaultProps, checked: defaultProps.value}} />
       case 'element': return <HtmlEditor key={selectionName} name={name} {...defaultProps} />
-      case 'enum' : return   this.renderEnum(name, defaultProps)
       case 'oneOf' : return  this.renderEnum(name, defaultProps)
       case 'node': return    <HtmlEditor key={selectionName} name={name} {...defaultProps} />
       case 'number': return  <Input key={selectionName} type='number' {...defaultProps} />

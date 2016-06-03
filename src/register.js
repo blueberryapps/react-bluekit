@@ -35,7 +35,6 @@ React.PropTypes.bool       = enhancePrimitivePropType('bool', React.PropTypes.bo
 React.PropTypes.func       = enhancePrimitivePropType('func', React.PropTypes.func)
 React.PropTypes.number     = enhancePrimitivePropType('number', React.PropTypes.number)
 React.PropTypes.object     = enhancePrimitivePropType('object', React.PropTypes.object)
-React.PropTypes.string     = enhancePrimitivePropType('string', React.PropTypes.string)
 React.PropTypes.any        = enhancePrimitivePropType('any', React.PropTypes.any)
 React.PropTypes.element    = enhancePrimitivePropType('element', React.PropTypes.element)
 React.PropTypes.node       = enhancePrimitivePropType('node', React.PropTypes.node)
