@@ -72,8 +72,7 @@ export default class StateProvider extends Component {
     })
   }
 
-  createSetAtomProp(key, type, scope = []) {
-    console.log(key, type, scope)
+  createSetAtomProp(_, key, type, scope = []) {
     return event => {
       let value = event
 

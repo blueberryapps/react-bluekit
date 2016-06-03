@@ -1,9 +1,8 @@
 import PureComponent from 'react-pure-render/component';
 import React, {PropTypes as RPT} from 'react';
-import Page from './Detail/Page.react';
+import DetailPage from './Detail/Page.react';
 import {StyleRoot} from 'radium';
 import {fromJS, Map, List} from 'immutable';
-import * as colors from './styles/Colors';
 import getComponentName from '../helpers/getComponentName';
 import {FontStyle} from './styles/Font';
 import FontBold from './styles/FontBold';
@@ -19,8 +18,8 @@ export default class Detail extends PureComponent {
   }
 
   static propTypes = {
-    Component: RPT.func.isRequired,
     backgroundColor: RPT.string,
+    component: RPT.func.isRequired,
     height: RPT.string,
     inline: RPT.bool,
     name: RPT.string
@@ -55,34 +54,27 @@ export default class Detail extends PureComponent {
     }
   }
 
-  textColor(hex) {
-    const r = parseInt(hex.substr(1, 2), 16)
-    const g = parseInt(hex.substr(3, 2), 16)
-    const b = parseInt(hex.substr(5, 2), 16)
-    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000
-    return (yiq >= 128) ? colors.BLACK_BRIGHT : colors.GRAY_BRIGHT
-  }
-
   getComponentName() {
-    const {Component, name} = this.props
+    const {component, name} = this.props
 
-    return name || getComponentName(Component)
+    return name || getComponentName(component)
   }
 
   render() {
-    const {Component, backgroundColor, inline, height} = this.props
-    const {customProps, sourceBackground, simplePropsSelected} = this.state
+    const {component, backgroundColor, inline, height} = this.props
+    const {customProps, sourceBackground, simplePropsSelected, triggeredProps} = this.state
 
     return (
       <StyleRoot>
         <div style={[styles.wrapper.base, inline ? {height: height} : styles.wrapper.full]}>
           <div style={styles.content}>
-            <Page
-              Component={Component}
+            <DetailPage
+              Component={component}
               backgroundColor={backgroundColor || sourceBackground}
               componentName={this.getComponentName()}
               customProps={customProps}
               simplePropsSelected={simplePropsSelected}
+              triggeredProps={triggeredProps}
             />
           </div>
         </div>
@@ -119,7 +111,7 @@ export default class Detail extends PureComponent {
     })
   }
 
-  createSetAtomProp(key, type, scope = []) {
+  createSetAtomProp(_, key, type, scope = []) {
     return event => {
       let value = event
 

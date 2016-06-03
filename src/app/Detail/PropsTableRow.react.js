@@ -120,7 +120,7 @@ class PropsTableRow extends Component {
     const selectionName = `${componentName}-${this.getPropPath().join('-')}`
 
     const defaultProps = {
-      onChange: createSetAtomProp(name, definition.get('type'), scope),
+      onChange: createSetAtomProp(componentName, name, definition.get('type'), scope),
       value: componentProps.getIn(this.getPropPath())
     }
 

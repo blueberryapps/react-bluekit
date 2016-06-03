@@ -1,25 +1,32 @@
 import React, {Component} from '../../node_modules/react';
-import {BlueKitDetail} from '../../src';
-// import componentsIndex from './componentsIndex';
+import BlueKit, {BlueKitDetail} from '../../src';
 import ExampleComponentsButton from '../../example_components/Button.react.js';
-
-const Test = (props) => <div> Ahoj </div>
-Test.propTypes = {
-  name: React.PropTypes.string.isRequired
-}
+import SrcAppAtomsIcon from '../../src/app/atoms/Icon.react.js';
+import SrcAppAtomsInput from '../../src/app/atoms/Input.react.js';
 
 export default class App extends Component {
   render() {
     return (
       <div>
-        <h1>Example</h1>
-        <BlueKitDetail Component={ExampleComponentsButton} />
-        <h1>Rest</h1>
-        <BlueKitDetail Component={Test} />
+        <h1>Example of Browser</h1>
+        <BlueKit components={
+          {Form: [ExampleComponentsButton], Inputs: [SrcAppAtomsIcon],
+            Src: {
+              App: {
+                Atoms: {
+                  SrcAppAtomsIcon,
+                  SrcAppAtomsInput
+                }
+              }
+            },
+
+            SrcAppAtomsIcon, SrcAppAtomsInput}
+
+          } inline />
+         <h1>Example of Detail</h1>
+         <BlueKitDetail component={ExampleComponentsButton} />
       </div>
     );
   }
 }
-      // <BlueKit
-      //   componentsIndex={componentsIndex}
-      // />
+

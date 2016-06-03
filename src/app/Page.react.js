@@ -1,7 +1,7 @@
 import '../helpers/BluekitEvent';
 import * as colors from './styles/Colors.js'
 import AllComponentsPreview from './AllComponentsPreview.react';
-import ComponentPage from './component/Page.react';
+import DetailPage from './Detail/Page.react';
 import FontBold from './styles/FontBold';
 import Radium, {StyleRoot} from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
@@ -24,9 +24,9 @@ if (typeof window !== 'undefined') {
 export default class Page extends Component {
 
   static propTypes = {
-    componentsIndex: RPT.object.isRequired,
+    components: RPT.object.isRequired,
     customProps: RPT.object,
-    filteredComponentsIndex: RPT.object.isRequired,
+    filteredComponents: RPT.object.isRequired,
     height: RPT.string,
     inline: RPT.bool,
     mountPoint: RPT.string,
@@ -51,7 +51,7 @@ export default class Page extends Component {
   }
 
   render() {
-    const {filteredComponentsIndex, height, inline, selectedAtom, searchedText} = this.props
+    const {filteredComponents, height, inline, selectedAtom, searchedText} = this.props
     const {selectAtom, searchAtoms} = this.context
 
     return (
@@ -59,7 +59,7 @@ export default class Page extends Component {
         <div style={[styles.wrapper.base, inline ? {height: height} : styles.wrapper.full]}>
           <div style={styles.sidebar}>
             <Sidebar
-              componentsIndex={filteredComponentsIndex}
+              components={filteredComponents}
               searchAtoms={searchAtoms}
               searchedText={searchedText}
               selectAtom={selectAtom}
@@ -77,37 +77,38 @@ export default class Page extends Component {
   }
 
   renderAtom() {
-    const {componentsIndex, customProps, selectedAtom, simplePropsSelected, sourceBackground, triggeredProps} = this.props
-    const {selectAtom} = this.context
+    const {components, customProps, selectedAtom, simplePropsSelected, sourceBackground, triggeredProps} = this.props
+
+    if (!components.get(selectedAtom))
+      return <b>Unable to render {selectedAtom} - not in components list</b>
 
     return (
-      <ComponentPage
-        componentsIndex={componentsIndex}
-        customProps={customProps}
-        selectAtom={selectAtom}
+      <DetailPage
+        Component={components.getIn([selectedAtom, 'component'])}
+        backgroundColor={sourceBackground}
+        componentName={components.getIn([selectedAtom, 'name'])}
+        customProps={customProps.get(selectedAtom)}
         selectedAtom={selectedAtom}
         simplePropsSelected={simplePropsSelected}
-        sourceBackground={sourceBackground}
         triggeredProps={triggeredProps}
       />
     );
   }
 
   renderList() {
-    const {filteredComponentsIndex, selectedAtom} = this.props
+    const {filteredComponents, sourceBackground} = this.props
     const {selectAtom} = this.context
 
     return (
       <div style={[styles.list]}>
         <AllComponentsPreview
-          componentsIndex={filteredComponentsIndex}
+          backgroundColor={sourceBackground}
+          components={filteredComponents}
           selectAtom={selectAtom}
-          selectedAtom={selectedAtom}
         />
       </div>
     );
   }
-
 }
 
 const styles = {

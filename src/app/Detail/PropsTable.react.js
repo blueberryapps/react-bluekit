@@ -8,10 +8,6 @@ import spaces from '../styles/Spaces';
 @Radium
 export default class PropsTable extends Component {
 
-  static contextTypes = {
-    createSetAtomProp: RPT.func.isRequired
-  }
-
   static propTypes = {
     activeProps: RPT.string,
     componentName: RPT.string,

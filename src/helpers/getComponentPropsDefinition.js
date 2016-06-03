@@ -1,11 +1,10 @@
 import {fromJS, Map} from 'immutable'
-import BluekitEvent from './BluekitEvent'
 
 export default function getComponentPropsDefinition(Component) {
   return getProps(Component.propTypes, Component.defaultProps)
 }
 
-function getProps(props = {}, defaultProps = {}) {
+function getProps(props = {}, defaultProps = {}) {
   return fromJS(
     Object.keys(props).reduce((acc, name) => {
       const prop = props[name]
@@ -23,13 +22,6 @@ function getProps(props = {}, defaultProps = {}) {
   )
 }
 
-function dispatchEvent(data) {
-  if (typeof window !== 'undefined')
-    document.dispatchEvent(new BluekitEvent('functionTriggered', data));
-  else
-    console.log('Bluekit received function triggered', data) // eslint-disable-line no-console
-}
-
 function generateDefaultValue(name, type, data) {
   switch (type) {
     case 'any':    return `ANY ${name}`
@@ -39,7 +31,6 @@ function generateDefaultValue(name, type, data) {
     case 'number': return 1
     case 'array':  return []
     case 'object': return {}
-    case 'func':   return () => dispatchEvent({detail: {prop: name}})
     case 'enum':   return data ? data[0] : ''
     case 'oneOf':  return data ? data[0] : ''
     case 'shape':  return Map(data)
