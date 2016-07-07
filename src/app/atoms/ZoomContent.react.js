@@ -19,11 +19,12 @@ export default class ZoomContent extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.calculateZoomAsync.bind(this))
+    window.removeEventListener('resize', this.calculateZoomAsyncBounded)
   }
 
   componentDidMount() {
-    window.addEventListener('resize', this.calculateZoomAsync.bind(this))
+    this.calculateZoomAsyncBounded = this.calculateZoomAsync.bind(this)
+    window.addEventListener('resize', this.calculateZoomAsyncBounded)
     this.calculateZoomAsync()
   }
 

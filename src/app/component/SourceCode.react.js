@@ -1,8 +1,9 @@
 import AceEditor from '../atoms/AceEditor.react';
 import Component from 'react-pure-render/component';
 import CopyCode from '../atoms/CopyCode.react';
-import Icon from '../atoms/Icon.react';
 import font from '../styles/Font';
+import Icon from '../atoms/Icon.react';
+import {mediaQueries} from '../styles/MediaQueries';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import renderProp from '../../helpers/renderProp';
@@ -160,7 +161,10 @@ const styles = {
   copyWrapper: {
     position: 'relative',
     toggle: {
-      marginBottom: '50px'
+      marginBottom: '50px',
+      [mediaQueries.breakpointTablet]: {
+        marginBottom: '15px'
+      }
     }
   },
 
@@ -182,7 +186,10 @@ const styles = {
     margin: 0,
     withoutToggle: {
       margin: '10px 0 40px',
-      borderWidth: '1px'
+      borderWidth: '1px',
+      [mediaQueries.breakpointTablet]: {
+        margin: '10px 0 15px'
+      }
     }
   }
 };

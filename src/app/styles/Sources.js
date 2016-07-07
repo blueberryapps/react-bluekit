@@ -1,5 +1,7 @@
 import font from './Font';
 import headingStyles from './Headings';
+import {mediaQueries} from './MediaQueries';
+import spaces from './Spaces';
 import * as colors from './Colors';
 
 export default {
@@ -9,7 +11,10 @@ export default {
   },
 
   wrapper: {
-    padding: '30px'
+    padding: '30px',
+    [mediaQueries.breakpointTablet]: {
+      padding: `12px ${spaces.normal}`
+    }
   },
 
   heading: {
@@ -24,6 +29,11 @@ export default {
     clear: 'both',
     display: 'table',
     width: '100%',
+    [mediaQueries.breakpointTablet]: {
+      paddingTop: '15px',
+      marginBottom: '15px',
+      display: 'inline-block'
+    },
     first: {
       paddingTop: 0,
       borderTop: 0,

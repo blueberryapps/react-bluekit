@@ -9,7 +9,8 @@ class MenuNode extends Component {
     nodes: RPT.object.isRequired,
     parent: RPT.array.isRequired,
     selectAtom: RPT.func.isRequired,
-    selectedAtom: RPT.string
+    selectedAtom: RPT.string,
+    toggleSidebar: RPT.func.isRequired,
   }
 
   render() {
@@ -27,8 +28,15 @@ class MenuNode extends Component {
     )
   }
 
+  handleNodeClick(subnodes) {
+    const {selectAtom, toggleSidebar} = this.props;
+
+    selectAtom(subnodes)
+    toggleSidebar()
+  }
+
   renderNode(node, subnodes) {
-    const {parent, selectAtom, selectedAtom} = this.props
+    const {parent, selectAtom, selectedAtom, toggleSidebar} = this.props
     const mergedStyles = {...nodesStyles.link, ...nodesStyles.sidebarLinkActive}
 
     if (typeof subnodes === 'string') {
@@ -39,7 +47,7 @@ class MenuNode extends Component {
           <div
             dangerouslySetInnerHTML={{__html: node}}
             key={node}
-            onClick={() => selectAtom(subnodes)}
+            onClick={() => this.handleNodeClick(subnodes)}
             style={selected ? mergedStyles : nodesStyles.link}
           />
         </li>
@@ -57,7 +65,15 @@ class MenuNode extends Component {
             parent && selected ? nodesStyles.link.folder.selected : nodesStyles.link.folder
           ]}
         />
-        {subnodes && <RadiumMenuNode nodes={subnodes} parent={parent.concat(node)} selectAtom={selectAtom} selectedAtom={selectedAtom} />}
+        {subnodes &&
+          <RadiumMenuNode
+            nodes={subnodes}
+            parent={parent.concat(node)}
+            selectAtom={selectAtom}
+            selectedAtom={selectedAtom}
+            toggleSidebar={toggleSidebar}
+          />
+        }
       </li>
     )
   }

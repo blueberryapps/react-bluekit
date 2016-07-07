@@ -20,6 +20,8 @@ export default function StateProvider(Wrapped) {
       setAtomProp: RPT.func,
       setSourceBackground: RPT.func,
       showSourceCode: RPT.bool,
+      toggleMobileProps: RPT.func,
+      toggleSidebar: RPT.func,
       toggleSourceCode: RPT.func,
       toggleProps: RPT.func
     }
@@ -34,6 +36,8 @@ export default function StateProvider(Wrapped) {
         setAtomProp: this.setAtomProp.bind(this),
         setSourceBackground: this.setSourceBackground.bind(this),
         showSourceCode: this.state.showSourceCode,
+        toggleMobileProps: this.toggleMobileProps.bind(this),
+        toggleSidebar: this.toggleSidebar.bind(this),
         toggleSourceCode: this.toggleSourceCode.bind(this),
         toggleProps: this.toggleProps.bind(this)
       }
@@ -44,6 +48,8 @@ export default function StateProvider(Wrapped) {
       selectedAtom: null,
       searchedText: '',
       simplePropsSelected: true,
+      showMobileProps: false,
+      showMobileSidebar: false,
       showSourceCode: false,
       sourceBackground: '#ffffff',
       triggeredProps: new List()
@@ -114,11 +120,25 @@ export default function StateProvider(Wrapped) {
       this.storeStateToLocalStorage('customProps', newCustomProps)
     }
 
+    toggleMobileProps() {
+      const {showMobileProps} = this.state
+
+      this.setState({showMobileProps: !showMobileProps})
+      this.storeStateToLocalStorage('showMobileProps', !showMobileProps)
+    }
+
     toggleProps() {
       const {simplePropsSelected} = this.state
 
       this.setState({simplePropsSelected: !simplePropsSelected})
       this.storeStateToLocalStorage('simplePropsSelected', !simplePropsSelected)
+    }
+
+    toggleSidebar() {
+      const {showMobileSidebar} = this.state
+
+      this.setState({showMobileSidebar: !showMobileSidebar})
+      this.storeStateToLocalStorage('showMobileSidebar', !showMobileSidebar)
     }
 
     toggleSourceCode() {
@@ -140,7 +160,11 @@ export default function StateProvider(Wrapped) {
       this.storeStateToLocalStorage('sourceBackground', '#ffffff')
     }
 
-    selectAtom(selectedAtom) {
+    selectAtom(inputSelectedAtom) {
+      const selectedAtom = inputSelectedAtom === 'null'
+        ? null
+        : inputSelectedAtom
+
       this.setState({selectedAtom})
       this.storeStateToLocalStorage('selectedAtom', selectedAtom)
     }
@@ -198,9 +222,10 @@ export default function StateProvider(Wrapped) {
       const showSourceCode = storedShowSourceCode ? JSON.parse(storedShowSourceCode) : this.state.showSourceCode
       const sourceBackground = localStorage.getItem('bluekitSourceBackground') || this.state.sourceBackground
 
+      this.selectAtom(selectedAtom)
+
       this.setState({
         customProps: fromJS(customProps),
-        selectedAtom,
         searchedText,
         simplePropsSelected: fromJS(simplePropsSelected),
         showSourceCode: fromJS(showSourceCode),

@@ -1,6 +1,7 @@
 import AtomPreview from '../atoms/AtomPreview.react';
 import Component from 'react-pure-render/component';
 import headingStyles from '../styles/Headings';
+import {mediaQueries} from '../styles/MediaQueries';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import SourceCode from './SourceCode.react';
@@ -21,12 +22,13 @@ export default class Preview extends Component {
 
     return (
       <div style={styles.wrapper}>
-        <div style={[styles.panel, styles.panel.first]}>
+        <div style={[styles.panel, styles.panel.first, componentStyles.panelFirst]}>
           <h2
-            id="preview"
+            id="component-preview"
             style={[
               headingStyles,
               headingStyles.preview,
+              componentStyles.heading,
               {color: headingColor}
             ]}
           >
@@ -40,5 +42,19 @@ export default class Preview extends Component {
         <Variants atom={atom} componentProps={currentProps} headingColor={headingColor} styles={styles} />
       </div>
     )
+  }
+}
+
+const componentStyles = {
+  heading: {
+    [mediaQueries.breakpointTablet]: {
+      marginBottom: 0
+    }
+  },
+
+  panelFirst: {
+    [mediaQueries.breakpointTablet]: {
+      paddingTop: 0
+    }
   }
 }
