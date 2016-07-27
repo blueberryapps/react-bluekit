@@ -1,0 +1,19 @@
+machine:
+  node:
+    version: 5
+
+dependencies:
+  override:
+    - npm install -g gulp
+    - npm install
+    - cd example && npm install
+  cache_directories:
+    - node_modules
+    - example/node_modules
+
+test:
+  override:
+    - cd example && gulp:
+        background: true
+    - sleep 10
+    - curl --retry 10 --retry-delay 5 -v http://localhost:8001/
