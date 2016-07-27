@@ -1,3 +1,3 @@
 export default function parseHighlightedMenu(text) {
-  return text.replace(/bstyle/g, 'b style')
+  return text ? text.replace(/bstyle/g, 'b style') : text
 }

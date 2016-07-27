@@ -1,5 +1,6 @@
-import AtomPreview from './atoms/AtomPreview.react';
+import AtomPreview from './Detail/AtomPreview.react';
 import Component from 'react-pure-render/component';
+import getComponentProps from '../helpers/getComponentProps';
 import headingStyles from './styles/Headings';
 import NotFound from './atoms/NotFound.react';
 import parseHighlightedMenu from '../helpers/parseHighlightedMenu';
@@ -12,20 +13,21 @@ import * as colors from './styles/Colors';
 export default class AllComponentsPreview extends Component {
 
   static propTypes = {
-    componentsIndex: RPT.object.isRequired,
-    selectAtom: RPT.func.isRequired
+    components: RPT.object.isRequired,
+    selectAtom: RPT.func.isRequired,
+    sourceBackground: RPT.string
   }
 
   render() {
-    const {componentsIndex} = this.props
+    const {components} = this.props
     let index = 0
     return (
       <div style={styles.wrapper}>
         <div style={styles.wrapper.row}>
-          {componentsIndex.sortBy((value, key) => key).reduce(
-            (acc, atom, name) => acc.concat(this.renderAtom(name, atom, (index++ % 2)))
-          , [])}
-          {Object.keys(componentsIndex.toJS()).length === 0 && this.renderNotFound()}
+          {components.sortBy((value, key) => key).map(
+            (component, name) => this.renderComponent(name, component, (index++ % 2))
+          )}
+          {components.size === 0 && this.renderNotFound()}
         </div>
       </div>
     );
@@ -35,9 +37,9 @@ export default class AllComponentsPreview extends Component {
     return <NotFound>No components to display</NotFound>
   }
 
-  renderAtom(name, atom, isOdd) {
+  renderComponent(name, component, isOdd) {
     const {selectAtom} = this.props
-    const heading = parseHighlightedMenu(atom.get('highlightedMenu') || atom.get('menu'))
+    const heading = parseHighlightedMenu(component.get('highlightedMenu') || component.get('name'))
 
     return (
       <div
@@ -57,7 +59,11 @@ export default class AllComponentsPreview extends Component {
         </div>
         <div style={styles.atom.column}>
           <ZoomContent>
-            <AtomPreview atom={atom} />
+            <AtomPreview
+              Component={component.get('component')}
+              componentProps={getComponentProps(definition, true)}
+              componentPropsDefinition={component.get('definition')}
+            />
           </ZoomContent>
         </div>
       </div>

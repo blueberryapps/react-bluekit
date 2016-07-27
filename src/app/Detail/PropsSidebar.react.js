@@ -15,10 +15,13 @@ import * as colors from '../styles/Colors';
 export default class PropsSidebar extends Component {
 
   static propTypes = {
-    atom: RPT.object,
-    currentProps: RPT.object,
+    Component: RPT.func,
+    backgroundColor: RPT.string,
+    componentName: RPT.string,
+    componentProps: RPT.object,
+    componentPropsDefinition: RPT.object,
+    customProps: RPT.object,
     simplePropsSelected: RPT.bool,
-    sourceBackground: RPT.string,
     triggeredProps: RPT.object
   }
 
@@ -45,13 +48,13 @@ export default class PropsSidebar extends Component {
 
   render() {
     const {toggleProps, setSourceBackground} = this.context
-    const {atom, currentProps, simplePropsSelected, sourceBackground, triggeredProps} = this.props
+    const {backgroundColor, componentName, componentProps, componentPropsDefinition, triggeredProps, simplePropsSelected} = this.props
     const {activeProps, displayColorPicker, dropdownOpened} = this.state
 
     return (
       <div style={styles.wrapper}>
         <div ref='controlsHeader' style={styles.controls.header}>
-          <h1 style={styles.heading}>{atom.get('componentName')}</h1>
+          <h1 style={styles.heading}>{componentName}</h1>
           <div style={styles.dropdown}>
             <Dropdown
               handleIconClick={this.handleDropdownIconClick.bind(this)}
@@ -69,14 +72,13 @@ export default class PropsSidebar extends Component {
                 activeProps === 'preview' && styles.propName.active
               ]}
             >
-              <a href='#preview' onClick={() => this.handlePropsNameClick('preview')} style={styles.propName.link}>
+              <a href={`#${componentName}-preview`} onClick={() => this.handlePropsNameClick('preview')} style={styles.propName.link}>
                 Preview
               </a>
             </h3>
             <div style={styles.bgWrapper}>
               <div style={styles.bg}>Background</div>
-              <div style={styles.bg.options}>
-                <div
+              <div
                   key='whiteColor'
                   onClick={() => setSourceBackground('#ffffff')}
                   style={styles.bg.color}
@@ -105,30 +107,30 @@ export default class PropsSidebar extends Component {
                   size={20}
                   style={[styles.bg.color, styles.bg.color.interactive]}
                 />
-                <div
-                  style={[
-                    styles.colorPicker,
-                    displayColorPicker && styles.colorPicker.visible
-                  ]}
-                >
-                  <ColorPicker
-                    color={sourceBackground}
-                    onChangeComplete={this.handleColorPickerChange.bind(this)}
-                    ref="colorpicker"
-                    visible={displayColorPicker}
-                  />
+                <div style={{position:'relative'}}>
+                  <div
+                    style={[
+                      styles.colorPicker,
+                      displayColorPicker && styles.colorPicker.visible,
+                    ]}
+                  >
+                    <ColorPicker
+                      color={backgroundColor}
+                      onChangeComplete={this.handleColorPickerChange.bind(this)}
+                      ref="colorpicker"
+                      visible={displayColorPicker}
+                    />
+                  </div>
                 </div>
-              </div>
-              <div style={styles.separator} />
             </div>
           </div>
         </div>
         <div style={styles.controls.body}>
           <PropsTable
             activeProps={activeProps}
-            atom={atom}
-            commonStyles={styles}
-            componentProps={currentProps}
+            componentName={componentName}
+            componentProps={componentProps}
+            componentPropsDefinition={componentPropsDefinition}
             handlePropsNameClick={this.handlePropsNameClick.bind(this)}
             triggeredProps={triggeredProps}
           />
@@ -155,7 +157,7 @@ export default class PropsSidebar extends Component {
     const area = ReactDOM.findDOMNode(this.refs.colorpicker)
     const pickerButton = ReactDOM.findDOMNode(this.refs.pickerButton)
 
-    if (!area.contains(evt.target) && !pickerButton.contains(evt.target) && this.state.displayColorPicker) {
+    if (area && pickerButton && !area.contains(evt.target) && !pickerButton.contains(evt.target) && this.state.displayColorPicker) {
       this.setState({displayColorPicker: false})
     }
   }
@@ -181,13 +183,13 @@ export default class PropsSidebar extends Component {
   }
 
   renderActiveSourceBg(color) {
-    const {sourceBackground} = this.props
+    const {backgroundColor} = this.props
 
     return (
       <div
         style={[
           styles.bg.color.active,
-          sourceBackground === color && styles.bg.color.active.visible
+          backgroundColor === color && styles.bg.color.active.visible
         ]}
       />
     )
@@ -195,7 +197,7 @@ export default class PropsSidebar extends Component {
 
 }
 
-const styles = {
+export const styles = {
   controls: {
     header: {
       paddingTop: spaces.normal,
@@ -212,8 +214,8 @@ const styles = {
     display: 'none',
     position: 'absolute',
     zIndex: 2,
-    left: 'calc(100% - 20px)',
-    top: 'calc(100% + 5px)',
+    left: 'calc(100% - 10px)',
+    top: 'calc(100% - 10px)',
     visible: {
       display: 'block'
     }

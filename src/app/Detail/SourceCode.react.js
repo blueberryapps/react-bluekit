@@ -1,5 +1,5 @@
 import AceEditor from '../atoms/AceEditor.react';
-import Component from 'react-pure-render/component';
+import PureComponent from 'react-pure-render/component';
 import CopyCode from '../atoms/CopyCode.react';
 import Icon from '../atoms/Icon.react';
 import font from '../styles/Font';
@@ -10,13 +10,14 @@ import spaces from '../styles/Spaces';
 import * as colors from '../styles/Colors';
 
 @Radium
-export default class SourceCode extends Component {
+export default class SourceCode extends PureComponent {
 
   static propTypes = {
-    atom: RPT.object.isRequired,
+    componentName: RPT.string.isRequired,
     componentProps: RPT.object,
+    componentPropsDefinition: RPT.object,
     customSource: RPT.string,
-    name: RPT.object.isRequired,
+    name: RPT.string.isRequired,
     showToggle: RPT.bool
   }
 
@@ -26,13 +27,11 @@ export default class SourceCode extends Component {
   }
 
   render() {
-    const {atom, customSource, componentProps, showToggle} = this.props
-    const componentName = atom.get('componentName')
-    const file = atom.get('file')
+    const {componentName, customSource, componentProps, showToggle} = this.props
     const source = customSource || (
       componentProps.get('children')
-        ? `import ${componentName} from '${file}' \n\n<${componentName} \n${this.renderInlineProps(false)}\n>\n  ${componentProps.get('children')}\n</${componentName}>`
-        : `import ${componentName} from '${file}' \n\n<${componentName} \n${this.renderInlineProps()}\n/>`
+        ? `<${componentName} \n${this.renderInlineProps(false)}\n>\n  ${componentProps.get('children')}\n</${componentName}>`
+        : `<${componentName} \n${this.renderInlineProps()}\n/>`
     )
 
     return (
@@ -71,6 +70,7 @@ export default class SourceCode extends Component {
       </div>
     )
   }
+
   renderSource(source) {
     const {name, showToggle} = this.props
     const {showSourceCode} = this.context
@@ -105,15 +105,11 @@ export default class SourceCode extends Component {
   }
 
   renderInlineProps(renderChildren = true) {
-    const {atom} = this.props
-    const propsDefinition = atom.get('propsDefinition').toJS()
-    const {componentProps} = this.props
-
-    return Object.keys(propsDefinition)
-      .filter(key => renderChildren || key !== 'children')
-      .filter(key => propsDefinition[key].type)
-      .filter(key => typeof componentProps.get(key) !== 'undefined')
-      .map((key) => `  ${renderProp(key, propsDefinition[key].type.name, componentProps.get(key))}`)
+    const {componentProps, componentPropsDefinition} = this.props
+    return componentProps
+      .filter((_, key) => renderChildren || key !== 'children')
+      .filter((_, key) => typeof componentProps.get(key) !== 'undefined')
+      .map((value, key) => `  ${renderProp(key, componentPropsDefinition.getIn([key, 'type']), value)}`)
       .join('\n')
   }
 

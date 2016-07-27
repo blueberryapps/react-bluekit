@@ -10,7 +10,7 @@ import SearchBox from './SearchBox.react';
 export default class Sidebar extends Component {
 
   static propTypes = {
-    componentsIndex: RPT.object.isRequired,
+    components: RPT.object.isRequired,
     searchAtoms: RPT.func.isRequired,
     searchedText: RPT.string,
     selectAtom: RPT.func.isRequired,
@@ -18,8 +18,9 @@ export default class Sidebar extends Component {
   }
 
   render() {
-    const {componentsIndex, selectAtom, selectedAtom, searchAtoms, searchedText} = this.props
-    const nodes = generateTree(componentsIndex).toJS()
+    const {components, selectAtom, selectedAtom, searchAtoms, searchedText} = this.props
+    const nodes = generateTree(components).toJS()
+
     return (
       <div style={styles.wrapper}>
         <SearchBox

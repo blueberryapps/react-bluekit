@@ -1,18 +1,29 @@
+import BluekitEvent from './BluekitEvent'
 import React from 'react';
-import {fromJS} from 'immutable';
 
-export default function extendComponentProps(buildedProps, propsDefinition) {
-  const immutableBuildedProps = fromJS(buildedProps)
-  const componentProps = {}
+export default function extendComponentProps(props, componentName, definition, createSetAtomProp) {
 
-  if (propsDefinition.get('children'))
-    componentProps.children = <span dangerouslySetInnerHTML={{__html: (immutableBuildedProps.get('children') || 'DEFAULT CHILDREN')}} />
+  const extendOnChangeValue = (props) => {
+    if (definition.get('onChange') && definition.get('value'))
+      return props.set('onChange', createSetAtomProp(componentName, 'value', definition.get('type')))
+    return props
+  }
 
-  propsDefinition.map((data, prop) => {
-    const name = data.getIn(['type', 'name'])
-    if (name === 'node' || name === 'element')
-      componentProps[prop] = immutableBuildedProps.get(prop) ? <span dangerouslySetInnerHTML={{__html: immutableBuildedProps.get(prop)}} /> : ''
-  })
+  const extendFunctions = (props) => {
+    return definition
+      .filter(data => data.get('type') === 'func')
+      .reduce((acc, data, key) =>
+        props.set(key, (event) => dispatchEvent(key) && typeof props.get(key) === 'function' && props.get(key)(event))
+        , props)
+  }
 
-  return immutableBuildedProps.mergeDeep(fromJS(componentProps))
+  return extendFunctions(extendOnChangeValue(props))
+}
+
+function dispatchEvent(name) {
+  if (typeof window !== 'undefined')
+    document.dispatchEvent(new BluekitEvent('functionTriggered', {detail: {prop: name}}));
+  else
+    console.log('Bluekit received function triggered', name) // eslint-disable-line no-console
+  return true
 }

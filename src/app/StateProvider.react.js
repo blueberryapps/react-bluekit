@@ -2,13 +2,14 @@ import React, {Component, PropTypes as RPT} from 'react';
 import {filter as fuzzyFilter} from 'fuzzy';
 import {fromJS, Map, List} from 'immutable';
 import {HIGHLIGHT, HIGHLIGHT_BACKGROUND} from './styles/Colors';
+import flattenComponents from '../helpers/flattenComponents';
 
 export default function StateProvider(Wrapped) {
 
   return class StateProvider extends Component {
 
     static propTypes = {
-      componentsIndex: RPT.object.isRequired
+      components: RPT.oneOfType([RPT.array, RPT.object])
     }
 
     static childContextTypes = {
@@ -50,9 +51,7 @@ export default function StateProvider(Wrapped) {
     }
 
     render() {
-      const {componentsIndex} = this.props
-
-      return <Wrapped {...this.state} {...this.props} componentsIndex={fromJS(componentsIndex)} filteredComponentsIndex={fromJS(this.filterComponentsIndex())} />
+      return <Wrapped {...this.state} {...this.props} components={this.getComponents()} filteredComponents={this.filterComponentsIndex()} />
     }
 
     componentWillMount() {
@@ -82,7 +81,7 @@ export default function StateProvider(Wrapped) {
       })
     }
 
-    createSetAtomProp(key, type, scope = []) {
+    createSetAtomProp(componentName, key, type, scope = []) {
       return event => {
         let value = event
 
@@ -99,16 +98,16 @@ export default function StateProvider(Wrapped) {
           value = event.target.checked
         else if (type === 'number')
           value = parseInt(value, 10)
-        this.setAtomProp(key, value, scope)
+        this.setAtomProp(componentName, key, value, scope)
       }
     }
 
-    setAtomProp(key, value, scope = []) {
-      const {selectedAtom, customProps} = this.state
+    setAtomProp(componentName, key, value, scope = []) {
+      const {customProps} = this.state
 
-      if (!selectedAtom) return false
+      if (!componentName) return false
 
-      const newCustomProps = customProps.setIn([selectedAtom].concat(scope).concat(key), value)
+      const newCustomProps = customProps.setIn([componentName].concat(scope).concat(key), value)
 
       this.setState({customProps: newCustomProps})
       this.storeStateToLocalStorage('customProps', newCustomProps)
@@ -150,14 +149,36 @@ export default function StateProvider(Wrapped) {
       this.storeStateToLocalStorage('searchedText', searchedText)
     }
 
+    getComponents() {
+      const {components} = this.props
+      return fromJS(flattenComponents(components))
+    }
+
     filterComponentsIndex() {
-      const {componentsIndex} = this.props
       const {searchedText} = this.state
+      const components = this.getComponents()
       const options = {pre: `<bstyle="color:${HIGHLIGHT};background:${HIGHLIGHT_BACKGROUND}">`, post: '</b>'}
+
       if (`${searchedText}`.length > 0)
-        return fuzzyFilter(searchedText.toLowerCase(), Object.keys(componentsIndex))
-          .reduce((acc, key) => ({...acc, [key.original]: {...componentsIndex[key.original], highlightedMenu: fuzzyFilter(searchedText.toLowerCase(), [componentsIndex[key.original].menu], options)[0].string}}), {})
-      return componentsIndex
+        return fuzzyFilter(searchedText.toLowerCase(), components.reduce((acc, _, key) => acc.concat(key), []))
+          .reduce((acc, key) =>
+            acc.set(
+              key.original,
+              components
+                .get(key.original)
+                .set(
+                  'highlightedMenu',
+                  fuzzyFilter(
+                    searchedText.toLowerCase(),
+                    [components.get(key.original).get('name')],
+                    options
+                  )[0].string
+                )
+              ),
+              new Map()
+            )
+
+      return components
     }
 
     setSourceBackground(color) {
@@ -200,7 +221,7 @@ export default function StateProvider(Wrapped) {
 
       this.setState({
         customProps: fromJS(customProps),
-        selectedAtom,
+        selectedAtom: selectedAtom === 'null' ? null : selectedAtom,
         searchedText,
         simplePropsSelected: fromJS(simplePropsSelected),
         showSourceCode: fromJS(showSourceCode),

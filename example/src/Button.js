@@ -1,19 +1,21 @@
 import Component from 'react-pure-render/component';
-import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
-import Spinner from './Spinner.react';
 
-@Radium
 export default class Button extends Component {
 
   static propTypes = {
     children:       RPT.node.isRequired,
+    className:      RPT.string,
     disabled:       RPT.bool,
     fullWidth:      RPT.bool,
     inheritedStyle: RPT.object,
     kind:           RPT.oneOf(['primary', 'primaryInverted', 'secondary', 'simple']),
     loading:        RPT.bool,
     loadingText:    RPT.string,
+    testing:    RPT.string,
+    testing2:    RPT.bool,
+    testing1111111112:    RPT.bool,
+    name:           RPT.string,
     onClick:        RPT.func,
     size:           RPT.oneOf(['small', 'large']),
     type:           RPT.string,
@@ -29,11 +31,13 @@ export default class Button extends Component {
   }
 
   render() {
-    const {disabled, kind, size, fullWidth, loading, loadingText, onClick, inheritedStyle, children, type} = this.props;
+    const {className, disabled, kind, size, fullWidth, loading, loadingText, name, onClick, inheritedStyle, children, type} = this.props;
 
     return (
       <button
+        className={className}
         disabled={disabled}
+        name={name}
         onClick={onClick}
         style={[
           styles.base,
@@ -46,8 +50,7 @@ export default class Button extends Component {
         ]}
         type={type}
       >
-        {loading && <Spinner color='white' />}
-        {loading && loadingText || children}
+        {loading && loadingText || children}ssssssdsa
       </button>
     );
   }
