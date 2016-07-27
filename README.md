@@ -1,4 +1,4 @@
-# React BlueKit
+# React BlueKit [![CircleCI](https://circleci.com/gh/blueberryapps/react-bluekit/tree/master.svg?style=svg)](https://circleci.com/gh/blueberryapps/react-bluekit/tree/master)
 
 ## Install
 
