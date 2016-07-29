@@ -1,13 +1,15 @@
 import '../helpers/BluekitEvent';
-import * as colors from './styles/Colors.js'
-import AllComponentsPreview from './AllComponentsPreview.react';
-import ComponentPage from './component/Page.react';
+import Content from './Content.react';
 import FontBold from './styles/FontBold';
+import MediaQuery from 'react-responsive';
 import Radium, {StyleRoot} from 'radium';
 import React, {Component, PropTypes as RPT} from 'react';
+import ResponsiveNav from './ResponsiveNav.react';
+import ResponsivePropsNav from './ResponsivePropsNav.react';
 import Sidebar from './Sidebar.react';
 import StateProvider from './StateProvider.react';
 import {FontStyle} from './styles/Font';
+import {breakPoints} from './styles/MediaQueries';
 
 if (typeof window !== 'undefined') {
   require('brace');
@@ -17,7 +19,6 @@ if (typeof window !== 'undefined') {
   require('brace/mode/javascript');
   require('brace/theme/chrome');
 }
-
 
 @StateProvider
 @Radium
@@ -32,6 +33,8 @@ export default class Page extends Component {
     mountPoint: RPT.string,
     searchedText: RPT.string,
     selectedAtom: RPT.string,
+    showMobileProps: RPT.bool,
+    showMobileSidebar: RPT.bool,
     simplePropsSelected: RPT.bool,
     sourceBackground: RPT.string,
     triggeredProps: RPT.object
@@ -42,7 +45,9 @@ export default class Page extends Component {
     resetPropsToDefault: RPT.func.isRequired,
     selectAtom: RPT.func.isRequired,
     searchAtoms: RPT.func.isRequired,
-    toggleProps: RPT.func.isRequired
+    toggleProps: RPT.func.isRequired,
+    toggleMobileProps: RPT.func.isRequired,
+    toggleSidebar: RPT.func.isRequired
   }
 
   static defaultProps = {
@@ -51,60 +56,62 @@ export default class Page extends Component {
   }
 
   render() {
-    const {filteredComponentsIndex, height, inline, selectedAtom, searchedText} = this.props
-    const {selectAtom, searchAtoms} = this.context
+    const {
+      componentsIndex, customProps, simplePropsSelected, filteredComponentsIndex, sourceBackground,
+      height, inline, selectedAtom, showMobileSidebar, showMobileProps, searchedText, triggeredProps
+    } = this.props
+    const {selectAtom, searchAtoms, toggleMobileProps, toggleSidebar} = this.context
+    const allComponentsPreview = selectedAtom === null
 
     return (
       <StyleRoot>
         <div style={[styles.wrapper.base, inline ? {height: height} : styles.wrapper.full]}>
-          <div style={styles.sidebar}>
-            <Sidebar
-              componentsIndex={filteredComponentsIndex}
-              searchAtoms={searchAtoms}
-              searchedText={searchedText}
+          <MediaQuery maxWidth={breakPoints.large}>
+            <ResponsiveNav
+              allComponentsPreview={allComponentsPreview}
+              componentsIndex={componentsIndex}
               selectAtom={selectAtom}
               selectedAtom={selectedAtom}
+              toggleSidebar={toggleSidebar}
             />
-          </div>
-          <div style={styles.content}>
-            {selectedAtom ? this.renderAtom() : this.renderList()}
-          </div>
+            <div
+              onClick={toggleSidebar}
+              style={[styles.overlay, showMobileSidebar && styles.overlay.active]}
+            />
+          </MediaQuery>
+          <MediaQuery maxWidth={breakPoints.tablet}>
+            {!allComponentsPreview &&
+              <ResponsivePropsNav
+                showMobileProps={showMobileProps}
+                toggleMobileProps={toggleMobileProps}
+              />
+            }
+          </MediaQuery>
+          <Sidebar
+            componentsIndex={filteredComponentsIndex}
+            searchAtoms={searchAtoms}
+            searchedText={searchedText}
+            selectAtom={selectAtom}
+            selectedAtom={selectedAtom}
+            showMobileSidebar={showMobileSidebar}
+            toggleSidebar={toggleSidebar}
+          />
+          <Content
+            componentsIndex={componentsIndex}
+            customProps={customProps}
+            filteredComponentsIndex={filteredComponentsIndex}
+            selectAtom={selectAtom}
+            selectedAtom={selectedAtom}
+            showMobileProps={showMobileProps}
+            simplePropsSelected={simplePropsSelected}
+            sourceBackground={sourceBackground}
+            toggleMobileProps={toggleMobileProps}
+            triggeredProps={triggeredProps}
+          />
         </div>
         <FontStyle />
         <FontBold />
       </StyleRoot>
-    );
-  }
-
-  renderAtom() {
-    const {componentsIndex, customProps, selectedAtom, simplePropsSelected, sourceBackground, triggeredProps} = this.props
-    const {selectAtom} = this.context
-
-    return (
-      <ComponentPage
-        componentsIndex={componentsIndex}
-        customProps={customProps}
-        selectAtom={selectAtom}
-        selectedAtom={selectedAtom}
-        simplePropsSelected={simplePropsSelected}
-        sourceBackground={sourceBackground}
-        triggeredProps={triggeredProps}
-      />
-    );
-  }
-
-  renderList() {
-    const {filteredComponentsIndex, selectedAtom} = this.props
-    const {selectAtom} = this.context
-
-    return (
-      <div style={[styles.list]}>
-        <AllComponentsPreview
-          componentsIndex={filteredComponentsIndex}
-          selectAtom={selectAtom}
-          selectedAtom={selectedAtom}
-        />
-      </div>
     );
   }
 
@@ -124,29 +131,20 @@ const styles = {
       bottom: 0
     }
   },
-  sidebar: {
-    width: '20%',
-    height: '100%',
-    display: 'inline-block',
-    overflow: 'hidden',
-    boxSizing: 'border-box',
-    borderRight: `1px solid ${colors.GRAY_DARKER}`,
-    position: 'relative',
-    verticalAlign: 'top'
-  },
-  content: {
-    width: '80%',
-    height: '100%',
-    display: 'inline-block',
-    position: 'relative',
-    verticalAlign: 'top'
-  },
-  list: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
+
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, .4)',
+    position: 'fixed',
     top: 0,
+    left: 0,
+    right: '100%',
     bottom: 0,
-    overflowY: 'auto'
+    zIndex: 9,
+    opacity: 0,
+    transition: 'opacity .2s ease-out',
+    active: {
+      right: 0,
+      opacity: 1
+    }
   }
 };

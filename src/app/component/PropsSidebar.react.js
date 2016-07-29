@@ -1,9 +1,10 @@
 import ColorPicker from '../atoms/ColorPicker.react';
 import Component from 'react-pure-render/component';
 import Dropdown from '../atoms/Dropdown.react';
+import font from '../styles/Font';
 import headingStyles from '../styles/Headings';
 import Icon from '../atoms/Icon.react';
-import font from '../styles/Font';
+import {mediaQueries} from '../styles/MediaQueries';
 import PropsTable from './PropsTable.react';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
@@ -26,6 +27,7 @@ export default class PropsSidebar extends Component {
     resetLocalStorage: RPT.func,
     resetPropsToDefault: RPT.func,
     setSourceBackground: RPT.func,
+    toggleMobileProps: RPT.func,
     toggleProps: RPT.func
   }
 
@@ -66,10 +68,10 @@ export default class PropsSidebar extends Component {
             <h3
               style={[
                 styles.propName,
-                activeProps === 'preview' && styles.propName.active
+                activeProps === 'component-preview' && styles.propName.active
               ]}
             >
-              <a href='#preview' onClick={() => this.handlePropsNameClick('preview')} style={styles.propName.link}>
+              <a href='#component-preview' onClick={() => this.handlePropsNameClick('component-preview')} style={styles.propName.link}>
                 Preview
               </a>
             </h3>
@@ -82,13 +84,6 @@ export default class PropsSidebar extends Component {
                   style={styles.bg.color}
                 >
                   {this.renderActiveSourceBg('#ffffff')}
-                </div>
-                <div
-                  key='grayColor'
-                  onClick={() => setSourceBackground('#aaaaaa')}
-                  style={[styles.bg.color, styles.bg.color.gray]}
-                >
-                  {this.renderActiveSourceBg('#aaaaaa')}
                 </div>
                 <div
                   key='blackColor'
@@ -177,7 +172,10 @@ export default class PropsSidebar extends Component {
   }
 
   handlePropsNameClick(key) {
+    const {toggleMobileProps} = this.context;
+
     this.setState({activeProps: key})
+    toggleMobileProps()
   }
 
   renderActiveSourceBg(color) {
@@ -216,6 +214,10 @@ const styles = {
     top: 'calc(100% + 5px)',
     visible: {
       display: 'block'
+    },
+    [mediaQueries.breakpointTablet]: {
+      left: 'auto',
+      right: 0
     }
   },
 
@@ -236,6 +238,9 @@ const styles = {
       ':hover': {
         cursor: 'pointer'
       },
+      [mediaQueries.breakpointTablet]: {
+        marginRight: '20px'
+      },
       black: {
         backgroundColor: '#000000'
       },
@@ -245,7 +250,10 @@ const styles = {
       interactive: {
         backgroundColor: 'transparent',
         border: 0,
-        marginRight: 0
+        marginRight: 0,
+        [mediaQueries.breakpointTablet]: {
+          marginRight: 0
+        }
       },
       active: {
         opacity: 0,
@@ -266,10 +274,7 @@ const styles = {
       width: '60%',
       position: 'relative',
       top: '-5px',
-      textAlign: 'right',
-      '@media (max-width: 1120px)': {
-        width: '100%'
-      }
+      textAlign: 'right'
     }
   },
 

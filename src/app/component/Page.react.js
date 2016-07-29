@@ -3,6 +3,7 @@ import PropsSidebar from './PropsSidebar.react';
 import Preview from './Preview.react';
 import extendProps from '../../helpers/extendProps';
 import extendComponentProps from '../../helpers/extendComponentProps';
+import {mediaQueries} from '../styles/MediaQueries';
 import Radium, {StyleRoot} from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import ReactDOM from 'react-dom';
@@ -17,8 +18,10 @@ export default class Page extends Component {
     customProps: RPT.object,
     selectAtom: RPT.func.isRequired,
     selectedAtom: RPT.string,
+    showMobileProps: RPT.bool,
     simplePropsSelected: RPT.bool,
     sourceBackground: RPT.string,
+    toggleMobileProps: RPT.func.isRequired,
     triggeredProps: RPT.object
   }
 
@@ -86,18 +89,25 @@ export default class Page extends Component {
       return null
     const currentProps = this.getCurrentProps()
     const extendedProps = this.getComponentExtendendProps()
-    const {simplePropsSelected, sourceBackground, triggeredProps} = this.props
+    const {showMobileProps, simplePropsSelected, sourceBackground, toggleMobileProps, triggeredProps} = this.props
 
     const headingColor = this.textColor(sourceBackground)
 
     return (
       <StyleRoot>
-        <div style={[styles.wrapper, styles.wrapper.sidebar]}>
+        <div
+          style={[
+            styles.wrapper,
+            styles.wrapper.sidebar,
+            showMobileProps && styles.wrapper.mobilePropsOpened
+          ]}
+        >
           <PropsSidebar
             atom={atom}
             currentProps={currentProps}
             simplePropsSelected={simplePropsSelected}
             sourceBackground={sourceBackground}
+            toggleMobileProps={toggleMobileProps}
             triggeredProps={triggeredProps}
           />
         </div>
@@ -130,11 +140,29 @@ const styles = {
     sidebar: {
       width: '25%',
       left: 0,
+      [mediaQueries.breakpointTablet]: {
+        position: 'fixed',
+        top: 'auto',
+        width: '100%',
+        right: 0,
+        bottom: '100%',
+        zIndex: 7,
+        transition: 'all .2s ease-out',
+      }
+    },
+    mobilePropsOpened: {
+      [mediaQueries.breakpointTablet]: {
+        bottom: 0,
+        top: '88px'
+      }
     },
     detail: {
       width: '75%',
       right: 0,
-      overflow: 'auto'
+      overflow: 'auto',
+      [mediaQueries.breakpointTablet]: {
+        width: '100%'
+      }
     }
   }
 }

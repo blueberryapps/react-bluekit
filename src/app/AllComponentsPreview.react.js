@@ -1,6 +1,7 @@
 import AtomPreview from './atoms/AtomPreview.react';
 import Component from 'react-pure-render/component';
 import headingStyles from './styles/Headings';
+import {mediaQueries} from './styles/MediaQueries';
 import NotFound from './atoms/NotFound.react';
 import parseHighlightedMenu from '../helpers/parseHighlightedMenu';
 import Radium from 'radium';
@@ -89,6 +90,11 @@ const styles = {
       odd: {
         borderRight: 0,
         padding: '15px 0 15px 15px'
+      },
+      [mediaQueries.breakpointTablet]: {
+        width: '100%',
+        borderRight: 0,
+        padding: '15px 0'
       }
     },
     column: {

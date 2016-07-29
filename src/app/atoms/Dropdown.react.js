@@ -1,6 +1,7 @@
 import Component from 'react-pure-render/component';
 import font from '../styles/Font';
 import Icon from './Icon.react';
+import {mediaQueries} from '../styles/MediaQueries';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import ReactDOM from 'react-dom';
@@ -67,7 +68,7 @@ export default class Dropdown extends Component {
               onClick={handleToggleProps}
               style={[styles.list.option, font]}
             >
-              {simplePropsSelected ? 'All props' : 'Only required props'}
+              {simplePropsSelected ? 'Preset all props' : 'Preset only required props'}
             </li>
             <li
               key='dropdown-option2'
@@ -112,6 +113,10 @@ const styles = {
     zIndex: 10,
     visible: {
       display: 'block'
+    },
+    [mediaQueries.breakpointTablet]: {
+      left: 'auto',
+      right: 0
     }
   },
 
@@ -154,6 +159,10 @@ const styles = {
     hovered: {
       borderBottomColor: colors.BLUE
     },
+    [mediaQueries.breakpointTablet]: {
+      right: '-2px',
+      left: 'auto'
+    },
     bordered: {
       bottom: '100%',
       left: '6px',
@@ -166,6 +175,10 @@ const styles = {
       borderBottomColor: colors.GRAY_DARKER,
       borderWidth: '7px',
       zIndex: 2,
+      [mediaQueries.breakpointTablet]: {
+        right: '3px',
+        left: 'auto'
+      }
     }
   }
 };
