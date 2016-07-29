@@ -12,6 +12,7 @@ import * as colors from './styles/Colors';
 export default class Sidebar extends Component {
 
   static propTypes = {
+    children: RPT.any,
     componentsIndex: RPT.object.isRequired,
     searchAtoms: RPT.func.isRequired,
     searchedText: RPT.string,
@@ -23,7 +24,7 @@ export default class Sidebar extends Component {
 
   render() {
     const {
-      componentsIndex, selectAtom, selectedAtom, searchAtoms, searchedText,
+      children, componentsIndex, selectAtom, selectedAtom, searchAtoms, searchedText,
       showMobileSidebar, toggleSidebar
     } = this.props
     const nodes = generateTree(componentsIndex).toJS()
@@ -32,6 +33,7 @@ export default class Sidebar extends Component {
       <div style={[styles.sidebar, showMobileSidebar && styles.sidebar.visible]}>
         <div style={styles.wrapper}>
           <SearchBox
+            children={children}
             nodeOnClick={() => selectAtom(null)}
             searchAtoms={searchAtoms}
             searchedText={searchedText}

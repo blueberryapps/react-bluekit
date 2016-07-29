@@ -25,6 +25,7 @@ if (typeof window !== 'undefined') {
 export default class Page extends Component {
 
   static propTypes = {
+    children: RPT.any,
     componentsIndex: RPT.object.isRequired,
     customProps: RPT.object,
     filteredComponentsIndex: RPT.object.isRequired,
@@ -57,7 +58,7 @@ export default class Page extends Component {
 
   render() {
     const {
-      componentsIndex, customProps, simplePropsSelected, filteredComponentsIndex, sourceBackground,
+      children, componentsIndex, customProps, simplePropsSelected, filteredComponentsIndex, sourceBackground,
       height, inline, selectedAtom, showMobileSidebar, showMobileProps, searchedText, triggeredProps
     } = this.props
     const {selectAtom, searchAtoms, toggleMobileProps, toggleSidebar} = this.context
@@ -88,6 +89,7 @@ export default class Page extends Component {
             }
           </MediaQuery>
           <Sidebar
+            children={children}
             componentsIndex={filteredComponentsIndex}
             searchAtoms={searchAtoms}
             searchedText={searchedText}

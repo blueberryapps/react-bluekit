@@ -1,4 +1,5 @@
 import Component from 'react-pure-render/component';
+import font from './styles/Font';
 import Icon from './atoms/Icon.react';
 import Input from './atoms/Input.react';
 import Logo from './atoms/Logo.react';
@@ -15,6 +16,7 @@ import * as colors from './styles/Colors'
 export default class SearchBox extends Component {
 
   static propTypes = {
+    children: RPT.any,
     nodeOnClick: RPT.func.isRequired,
     searchAtoms: RPT.func.isRequired,
     searchedText: RPT.string,
@@ -23,7 +25,7 @@ export default class SearchBox extends Component {
   }
 
   render() {
-    const {searchAtoms, selectedAtom, searchedText, toggleSidebar} = this.props
+    const {children, searchAtoms, selectedAtom, searchedText, toggleSidebar} = this.props
 
     return (
       <div style={styles.wrapper}>
@@ -37,6 +39,9 @@ export default class SearchBox extends Component {
             style={styles.closeSidebar}
           />
         </MediaQuery>
+        {children &&
+          <div style={styles.children}>{children}</div>
+        }
         <div style={styles.search.group}>
           <Input
             inheritedStyles={styles.search.input}
@@ -158,5 +163,10 @@ const styles = {
     ':hover': {
       cursor: 'pointer'
     }
+  },
+
+  children: {
+    ...font,
+    marginTop: '8px'
   }
 }
