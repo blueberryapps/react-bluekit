@@ -75,9 +75,14 @@ export default function StateProvider(Wrapped) {
 
     propFunctionTriggered({detail: {prop}}) {
       const {triggeredProps} = this.state
-      this.setState({
-        triggeredProps: triggeredProps.push(prop)
-      })
+
+      setTimeout(() =>
+        this.setState({
+          triggeredProps: triggeredProps.push(prop)
+        })
+        , 1
+      )
+
       setTimeout(this.cleanupTriggeredProp.bind(this), 1000)
     }
 
