@@ -38,7 +38,6 @@ export default class Input extends Component {
         ]}
         type={type}
         value={value}
-        {...this.props}
       />
     );
   }
