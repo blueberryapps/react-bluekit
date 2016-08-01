@@ -55,6 +55,7 @@ export default class PageWithBlueKit extends Component {
   }
 }
 ```
+You can also pass `children` to BlueKit, which will be displayed above the search field (e.g. for themes or other stuff).
 
 ## BlueKit development
 ```
