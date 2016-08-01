@@ -19,6 +19,9 @@ export default class ZoomContent extends Component {
   }
 
   componentWillUnmount() {
+    const {calculateZoomTimeout} = this.state
+    clearTimeout(calculateZoomTimeout)
+
     window.removeEventListener('resize', this.calculateZoomAsyncBounded)
   }
 
