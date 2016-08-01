@@ -155,7 +155,7 @@ export default class PropsTable extends Component {
 
   selectOptions(type) {
     const options = type.value
-      .map(v => <option value={v.value.replace(/'/g, '')}>{v.value.replace(/'/g, '')}</option>)
+      .map(v => <option key={v.value} value={v.value.replace(/'/g, '')}>{v.value.replace(/'/g, '')}</option>)
 
     if (!type.required)
       return [<option value=''></option>].concat(options)
