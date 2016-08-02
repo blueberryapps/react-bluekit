@@ -1,5 +1,5 @@
 import Component from 'react-pure-render/component';
-import generateTree from '../helpers/generateTree';
+import generateTree from '../libraries/generateTree';
 import {mediaQueries} from './styles/MediaQueries';
 import MenuNode from './MenuNode.react';
 import NotFound from './atoms/NotFound.react';

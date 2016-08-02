@@ -3,7 +3,7 @@ import Component from 'react-pure-render/component';
 import headingStyles from './styles/Headings';
 import {mediaQueries} from './styles/MediaQueries';
 import NotFound from './atoms/NotFound.react';
-import parseHighlightedMenu from '../helpers/parseHighlightedMenu';
+import parseHighlightedMenu from '../libraries/parseHighlightedMenu';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import ZoomContent from './atoms/ZoomContent.react';

@@ -13,6 +13,7 @@ dependencies:
 
 test:
   override:
+    - gulp ava
     - cd example && gulp:
         background: true
     - sleep 10

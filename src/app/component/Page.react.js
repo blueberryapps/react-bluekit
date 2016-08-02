@@ -1,13 +1,13 @@
 import Component from 'react-pure-render/component';
 import PropsSidebar from './PropsSidebar.react';
 import Preview from './Preview.react';
-import extendProps from '../../helpers/extendProps';
-import extendComponentProps from '../../helpers/extendComponentProps';
+import extendProps from '../../libraries/extendProps';
+import extendComponentProps from '../../libraries/extendComponentProps';
 import {mediaQueries} from '../styles/MediaQueries';
 import Radium, {StyleRoot} from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import ReactDOM from 'react-dom';
-import resolveComponent from '../../helpers/resolveComponent';
+import resolveComponent from '../../libraries/resolveComponent';
 import * as colors from '../styles/Colors';
 
 @Radium

@@ -1,9 +1,9 @@
 import Component from 'react-pure-render/component';
-import extendComponentProps from '../../helpers/extendComponentProps';
-import filterFunctionProps from '../../helpers/filterFunctionProps';
+import extendComponentProps from '../../libraries/extendComponentProps';
+import filterFunctionProps from '../../libraries/filterFunctionProps';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
-import resolveComponent from '../../helpers/resolveComponent';
+import resolveComponent from '../../libraries/resolveComponent';
 
 @Radium
 export default class AtomPreview extends Component {
