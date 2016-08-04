@@ -1,5 +1,9 @@
 # React BlueKit [![CircleCI](https://circleci.com/gh/blueberryapps/react-bluekit/tree/master.svg?style=svg)](https://circleci.com/gh/blueberryapps/react-bluekit/tree/master)
 
+BlueKit automatically generates a library from your React components with editable props and live preview.
+
+Point BlueKit to folders with your React components and it will generate a library for you. You'll be able to browse through the components, tweak their props, and see the changes live. Furthermore, any changes that you make to your components' code will be reflected in the library.
+
 ## Install
 
 ```sh
