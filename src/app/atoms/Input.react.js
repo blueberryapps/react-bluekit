@@ -14,6 +14,7 @@ export default class Input extends Component {
       'inputSearch'
     ]),
     onChange: RPT.func,
+    placeholder: RPT.string,
     type: RPT.string.isRequired,
     value: RPT.string.isRequired
   }
@@ -25,12 +26,13 @@ export default class Input extends Component {
   }
 
   render() {
-    const {inheritedStyles, key, kind, onChange, type, value} = this.props;
+    const {inheritedStyles, key, kind, onChange, placeholder, type, value} = this.props;
 
     return (
       <input
         key={key}
         onChange={onChange}
+        placeholder={placeholder}
         style={[
           styles.base,
           styles[kind],

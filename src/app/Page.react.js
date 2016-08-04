@@ -1,4 +1,4 @@
-import '../helpers/BluekitEvent';
+import '../libraries/BluekitEvent';
 import Content from './Content.react';
 import FontBold from './styles/FontBold';
 import MediaQuery from 'react-responsive';

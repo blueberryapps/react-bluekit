@@ -6,7 +6,7 @@ import Icon from '../atoms/Icon.react';
 import {mediaQueries} from '../styles/MediaQueries';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
-import renderProp from '../../helpers/renderProp';
+import renderProp from '../../libraries/renderProp';
 import spaces from '../styles/Spaces';
 import * as colors from '../styles/Colors';
 

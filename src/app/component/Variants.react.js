@@ -3,7 +3,7 @@ import Component from 'react-pure-render/component';
 import headingStyles from '../styles/Headings';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
-import renderProp from '../../helpers/renderProp';
+import renderProp from '../../libraries/renderProp';
 import SourceCode from './SourceCode.react';
 import styles from '../styles/Sources';
 
