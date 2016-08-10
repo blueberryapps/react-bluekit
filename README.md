@@ -75,9 +75,13 @@ open http://127.0.0.1:8001
 ```
 This will start the development server and then you can play with components in BlueKit.
 
-This is how you can generate new svg icons from `src/icons` directory:
+## Gulp tasks
 ```
+# generate svg icons from src/icons directory
 gulp svg-icon
+
+# run unit tests
+gulp ava
 ```
 
 ## License

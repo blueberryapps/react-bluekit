@@ -24,7 +24,7 @@ test('build props', t => {
     typeof builtProps.objectProp === 'object',
     builtProps.nodeProp === 'NODE nodeProp',
     typeof builtProps.funcProp === 'function',
-    typeof builtProps.numberProp === 'number' && builtProps.numberProp === 1,
+    builtProps.numberProp === 1,
     builtProps.stringPropDefault === '\'text\'',
     builtProps.boolProp === true || false,
     typeof builtProps.enumProps === 'string',
