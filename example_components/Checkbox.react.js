@@ -4,8 +4,17 @@ import Radium from 'radium';
 import React from 'react';
 import ToolTip from '../src/app/atoms/ToolTip.react';
 
+
+/**
+ * A simple checkbox element
+ */
 @Radium
 export default class Checkbox extends Component {
+  /**
+   * @param {String} [error] - An error string
+   * @param {String} label - Checkbox label
+   * @param {String} name - The name of the checkbox component
+   */
 
   static propTypes = {
     error:    React.PropTypes.string,
