@@ -8,6 +8,7 @@ import toSource from 'tosource';
 import {parse as docgenParse} from 'react-docgen';
 
 const nunjuckEnv = nunjucks.configure(`${__dirname}/../nunjucks/`, {autoescape: false});
+nunjuckEnv.addFilter('escapeJsString', input => JSON.stringify(input).replace(/'/g, '\\\'').slice(1, -1));
 
 function getAllFilesInDir(dir, relativeDirectory = []) {
   const resolvedDir = path.join(dir, relativeDirectory);
