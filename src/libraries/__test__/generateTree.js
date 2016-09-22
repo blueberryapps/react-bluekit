@@ -1,13 +1,13 @@
 import generateTree from '../generateTree';
-import {Map} from 'immutable';
 import test from 'ava';
+import {fromJS, Map} from 'immutable';
 
 test('generate components tree', t => {
-  const componentsIndex = Map({
-    ExampleFolderButton: Map({
+  const componentsIndex = fromJS({
+    ExampleFolderButton: {
       menu: 'Example Folder Button',
       name: 'ExampleFolderButton'
-    })
+    }
   })
   const tree = generateTree(componentsIndex)
   const name = tree.getIn(['Example', 'Folder', 'Button'])

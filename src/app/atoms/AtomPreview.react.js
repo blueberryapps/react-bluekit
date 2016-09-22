@@ -19,9 +19,12 @@ export default class AtomPreview extends Component {
     const {atom, disableFunctionProps, variantProps} = this.props
     const simpleProps = atom.get('simpleProps').toJS()
     const filteredProps = disableFunctionProps ? filterFunctionProps(simpleProps) : simpleProps
+    const extendedFiltered = extendComponentProps(filteredProps, atom.get('propsDefinition'))
     const customProps = variantProps ? variantProps : {}
+    const extendedCustom = extendComponentProps(customProps, atom.get('propsDefinition'))
+    const extendedProps = extendedFiltered.mergeDeep(extendedCustom)
 
-    return extendComponentProps(filteredProps, atom.get('propsDefinition')).mergeDeep(extendComponentProps(customProps, atom.get('propsDefinition')))
+    return extendedProps;
   }
 
   render() {
