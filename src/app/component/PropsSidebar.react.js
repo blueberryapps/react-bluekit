@@ -303,6 +303,7 @@ const styles = {
   },
 
   description: {
+    clear: 'both',
     ...font,
     ...font.size.small,
     color: colors.BLACK_BRIGHT,
