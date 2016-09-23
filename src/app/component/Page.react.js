@@ -83,10 +83,18 @@ export default class Page extends Component {
     return (yiq >= 128) ? colors.BLACK_BRIGHT : colors.GRAY_BRIGHT
   }
 
+  sortProps(propsDefinition) {
+    if (propsDefinition.size === 0)
+      return null
+    else
+      return propsDefinition.sort()
+  }
+
   render() {
     const atom = this.getCurrentComponent()
-    if (!atom)
-      return null
+    const propsDefinition = atom.get('propsDefinition')
+    const sortedProps = this.sortProps(propsDefinition)
+
     const currentProps = this.getCurrentProps()
     const extendedProps = this.getComponentExtendendProps()
     const {showMobileProps, simplePropsSelected, sourceBackground, toggleMobileProps, triggeredProps} = this.props
@@ -106,6 +114,7 @@ export default class Page extends Component {
             atom={atom}
             currentProps={currentProps}
             simplePropsSelected={simplePropsSelected}
+            sortedProps={sortedProps}
             sourceBackground={sourceBackground}
             toggleMobileProps={toggleMobileProps}
             triggeredProps={triggeredProps}
@@ -124,6 +133,7 @@ export default class Page extends Component {
             currentProps={currentProps}
             extendedProps={extendedProps}
             headingColor={headingColor}
+            sortedProps={sortedProps}
           />
         </div>
       </StyleRoot>

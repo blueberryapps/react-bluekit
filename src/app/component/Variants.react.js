@@ -1,5 +1,6 @@
 import AtomPreview from '../atoms/AtomPreview.react';
 import Component from 'react-pure-render/component';
+import {fromJS} from 'immutable';
 import headingStyles from '../styles/Headings';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
@@ -13,16 +14,19 @@ export default class Variants extends Component {
   static propTypes = {
     atom: RPT.object.isRequired,
     componentProps: RPT.object.isRequired,
-    headingColor: RPT.string.isRequired
+    headingColor: RPT.string.isRequired,
+    sortedProps: RPT.object.isRequired
   }
 
   render() {
-    const {atom} = this.props
-    const propsDefinition = atom.get('propsDefinition')
+    const {sortedProps} = this.props
+
+    if (sortedProps === null)
+      return null
 
     return (
       <div>
-        {propsDefinition.map((value, key) => this.renderProp(key, value))}
+        {sortedProps.map((value, key) => this.renderProp(key, value))}
       </div>
     )
   }
@@ -32,10 +36,11 @@ export default class Variants extends Component {
   }
 
   renderProp(key, definition) {
-    if (!definition.get('type')) return null
+    const definitionMap = fromJS(definition)
+    if (!definitionMap.get('type')) return null
 
-    const name = definition.getIn(['type', 'name'])
-    const value = definition.getIn(['type', 'value'])
+    const name = definitionMap.getIn(['type', 'name'])
+    const value = definitionMap.getIn(['type', 'value'])
     switch (name) {
       case 'string': return this.renderVariants(key, name, ['', `String ${key}`])
       case 'number': return this.renderVariants(key, name, [0, 5, 100, 123.45])
