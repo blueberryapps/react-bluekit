@@ -38,6 +38,8 @@ const styles = {
   select: {
     width: '100%',
     height: '30px',
+    WebkitAppearance: 'none',
+    MozAppearance: 'none',
     appearance: 'none',
     borderRadius: '0',
     background: 'white',

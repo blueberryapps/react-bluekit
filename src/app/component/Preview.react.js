@@ -14,11 +14,12 @@ export default class Preview extends Component {
   static propTypes = {
     atom: RPT.object,
     currentProps: RPT.object,
-    headingColor: RPT.string.isRequired
+    headingColor: RPT.string.isRequired,
+    sortedProps: RPT.object
   }
 
   render() {
-    const {atom, currentProps, headingColor} = this.props
+    const {atom, currentProps, headingColor, sortedProps} = this.props
 
     return (
       <div style={styles.wrapper}>
@@ -39,7 +40,13 @@ export default class Preview extends Component {
           </div>
           <SourceCode atom={atom} componentProps={currentProps} name={`${atom.get('name')}-preview`} showToggle />
         </div>
-        <Variants atom={atom} componentProps={currentProps} headingColor={headingColor} styles={styles} />
+        <Variants
+          atom={atom}
+          componentProps={currentProps}
+          headingColor={headingColor}
+          sortedProps={sortedProps}
+          styles={styles}
+        />
       </div>
     )
   }

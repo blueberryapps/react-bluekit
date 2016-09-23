@@ -8,7 +8,7 @@ import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import Select from '../atoms/Select.react';
 import spaces from '../styles/Spaces';
-import {OrderedMap, Map, fromJS} from 'immutable';
+import {Map, fromJS} from 'immutable';
 import * as colors from '../styles/Colors';
 
 @Radium
@@ -24,52 +24,47 @@ export default class PropsTable extends Component {
     commonStyles: RPT.object.isRequired,
     componentProps: RPT.object.isRequired,
     handlePropsNameClick: RPT.func.isRequired,
+    sortedProps: RPT.object.isRequired,
     triggeredProps: RPT.object
   }
 
   render() {
-    const {atom} = this.props
-    const propsDefinition = atom.get('propsDefinition').toJS()
-
-    if (Object.keys(propsDefinition).length === 0)
+    const {sortedProps} = this.props
+    if (sortedProps === null)
       return <div style={styles.prop.noProps}>No props defined</div>
-
-    const sortedProps = Object.keys(propsDefinition)
-      .sort()
-      .reduce((acc, k) => acc.set(k, propsDefinition[k]), new OrderedMap())
 
     return (
       <div style={font}>
-        {sortedProps.map((value, key) => this.renderProp(value, key, true))}
-        {sortedProps.map((value, key) => this.renderProp(value, key, false))}
+        {sortedProps.map((value, key) => this.renderProp(value, key))}
       </div>
     )
   }
 
-  renderProp(data, key, renderRequired) {
-    if (!data.type) return null
+  renderProp(data, key) {
+    if (!data.get('type')) return null
 
-    const required = data.required
+    const required = data.get('required')
 
-    if ((renderRequired && !required) || (!renderRequired && required))
-      return null
+    if (required)
+      return this.renderPropTableRow(data, key, true, [])
 
-    return this.renderPropTableRow(data, key, renderRequired, [])
+    return this.renderPropTableRow(data, key, false, [])
   }
 
   renderPropTableRow(data, key, renderRequired, scope) {
     const {activeProps, commonStyles, triggeredProps} = this.props
+    const name = data.getIn(['type', 'name'])
 
-    if (!data.type) return null
+    if (!data.get('type')) return null
 
-    if (data.type.name === 'shape')
+    if (name === 'shape')
       return (
-        Map(data.type.value).map((v, k) => this.renderPropTableRow({type: v}, k, renderRequired, [key]))
+        Map(data.getIn(['type', 'value'])).map((v, k) => this.renderPropTableRow({type: v}, k, renderRequired, [key]))
       )
 
-    const required = data.required
+    const required = data.get('required')
     const triggered = triggeredProps.includes(key)
-    const fullWidth = ['any', 'array', 'arrayOf', 'element', 'enum', 'node', 'object', 'shape', 'string'].indexOf(data.type.name) !== -1
+    const fullWidth = ['any', 'array', 'arrayOf', 'element', 'enum', 'node', 'object', 'shape', 'string'].indexOf(name) !== -1
     return (
       <div key={key}>
         <div style={styles.row}>
@@ -82,9 +77,9 @@ export default class PropsTable extends Component {
               activeProps === key && commonStyles.propName.active
             ]}
           >
-            {this.renderNameOfProp(scope.concat(key).join('.'), data.type.name)}
+            {this.renderNameOfProp(scope.concat(key).join('.'), name)}
             {required && '*'}
-            <small style={styles.prop.small}>{data.type.name}</small>
+            <small style={styles.prop.small}>{name}</small>
           </div>
           <div
             style={[
@@ -93,9 +88,9 @@ export default class PropsTable extends Component {
               fullWidth && styles.prop.fullWidth,
               triggered && {backgroundColor: colors.GRAY_BRIGHT}]}
           >
-            {data.type.name === 'func'
+            {name === 'func'
               ? 'func()'
-              : this.renderValueSelection(key, data.type, scope)
+              : this.renderValueSelection(key, data.get('type').toJS(), scope)
             }
           </div>
         </div>
