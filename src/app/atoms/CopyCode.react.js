@@ -12,7 +12,7 @@ export default class CopyCode extends Component {
 
   static propTypes = {
     inheritedStyles: RPT.object,
-    source: RPT.node.isRequired
+    source: RPT.string.isRequired
   }
 
   state = {

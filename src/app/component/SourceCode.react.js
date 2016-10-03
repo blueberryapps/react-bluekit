@@ -17,7 +17,7 @@ export default class SourceCode extends Component {
     atom: RPT.object.isRequired,
     componentProps: RPT.object,
     customSource: RPT.string,
-    name: RPT.object.isRequired,
+    name: RPT.string.isRequired,
     showToggle: RPT.bool
   }
 

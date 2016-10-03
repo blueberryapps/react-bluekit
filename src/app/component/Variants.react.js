@@ -15,7 +15,7 @@ export default class Variants extends Component {
     atom: RPT.object.isRequired,
     componentProps: RPT.object.isRequired,
     headingColor: RPT.string.isRequired,
-    sortedProps: RPT.object.isRequired
+    sortedProps: RPT.object
   }
 
   render() {
