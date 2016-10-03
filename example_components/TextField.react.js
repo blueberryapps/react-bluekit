@@ -69,7 +69,7 @@ export default class TextField extends Component {
 
   renderPrependBlock() {
     const {icon, iconSize, error} = this.props;
-    const size = iconSize || '24px';
+    const size = iconSize || 24;
     const prependFocused = Radium.getState(this.state, 'input', ':focus');
 
     if (!icon) return null;

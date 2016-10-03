@@ -24,7 +24,7 @@ export default class PropsTable extends Component {
     commonStyles: RPT.object.isRequired,
     componentProps: RPT.object.isRequired,
     handlePropsNameClick: RPT.func.isRequired,
-    sortedProps: RPT.object.isRequired,
+    sortedProps: RPT.object,
     triggeredProps: RPT.object
   }
 
@@ -94,7 +94,7 @@ export default class PropsTable extends Component {
             }
           </div>
         </div>
-        <div styles={styles.clearfix} />
+        <div style={styles.clearfix} />
       </div>
     )
   }
@@ -153,7 +153,7 @@ export default class PropsTable extends Component {
       .map(v => <option key={v.value} value={v.value.replace(/'/g, '')}>{v.value.replace(/'/g, '')}</option>)
 
     if (!type.required)
-      return [<option value=''></option>].concat(options)
+      return [<option key="empty" value=''></option>].concat(options)
 
     return options
   }

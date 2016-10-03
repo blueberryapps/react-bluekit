@@ -16,7 +16,7 @@ export default class Input extends Component {
     onChange: RPT.func,
     placeholder: RPT.string,
     type: RPT.string.isRequired,
-    value: RPT.string.isRequired
+    value: RPT.oneOfType([RPT.string, RPT.number]).isRequired
   }
 
   static defaultProps = {
