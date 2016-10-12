@@ -86,6 +86,8 @@ gulp svg-icon
 gulp ava
 ```
 
+If you get some kind of weird error and BlueKit doesn't load at all, try to reset localStorage by running `localStorage.clear();`. We are working on automatic checks of localStorage values.
+
 ## License
 
 MIT © [Ondrej Bartas](https://github.com/ondrejbartas)
