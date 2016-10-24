@@ -26,18 +26,20 @@ export default {
     },
     overview: {
       padding: '10px 20px 10px 30px'
-    },
-    folder: {
-      ':hover': {
-        backgroundColor: 'inherit',
-        cursor: 'default'
-      },
-      selected: {
-        ':hover': {
-          backgroundColor: colors.GRAY,
-          cursor: 'default'
-        }
-      }
+    }
+  },
+
+  iconWrapper: {
+    marginRight: '8px',
+    display: 'inline-block',
+    position: 'relative',
+    top: '-1px'
+  },
+
+  icon: {
+    transition: 'transform .1s linear',
+    closed: {
+      transform: 'rotate(-90deg)'
     }
   },
 

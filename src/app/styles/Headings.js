@@ -9,7 +9,7 @@ export default {
   marginBottom: 0,
   lineHeight: '1.4',
   preview: {
-    marginBottom: '30px'
+    paddingBottom: '15px'
   },
 
   allComponents: {
