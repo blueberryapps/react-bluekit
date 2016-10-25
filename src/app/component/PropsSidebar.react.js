@@ -65,7 +65,7 @@ export default class PropsSidebar extends Component {
               visible={dropdownOpened}
             />
           </div>
-          <p style={styles.description}>{atom.get('description')}</p>
+          <pre style={styles.description}>{atom.get('description')}</pre>
           <div style={styles.clearfix}>
             <h3
               style={[
@@ -307,9 +307,9 @@ const styles = {
   description: {
     clear: 'both',
     ...font,
-    ...font.size.small,
     color: colors.BLACK_BRIGHT,
-    padding: `0 ${spaces.normal}`,
+    padding: `${spaces.small} ${spaces.normal} 0`,
+    margin: 0
   },
 
   bgWrapper: {

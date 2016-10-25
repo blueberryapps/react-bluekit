@@ -1,7 +1,8 @@
 import Component from 'react-pure-render/component';
+import Icon from './atoms/Icon.react';
+import nodesStyles from './styles/Nodes';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
-import nodesStyles from './styles/Nodes';
 
 class MenuNode extends Component {
 
@@ -11,6 +12,11 @@ class MenuNode extends Component {
     selectAtom: RPT.func.isRequired,
     selectedAtom: RPT.string,
     toggleSidebar: RPT.func.isRequired,
+  }
+
+  static contextTypes = {
+    toggleFoldersOpened: RPT.func,
+    uiFoldersOpened: RPT.object
   }
 
   render() {
@@ -37,6 +43,7 @@ class MenuNode extends Component {
 
   renderNode(node, subnodes) {
     const {parent, selectAtom, selectedAtom, toggleSidebar} = this.props
+    const {toggleFoldersOpened, uiFoldersOpened} = this.context
     const mergedStyles = {...nodesStyles.link, ...nodesStyles.sidebarLinkActive}
 
     if (typeof subnodes === 'string') {
@@ -55,17 +62,27 @@ class MenuNode extends Component {
     }
 
     const selected = selectedAtom && selectedAtom.indexOf(parent.concat(node).join('')) !== -1
+    const opened = !uiFoldersOpened.includes(node)
+
     return (
       <li key={node}>
         <div
-          dangerouslySetInnerHTML={{__html: node}}
           key={node}
+          onClick={parent ? () => toggleFoldersOpened(node) : null}
           style={[
             selected ? mergedStyles : nodesStyles.link,
-            parent && selected ? nodesStyles.link.folder.selected : nodesStyles.link.folder
           ]}
-        />
-        {subnodes &&
+        >
+          {parent &&
+            <Icon
+              kind="arrow"
+              size={8}
+              style={[nodesStyles.icon, !opened && nodesStyles.icon.closed]}
+              wrapperStyle={nodesStyles.iconWrapper} />
+          }
+          <span dangerouslySetInnerHTML={{__html: node}} />
+        </div>
+        {subnodes && opened &&
           <RadiumMenuNode
             nodes={subnodes}
             parent={parent.concat(node)}

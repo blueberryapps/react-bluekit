@@ -1,6 +1,6 @@
 import React, {Component, PropTypes as RPT} from 'react';
 import {filter as fuzzyFilter} from 'fuzzy';
-import {fromJS, Map, List} from 'immutable';
+import {fromJS, List, Map} from 'immutable';
 import {HIGHLIGHT, HIGHLIGHT_BACKGROUND} from './styles/Colors';
 
 export default function StateProvider(Wrapped) {
@@ -20,10 +20,12 @@ export default function StateProvider(Wrapped) {
       setAtomProp: RPT.func,
       setSourceBackground: RPT.func,
       showSourceCode: RPT.bool,
+      toggleFoldersOpened: RPT.func,
       toggleMobileProps: RPT.func,
       toggleSidebar: RPT.func,
       toggleSourceCode: RPT.func,
-      toggleProps: RPT.func
+      toggleProps: RPT.func,
+      uiFoldersOpened: RPT.object
     }
 
     getChildContext() {
@@ -36,10 +38,12 @@ export default function StateProvider(Wrapped) {
         setAtomProp: this.setAtomProp.bind(this),
         setSourceBackground: this.setSourceBackground.bind(this),
         showSourceCode: this.state.showSourceCode,
+        toggleFoldersOpened: this.toggleFoldersOpened.bind(this),
         toggleMobileProps: this.toggleMobileProps.bind(this),
         toggleSidebar: this.toggleSidebar.bind(this),
         toggleSourceCode: this.toggleSourceCode.bind(this),
-        toggleProps: this.toggleProps.bind(this)
+        toggleProps: this.toggleProps.bind(this),
+        uiFoldersOpened: this.state.uiFoldersOpened
       }
     }
 
@@ -52,7 +56,8 @@ export default function StateProvider(Wrapped) {
       showMobileSidebar: false,
       showSourceCode: false,
       sourceBackground: '#ffffff',
-      triggeredProps: new List()
+      triggeredProps: new List(),
+      uiFoldersOpened: new List()
     }
 
     render() {
@@ -123,6 +128,17 @@ export default function StateProvider(Wrapped) {
 
       this.setState({customProps: newCustomProps})
       this.storeStateToLocalStorage('customProps', newCustomProps)
+    }
+
+    toggleFoldersOpened(key) {
+      const {uiFoldersOpened} = this.state
+      const keyPosition = uiFoldersOpened.keyOf(key)
+      const folders = keyPosition >= 0
+        ? uiFoldersOpened.delete(keyPosition)
+        : uiFoldersOpened.push(key)
+
+      this.setState({uiFoldersOpened: folders})
+      this.storeStateToLocalStorage('uiFoldersOpened', folders)
     }
 
     toggleMobileProps() {
@@ -209,6 +225,7 @@ export default function StateProvider(Wrapped) {
         case 'simplePropsSelected': return localStorage.setItem('bluekitSimplePropsSelected', JSON.stringify(value))
         case 'showSourceCode': return localStorage.setItem('bluekitShowSourceCode', JSON.stringify(value))
         case 'sourceBackground': return localStorage.setItem('bluekitSourceBackground', value)
+        case 'uiFoldersOpened': return localStorage.setItem('bluekitUiFoldersOpened', JSON.stringify(value))
       }
     }
 
@@ -219,6 +236,7 @@ export default function StateProvider(Wrapped) {
       const storedCustomProps = localStorage.getItem('bluekitCustomProps')
       const storedSimplePropsSelected = localStorage.getItem('bluekitSimplePropsSelected')
       const storedShowSourceCode = localStorage.getItem('bluekitShowSourceCode')
+      const storedUiFoldersOpened = localStorage.getItem('bluekitUiFoldersOpened')
 
       const customProps = storedCustomProps ? JSON.parse(storedCustomProps) : this.state.customProps
       const selectedAtom = localStorage.getItem('bluekitSelectedAtom') || this.state.selectedAtom
@@ -226,6 +244,7 @@ export default function StateProvider(Wrapped) {
       const simplePropsSelected = storedSimplePropsSelected ? JSON.parse(storedSimplePropsSelected) : this.state.simplePropsSelected
       const showSourceCode = storedShowSourceCode ? JSON.parse(storedShowSourceCode) : this.state.showSourceCode
       const sourceBackground = localStorage.getItem('bluekitSourceBackground') || this.state.sourceBackground
+      const uiFoldersOpened = storedUiFoldersOpened ? JSON.parse(storedUiFoldersOpened) : this.state.uiFoldersOpened
 
       this.selectAtom(selectedAtom)
 
@@ -234,7 +253,8 @@ export default function StateProvider(Wrapped) {
         searchedText,
         simplePropsSelected: fromJS(simplePropsSelected),
         showSourceCode: fromJS(showSourceCode),
-        sourceBackground
+        sourceBackground,
+        uiFoldersOpened: fromJS(uiFoldersOpened),
       })
     }
 
@@ -248,6 +268,7 @@ export default function StateProvider(Wrapped) {
       localStorage.removeItem('bluekitSimplePropsSelected')
       localStorage.removeItem('bluekitShowSourceCode')
       localStorage.removeItem('bluekitSourceBackground')
+      localStorage.removeItem('bluekitUiFoldersOpened')
       // refresh page after reset
       window.location = window.location.pathname.replace(/#.*/, '')
     }

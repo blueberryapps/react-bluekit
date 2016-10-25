@@ -87,7 +87,7 @@ export default class Page extends Component {
     if (propsDefinition.size === 0)
       return null
     else
-      return propsDefinition.sort()
+      return propsDefinition.sortBy((_, key) => key)
   }
 
   render() {

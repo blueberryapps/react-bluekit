@@ -38,37 +38,35 @@ export default class SourceCode extends Component {
 
     return (
       <div style={[styles.copyWrapper, showToggle && styles.copyWrapper.toggle]}>
-        {this.renderToggle()}
-        <CopyCode inheritedStyles={showToggle && styles.copy} source={source} />
+        {showToggle && this.renderToggle(source)}
         {this.renderSource(source)}
       </div>
     )
   }
 
-  renderToggle() {
-    const {showToggle} = this.props
+  renderToggle(source) {
     const {toggleSourceCode, showSourceCode} = this.context
 
-    if (!showToggle)
-      return null
-
     return (
-      <div
-        onClick={toggleSourceCode.bind(this)}
-        style={styles.sourceHeader}
-      >
-        <Icon color={colors.BLUE} kind='code' size={28} wrapperStyle={styles.icon.code} />
-        {showSourceCode ? 'Hide ' : 'Show '}
-        source code
-        <Icon
-          color={colors.BLUE}
-          kind='arrow'
-          size={10}
-          wrapperStyle={[
-            styles.icon.arrow,
-            showSourceCode && styles.sourceHeader.visible.arrow
-          ]}
-        />
+      <div style={styles.sourceHeader.container}>
+        <div
+          onClick={toggleSourceCode.bind(this)}
+          style={styles.sourceHeader}
+        >
+          <Icon color={colors.BLUE} kind='code' size={28} wrapperStyle={styles.icon.code} />
+          {showSourceCode ? 'Hide ' : 'Show '}
+          source code
+          <Icon
+            color={colors.BLUE}
+            kind='arrow'
+            size={10}
+            wrapperStyle={[
+              styles.icon.arrow,
+              showSourceCode && styles.sourceHeader.visible.arrow
+            ]}
+          />
+        </div>
+        <CopyCode inheritedStyles={styles.copy} source={source} />
       </div>
     )
   }
@@ -80,26 +78,31 @@ export default class SourceCode extends Component {
       return null
 
     return (
-      <div style={[styles.sourceWrapper, !showToggle && styles.sourceWrapper.withoutToggle]}>
-        <div style={styles.pre}>
-          <AceEditor
-            editorProps={{$blockScrolling: true}}
-            fontSize={11}
-            highlightActiveLine={false}
-            maxLines={`${source}`.split(/\n/).length}
-            mode="jsx"
-            name={name}
-            readOnly
-            setOptions={{
-              enableBasicAutocompletion: false,
-              enableLiveAutocompletion: false,
-            }}
-            showGutter={false}
-            showPrintMargin={false}
-            theme="chrome"
-            value={source}
-            width="100%"
-          />
+      <div style={[!showToggle && styles.sourceContainer]}>
+        <div style={[styles.sourceBox, !showToggle && styles.sourceBox.withoutToggle]}>
+          {!showToggle &&
+            <CopyCode source={source} />
+          }
+          <div style={styles.pre}>
+            <AceEditor
+              editorProps={{$blockScrolling: true}}
+              fontSize={11}
+              highlightActiveLine={false}
+              maxLines={`${source}`.split(/\n/).length}
+              mode="jsx"
+              name={name}
+              readOnly
+              setOptions={{
+                enableBasicAutocompletion: false,
+                enableLiveAutocompletion: false,
+              }}
+              showGutter={false}
+              showPrintMargin={false}
+              theme="chrome"
+              value={source}
+              width="100%"
+            />
+          </div>
         </div>
       </div>
     )
@@ -123,7 +126,7 @@ export default class SourceCode extends Component {
 const styles = {
   copy: {
     backgroundColor: 'transparent',
-    top: '2px'
+    top: '34px'
   },
 
   icon: {
@@ -146,7 +149,6 @@ const styles = {
     fontSize: '15px',
     padding: `${spaces.smaller} ${spaces.smaller} ${spaces.smaller} 55px`,
     position: 'relative',
-    marginTop: '30px',
     zIndex: 1,
     ':hover': {
       cursor: 'pointer'
@@ -155,6 +157,10 @@ const styles = {
       arrow: {
         transform: 'rotate(180deg)'
       }
+    },
+    container: {
+      paddingTop: '30px',
+      position: 'relative'
     }
   },
 
@@ -176,7 +182,14 @@ const styles = {
     tableLayout: 'fixed'
   },
 
-  sourceWrapper: {
+  sourceContainer: {
+    padding: '15px 0 40px',
+    [mediaQueries.breakpointTablet]: {
+      padding: '10px 0 15px'
+    }
+  },
+
+  sourceBox: {
     backgroundColor: 'white',
     position: 'relative',
     padding: '15px',
@@ -185,11 +198,7 @@ const styles = {
     borderStyle: 'solid',
     margin: 0,
     withoutToggle: {
-      margin: '10px 0 40px',
       borderWidth: '1px',
-      [mediaQueries.breakpointTablet]: {
-        margin: '10px 0 15px'
-      }
     }
   }
 };
