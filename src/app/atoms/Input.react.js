@@ -8,7 +8,6 @@ import * as colors from '../styles/Colors';
 export default class Input extends Component {
   static propTypes = {
     inheritedStyles: RPT.oneOfType([RPT.array, RPT.object]),
-    key: RPT.string,
     kind: RPT.oneOf([
       'inputDefault',
       'inputSearch'
