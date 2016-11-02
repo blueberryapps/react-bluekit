@@ -1,12 +1,14 @@
+import _ from 'lodash';
 import AtomPreview from '../atoms/AtomPreview.react';
 import Component from 'react-pure-render/component';
-import {fromJS} from 'immutable';
 import headingStyles from '../styles/Headings';
 import Radium from 'radium';
 import React, {PropTypes as RPT} from 'react';
 import renderProp from '../../libraries/renderProp';
 import SourceCode from './SourceCode.react';
 import styles from '../styles/Sources';
+import variantChecksum from '../../libraries/variantChecksum';
+import {fromJS} from 'immutable';
 
 @Radium
 export default class Variants extends Component {
@@ -53,12 +55,35 @@ export default class Variants extends Component {
 
   renderEnumVariant(key, name, value) {
     if (typeof value === 'object')
-      return this.renderVariants(key, name, value.map(text => text.get('value').replace(/\'/g, '')))
+      return this.renderVariants(key, name, value.map(text => text.get('value').replace(/\'/g, '')).toJS())
     return null
+  }
+
+  collectVariants(key, type, variants) {
+    const {atom, componentProps} = this.props
+
+    return variants.map(variant => {
+      const variantProps = componentProps.set(key, variant)
+
+      return {
+        atom,
+        key,
+        type,
+        variant,
+        variantProps,
+        checksum: variantChecksum({atom, variantProps, context: this.context}),
+      }
+    })
   }
 
   renderVariants(key, type, variants) {
     const {headingColor} = this.props
+
+    const collection = this.collectVariants(key, type, variants);
+    const uniqCollection = _.uniqBy(collection, i => i.checksum);
+
+    if (uniqCollection.length < 2)
+      return null;
 
     return (
       <div>
@@ -69,15 +94,13 @@ export default class Variants extends Component {
           >
             Prop variant: <b>{key}</b>
           </h2>
-          {variants.map(variant => this.renderVariant(key, type, variant))}
+          {collection.map(item => this.renderVariant(item))}
         </div>
       </div>
     )
   }
 
-  renderVariant(key, type, variant) {
-    const {atom, componentProps} = this.props
-    const variantProps = componentProps.set(key,  variant)
+  renderVariant({atom, key, type, variant, variantProps}) {
     const source = `<${atom.get('componentName')} ${renderProp(key, type, variant)} />`
 
     return (
