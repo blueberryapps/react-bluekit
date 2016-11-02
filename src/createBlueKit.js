@@ -47,12 +47,13 @@ function getImportFile(directory, file) {
 
 function generateComponentData(config, file, directory) {
   const filePath = path.join(directory, file);
-  const content = fs.readFileSync(filePath)
-    .toString()
-    .replace('_interopRequireDefault(_react)', 'require("react")')
-    .replace(/import Component from ["']react-pure-render\/component["']/, 'import {Component} from "react"')
-    .replace(/export default .*\((\w*)\)+/m, 'export default $1')
-
+  let content = fs.readFileSync(filePath).toString()
+  if (config.specialReplacements) {
+    content = content
+      .replace('_interopRequireDefault(_react)', 'require("react")')
+      .replace(/import Component from ["']react-pure-render\/component["']/, 'import {Component} from "react"')
+      .replace(/export default .*\((\w*)\)+/m, 'export default $1')
+  }
   try {
     const docgen = docgenParse(content);
     const doc = {
