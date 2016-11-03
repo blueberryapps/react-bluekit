@@ -92,7 +92,7 @@ export default class TextField extends Component {
   }
 
   render() {
-    const {fullWidth, icon, inheritedStyle, name, onChange, placeholder, unit, value, type, tooltip, error, onBlur} = this.props;
+    const {fullWidth, icon, inheritedStyle, name, onChange, placeholder, unit, value, type, error, onBlur} = this.props;
     const prependAndUnit = (icon && unit);
     const prependOrUnit = (icon || unit);
 
@@ -118,7 +118,6 @@ export default class TextField extends Component {
               error && styles.errorWrapper.errorInput,
               inheritedStyle
             ]}
-            tooltip={tooltip}
             type={type}
             value={value}
           />

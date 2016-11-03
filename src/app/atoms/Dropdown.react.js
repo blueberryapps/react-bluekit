@@ -31,14 +31,14 @@ export default class Dropdown extends Component {
     document.removeEventListener('click', this.handleDocumentClick)
   }
 
-   /* using fat arrow to bind to instance */
-   handleDocumentClick = (evt) => {
-     const area = ReactDOM.findDOMNode(this.refs.dropdown)
+  /* using fat arrow to bind to instance */
+  handleDocumentClick = (evt) => {
+    const area = ReactDOM.findDOMNode(this.refs.dropdown)
 
-     if (!area.contains(evt.target) && this.props.visible && this.props.handleIconClick) {
-       this.props.handleIconClick()
-     }
-   }
+    if (!area.contains(evt.target) && this.props.visible && this.props.handleIconClick) {
+      this.props.handleIconClick()
+    }
+  }
 
   render() {
     const {

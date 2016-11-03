@@ -14,6 +14,7 @@ dependencies:
 test:
   override:
     - gulp ava
+    - gulp eslint
     - cd example && gulp:
         background: true
     - sleep 10

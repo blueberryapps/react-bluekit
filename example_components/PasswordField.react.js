@@ -113,7 +113,7 @@ export default class PasswordField extends Component {
 
   render() {
     const {showPassword} = this.state;
-    const {hidePasswordToggle, name, onChange, placeholder, value, tooltip, error} = this.props;
+    const {hidePasswordToggle, name, onChange, placeholder, value, error} = this.props;
 
     return (
       <div style={[styles.wrapper, styles.errorWrapper.base, error && styles.errorWrapper.hasError]}>
@@ -136,7 +136,6 @@ export default class PasswordField extends Component {
                 error && styles.errorWrapper.errorInput,
                 showPassword && styles.passwordShowed
               ]}
-              tooltip={tooltip}
               type={this.getType()}
               value={value}
             />

@@ -25,11 +25,10 @@ export default class Input extends Component {
   }
 
   render() {
-    const {inheritedStyles, key, kind, onChange, placeholder, type, value} = this.props;
+    const {inheritedStyles, kind, onChange, placeholder, type, value} = this.props;
 
     return (
       <input
-        key={key}
         onChange={onChange}
         placeholder={placeholder}
         style={[
