@@ -23,7 +23,9 @@ createBlueKit({
   // your directory where components are located
   baseDir: `${__dirname}/src/browser`,
   // relative paths from base dir where to look for components
-  paths: ['./components/', './auth']
+  paths: ['./components/', './auth'],
+  // set to false to disable specialized component code mutations the bluekit team uses
+  specialReplacements: false
 });
 ```
 
