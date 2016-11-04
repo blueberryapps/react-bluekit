@@ -86,6 +86,9 @@ gulp svg-icon
 
 # run unit tests
 gulp ava
+
+# run eslint
+gulp eslint
 ```
 
 If you get some kind of weird error and BlueKit doesn't load at all, try to reset localStorage by running `localStorage.clear();`. We are working on automatic checks of localStorage values.

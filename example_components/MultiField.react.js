@@ -46,11 +46,11 @@ export default class MultiField extends Component {
   getInputValue(key) {
     const {delimiter, fields, value} = this.props;
 
-    if (value === undefined || value === null) return null;
+    if (value === undefined || value === null) return '';
 
     const parts = value.split(delimiter);
 
-    if (parts[key] === undefined) return null;
+    if (parts[key] === undefined) return '';
 
     return parts[key].substr(0, fields[key].length);
   }
@@ -99,7 +99,8 @@ export default class MultiField extends Component {
           this.refs[`field_${key - 1}`].focus();
         }
       }
-    } else if (value.length === maxLength) {
+    }
+    else if (value.length === maxLength) {
       // (unless we are in the last field)
       if (key !== this.props.fields.length - 1) {
         // jump to next box

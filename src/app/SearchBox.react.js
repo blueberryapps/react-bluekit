@@ -72,7 +72,7 @@ export default class SearchBox extends Component {
             All components
         </div>
       </div>
-     );
+    );
   }
 
   clearText() {

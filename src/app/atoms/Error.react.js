@@ -8,7 +8,7 @@ import React, {PropTypes as RPT} from 'react';
 export default class Error extends Component {
 
   static propTypes = {
-    error: RPT.oneOf([RPT.object, RPT.string])
+    error: RPT.any
   }
 
   state = {
