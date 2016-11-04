@@ -1,10 +1,17 @@
 {
+  "ecmaFeatures": {
+    "jsx": true
+  },
   "env": {
     "browser": true,
     "mocha": true,
     "node": true
   },
   "parser": "babel-eslint",
+  "plugins": [
+    "react",
+    "import"
+  ],
   "rules": {
     "array-bracket-spacing": 2,
     "brace-style": [2, "stroustrup", {"allowSingleLine": true}],
@@ -18,6 +25,12 @@
     "eol-last": 2,
     "eqeqeq": [2, "allow-null"],
     "guard-for-in": 0,
+    // eslint-plugin-import
+    "import/no-unresolved": [2, {"commonjs": true}],
+    "import/named": 2,
+    "import/default": 2,
+    "import/namespace": 2,
+    "import/export": 2,
     "indent": [2, 2, {
       "SwitchCase": 1
     }],
@@ -116,10 +129,18 @@
     // Not ready yet. "react/sort-comp": 2,
     "react/wrap-multilines": 2,
   },
-  "plugins": [
-    "react"
-  ],
-  "ecmaFeatures": {
-    "jsx": true
+  "settings": {
+    "import/ignore": [
+      "node_modules",
+      "\\.json$"
+    ],
+    "import/parser": "babel-eslint",
+    "import/resolve": {
+      "extensions": [
+        ".js",
+        ".jsx",
+        ".json"
+      ]
+    }
   }
 }

@@ -48,7 +48,7 @@ function getImportFile(directory, file) {
 function generateComponentData(config, file, directory) {
   const filePath = path.join(directory, file);
   let content = fs.readFileSync(filePath).toString()
-  if (config.specialReplacements) {
+  if (!config.noSpecialReplacements) {
     content = content
       .replace('_interopRequireDefault(_react)', 'require("react")')
       .replace(/import Component from ["']react-pure-render\/component["']/, 'import {Component} from "react"')
