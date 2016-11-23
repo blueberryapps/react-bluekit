@@ -59,9 +59,11 @@ export default class Page extends Component {
   render() {
     const {
       children, componentsIndex, customProps, simplePropsSelected, filteredComponentsIndex, sourceBackground,
-      height, inline, selectedAtom, showMobileSidebar, showMobileProps, searchedText, triggeredProps
+      height, inline, showMobileSidebar, showMobileProps, searchedText, triggeredProps
     } = this.props
+    let {selectedAtom} = this.props;
     const {selectAtom, searchAtoms, toggleMobileProps, toggleSidebar} = this.context
+    selectedAtom = componentsIndex.get(selectedAtom) ? selectedAtom : null;
     const allComponentsPreview = selectedAtom === null
 
     return (
