@@ -8,8 +8,8 @@ export default function buildProps(propsDefinition, allProps = false) {
       props[prop] = data.defaultValue.computed
         ? data.defaultValue.value
         : eval(`(${data.defaultValue.value})`) // eslint-disable-line no-eval
-    else if (allProps || data.required || data.type.name === 'func')
-      props[prop] = calculateProp(data.type, prop)
+    else if (allProps || data.required || (data.type || data.flowType).name === 'func')
+      props[prop] = calculateProp(data.type || data.flowType, prop)
   })
 
   return props
@@ -21,6 +21,7 @@ function calculateProp(type, prop) {
     case 'node':   return `NODE ${prop}`
     case 'string': return `${prop}`
     case 'bool':   return true
+    case 'boolean': return true
     case 'number': return 1
     case 'array':  return []
     case 'object':  return {}
