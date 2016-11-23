@@ -59,7 +59,13 @@ export default class PageWithBlueKit extends Component {
     return (
       <BlueKit
         componentsIndex={componentsIndex}
-        inline // display inline (not full page)
+
+        // display inline (not full page)
+        inline
+
+        // this name is used for bluekit local storage as namespace
+        // it is optional
+        name="MyProjectName"
       />
     );
   }
