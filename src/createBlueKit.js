@@ -117,7 +117,7 @@ export default function createBlueKit(config) {
 
     console.log('Watching BlueKit in and automatically rebuilding on paths:') // eslint-disable-line no-console
     console.log(watchPaths.join('\n')); // eslint-disable-line no-console
-    gulpRuntime.watch(watchPaths, [buildCommandName]);
+    return gulpRuntime.watch(watchPaths, [buildCommandName]);
   }
 
   gulpRuntime.task(buildCommandName, () => {
@@ -125,8 +125,8 @@ export default function createBlueKit(config) {
     generate();
   })
 
-  gulpRuntime.task(watchCommandName, () => {
-    watch();
+  gulpRuntime.task(watchCommandName, (callback) => {
+    return watch();
   })
 
   function generate() {
