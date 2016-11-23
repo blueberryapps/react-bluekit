@@ -26,9 +26,12 @@ export default class Variants extends Component {
     if (sortedProps === null)
       return null
 
+    const normalizedProps = sortedProps.valueSeq().toArray()
+    const propsKeys = sortedProps.keySeq().toArray()
+
     return (
       <div>
-        {sortedProps.map((value, key) => this.renderProp(key, value))}
+        {normalizedProps.map((value, key) => this.renderProp(value, propsKeys[key]))}
       </div>
     )
   }
@@ -37,7 +40,7 @@ export default class Variants extends Component {
     return <b style={styles.noVariants}>There are no possible variants</b>
   }
 
-  renderProp(key, definition) {
+  renderProp(definition, key) {
     const definitionMap = fromJS(definition)
     if (!definitionMap.get('type')) return null
 
@@ -86,7 +89,7 @@ export default class Variants extends Component {
       return null;
 
     return (
-      <div>
+      <div key={key}>
         <div style={styles.panel}>
           <h2
             id={`${key}-variant`}
