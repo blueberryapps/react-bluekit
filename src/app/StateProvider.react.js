@@ -8,7 +8,9 @@ export default function StateProvider(Wrapped) {
   return class StateProvider extends Component {
 
     static propTypes = {
-      componentsIndex: RPT.object.isRequired
+      componentsIndex: RPT.object.isRequired,
+      inline: RPT.bool,
+      name: RPT.string
     }
 
     static childContextTypes = {
@@ -218,14 +220,16 @@ export default function StateProvider(Wrapped) {
       if (!this.hasLocalStorage())
         return
 
+      const {name} = this.props
+
       switch (kind) {
-        case 'customProps': return localStorage.setItem('bluekitCustomProps', JSON.stringify(value))
-        case 'selectedAtom': return localStorage.setItem('bluekitSelectedAtom', value)
-        case 'searchedText': return localStorage.setItem('bluekitSearchedText', value)
-        case 'simplePropsSelected': return localStorage.setItem('bluekitSimplePropsSelected', JSON.stringify(value))
-        case 'showSourceCode': return localStorage.setItem('bluekitShowSourceCode', JSON.stringify(value))
-        case 'sourceBackground': return localStorage.setItem('bluekitSourceBackground', value)
-        case 'uiFoldersOpened': return localStorage.setItem('bluekitUiFoldersOpened', JSON.stringify(value))
+        case 'customProps': return localStorage.setItem(`bluekit${name}CustomProps`, JSON.stringify(value))
+        case 'selectedAtom': return localStorage.setItem(`bluekit${name}SelectedAtom`, value)
+        case 'searchedText': return localStorage.setItem(`bluekit${name}SearchedText`, value)
+        case 'simplePropsSelected': return localStorage.setItem(`bluekit${name}SimplePropsSelected`, JSON.stringify(value))
+        case 'showSourceCode': return localStorage.setItem(`bluekit${name}ShowSourceCode`, JSON.stringify(value))
+        case 'sourceBackground': return localStorage.setItem(`bluekit${name}SourceBackground`, value)
+        case 'uiFoldersOpened': return localStorage.setItem(`bluekit${name}UiFoldersOpened`, JSON.stringify(value))
       }
     }
 
@@ -233,17 +237,19 @@ export default function StateProvider(Wrapped) {
       if (!this.hasLocalStorage())
         return
 
-      const storedCustomProps = localStorage.getItem('bluekitCustomProps')
-      const storedSimplePropsSelected = localStorage.getItem('bluekitSimplePropsSelected')
-      const storedShowSourceCode = localStorage.getItem('bluekitShowSourceCode')
-      const storedUiFoldersOpened = localStorage.getItem('bluekitUiFoldersOpened')
+      const {name} = this.props
+
+      const storedCustomProps = localStorage.getItem(`bluekit${name}CustomProps`)
+      const storedSimplePropsSelected = localStorage.getItem(`bluekit${name}SimplePropsSelected`)
+      const storedShowSourceCode = localStorage.getItem(`bluekit${name}ShowSourceCode`)
+      const storedUiFoldersOpened = localStorage.getItem(`bluekit${name}UiFoldersOpened`)
 
       const customProps = storedCustomProps ? JSON.parse(storedCustomProps) : this.state.customProps
-      const selectedAtom = localStorage.getItem('bluekitSelectedAtom') || this.state.selectedAtom
-      const searchedText = localStorage.getItem('bluekitSearchedText') || this.state.searchedText
+      const selectedAtom = localStorage.getItem(`bluekit${name}SelectedAtom`) || this.state.selectedAtom
+      const searchedText = localStorage.getItem(`bluekit${name}SearchedText`) || this.state.searchedText
       const simplePropsSelected = storedSimplePropsSelected ? JSON.parse(storedSimplePropsSelected) : this.state.simplePropsSelected
       const showSourceCode = storedShowSourceCode ? JSON.parse(storedShowSourceCode) : this.state.showSourceCode
-      const sourceBackground = localStorage.getItem('bluekitSourceBackground') || this.state.sourceBackground
+      const sourceBackground = localStorage.getItem(`bluekit${name}SourceBackground`) || this.state.sourceBackground
       const uiFoldersOpened = storedUiFoldersOpened ? JSON.parse(storedUiFoldersOpened) : this.state.uiFoldersOpened
 
       this.selectAtom(selectedAtom)
@@ -262,13 +268,15 @@ export default function StateProvider(Wrapped) {
       if (!this.hasLocalStorage())
         return
 
-      localStorage.removeItem('bluekitCustomProps')
-      localStorage.removeItem('bluekitSelectedAtom')
-      localStorage.removeItem('bluekitSearchedText')
-      localStorage.removeItem('bluekitSimplePropsSelected')
-      localStorage.removeItem('bluekitShowSourceCode')
-      localStorage.removeItem('bluekitSourceBackground')
-      localStorage.removeItem('bluekitUiFoldersOpened')
+      const {name} = this.props
+
+      localStorage.removeItem(`bluekit${name}CustomProps`)
+      localStorage.removeItem(`bluekit${name}SelectedAtom`)
+      localStorage.removeItem(`bluekit${name}SearchedText`)
+      localStorage.removeItem(`bluekit${name}SimplePropsSelected`)
+      localStorage.removeItem(`bluekit${name}ShowSourceCode`)
+      localStorage.removeItem(`bluekit${name}SourceBackground`)
+      localStorage.removeItem(`bluekit${name}UiFoldersOpened`)
       // refresh page after reset
       window.location = window.location.pathname.replace(/#.*/, '')
     }
