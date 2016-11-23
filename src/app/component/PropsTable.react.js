@@ -30,12 +30,16 @@ export default class PropsTable extends Component {
 
   render() {
     const {sortedProps} = this.props
+
     if (sortedProps === null)
       return <div style={styles.prop.noProps}>No props defined</div>
 
+    const normalizedProps = sortedProps.valueSeq().toArray()
+    const propsKeys = sortedProps.keySeq().toArray()
+
     return (
       <div style={font}>
-        {sortedProps.map((value, key) => this.renderProp(value, key))}
+        {normalizedProps.map((value, key) => this.renderProp(value, propsKeys[key]))}
       </div>
     )
   }
