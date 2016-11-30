@@ -73,7 +73,7 @@ export default class PageWithBlueKit extends Component {
 ```
 You can also pass `children` to BlueKit, which will be displayed above the search field (e.g. for themes or other stuff).
 
-To add component's description under its name see example [example_components/Checkbox.react.js](https://github.com/blueberryapps/react-bluekit/blob/master/example_components/Checkbox.react.js).
+To add jsdoc **descriptions** see example [example_components/Checkbox.react.js](https://github.com/blueberryapps/react-bluekit/blob/master/example_components/Checkbox.react.js).
 
 ## BlueKit development
 ```

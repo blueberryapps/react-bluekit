@@ -66,6 +66,7 @@ export default class PropsTable extends Component {
         Map(data.getIn(['type', 'value'])).map((v, k) => this.renderPropTableRow({type: v}, k, renderRequired, [key]))
       )
 
+    const description = data.get('description')
     const required = data.get('required')
     const triggered = triggeredProps.includes(key)
     const fullWidth = ['any', 'array', 'arrayOf', 'element', 'enum', 'node', 'object', 'shape', 'string'].indexOf(name) !== -1
@@ -97,6 +98,9 @@ export default class PropsTable extends Component {
               : this.renderValueSelection(key, data.get('type').toJS(), scope)
             }
           </div>
+          {description &&
+            <div style={styles.description}>{description}</div>
+          }
         </div>
         <div style={styles.clearfix} />
       </div>
@@ -174,6 +178,16 @@ const styles = {
     flexWrap: 'wrap',
     alignItems: 'stretch',
     justifyContent: 'none'
+  },
+
+  description: {
+    ...font,
+    ...font.size.small,
+    width: '100%',
+    color: colors.BLACK_BRIGHT,
+    padding: `3px ${spaces.normal} 0`,
+    margin: 0,
+    whiteSpace: 'pre-line'
   },
 
   prop: {

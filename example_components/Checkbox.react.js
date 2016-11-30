@@ -17,6 +17,9 @@ export default class Checkbox extends Component {
    */
 
   static propTypes = {
+    /**
+     * Error prop description
+     */
     error:    React.PropTypes.string,
     label:    React.PropTypes.string.isRequired,
     name:     React.PropTypes.string.isRequired,
