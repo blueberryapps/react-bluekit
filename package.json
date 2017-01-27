@@ -74,7 +74,7 @@
     "fuzzy": ">=0.1",
     "gulp": ">=3",
     "gulp-eslint": "^3.0.1",
-    "immutable": ">=3",
+    "immutable": "^3.8.1",
     "lodash": "^4.16.6",
     "nunjucks": ">=2",
     "radium": ">=0.15",
