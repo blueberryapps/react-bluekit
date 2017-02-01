@@ -93,7 +93,7 @@ export default class PropsTable extends Component {
               fullWidth && styles.prop.fullWidth,
               triggered && {backgroundColor: colors.GRAY_BRIGHT}]}
           >
-            {name === 'func'
+            {(name === 'func' || name.match(/\(.*\)\s*=>/))
               ? 'func()'
               : this.renderValueSelection(key, data.get('type').toJS(), scope)
             }
@@ -139,6 +139,7 @@ export default class PropsTable extends Component {
       case 'array': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'arrayOf': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'bool': return <Checkbox key={name} {...{...defaultProps, checked: defaultProps.value, name: key}} />
+      case 'boolean': return <Checkbox key={name} {...{...defaultProps, checked: defaultProps.value, name: key}} />
       case 'element': return <HtmlEditor key={name} name={name} {...defaultProps} />
       case 'enum' : return this.renderEnum(name, type, defaultProps)
       case 'node': return <HtmlEditor key={name} name={name} {...defaultProps} />

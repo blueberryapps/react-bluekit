@@ -29,6 +29,7 @@ function calculateProp(type, prop) {
     case 'array':  return []
     case 'object':  return {}
     case 'func':   return eval(`[function () { dispatchEvent({detail: {prop: "${prop}"}}) }][0]`) // eslint-disable-line no-eval
+    case /\(.*\)\s*=>/: return eval(`[function () { dispatchEvent({detail: {prop: "${prop}"}}) }][0]`) // eslint-disable-line no-eval
     case 'enum':   return (typeof type.value === 'string' ? '' : (type.value[0].value && type.value[0].value.replace(/'/g, ''))) || ''
     case 'shape':  return Map(type.value)
       .map((subType, name) => calculateProp(subType, name))

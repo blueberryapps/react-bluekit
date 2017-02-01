@@ -1,6 +1,6 @@
 {
   "name": "react-bluekit",
-  "version": "0.4.0-typescript",
+  "version": "0.4.0-typescript01",
   "description": "Visualisation and Playground generated from Components",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
