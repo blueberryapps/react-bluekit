@@ -110,7 +110,7 @@ export default class PropsTable extends Component {
   renderNameOfProp(name, kind) {
     const {handlePropsNameClick} = this.props
 
-    if (['string', 'number', 'bool', 'enum'].indexOf(kind) === -1)
+    if (['string', 'number', 'bool', 'boolean', 'enum'].indexOf(kind) === -1)
       return name
     else
       return (

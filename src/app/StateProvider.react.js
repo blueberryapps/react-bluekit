@@ -113,7 +113,7 @@ export default function StateProvider(Wrapped) {
           value = event.value
 
         // fix string to valid type
-        if (type === 'bool' && typeof value !== 'boolean')
+        if ((type === 'bool' || type === 'boolean') && typeof value !== 'boolean')
           value = event.target.checked
         else if (type === 'number')
           value = parseInt(value, 10)
