@@ -16,9 +16,12 @@ export default function buildProps(propsDefinition, allProps = false) {
 }
 
 function calculateProp(type, prop) {
-  switch (type.name) {
+  switch (type.name.replace('React.', '')) {
     case 'any':    return `ANY ${prop}`
     case 'node':   return `NODE ${prop}`
+    case 'Children': return `NODE ${prop}`
+    case 'ReactNode': return `NODE ${prop}`
+    case 'ReactElement': return `NODE ${prop}`
     case 'string': return `${prop}`
     case 'bool':   return true
     case 'boolean': return true

@@ -25,7 +25,9 @@ createBlueKit({
   // relative paths from base dir where to look for components
   paths: ['./components/', './auth'],
   // set to true when providing simple components such as `export default function MyComponent() { <div>Hello</div> }`
-  noSpecialReplacements: true
+  noSpecialReplacements: true,
+  // set to true for creating componentsIndex.ts instead of componentsIndex.js
+  typescript: false
 });
 ```
 
@@ -74,6 +76,18 @@ export default class PageWithBlueKit extends Component {
 You can also pass `children` to BlueKit, which will be displayed above the search field (e.g. for themes or other stuff).
 
 To add jsdoc **descriptions** see example [example_components/Checkbox.react.js](https://github.com/blueberryapps/react-bluekit/blob/master/example_components/Checkbox.react.js).
+
+## Typescript support
+
+Bluekit automatically finds `.tsx` files and uses [react-docgen-typescript](https://github.com/pvasek/react-docgen-typescript) parser for it.
+
+It is optional dependency so you need to install it manually by:
+
+```
+npm install react-docgen-typescript
+# or
+yarn add react-docgen-typescript
+```
 
 ## BlueKit development
 ```

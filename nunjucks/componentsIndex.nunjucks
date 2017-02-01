@@ -5,9 +5,10 @@ import {{ component.name }} from '{{component.file | escapeJsString}}';
 {%- endfor %}
 
 function dispatchEvent(data) {
-  if (typeof window !== 'undefined')
+  if (typeof window !== 'undefined') {
+    const BluekitEvent = require('react-bluekit/lib/libraries/BluekitEvent');
     document.dispatchEvent(new BluekitEvent('functionTriggered', data));
-  else
+  } else
     console.log('Bluekit received function triggered', data)
 }
 

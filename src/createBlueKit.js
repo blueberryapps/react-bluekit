@@ -23,7 +23,7 @@ function getAllFilesInDir(dir, relativeDirectory = []) {
     }
 
     const filePath = path.join(`./${relativeDirectory}`, file);
-    if (!filePath.match(/\.(js|jsx)$/))
+    if (!filePath.match(/\.(js|jsx|tsx)$/))
       return null
     if (filePath.match(/__test__/))
       return null
@@ -37,7 +37,7 @@ function objectToString(object) {
 
 function getImportFile(directory, file) {
   if (directory.match(/node_modules/)) {
-    const pathParts = file.replace(/\.(js|jsx)$/, '').split(path.sep)
+    const pathParts = file.replace(/\.(js|jsx|tsx)$/, '').split(path.sep)
     pathParts[1] = 'lib'
     return pathParts.join(path.sep)
   }
@@ -45,8 +45,10 @@ function getImportFile(directory, file) {
   return file[0] === '.' ? file : `./${file}`
 }
 
-function generateComponentData(config, file, directory) {
-  const filePath = path.join(directory, file);
+function getDocgen(config, filePath) {
+  if (filePath.match(/\.tsx$/))
+    return require('react-docgen-typescript').parse(filePath);
+
   let content = fs.readFileSync(filePath).toString()
   if (!config.noSpecialReplacements) {
     content = content
@@ -54,8 +56,15 @@ function generateComponentData(config, file, directory) {
       .replace(/import Component from ["']react-pure-render\/component["']/, 'import {Component} from "react"')
       .replace(/export default .*\((\w*)\)+/m, 'export default $1')
   }
+  return docgenParse(content);
+}
+
+function generateComponentData(config, file, directory) {
+  const filePath = path.join(directory, file);
+
   try {
-    const docgen = docgenParse(content);
+    const docgen = getDocgen(config, filePath);
+
     const doc = {
       ...docgen,
       propsDefinition: objectToString(docgen.props)
@@ -65,7 +74,7 @@ function generateComponentData(config, file, directory) {
     const menu = normalizedFile
       .replace(/\.\.\//g, '')
       .replace('.react', '')
-      .replace(/\.(js|jsx)$/, '')
+      .replace(/\.(js|jsx|tsx)$/, '')
       .replace(/(?:^|\/)(\w)/g, (_, c) => c ? ` ${c.toUpperCase()}` : '')
       .replace(/(?:^|[-_])(\w)/g, (_, c) => c ? `${c.toUpperCase()}` : '')
       .replace(/\//g, '')
@@ -112,7 +121,7 @@ export default function createBlueKit(config) {
 
   const watch = function() {
     const watchPaths = config.paths.map(file => (
-      path.relative(process.cwd(), path.join(config.baseDir, file, '**/*.{js,jsx}'))
+      path.relative(process.cwd(), path.join(config.baseDir, file, '**/*.{js,jsx,tsx}'))
     ));
 
     console.log('Watching BlueKit in and automatically rebuilding on paths:') // eslint-disable-line no-console
@@ -148,7 +157,8 @@ export default function createBlueKit(config) {
       return generateComponentData(config, file, config.nodeModulesDir)
     }).filter(component => component !== null);
 
-    const indexFile = path.join(config.baseDir, 'componentsIndex.js')
+    const extension = config.typescript ? 'ts' : 'js';
+    const indexFile = path.join(config.baseDir, `componentsIndex.${extension}`)
     fs.writeFileSync(
       indexFile,
       nunjuckEnv.render('componentsIndex.nunjucks', {components: components.concat(packageComponents)})
