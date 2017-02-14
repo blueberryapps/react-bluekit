@@ -1,6 +1,5 @@
 *.log
 .DS_Store
 coverage
-lib
 componentsIndex.js
 node_modules
