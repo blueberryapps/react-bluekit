@@ -60,7 +60,7 @@
     "gulp": "^3.9.1",
     "gulp-ava": "^0.12.1",
     "mocha": "^2.3.3",
-    "react-docgen-typescript": "^0.0.1",
+    "react-docgen-typescript": "git+https://github.com/imtoo/react-docgen-typescript.git",
     "react-hot-loader": "^1.3.0",
     "react-svg-icon-generator": "0.2.2",
     "rimraf": "^2.4.3",
