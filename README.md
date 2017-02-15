@@ -25,9 +25,7 @@ createBlueKit({
   // relative paths from base dir where to look for components
   paths: ['./components/', './auth'],
   // set to true when providing simple components such as `export default function MyComponent() { <div>Hello</div> }`
-  noSpecialReplacements: true,
-  // set to true for creating componentsIndex.ts instead of componentsIndex.js
-  typescript: false
+  noSpecialReplacements: true
 });
 ```
 

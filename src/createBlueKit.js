@@ -157,8 +157,7 @@ export default function createBlueKit(config) {
       return generateComponentData(config, file, config.nodeModulesDir)
     }).filter(component => component !== null);
 
-    const extension = config.typescript ? 'ts' : 'js';
-    const indexFile = path.join(config.baseDir, `componentsIndex.${extension}`)
+    const indexFile = path.join(config.baseDir, 'componentsIndex.js')
     fs.writeFileSync(
       indexFile,
       nunjuckEnv.render('componentsIndex.nunjucks', {components: components.concat(packageComponents)})
