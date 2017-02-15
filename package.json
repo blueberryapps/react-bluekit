@@ -4,6 +4,9 @@
   "description": "Visualisation and Playground generated from Components",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
+  "bin": {
+    "bluekit": "bin/bluekit.js"
+  },
   "scripts": {
     "build": "npm run build:lib",
     "build:lib": "babel src --out-dir lib",
