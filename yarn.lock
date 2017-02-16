@@ -4299,9 +4299,9 @@ react-deep-force-update@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/react-deep-force-update/-/react-deep-force-update-1.0.1.tgz#f911b5be1d2a6fe387507dd6e9a767aa2924b4c7"
 
-"react-docgen-typescript@git+https://github.com/imtoo/react-docgen-typescript.git":
+"react-docgen-typescript@https://github.com/imtoo/react-docgen-typescript.git":
   version "0.0.1-m01"
-  resolved "git+https://github.com/imtoo/react-docgen-typescript.git#3000fba62b6f3acb09a5f6294254685b8a4ee6c1"
+  resolved "https://github.com/imtoo/react-docgen-typescript.git#b0b57c9f98cec31ab0e040251aa5a97bb15cdf63"
   dependencies:
     typescript "^1.8.10"
 
