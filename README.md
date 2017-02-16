@@ -24,6 +24,8 @@ createBlueKit({
   baseDir: `${__dirname}/src/browser`,
   // relative paths from base dir where to look for components
   paths: ['./components/', './auth'],
+  // relative paths from base dir of files or directories you want to exclude from indexing
+  exclude: ['./components/Foo'],
   // set to true when providing simple components such as `export default function MyComponent() { <div>Hello</div> }`
   noSpecialReplacements: true
 });
