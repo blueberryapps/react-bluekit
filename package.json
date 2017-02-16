@@ -38,6 +38,7 @@
     "node"
   ],
   "author": "Ondrej Bartas",
+  "typings": "index",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/blueberryapps/react-bluekit/issues"
