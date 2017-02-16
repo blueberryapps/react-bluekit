@@ -25,7 +25,7 @@ function getAllFilesInDir(dir, relativeDirectory = []) {
     const filePath = path.join(`./${relativeDirectory}`, file);
     if (!filePath.match(/\.(js|jsx|tsx)$/))
       return null
-    if (filePath.match(/__test__/))
+    if (filePath.match(/__tests?__/))
       return null
     return filePath
   }));
