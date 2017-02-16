@@ -10,7 +10,14 @@ import {parse as docgenParse} from 'react-docgen';
 const nunjuckEnv = nunjucks.configure(`${__dirname}/../nunjucks/`, {autoescape: false});
 nunjuckEnv.addFilter('escapeJsString', input => JSON.stringify(input).replace(/'/g, '\\\'').slice(1, -1));
 
-function getAllFilesInDir(dir, relativeDirectory = []) {
+function isExluded(filename, exclude) {
+  const relativeFilename = `./${filename}`;
+  return exclude.reduce((acc, item) => {
+    return relativeFilename.match(new RegExp(`^${item}`)) !== null || acc;
+  }, false);
+}
+
+function getAllFilesInDir(dir, relativeDirectory = [], exclude = []) {
   const resolvedDir = path.join(dir, relativeDirectory);
 
   if (!fs.existsSync(resolvedDir)) return null
@@ -19,13 +26,15 @@ function getAllFilesInDir(dir, relativeDirectory = []) {
     const absolutePath = path.join(dir, relativeDirectory, file);
 
     if (fs.lstatSync(absolutePath).isDirectory()) {
-      return getAllFilesInDir(dir, path.join(relativeDirectory, file));
+      return getAllFilesInDir(dir, path.join(relativeDirectory, file), exclude);
     }
 
     const filePath = path.join(`./${relativeDirectory}`, file);
     if (!filePath.match(/\.(js|jsx|tsx)$/))
       return null
     if (filePath.match(/__tests?__/))
+      return null
+    if (isExluded(filePath, exclude))
       return null
     return filePath
   }));
@@ -140,7 +149,7 @@ export default function createBlueKit(config) {
 
   function generate() {
     const files = config.paths.map(file => (
-      getAllFilesInDir(config.baseDir, file)
+      getAllFilesInDir(config.baseDir, file, config.exclude)
     ));
 
     const components = getValidFiles(files).map(file => {

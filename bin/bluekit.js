@@ -17,6 +17,9 @@ const argv = require('yargs')
 
     .example('--baseDir ./src --paths ./components')
     .demand(['baseDir', 'paths'])
+
+    .array('exclude')
+    .describe('exclude', 'exclude files or directories from components listing`')
     .argv;
 
 const baseDir = path.join(process.cwd(), argv.baseDir);
@@ -24,6 +27,7 @@ const baseDir = path.join(process.cwd(), argv.baseDir);
 const config = {
   baseDir: baseDir,
   paths: [].concat(argv.paths),
+  exclude: [].concat(argv.exclude),
   noSpecialReplacements: argv.noSpecialReplacements,
   gulp: {
     task: function() { }
