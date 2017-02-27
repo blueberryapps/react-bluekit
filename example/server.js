@@ -7,10 +7,10 @@ new WebpackDevServer(webpack(config), {
   hot: true,
   historyApiFallback: true,
   noInfo: true
-}).listen(8001, 'localhost', function(err, result) {
+}).listen(3000, 'localhost', function(err, result) {
   if (err) {
     return console.log(err); // eslint-disable-line
   }
 
-  console.log('Listening at http://localhost:8001/'); // eslint-disable-line
+  console.log('Listening at http://localhost:3000/'); // eslint-disable-line
 });
