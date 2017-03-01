@@ -18,4 +18,4 @@ test:
     - cd example && gulp:
         background: true
     - sleep 10
-    - curl --retry 10 --retry-delay 5 -v http://localhost:8001/
+    - curl --retry 10 --retry-delay 5 -v http://localhost:3000/

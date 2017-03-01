@@ -1,9 +1,12 @@
 {
   "name": "react-bluekit",
-  "version": "0.3.2",
+  "version": "0.4.1",
   "description": "Visualisation and Playground generated from Components",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
+  "bin": {
+    "bluekit": "bin/bluekit.js"
+  },
   "scripts": {
     "build": "npm run build:lib",
     "build:lib": "babel src --out-dir lib",
@@ -26,6 +29,7 @@
     "es7",
     "babel",
     "react-component",
+    "typescript",
     "visualization",
     "playground",
     "development",
@@ -35,6 +39,7 @@
     "node"
   ],
   "author": "Ondrej Bartas",
+  "typings": "index",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/blueberryapps/react-bluekit/issues"
@@ -82,6 +87,7 @@
     "react-color": ">=2",
     "react-copy-to-clipboard": ">=4",
     "react-docgen": ">=2.4",
+    "react-docgen-typescript": "https://github.com/imtoo/react-docgen-typescript.git",
     "react-highlight": ">=0.5",
     "react-pure-render": ">=1",
     "react-responsive": "^1.1.3",

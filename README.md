@@ -14,6 +14,15 @@ DEMO here: [http://bluekit.blueberry.io](http://bluekit.blueberry.io)
 $ npm install --save react-bluekit
 ```
 
+You can use BlueKit via npm script or gulp
+
+## Npm script
+```js
+"scripts": {
+  "bluekit": "bluekit --baseDir ./components --paths . --exclude \"./(Layout|StyledComponent).tsx\""
+}
+```
+
 ## Gulpfile configuration
 
 ```js
@@ -24,6 +33,8 @@ createBlueKit({
   baseDir: `${__dirname}/src/browser`,
   // relative paths from base dir where to look for components
   paths: ['./components/', './auth'],
+  // relative paths from base dir of files or directories you want to exclude from indexing
+  exclude: ['./components/Foo'],
   // set to true when providing simple components such as `export default function MyComponent() { <div>Hello</div> }`
   noSpecialReplacements: true
 });
@@ -75,6 +86,10 @@ You can also pass `children` to BlueKit, which will be displayed above the searc
 
 To add jsdoc **descriptions** see example [example_components/Checkbox.react.js](https://github.com/blueberryapps/react-bluekit/blob/master/example_components/Checkbox.react.js).
 
+## Typescript support
+
+Bluekit automatically finds `.tsx` files and uses [react-docgen-typescript](https://github.com/imtoo/react-docgen-typescript) parser for it.
+
 ## BlueKit development
 ```
 npm install
@@ -101,7 +116,7 @@ gulp eslint
 
 BlueKit automatically hides props that don’t affect the component’s look.
 
-If you get some kind of weird error and BlueKit doesn't load at all, try to reset localStorage by running `localStorage.clear();`. We are working on automatic checks of localStorage values.
+If you get some kind of weird error and BlueKit doesn't load at all, try to reset localStorage by running `localStorage.clear();`.
 
 ## License
 

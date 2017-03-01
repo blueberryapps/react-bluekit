@@ -93,7 +93,7 @@ export default class PropsTable extends Component {
               fullWidth && styles.prop.fullWidth,
               triggered && {backgroundColor: colors.GRAY_BRIGHT}]}
           >
-            {name === 'func'
+            {(name === 'func' || name.match(/\(.*\)\s*=>/))
               ? 'func()'
               : this.renderValueSelection(key, data.get('type').toJS(), scope)
             }
@@ -110,7 +110,7 @@ export default class PropsTable extends Component {
   renderNameOfProp(name, kind) {
     const {handlePropsNameClick} = this.props
 
-    if (['string', 'number', 'bool', 'enum'].indexOf(kind) === -1)
+    if (['string', 'number', 'bool', 'boolean', 'enum'].indexOf(kind) === -1)
       return name
     else
       return (
@@ -134,14 +134,18 @@ export default class PropsTable extends Component {
       value: fromJS(componentProps).getIn(scope.concat([key]))
     }
 
-    switch (type.name) {
+    switch (type.name.replace('React.', '')) {
       case 'any': return <Input key={name} type='text' {...defaultProps} />
       case 'array': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'arrayOf': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'bool': return <Checkbox key={name} {...{...defaultProps, checked: defaultProps.value, name: key}} />
+      case 'boolean': return <Checkbox key={name} {...{...defaultProps, checked: defaultProps.value, name: key}} />
       case 'element': return <HtmlEditor key={name} name={name} {...defaultProps} />
       case 'enum' : return this.renderEnum(name, type, defaultProps)
       case 'node': return <HtmlEditor key={name} name={name} {...defaultProps} />
+      case 'Children': return <HtmlEditor key={name} name={name} {...defaultProps} />
+      case 'ReactNode': return <HtmlEditor key={name} name={name} {...defaultProps} />
+      case 'ReactElement': return <HtmlEditor key={name} name={name} {...defaultProps} />
       case 'number': return <Input key={name} type='number' {...defaultProps} />
       case 'object': return <JsonEditor key={name} name={name} {...defaultProps} />
       case 'shape': return <JsonEditor key={name} name={name} {...defaultProps} />

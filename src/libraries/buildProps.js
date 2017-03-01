@@ -16,9 +16,12 @@ export default function buildProps(propsDefinition, allProps = false) {
 }
 
 function calculateProp(type, prop) {
-  switch (type.name) {
+  switch (`${type.name}`.replace('React.', '')) {
     case 'any':    return `ANY ${prop}`
     case 'node':   return `NODE ${prop}`
+    case 'Children': return `NODE ${prop}`
+    case 'ReactNode': return `NODE ${prop}`
+    case 'ReactElement': return `NODE ${prop}`
     case 'string': return `${prop}`
     case 'bool':   return true
     case 'boolean': return true
@@ -26,6 +29,7 @@ function calculateProp(type, prop) {
     case 'array':  return []
     case 'object':  return {}
     case 'func':   return eval(`[function () { dispatchEvent({detail: {prop: "${prop}"}}) }][0]`) // eslint-disable-line no-eval
+    case /\(.*\)\s*=>/: return eval(`[function () { dispatchEvent({detail: {prop: "${prop}"}}) }][0]`) // eslint-disable-line no-eval
     case 'enum':   return (typeof type.value === 'string' ? '' : (type.value[0].value && type.value[0].value.replace(/'/g, ''))) || ''
     case 'shape':  return Map(type.value)
       .map((subType, name) => calculateProp(subType, name))
