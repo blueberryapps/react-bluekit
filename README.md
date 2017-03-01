@@ -14,6 +14,15 @@ DEMO here: [http://bluekit.blueberry.io](http://bluekit.blueberry.io)
 $ npm install --save react-bluekit
 ```
 
+You can use BlueKit via npm script or gulp
+
+## Npm script
+```js
+"scripts": {
+  "bluekit": "bluekit --baseDir ./components --paths . --exclude \"./(Layout|StyledComponent).tsx\""
+}
+```
+
 ## Gulpfile configuration
 
 ```js
@@ -79,15 +88,7 @@ To add jsdoc **descriptions** see example [example_components/Checkbox.react.js]
 
 ## Typescript support
 
-Bluekit automatically finds `.tsx` files and uses [react-docgen-typescript](https://github.com/pvasek/react-docgen-typescript) parser for it.
-
-It is optional dependency so you need to install it manually by:
-
-```
-npm install react-docgen-typescript
-# or
-yarn add react-docgen-typescript
-```
+Bluekit automatically finds `.tsx` files and uses [react-docgen-typescript](https://github.com/imtoo/react-docgen-typescript) parser for it.
 
 ## BlueKit development
 ```
