@@ -10,7 +10,7 @@ import {parse as docgenParse} from 'react-docgen';
 const nunjuckEnv = nunjucks.configure(`${__dirname}/../nunjucks/`, {autoescape: false});
 nunjuckEnv.addFilter('escapeJsString', input => JSON.stringify(input).replace(/'/g, '\\\'').slice(1, -1));
 
-function isExluded(filename, exclude) {
+function isExcluded(filename, exclude) {
   const relativeFilename = `./${filename}`;
   return exclude.reduce((acc, item) => {
     return relativeFilename.match(new RegExp(`^${item}`)) !== null || acc;
@@ -34,7 +34,7 @@ function getAllFilesInDir(dir, relativeDirectory = [], exclude = []) {
       return null
     if (filePath.match(/__tests?__/))
       return null
-    if (isExluded(filePath, exclude))
+    if (isExcluded(filePath, exclude))
       return null
     return filePath
   }));
