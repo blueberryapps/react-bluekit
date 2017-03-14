@@ -50,20 +50,25 @@ export default class PropsTable extends Component {
     const required = data.get('required')
 
     if (required)
-      return this.renderPropTableRow(data, key, true, [])
+      return this.renderPropTableRow(data, key, [])
 
-    return this.renderPropTableRow(data, key, false, [])
+    return this.renderPropTableRow(data, key, [])
   }
 
-  renderPropTableRow(data, key, renderRequired, scope) {
+  renderPropTableRow(data, key, scope) {
     const {activeProps, commonStyles, triggeredProps} = this.props
     const name = data.getIn(['type', 'name'])
+    const reactKey = scope.concat(key).join('.')
 
     if (!data.get('type')) return null
 
     if (name === 'shape')
       return (
-        Map(data.getIn(['type', 'value'])).map((v, k) => this.renderPropTableRow({type: v}, k, renderRequired, [key]))
+        <div key={reactKey}>
+          {data.getIn(['type', 'value']).map((v, k) => (
+            this.renderPropTableRow(Map({type: v}), k, scope.concat(key))
+          )).valueSeq().toArray()}
+        </div>
       )
 
     const description = data.get('description')
@@ -71,7 +76,7 @@ export default class PropsTable extends Component {
     const triggered = triggeredProps.includes(key)
     const fullWidth = ['any', 'array', 'arrayOf', 'element', 'enum', 'node', 'object', 'shape', 'string'].indexOf(name) !== -1
     return (
-      <div key={key}>
+      <div key={reactKey}>
         <div style={styles.row}>
           <div
             style={[
