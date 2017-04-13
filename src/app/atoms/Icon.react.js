@@ -5,6 +5,7 @@ import Radium from 'radium';
 
 import Component from 'react-pure-render/component';
 import React from 'react';
+import RPT from 'prop-types';
 
 const iconList = [
   'arrow',
@@ -27,9 +28,9 @@ const iconList = [
 class Icon extends Component {
 
   static propTypes = {
-    color: React.PropTypes.string,
-    height: React.PropTypes.number,
-    kind: React.PropTypes.oneOf([
+    color: RPT.string,
+    height: RPT.number,
+    kind: RPT.oneOf([
       'arrow',
       'chevron-left',
       'chevron-right',
@@ -45,17 +46,17 @@ class Icon extends Component {
       'search',
       'settings',
     ]).isRequired,
-    onClick: React.PropTypes.func,
-    preview: React.PropTypes.bool,
-    size: React.PropTypes.number,
-    style: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object
+    onClick: RPT.func,
+    preview: RPT.bool,
+    size: RPT.number,
+    style: RPT.oneOfType([
+      RPT.array,
+      RPT.object
     ]),
-    width: React.PropTypes.number,
-    wrapperStyle: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object
+    width: RPT.number,
+    wrapperStyle: RPT.oneOfType([
+      RPT.array,
+      RPT.object
     ])
   };
 

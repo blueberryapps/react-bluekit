@@ -2,6 +2,7 @@ import Component from 'react-pure-render/component';
 import ErrorMessage from './ErrorMessage.react';
 import Radium from 'radium';
 import React from 'react';
+import RPT from 'prop-types';
 import ToolTip from '../src/app/atoms/ToolTip.react';
 
 
@@ -20,12 +21,12 @@ export default class Checkbox extends Component {
     /**
      * Error prop description
      */
-    error:    React.PropTypes.string,
-    label:    React.PropTypes.string.isRequired,
-    name:     React.PropTypes.string.isRequired,
-    onChange: React.PropTypes.func,
-    tooltip:  React.PropTypes.string,
-    value:    React.PropTypes.bool
+    error:    RPT.string,
+    label:    RPT.string.isRequired,
+    name:     RPT.string.isRequired,
+    onChange: RPT.func,
+    tooltip:  RPT.string,
+    value:    RPT.bool
   }
 
   render() {

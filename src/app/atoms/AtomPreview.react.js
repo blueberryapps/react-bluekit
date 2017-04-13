@@ -3,7 +3,8 @@ import extendComponentProps from '../../libraries/extendComponentProps';
 import filterFunctionProps from '../../libraries/filterFunctionProps';
 import notResolved from '../../libraries/notResolved';
 import Radium from 'radium';
-import React, {PropTypes as RPT} from 'react';
+import React from 'react';
+import RPT from 'prop-types';
 import resolveComponent from '../../libraries/resolveComponent';
 import wrapComponentWithRescue from '../../libraries/wrapComponentWithRescue';
 

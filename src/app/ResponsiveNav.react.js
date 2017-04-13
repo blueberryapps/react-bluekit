@@ -4,7 +4,8 @@ import font from './styles/Font';
 import Icon from './atoms/Icon.react';
 import MediaQuery from 'react-responsive';
 import Radium from 'radium';
-import React, {PropTypes as RPT} from 'react';
+import React from 'react';
+import RPT from 'prop-types';
 import spaces from './styles/Spaces';
 import * as colors from './styles/Colors';
 
