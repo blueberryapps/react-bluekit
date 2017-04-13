@@ -4,6 +4,7 @@ machine:
 
 dependencies:
   override:
+    - npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN;
     - npm install -g gulp
     - npm install
     - cd example && npm install
