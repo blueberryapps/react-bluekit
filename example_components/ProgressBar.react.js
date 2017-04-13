@@ -1,12 +1,13 @@
 import Component from 'react-pure-render/component';
 import Radium from 'radium';
 import React from 'react';
+import RPT from 'prop-types';
 
 @Radium
 export default class ProgressBar extends Component {
 
   static propTypes = {
-    activeStep: React.PropTypes.number.isRequired
+    activeStep: RPT.number.isRequired
   }
 
   render() {

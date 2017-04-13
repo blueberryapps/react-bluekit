@@ -2,7 +2,8 @@ import {BLACK_BRIGHT} from '../styles/Colors';
 import Component from 'react-pure-render/component';
 import Icon from './Icon.react';
 import Radium from 'radium';
-import React, {PropTypes as RPT} from 'react';
+import React from 'react';
+import RPT from 'prop-types';
 
 @Radium
 export default class Error extends Component {

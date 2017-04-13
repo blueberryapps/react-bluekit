@@ -4,7 +4,8 @@ import {mediaQueries} from './styles/MediaQueries';
 import MenuNode from './MenuNode.react';
 import NotFound from './atoms/NotFound.react';
 import Radium from 'radium';
-import React, {PropTypes as RPT} from 'react';
+import React from 'react';
+import RPT from 'prop-types';
 import SearchBox from './SearchBox.react';
 import * as colors from './styles/Colors';
 

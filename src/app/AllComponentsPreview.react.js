@@ -5,7 +5,8 @@ import {mediaQueries} from './styles/MediaQueries';
 import NotFound from './atoms/NotFound.react';
 import parseHighlightedMenu from '../libraries/parseHighlightedMenu';
 import Radium from 'radium';
-import React, {PropTypes as RPT} from 'react';
+import React from 'react';
+import RPT from 'prop-types';
 import ZoomContent from './atoms/ZoomContent.react';
 import * as colors from './styles/Colors';
 

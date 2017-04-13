@@ -3,7 +3,8 @@ import Component from 'react-pure-render/component';
 import ComponentPage from './component/Page.react';
 import {mediaQueries} from './styles/MediaQueries';
 import Radium from 'radium';
-import React, {PropTypes as RPT} from 'react';
+import React from 'react';
+import RPT from 'prop-types';
 
 @Radium
 export default class Content extends Component {

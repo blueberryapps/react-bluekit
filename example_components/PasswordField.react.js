@@ -2,7 +2,8 @@ import Component from 'react-pure-render/component';
 import ErrorMessage from './ErrorMessage.react';
 import Icon from '../src/app/atoms/Icon.react';
 import Radium, {Style} from 'radium';
-import React, {PropTypes as RPT} from 'react';
+import React from 'react';
+import RPT from 'prop-types';
 
 @Radium
 export default class PasswordField extends Component {

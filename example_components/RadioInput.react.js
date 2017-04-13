@@ -1,19 +1,20 @@
 import Component from 'react-pure-render/component';
 import Radium from 'radium';
 import React from 'react';
+import RPT from 'prop-types';
 import ToolTip from '../src/app/atoms/ToolTip.react';
 
 @Radium
 export default class RadioInput extends Component {
 
   static propTypes = {
-    horizontal: React.PropTypes.bool,
-    name:       React.PropTypes.string.isRequired,
-    onChange:   React.PropTypes.func.isRequired,
-    selected:   React.PropTypes.bool.isRequired,
-    text:       React.PropTypes.string,
-    tooltip:    React.PropTypes.string,
-    value:      React.PropTypes.string.isRequired
+    horizontal: RPT.bool,
+    name:       RPT.string.isRequired,
+    onChange:   RPT.func.isRequired,
+    selected:   RPT.bool.isRequired,
+    text:       RPT.string,
+    tooltip:    RPT.string,
+    value:      RPT.string.isRequired
   }
 
   render() {

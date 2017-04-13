@@ -3,7 +3,8 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import font from '../styles/Font';
 import Icon from '../atoms/Icon.react';
 import Radium from 'radium';
-import React, {PropTypes as RPT} from 'react';
+import React from 'react';
+import RPT from 'prop-types';
 import ToolTip from '../atoms/ToolTip.react';
 import * as colors from '../styles/Colors';
 

@@ -3,7 +3,8 @@ import font from '../styles/Font';
 import Icon from './Icon.react';
 import {mediaQueries} from '../styles/MediaQueries';
 import Radium from 'radium';
-import React, {PropTypes as RPT} from 'react';
+import React from 'react';
+import RPT from 'prop-types';
 import ReactDOM from 'react-dom';
 import * as colors from '../styles/Colors'
 

@@ -1,4 +1,5 @@
-import React, {Component, PropTypes as RPT} from 'react';
+import React, {Component} from 'react';
+import RPT from 'prop-types';
 import {filter as fuzzyFilter} from 'fuzzy';
 import {fromJS, List, Map} from 'immutable';
 import {HIGHLIGHT, HIGHLIGHT_BACKGROUND} from './styles/Colors';

@@ -2,7 +2,8 @@ import Component from 'react-pure-render/component';
 import Icon from './atoms/Icon.react';
 import nodesStyles from './styles/Nodes';
 import Radium from 'radium';
-import React, {PropTypes as RPT} from 'react';
+import React from 'react';
+import RPT from 'prop-types';
 
 class MenuNode extends Component {
 

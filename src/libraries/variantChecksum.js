@@ -1,5 +1,6 @@
 import AtomPreview from '../app/atoms/AtomPreview.react';
-import React, {PropTypes as RPT} from 'react';
+import React from 'react';
+import RPT from 'prop-types';
 import ReactDOM from 'react-dom/server';
 
 const variantChecksum = ({atom, variantProps, context}) => {
