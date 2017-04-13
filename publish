@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# Login to NPM
+npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN;
+
+version=$(grep -m1 version package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')
+name=$(grep -m1 name package.json | awk -F: '{ print $2 }' | sed 's/[", ]//g')
+
+# npm publish is an idempotent action
+tempLog=$(mktemp)
+
+echo "Trying to publish..."
+npm publish > ${tempLog} 2>&1
+
+if [ $? -eq 0 ]; then
+  curl -H "Content-Type: application/json" \
+       -X POST \
+       -d "{\"text\":\"A new version *$version* of *$name* package has been just published. <https://www.npmjs.com/package/$name>\",\"username\":\"circle-ci\",\"icon_emoji\":\":tada:\"}" \
+       https://hooks.slack.com/services/$SLACK_TOKENS
+
+  echo "Successfully published!"
+else
+  grep -q "You cannot publish over the previously published version" npm-debug.log
+  grepStatus=$?
+
+  if [ $grepStatus -eq 0 ]; then
+    echo "Already published."
+  else
+    cat ${tempLog}
+  fi
+
+  rm -f ${tempLog}
+  exit $grepStatus
+fi
+
+rm -f ${tempLog}
