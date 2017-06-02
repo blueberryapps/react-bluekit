@@ -27,7 +27,7 @@ else
   fi
 
   rm -f ${tempLog}
-  exit $grepStatus
+  exit 0
 fi
 
 rm -f ${tempLog}
