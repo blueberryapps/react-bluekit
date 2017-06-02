@@ -1,4 +1,5 @@
-import React, {Component} from 'react';
+import Component from './PureRenderComponent.react';
+import React from 'react';
 import RPT from 'prop-types';
 import {filter as fuzzyFilter} from 'fuzzy';
 import {fromJS, List, Map} from 'immutable';

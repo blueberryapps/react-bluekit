@@ -1,9 +1,10 @@
 import '../libraries/BluekitEvent';
 import Content from './Content.react';
+import Component from './PureRenderComponent.react';
 import FontBold from './styles/FontBold';
 import MediaQuery from 'react-responsive';
 import Radium, {StyleRoot} from 'radium';
-import React, {Component} from 'react';
+import React from 'react';
 import RPT from 'prop-types';
 import ResponsiveNav from './ResponsiveNav.react';
 import ResponsivePropsNav from './ResponsivePropsNav.react';

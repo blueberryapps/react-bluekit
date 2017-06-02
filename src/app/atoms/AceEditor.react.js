@@ -1,4 +1,4 @@
-import Component from 'react-pure-render/component';
+import Component from '../PureRenderComponent.react';
 
 export default (typeof window !== 'undefined')
   ? require('react-ace').default

@@ -1,5 +1,5 @@
 import ColorPicker from '../atoms/ColorPicker.react';
-import Component from 'react-pure-render/component';
+import Component from '../PureRenderComponent.react';
 import Dropdown from '../atoms/Dropdown.react';
 import font from '../styles/Font';
 import headingStyles from '../styles/Headings';

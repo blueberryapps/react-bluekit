@@ -1,4 +1,4 @@
-import Component from 'react-pure-render/component';
+import Component from './PureRenderComponent.react';
 import Icon from './atoms/Icon.react';
 import nodesStyles from './styles/Nodes';
 import Radium from 'radium';

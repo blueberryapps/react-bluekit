@@ -1,5 +1,5 @@
 import {breakPoints, mediaQueries} from './styles/MediaQueries';
-import Component from 'react-pure-render/component';
+import Component from './PureRenderComponent.react';
 import font from './styles/Font';
 import Icon from './atoms/Icon.react';
 import MediaQuery from 'react-responsive';

@@ -1,5 +1,5 @@
 import AllComponentsPreview from './AllComponentsPreview.react';
-import Component from 'react-pure-render/component';
+import Component from './PureRenderComponent.react';
 import ComponentPage from './component/Page.react';
 import {mediaQueries} from './styles/MediaQueries';
 import Radium from 'radium';

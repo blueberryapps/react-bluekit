@@ -1,5 +1,5 @@
 import AtomPreview from './atoms/AtomPreview.react';
-import Component from 'react-pure-render/component';
+import Component from './PureRenderComponent.react';
 import headingStyles from './styles/Headings';
 import {mediaQueries} from './styles/MediaQueries';
 import NotFound from './atoms/NotFound.react';

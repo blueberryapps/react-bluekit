@@ -1,5 +1,5 @@
 import {BLACK_BRIGHT} from '../styles/Colors';
-import Component from 'react-pure-render/component';
+import Component from '../PureRenderComponent.react';
 import Icon from './Icon.react';
 import Radium from 'radium';
 import React from 'react';

@@ -1,5 +1,6 @@
+import Component from '../PureRenderComponent.react';
 import {CompactPicker as Color} from 'react-color';
-import React, {Component} from 'react';
+import React from 'react';
 import RPT from 'prop-types';
 
 export default class ColorPicker extends Component {

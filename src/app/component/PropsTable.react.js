@@ -1,5 +1,5 @@
 import Checkbox from '../atoms/Checkbox.react';
-import Component from 'react-pure-render/component';
+import Component from '../PureRenderComponent.react';
 import HtmlEditor from '../atoms/HtmlEditor.react';
 import JsonEditor from '../atoms/JsonEditor.react';
 import font from '../styles/Font';

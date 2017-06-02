@@ -1,4 +1,4 @@
-import Component from 'react-pure-render/component';
+import Component from '../PureRenderComponent.react';
 import Radium from 'radium';
 import React from 'react';
 import RPT from 'prop-types';
