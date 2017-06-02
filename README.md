@@ -1,4 +1,4 @@
-# React BlueKit [![CircleCI](https://circleci.com/gh/blueberryapps/react-bluekit/tree/master.svg?style=svg)](https://circleci.com/gh/blueberryapps/react-bluekit/tree/master)
+# React BlueKit [![CircleCI](https://circleci.com/gh/blueberryapps/react-bluekit/tree/master.svg?style=svg)](https://circleci.com/gh/blueberryapps/react-bluekit/tree/master) [![Dependency Status](https://dependencyci.com/github/blueberryapps/react-bluekit/badge)](https://dependencyci.com/github/blueberryapps/react-bluekit)
 
 ![BlueKit usage](http://bb-share.s3.amazonaws.com/BlueKit_usage.gif)
 
