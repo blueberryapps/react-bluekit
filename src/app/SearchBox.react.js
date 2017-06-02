@@ -1,4 +1,4 @@
-import Component from 'react-pure-render/component';
+import Component from './PureRenderComponent.react';
 import font from './styles/Font';
 import Icon from './atoms/Icon.react';
 import Input from './atoms/Input.react';

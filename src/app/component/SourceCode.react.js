@@ -1,5 +1,5 @@
 import AceEditor from '../atoms/AceEditor.react';
-import Component from 'react-pure-render/component';
+import Component from '../PureRenderComponent.react';
 import CopyCode from '../atoms/CopyCode.react';
 import font from '../styles/Font';
 import Icon from '../atoms/Icon.react';

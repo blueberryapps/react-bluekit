@@ -1,4 +1,4 @@
-import Component from 'react-pure-render/component';
+import Component from '../PureRenderComponent.react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import font from '../styles/Font';
 import Icon from '../atoms/Icon.react';

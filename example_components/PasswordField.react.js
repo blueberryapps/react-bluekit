@@ -1,4 +1,4 @@
-import Component from 'react-pure-render/component';
+import Component from '../src/app/PureRenderComponent.react';
 import ErrorMessage from './ErrorMessage.react';
 import Icon from '../src/app/atoms/Icon.react';
 import Radium, {Style} from 'radium';

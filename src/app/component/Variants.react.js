@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import AtomPreview from '../atoms/AtomPreview.react';
-import Component from 'react-pure-render/component';
+import Component from '../PureRenderComponent.react';
 import headingStyles from '../styles/Headings';
 import Radium from 'radium';
 import React from 'react';

@@ -1,4 +1,4 @@
-import Component from 'react-pure-render/component';
+import Component from '../PureRenderComponent.react';
 import extendComponentProps from '../../libraries/extendComponentProps';
 import filterFunctionProps from '../../libraries/filterFunctionProps';
 import notResolved from '../../libraries/notResolved';

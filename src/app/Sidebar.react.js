@@ -1,4 +1,4 @@
-import Component from 'react-pure-render/component';
+import Component from './PureRenderComponent.react';
 import generateTree from '../libraries/generateTree';
 import {mediaQueries} from './styles/MediaQueries';
 import MenuNode from './MenuNode.react';

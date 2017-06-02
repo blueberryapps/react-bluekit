@@ -1,4 +1,4 @@
-import Component from 'react-pure-render/component';
+import Component from '../PureRenderComponent.react';
 import font from '../styles/Font';
 import Radium from 'radium';
 import React from 'react';

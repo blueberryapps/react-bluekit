@@ -1,4 +1,4 @@
-import Component from 'react-pure-render/component';
+import Component from '../PureRenderComponent.react';
 import PropsSidebar from './PropsSidebar.react';
 import Preview from './Preview.react';
 import extendProps from '../../libraries/extendProps';
