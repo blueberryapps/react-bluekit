@@ -12,7 +12,7 @@ export default class Select extends Component {
     value: RPT.any
   }
 
-  defaultProps = {
+  static defaultProps = {
     options: []
   }
 
