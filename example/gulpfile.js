@@ -2,7 +2,7 @@ require('babel-register')
 
 const gulp = require('gulp')
 const path = require('path')
-const createBlueKit = require('../src/createBlueKit').default
+const createBlueKit = require('react-bluekit/lib/createBlueKit').default
 
 createBlueKit({
   // base file of start - this is location where componentsIndex.js will be generated to

@@ -27,9 +27,6 @@
     "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
   },
   "homepage": "https://github.com/gaearon/react-hot-boilerplate",
-  "dependencies": {
-    "react-blukit": "file:../"
-  },
   "devDependencies": {
     "babel-core": "^6.0.20",
     "babel-eslint": "^4.1.3",
@@ -44,5 +41,8 @@
     "react-hot-loader": "^1.3.0",
     "webpack": "^1.12.2",
     "webpack-dev-server": "^1.12.1"
+  },
+  "dependencies": {
+    "react-bluekit": "file:../"
   }
 }
