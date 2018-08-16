@@ -1,54 +1,55 @@
 version: 2
-build:
-  docker:
-    image: circleci/node:6.14.3-jessie
-  steps:
-    - checkout
-    - run:
-        command: npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN;
-    - restore_cache:
-        key: base-cache-{{ checksum "package.json" }}
-    - restore_cache:
-        key: example-cache-{{ checksum "package.json" }}
-    - run:
-        command: npm install && cd example && npm install
-    - save_cache:
+jobs:
+  build:
+    docker:
+      - image: circleci/node:6.14.3-jessie
+    steps:
+      - checkout
+      - run:
+          command: npm config set //registry.npmjs.org/:_authToken=$NPM_TOKEN;
+      - restore_cache:
           key: base-cache-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-    - save_cache:
+      - restore_cache:
+          key: example-cache-{{ checksum "package.json" }}
+      - run:
+          command: npm install && cd example && npm install
+      - save_cache:
+            key: base-cache-{{ checksum "package.json" }}
+            paths:
+              - node_modules
+      - save_cache:
+            key: example-cache-{{ checksum "example/package.json" }}
+            paths:
+              - example/node_modules
+  test:
+    docker:
+      - image: circleci/node:6.14.3-jessie
+    steps:
+      - restore_cache:
+          key: base-cache-{{ checksum "package.json" }}
+      - restore_cache:
           key: example-cache-{{ checksum "example/package.json" }}
-          paths:
-            - example/node_modules
-test:
-  docker:
-    image: circleci/node:6.14.3-jessie
-  steps:
-    - restore_cache:
-        key: base-cache-{{ checksum "package.json" }}
-    - restore_cache:
-        key: example-cache-{{ checksum "example/package.json" }}
-    - run:
-        command: npm install -g gulp
-    - run:
-        command: gulp ava
-    - run:
-        command: gulp eslint
-    - run:
-        command: cd example && gulp
-    - run:
-        command: sleep 10 && curl --retry 10 --retry-delay 5 -v http://localhost:3000/
+      - run:
+          command: npm install -g gulp
+      - run:
+          command: gulp ava
+      - run:
+          command: gulp eslint
+      - run:
+          command: cd example && gulp
+      - run:
+          command: sleep 10 && curl --retry 10 --retry-delay 5 -v http://localhost:3000/
 
-publish:
-  docker:
-    image: circleci/node:6.14.3-jessie
-  steps:
-    - restore_cache:
-        key: base-cache-{{ checksum "package.json" }}
-    - restore_cache:
-        key: example-cache-{{ checksum "example/package.json" }}
-    - run:
-        command: ./publish
+  publish:
+    docker:
+      - image: circleci/node:6.14.3-jessie
+    steps:
+      - restore_cache:
+          key: base-cache-{{ checksum "package.json" }}
+      - restore_cache:
+          key: example-cache-{{ checksum "example/package.json" }}
+      - run:
+          command: ./publish
 
 workflows:
   version: 2
