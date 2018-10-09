@@ -33,13 +33,11 @@ jobs:
       - restore_cache:
           key: example-cache-{{ checksum "example/package.json" }}
       - run:
-          command: npm install -g gulp
+          command: npm run gulp -- ava
       - run:
-          command: gulp ava
+          command: npm run gulp -- eslint
       - run:
-          command: gulp eslint
-      - run:
-          command: cd example && gulp
+          command: cd example && npm run gulp -- default
       - run:
           command: sleep 10 && curl --retry 10 --retry-delay 5 -v http://localhost:3000/
 
