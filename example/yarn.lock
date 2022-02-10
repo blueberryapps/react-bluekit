@@ -3880,8 +3880,8 @@ react-ace@>=3:
     brace "^0.9.1"
     lodash.isequal "^4.1.1"
 
-"react-bluekit@file:../":
-  version "0.4.3"
+"react-bluekit@file:..":
+  version "0.4.4"
   dependencies:
     color ">=0.10"
     fuzzy ">=0.1"
@@ -4717,8 +4717,8 @@ typescript@^1.8.10:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-1.8.10.tgz#b475d6e0dff0bf50f296e5ca6ef9fbb5c7320f1e"
 
 ua-parser-js@^0.7.9:
-  version "0.7.12"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
+  version "0.7.31"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.31.tgz#649a656b191dffab4f21d5e053e27ca17cbff5c6"
 
 uglify-js@^2.6, uglify-js@~2.7.3:
   version "2.7.4"
